@@ -1,0 +1,4 @@
+to compile in linux:
+gcc filename.c -L/usr/include -lreadline -o filename
+
+history is literally making a bucle of every string that is written

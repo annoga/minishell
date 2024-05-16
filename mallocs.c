@@ -1,5 +1,5 @@
 #include <stdlib.h>
-
+/*
 int	main(void)
 {
 	char	*str;
@@ -7,4 +7,4 @@ int	main(void)
 	str = (char *)malloc(10);
 	exit(0);
 	return (0);
-}
+}*/
