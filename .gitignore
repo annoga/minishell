@@ -1,0 +1,14 @@
+# Output Binary
+/minishell
+
+# Hidden macOS files
+.DS_Store
+
+# VS Code
+.vscode
+
+# Others
+*.o
+*.a
+.*swp
+*.dSYM
