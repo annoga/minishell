@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <readline/readline.h>
+#include "readline/readline.h"
+#include "readline/history.h"
 
 void readline_simple(const char *str)
 {
@@ -77,7 +78,7 @@ void mi_primer_minishell()
 		else
 		{
 			add_history(line);
-			printf("es un puto nugget? %s\n", line);
+			//printf("es un puto nugget? %s\n", line);
 		}
 		
 		rl_on_new_line();
