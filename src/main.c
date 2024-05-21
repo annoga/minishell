@@ -15,15 +15,16 @@
 int	main(void)
 {
 	char	*line;
-
-	while (1)
+	int i = 5;
+	while (i-- >= 0)
 	{
 		line = readline("💩 nugget 🐾$ ");
-/*		if(line[0] == '💩' && line[1] == '\0')
+		if(line[0] == 'd' && line[1] == '\0')
 		{
 			printf("you deleted the history\n");
 			rl_clear_history();
-		}*/
+		}
+
 		if (line[0] != '\0')
 		{
 			add_history(line);

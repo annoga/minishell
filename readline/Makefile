@@ -314,7 +314,7 @@ mostlyclean: clean
 	-( cd doc && $(MAKE) $(MFLAGS) $@ )
 	-( cd examples && $(MAKE) $(MFLAGS) $@ )
 
-superclean: clean
+distclean maintainer-clean: clean
 	( cd shlib && $(MAKE) $(MFLAGS) $@ )
 	-( cd doc && $(MAKE) $(MFLAGS) $@ )
 	-( cd examples && $(MAKE) $(MFLAGS) $@ )
