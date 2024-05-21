@@ -57,7 +57,7 @@ void new_line()
 		line = readline("nugget: ");
 		add_history(line);
 		printf("es un puto nugget? %s\n", line);
-		rl_on_new_line();
+//		rl_on_new_line();
 	}
 }
 
@@ -75,13 +75,13 @@ void mi_primer_minishell()
 			printf("you deleted the history\n");
 			rl_clear_history();
 		}
-		else
+		else if (line[0] != '\0')
 		{
 			add_history(line);
-			//printf("es un puto nugget? %s\n", line);
+			printf("es un puto nugget? %s\n", line);
 		}
 		
-		rl_on_new_line();
+		//rl_on_new_line();
 	}
 }
 
@@ -93,9 +93,9 @@ int main()
 //	readline_simple("nugget (sin limpiar historial): ");
 //	rl_clear_history();
 //	readline_simple("nugget (con limpiar historial): ");
-//	new_line();
+	new_line();
 //	replace_line();
-	mi_primer_minishell();
+//	mi_primer_minishell();
 
 
 	return(0);

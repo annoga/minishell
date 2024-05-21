@@ -6,7 +6,7 @@
 #    By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/16 11:58:32 by angeln            #+#    #+#              #
-#    Updated: 2024/05/21 19:56:09 by anovoa           ###   ########.fr        #
+#    Updated: 2024/05/21 20:56:37 by anovoa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=address
 INCFLAGS = -I$(LFTDIR) -Iinc
 # Omit .a file
 #-L libdir -l libname
-LIBFLAGS = -L$(LFTDIR) -l$(LFT)
+LIBFLAGS = -Lreadline -lreadline -lhistory -ltermcap 
 
 #==================FILES==================#
 SRC = main.c 
@@ -51,4 +51,6 @@ all: $(NAME)
 
 
 $(NAME): 
-	cc $(CFLAGS) -Iinc src/main.c -o $(NAME)
+	cc $(CFLAGS) -Iinc $(LIBFLAGS) -DREADLINE_LIBRARY src/main.c -o $(NAME)
+
+.PHONY: minishell
