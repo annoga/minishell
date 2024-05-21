@@ -19,12 +19,12 @@ int	main(void)
 	while (i-- >= 0)
 	{
 		line = readline("💩 nugget 🐾$ ");
-		if(line[0] == 'd' && line[1] == '\0')
+/*		if(line[0] == 'd' && line[1] == '\0')
 		{
 			printf("you deleted the history\n");
 			rl_clear_history();
 		}
-
+*/
 		if (line[0] != '\0')
 		{
 			add_history(line);
