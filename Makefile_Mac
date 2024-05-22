@@ -38,7 +38,7 @@ CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=address
 INCFLAGS = -I$(LFTDIR) -Iinc
 # Omit .a file
 #-L libdir -l libname
-LIBFLAGS = -L/usr/include -lreadline 
+LIBFLAGS = -Lreadline -lreadline -lhistory -ltermcap 
 
 #==================FILES==================#
 SRC = main.c 
@@ -51,6 +51,6 @@ all: $(NAME)
 
 
 $(NAME): 
-	cc $(CFLAGS) src/main.c -Iinc $(LIBFLAGS) -o $(NAME)
+	cc $(CFLAGS) -Iinc $(LIBFLAGS) -DREADLINE_LIBRARY src/main.c -o $(NAME)
 
 .PHONY: minishell
