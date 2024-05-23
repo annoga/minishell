@@ -1,56 +1,60 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/05/16 11:58:32 by angeln            #+#    #+#              #
-#    Updated: 2024/05/21 20:56:37 by anovoa           ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+#Program name
+NAME				=	minishell
 
-#app name
-NAME = minishell
+# Compiler and CFlags
+CC					=	gcc -g
+CFLAGS				=	-Wall -Werror -Wextra
+#CFLAGS				=	-Wall -Werror -Wextra -fsanitize=address
+RM					=	rm -f
+# 
+# Determine the platform
+LIBS = -Lreadline -lreadline -lhistory -ltermcap
+INC = inc/minishell.h libft/libft.h
 
-#lib name
-LFT = ftgnl
+# Directories
+LIBFT				=	./libft/libftgnl.a
+SRC_DIR				=	src/
+OBJ_DIR				=	obj/
 
-HEADER = minishell.h
-
-#===================DIR===================#
-#=========================================#
-
-SRCDIR = src
-
-OBJDIR = obj
-
-#lib dir
-LFTDIR = libft
-
-#===================GCC===================#
-#=========================================#
-#compilation warnings
-CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=address
-
-#Omit path to .h, can also use <libname.h>
-#-I includedir 
-INCFLAGS = -I$(LFTDIR) -Iinc
-# Omit .a file
-#-L libdir -l libname
-LIBFLAGS = -L/usr/include -lreadline 
-
-#==================FILES==================#
-SRC = main.c 
-
-OBJ = $(addprefix $(OBJDIR)/, $(SRC:.c=.o))
-
-#==================RULES==================#
-#=========================================#
-all: $(NAME)
+# Source Files
+SRC					=	main.c \
 
 
-$(NAME): 
-	cc $(CFLAGS) src/main.c -Iinc $(LIBFLAGS) -o $(NAME)
+SRCS				=	$(addprefix $(SRC_DIR), $(SRC))
 
-.PHONY: minishell
+# Object files
+OBJ 				= 	$(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRCS))
+
+# Build rules
+
+all: 					makelib $(NAME)
+
+
+$(NAME): 				$(OBJ) $(LIBFT)
+						@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(LIBS) -o $(NAME)
+						@echo "\033[1;32mAll minishell done!!✅\033[1;97m"
+						
+
+
+makelib:
+						@make -C ./libft
+
+# Compile object files from source files
+$(OBJ_DIR)%.o:			$(SRC_DIR)%.c Makefile $(INC)
+						@mkdir -p $(@D)
+						@$(CC) $(CFLAGS) -c $< -o $@
+						@echo "\033[1;31mCompiling...\033[1;97m	"$< "✅"
+
+clean:
+						@$(RM) -r $(OBJ_DIR)
+						@make clean -C ./libft
+						@echo "\033[1;32mAll cleaned 💩🗑\033[1;97m"
+
+fclean: 				clean
+						@$(RM) $(NAME)
+						@$(RM) $(LIBFT)
+
+re: 					fclean all
+
+# Phony targets represent actions not files
+.PHONY: 				all clean fclean re makelib

@@ -6,7 +6,7 @@
 #    By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/16 11:58:32 by angeln            #+#    #+#              #
-#    Updated: 2024/05/21 19:51:24 by anovoa           ###   ########.fr        #
+#    Updated: 2024/05/23 19:00:39 by crmanzan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,8 @@ all: libcheck $(NAME)
 libcheck:
 	@$(MAKE) -s -C $(LFTDIR) --no-print-directory
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEADER) Makefile | .obj_cache
+$(OBJDIR)/%.o:	$(SRCDIR)/%.c $(HEADER) Makefile
+	mkdir -p $(OBJDIR)
 	$(CC) $(CFLAGS) $(INCFLAGS) -c $< -o $@
 
 .obj_cache:
