@@ -13,30 +13,34 @@
 #include "../inc/minishell.h"
 //#include <readline/readline.h>
 //#include <readline/history.h>
-/*
+
 void split_modded(char *line, char c)
 {
-	int i = 0;
+	int i;
 	char **split;
 	split = ft_split(line, c);
+	t_token *head;
 
+	i = 0;
+	head = ft_lstnew(split[i]);
+	i = 1;
 	while(split[i])
 	{
-		printf("%d. split: %s\n", i, split[i]);
+		head->next = ft_lstnew(split[i]);
+		head = head->next;
+		printf("split[%d]: %s\n", i, head->token);
 		i++;
 	}
 }
-*/
 
 int	main(void)
 {
 	char	*line;
-	int i = 0;
 	while (1)
 	{
 		line = readline("💩 nugget 🐾$ ");
-		i = 0;
-//		split_modded(line, '|');
+
+		
 
 /*		if(line[0] == 'd' && line[1] == '\0')
 		{
@@ -45,6 +49,7 @@ int	main(void)
 		}
 */		if (line[0] != '\0')
 		{
+			split_modded(line, ' ');
 			add_history(line);
 		}
 		rl_on_new_line();

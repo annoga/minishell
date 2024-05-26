@@ -18,5 +18,21 @@
 # include "../libft/libft.h"
 # include "readline/history.h"
 //# include ".h"
+typedef struct s_token
+{
+    char            *token;
+    int             is_builtin;
+    int             is_pipe;
+    int             is_redir;
+    int             is_arg;
+    int             is_bonus;
+    struct s_token  *next;
+} t_token;
+
+void check_builtin(t_token *head);
+void check_pipe_bonus(t_token *head);
+void check_redirect(t_token *head);
+void check_token(t_token *head);
+t_token	*ft_lstnew(char *content);
 
 #endif

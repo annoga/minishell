@@ -4,7 +4,7 @@ NAME				=	minishell
 # Compiler and CFlags
 CC					=	gcc -g
 CFLAGS				=	-Wall -Werror -Wextra
-#CFLAGS				=	-Wall -Werror -Wextra -fsanitize=address
+# CFLAGS				=	-Wall -Werror -Wextra -fsanitize=address
 RM					=	rm -f
 # 
 # Determine the platform
@@ -17,7 +17,7 @@ SRC_DIR				=	src/
 OBJ_DIR				=	obj/
 
 # Source Files
-SRC					=	main.c \
+SRC					=	main.c utils.c\
 
 
 SRCS				=	$(addprefix $(SRC_DIR), $(SRC))
