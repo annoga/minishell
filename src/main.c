@@ -14,11 +14,12 @@
 //#include <readline/readline.h>
 //#include <readline/history.h>
 
-void split_modded(char *line, char c)
+void split_modded(char *line)
 {
 	int i;
 	char **split;
-	split = ft_split(line, c);
+	// split = ft_split(line, c);
+	split = split_line(line, skip_separator, skip_to_next_word);
 	t_token *head;
 
 	i = 0;
@@ -31,6 +32,7 @@ void split_modded(char *line, char c)
 		printf("split[%d]: %s\n", i, head->token);
 		i++;
 	}
+	printf("\n");
 }
 
 int	main(void)
@@ -49,7 +51,7 @@ int	main(void)
 		}
 */		if (line[0] != '\0')
 		{
-			split_modded(line, ' ');
+			split_modded(line);
 			add_history(line);
 		}
 		rl_on_new_line();

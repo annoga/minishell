@@ -17,7 +17,7 @@ SRC_DIR				=	src/
 OBJ_DIR				=	obj/
 
 # Source Files
-SRC					=	main.c utils.c\
+SRC					=	main.c utils.c test_split.c\
 
 
 SRCS				=	$(addprefix $(SRC_DIR), $(SRC))
