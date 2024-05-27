@@ -37,12 +37,12 @@ char	*skip_separator(char *line)
 	return (line);
 }
 
-int skip_redir_bonus(char c1, char c2, char *line)
+int skip_redir_bonus(char c1, char *line)
 {
 	if (*line == c1)
 	{
 		line++;
-		if (*line == c2)
+		if (*line == c1)
 			return (2);
 		return (1);
 	}
@@ -54,9 +54,9 @@ char	*skip_to_next_word(char *line)
 	int	quote;
 
 	quote = 0;
-	if (skip_redir_bonus('<', '<', line) == 1 || skip_redir_bonus('>', '>', line) == 1 || skip_redir_bonus('|', '|', line) == 1 || skip_redir_bonus('&', '&', line) == 1)
+	if (skip_redir_bonus('<', line) == 1 || skip_redir_bonus('>', line) == 1 || skip_redir_bonus('|', line) == 1)
 		return (line + 1);
-	if (skip_redir_bonus('<', '<', line) == 2 || skip_redir_bonus('>', '>', line) == 2 || skip_redir_bonus('|', '|', line) == 2 || skip_redir_bonus('&', '&', line) == 2)
+	if (skip_redir_bonus('<', line) == 2 || skip_redir_bonus('>', line) == 2 || skip_redir_bonus('|', line) == 2 || skip_redir_bonus('&', line) == 2)
 		return (line + 2);
 	if (*line == '\"' || *line == '\'')
 		quote = *line++;
@@ -67,8 +67,14 @@ char	*skip_to_next_word(char *line)
 		while (*line && *line != '\'')
 			line++;
 	else
-		while (*line && !ft_isspace(*line) && *line != '\'' && *line != '\"' && *line != '<' && *line != '>' && *line != '|' && *line != '&')
+	{
+		while (*line && !ft_isspace(*line) && *line != '\'' && *line != '\"' && *line != '<' && *line != '>' && *line != '|' && ft_strncmp("&&", line))
+		{
+			// printf("line: %s\n", line);
 			line++;
+		}
+	}
+
 	if (quote && (*line == '\'' || *line == '\"'))
 		line++;
 	return (line);

@@ -24,15 +24,15 @@ typedef struct s_token
     int             is_builtin;
     int             is_pipe;
     int             is_redir;
-    int             is_arg;
     int             is_bonus;
+    int             is_arg;
     struct s_token  *next;
 } t_token;
 
 int	ft_strncmp(const char *s1, const char *s2);
 char	*skip_to_next_word(char *line);
 char	*skip_separator(char *line);
-int skip_redir_bonus(char c1, char c2, char *line);
+int skip_redir_bonus(char c1, char *line);
 void check_builtin(t_token *head);
 void check_pipe_bonus(t_token *head);
 void check_redirect(t_token *head);
