@@ -38,7 +38,7 @@ CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=address
 INCFLAGS = -I$(LFTDIR) -Iinc
 # Omit .a file
 #-L libdir -l libname
-LIBFLAGS = -L/usr/include -lreadline 
+LIBFLAGS = -L/usr/include -lreadline
 
 #==================FILES==================#
 SRC = main.c 

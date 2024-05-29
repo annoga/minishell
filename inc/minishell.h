@@ -18,17 +18,33 @@
 # include "../libft/libft.h"
 # include "readline/history.h"
 //# include ".h"
+
+typedef enum e_token_type
+{
+    ARG,
+    SPACE,
+    SINGLE_QUOTE,
+    DOUBLE_QUOTE,
+    BUILTIN,
+    PIPE,
+    REDIR_IN,
+    REDIR_OUT,
+    HEREDOC,
+    APPEND,
+    AND,
+    OR
+} t_token_type;
+
 typedef struct s_token
 {
     char            *token;
-    int             is_builtin;
-    int             is_pipe;
-    int             is_redir;
-    int             is_bonus;
-    int             is_arg;
+    t_token_type    type;
     struct s_token  *next;
 } t_token;
 
+t_token *new_split(char *line);
+char *ft_strndup(const char *s, size_t n);
+void add_token(t_token **head, t_token *new);
 int	ft_strncmp(const char *s1, const char *s2);
 char	*skip_to_next_word(char *line);
 char	*skip_separator(char *line);

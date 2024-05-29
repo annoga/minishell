@@ -26,73 +26,117 @@ int	ft_strncmp(const char *s1, const char *s2)
 	return (0);
 }
 
-t_token	*ft_lstnew(char *content)
-{
-	t_token	*new;
+// size_t	ft_strlcpy(char *dest, char *src, size_t size)
+// {
+// 	size_t	i;
 
-	new = (t_token *)malloc(sizeof(t_token));
-	if (!new)
-		return (NULL);
-	new->token = content;
-    check_token(new);
-	new->next = NULL;
-	return (new);
+// 	i = 0;
+// 	if (size < 1)
+// 		return (ft_strlen(src));
+// 	while (src[i] && 0 < size - 1)
+// 	{
+// 		dest[i] = src[i];
+//         size--;
+// 		i++;
+// 	}
+// 	dest[i] = '\0';
+// 	return (ft_strlen(src));
+// }
+
+char *ft_strndup(const char *s, size_t n)
+{
+    char *dup;
+
+    dup = (char *)malloc(n + 1);
+    if (!dup)
+        return (NULL);
+    ft_strlcpy(dup, (char *)s, n + 1);
+    return (dup);
 }
 
-void check_token(t_token *head)
-{
-    check_builtin(head);
-    check_pipe_bonus(head);
-    check_redirect(head);
-    if(!head->is_builtin && !head->is_pipe && !head->is_redir && !head->is_bonus)
-        head->is_arg = 1;
-    else
-        head->is_arg = 0;
-}
-void check_pipe_bonus(t_token *head)
+void add_token(t_token **head, t_token *new)
 {
     t_token *tmp;
 
-    tmp = head;
-    if(!ft_strncmp(tmp->token, "|"))
+    if(!*head)
     {
-        head->is_pipe = 1;
-        head->is_bonus = 0;
+        *head = new;
+        return ;
     }
-    else if(!ft_strncmp(tmp->token, "||") || !ft_strncmp(tmp->token, "&&"))
-    {
-        head->is_pipe = 0;
-        head->is_bonus = 1;
-    }
-    else
-    {    
-        head->is_pipe = 0;
-        head->is_bonus = 0;
-    }
+    tmp = *head;
+    while(tmp->next)
+        tmp = tmp->next;
+    tmp->next = new;
 }
 
-void check_redirect(t_token *head)
-{
-    t_token *tmp;
 
-    tmp = head;
-    if(!ft_strncmp(tmp->token, ">") || !ft_strncmp(tmp->token, ">>") ||
-        !ft_strncmp(tmp->token, "<") || !ft_strncmp(tmp->token, "<<"))
-        head->is_redir = 1;
-    else
-        head->is_redir = 0;
-}
+// t_token	*ft_lstnew(char *content)
+// {
+// 	t_token	*new;
 
-void check_builtin(t_token *head)
-{
-    t_token *tmp;
+// 	new = (t_token *)malloc(sizeof(t_token));
+// 	if (!new)
+// 		return (NULL);
+// 	new->token = content;
+//     check_token(new);
+// 	new->next = NULL;
+// 	return (new);
+// }
 
-    tmp = head;
-    if(!ft_strncmp(tmp->token, "echo") || !ft_strncmp(tmp->token, "cd") ||
-        !ft_strncmp(tmp->token, "pwd") || !ft_strncmp(tmp->token, "export") ||
-        !ft_strncmp(tmp->token, "unset") || !ft_strncmp(tmp->token, "env") ||
-        !ft_strncmp(tmp->token, "exit"))
-        head->is_builtin = 1;
-    else
-        head->is_builtin = 0;
-}
+// void check_token(t_token *head)
+// {
+//     check_builtin(head);
+//     check_pipe_bonus(head);
+//     check_redirect(head);
+//     if(!head->is_builtin && !head->is_pipe && !head->is_redir && !head->is_bonus)
+//         head->is_arg = 1;
+//     else
+//         head->is_arg = 0;
+// }
+// void check_pipe_bonus(t_token *head)
+// {
+//     t_token *tmp;
+
+//     tmp = head;
+//     if(!ft_strncmp(tmp->token, "|"))
+//     {
+//         head->is_pipe = 1;
+//         head->is_bonus = 0;
+//     }
+//     else if(!ft_strncmp(tmp->token, "||") || !ft_strncmp(tmp->token, "&&"))
+//     {
+//         head->is_pipe = 0;
+//         head->is_bonus = 1;
+//     }
+//     else
+//     {    
+//         head->is_pipe = 0;
+//         head->is_bonus = 0;
+//     }
+// }
+
+// void check_redirect(t_token *head)
+// {
+//     t_token *tmp;
+
+//     tmp = head;
+//     if(!ft_strncmp(tmp->token, ">") || !ft_strncmp(tmp->token, ">>") ||
+//         !ft_strncmp(tmp->token, "<") || !ft_strncmp(tmp->token, "<<"))
+//         head->is_redir = 1;
+//     else
+//         head->is_redir = 0;
+// }
+
+// void check_builtin(t_token *head)
+// {
+//     t_token *tmp;
+
+//     tmp = head;
+//     if(!ft_strncmp(tmp->token, "echo") || !ft_strncmp(tmp->token, "cd") ||
+//         !ft_strncmp(tmp->token, "pwd") || !ft_strncmp(tmp->token, "export") ||
+//         !ft_strncmp(tmp->token, "unset") || !ft_strncmp(tmp->token, "env") ||
+//         !ft_strncmp(tmp->token, "exit"))
+//         head->is_builtin = 1;
+//     else
+//         head->is_builtin = 0;
+// }
