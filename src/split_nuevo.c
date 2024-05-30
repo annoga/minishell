@@ -17,7 +17,6 @@ t_token *create_token(char type, char *value, int *i)
 {
     t_token *token;
 
-    printf("value: %s\n", value);
     if(!ft_strncmp(value, ">>") || !ft_strncmp(value, "<<") ||  !ft_strncmp(value, "&&") || !ft_strncmp(value, "||"))
         (*i)++;
     token = new_token(type, value);
@@ -65,6 +64,30 @@ t_token	*handle_double_quote(char *line, int *i)
 
 	return (token);
 }
+t_token	*handle_parenthesis(char *line, int *i, int is_paren)
+{
+	int		start;
+	char	*value;
+	t_token	*token;
+
+    if(is_paren)
+        return (return_error("Syntax error near unexpected token '('"));
+    if(line[*i] == ')')
+        return (return_error("Syntax error near unexpected token ')'"));
+    if(line[*i + 1] == '(')
+        return NULL;
+	start = ++(*i);
+	while (line[*i] && line[*i] != ')')
+		(*i)++;
+	if (line[*i] != ')')
+		return (return_error("Syntax error near unexpected token '('"));
+	value = ft_strndup(&line[start], *i - start);
+	if (!value)
+		return(NULL);
+	token = new_token(PAREN, value);
+	return (token);
+}
+
 
 t_token *handle_arg(char *line, int *i)
 {
@@ -109,7 +132,7 @@ t_token *handle_special_token(char *line, int *i)
     return NULL;
 }
 
-t_token *get_token(char *line, int *i)
+t_token *get_token(char *line, int *i, int is_paren)
 {
     t_token *token;
     token = handle_special_token(line, i);
@@ -128,9 +151,9 @@ t_token *get_token(char *line, int *i)
     else if(line[*i] == '"')
         token = handle_double_quote(line, i);
     else if(ft_isspace(line[*i]))
-    {
         token = handle_space(line, i);
-    }
+    else if((line[*i] == '(' || line[*i] == ')'))
+        token = handle_parenthesis(line, i, is_paren);
     else
         token = handle_arg(line, i);
     return (token);
@@ -147,7 +170,7 @@ t_token *new_split(char *line)
     i = 0;
     while (line[i])
     {
-        token = get_token(line, &i);
+        token = get_token(line, &i, 0);
         if(!token)
             return (NULL);
         add_token(&head_token, token);

@@ -21,12 +21,13 @@ void print_list(t_token *head)
 	printf("----------------------\n");
 	while(tmp)
 	{
-		printf("Token: '%s', type: %u\n", tmp->token, tmp->type);
+		// printf("Token: '%s', type: %u\n", tmp->token, tmp->type);
+		printf("%s", tmp->token);
 		tmp = tmp->next;
 	}
 }
 
-void split_linker(char *line)
+t_token *split_linker(char *line)
 {
 	// int i;
 	t_token *token;
@@ -47,22 +48,45 @@ void split_linker(char *line)
 	// }
 	print_list(token);
 	printf("\n");
+	return (token);
+}
+
+void free_token(t_token *token)
+{
+	t_token *tmp;
+
+	while(token)
+	{
+		tmp = token;
+		token = token->next;
+		if(tmp->type == ARG)
+		{
+			free(tmp->token);
+
+			free(tmp);
+		}
+	}
 }
 
 int	main(void)
 {
 	char	*line;
-	// int i = 3;
-	while (1)
+	t_token *token;
+
+	token = NULL;
+	int i = 1;
+	while (i--)
 	{
 		line = readline("💩 nugget 🐾$ ");
 		if (line[0] != '\0')
 		{
-			split_linker(line);
+			token = split_linker(line);
 			add_history(line);
 		}
+		free_token(token);
 		rl_on_new_line();
 	}
+
 	exit(0);
 	return (0);
 }

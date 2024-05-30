@@ -25,14 +25,15 @@ typedef enum e_token_type
     SPACE,
     SINGLE_QUOTE,
     DOUBLE_QUOTE,
-    BUILTIN,
     PIPE,
     REDIR_IN,
     REDIR_OUT,
     HEREDOC,
     APPEND,
+    BUILTIN,
     AND,
-    OR
+    OR,
+    PAREN,
 } t_token_type;
 
 typedef struct s_token
@@ -55,5 +56,6 @@ void check_redirect(t_token *head);
 void check_token(t_token *head);
 char	**split_line(char *line, char *(*skip)(char *), char *(*next)(char *));
 t_token	*ft_lstnew(char *content);
+void *return_error(char *str);
 
 #endif

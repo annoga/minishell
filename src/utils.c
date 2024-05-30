@@ -25,6 +25,11 @@ int	ft_strncmp(const char *s1, const char *s2)
 		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 	return (0);
 }
+void *return_error(char *str)
+{
+    printf("%s\n", str);
+    return (NULL);
+}
 
 // size_t	ft_strlcpy(char *dest, char *src, size_t size)
 // {
