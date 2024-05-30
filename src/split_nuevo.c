@@ -29,8 +29,7 @@ t_token *handle_single_quote(char *line, int *i)
     char *value;
     t_token *token;
 
-	(*i)++;
-	start = (*i)++;
+	start = ++(*i);
     while(line[*i] && line[*i] != '\'')
         (*i)++;
     if(line[*i] != '\'')
@@ -51,8 +50,7 @@ t_token	*handle_double_quote(char *line, int *i)
 	char	*value;
 	t_token	*token;
 
-	(*i)++;
-	start = (*i)++;
+	start = ++(*i);
 	while (line[*i] && line[*i] != '"')
 		(*i)++;
 	if (line[*i] != '"')
@@ -64,6 +62,7 @@ t_token	*handle_double_quote(char *line, int *i)
 	if (!value)
 		return(NULL);
 	token = new_token(DOUBLE_QUOTE, value);
+
 	return (token);
 }
 
@@ -92,7 +91,7 @@ t_token *handle_space(char *line, int *i)
     while(line[*i] && ft_isspace(line[*i]))
         (*i)++;
     (*i)--;
-    return create_token(ARG, " ", i);
+    return create_token(SPACE, " ", i);
 }
 
 t_token *handle_special_token(char *line, int *i)
@@ -127,12 +126,11 @@ t_token *get_token(char *line, int *i)
     else if(line[*i] == '\'')
         token = handle_single_quote(line, i);
     else if(line[*i] == '"')
-    {
-        printf("double quote\n");
         token = handle_double_quote(line, i);
-    }
     else if(ft_isspace(line[*i]))
+    {
         token = handle_space(line, i);
+    }
     else
         token = handle_arg(line, i);
     return (token);
