@@ -12,50 +12,61 @@
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-# include <unistd.h>
-# include <stdio.h>
-# include "readline/readline.h"
 # include "../libft/libft.h"
 # include "readline/history.h"
+# include "readline/readline.h"
+# include <stdio.h>
+# include <unistd.h>
 //# include ".h"
 
 typedef enum e_token_type
 {
-    ARG,
-    SPACE,
-    SINGLE_QUOTE,
-    DOUBLE_QUOTE,
-    PIPE,
-    REDIR_IN,
-    REDIR_OUT,
-    HEREDOC,
-    APPEND,
-    BUILTIN,
-    AND,
-    OR,
-    PAREN,
-} t_token_type;
+	ARG,
+	SPACE,
+	SINGLE_QUOTE,
+	DOUBLE_QUOTE,
+	PIPE,
+	REDIR_IN,
+	REDIR_OUT,
+	HEREDOC,
+	APPEND,
+	BUILTIN,
+	AND,
+	OR,
+	PAREN,
+}					t_token_type;
 
 typedef struct s_token
 {
-    char            *token;
-    t_token_type    type;
-    struct s_token  *next;
-} t_token;
+	char			*token;
+	t_token_type	type;
+	struct s_token	*next;
+}					t_token;
 
-t_token *new_split(char *line);
-char *ft_strndup(const char *s, size_t n);
-void add_token(t_token **head, t_token *new);
-int	ft_strncmp(const char *s1, const char *s2);
-char	*skip_to_next_word(char *line);
-char	*skip_separator(char *line);
-int skip_redir_bonus(char c1, char *line);
-void check_builtin(t_token *head);
-void check_pipe_bonus(t_token *head);
-void check_redirect(t_token *head);
-void check_token(t_token *head);
-char	**split_line(char *line, char *(*skip)(char *), char *(*next)(char *));
-t_token	*ft_lstnew(char *content);
-void *return_error(char *str);
+/* TOKENIZER */
+t_token				*tokenizer(char *line);
+t_token				*get_token(char *line, int *i, int is_paren);
+t_token				*handle_single_quote(char *line, int *i);
+t_token				*handle_double_quote(char *line, int *i);
+t_token				*handle_parenthesis(char *line, int *i, int is_paren);
+t_token				*handle_space(char *line, int *i);
+t_token				*handle_arg(char *line, int *i);
+t_token				*get_special_token(char *line, int *i);
+t_token				*new_token(t_token_type type, char *value);
+t_token				*create_token(char type, char *value, int *i);
+t_token				*split_linker(char *line);
+void				print_list(t_token *head);
+void				free_token(t_token *token);
+void				add_token(t_token **head, t_token *new);
+
+// void check_builtin(t_token *head);
+// void check_pipe_bonus(t_token *head);
+// void check_redirect(t_token *head);
+// void check_token(t_token *head);
+
+/* UTILS */
+char				*ft_strndup(const char *s, size_t n);
+int					ft_strncmp(const char *s1, const char *s2);
+void				*return_error(char *str);
 
 #endif

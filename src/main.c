@@ -11,15 +11,17 @@
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
 // #include <readline/readline.h>
 // #include <readline/history.h>
 
-void print_list(t_token *head)
+void	print_list(t_token *head)
 {
-	t_token *tmp;
+	t_token	*tmp;
+
 	tmp = head;
 	printf("----------------------\n");
-	while(tmp)
+	while (tmp)
 	{
 		// printf("Token: '%s', type: %u\n", tmp->token, tmp->type);
 		printf("%s", tmp->token);
@@ -27,15 +29,15 @@ void print_list(t_token *head)
 	}
 }
 
-t_token *split_linker(char *line)
+t_token	*split_linker(char *line)
 {
+	t_token	*token;
+
 	// int i;
-	t_token *token;
 	// char **split;
-	token = new_split(line);
+	token = tokenizer(line);
 	// t_token *head;
 	// t_token *tmp;
-
 	// i = 0;
 	// head = ft_lstnew(split[i]);
 	// tmp = head;
@@ -51,18 +53,17 @@ t_token *split_linker(char *line)
 	return (token);
 }
 
-void free_token(t_token *token)
+void	free_token(t_token *token)
 {
-	t_token *tmp;
+	t_token	*tmp;
 
-	while(token)
+	while (token)
 	{
 		tmp = token;
 		token = token->next;
-		if(tmp->type == ARG)
+		if (tmp->type == ARG)
 		{
 			free(tmp->token);
-
 			free(tmp);
 		}
 	}
@@ -71,10 +72,11 @@ void free_token(t_token *token)
 int	main(void)
 {
 	char	*line;
-	t_token *token;
+	t_token	*token;
+	int		i;
 
 	token = NULL;
-	int i = 1;
+	i = 1;
 	while (i--)
 	{
 		line = readline("💩 nugget 🐾$ ");
@@ -86,7 +88,6 @@ int	main(void)
 		free_token(token);
 		rl_on_new_line();
 	}
-
 	exit(0);
 	return (0);
 }

@@ -17,7 +17,7 @@ SRC_DIR				=	src/
 OBJ_DIR				=	obj/
 
 # Source Files
-SRC					=	main.c utils.c test_split.c split_nuevo.c \
+SRC					=	main.c utils.c tokenizer.c tokenizer_utils.c handle_tokens.c\
 
 
 SRCS				=	$(addprefix $(SRC_DIR), $(SRC))
