@@ -59,6 +59,7 @@ t_token	*handle_parenthesis(char *line, int *i, int is_paren)
 	char	*value;
 	t_token	*token;
 
+	printf("is_paren: %d\n", is_paren);
 	if (is_paren)
 		return (return_error("Syntax error near unexpected token '('"));
 	if (line[*i] == ')')
@@ -102,8 +103,9 @@ t_token	*handle_arg(char *line, int *i)
 
 t_token	*handle_space(char *line, int *i)
 {
+	printf("space\n");
 	while (line[*i] && ft_isspace(line[*i]))
 		(*i)++;
 	(*i)--;
-	return (create_token(SPACE, " ", i));
+	return (create_token(SPACE_TOKEN, " ", i));
 }

@@ -55,35 +55,6 @@ void	*return_error(char *str)
 	return (NULL);
 }
 
-// size_t	ft_strlcpy(char *dest, char *src, size_t size)
-// {
-// 	size_t	i;
-
-// 	i = 0;
-// 	if (size < 1)
-// 		return (ft_strlen(src));
-// 	while (src[i] && 0 < size - 1)
-// 	{
-// 		dest[i] = src[i];
-//         size--;
-// 		i++;
-// 	}
-// 	dest[i] = '\0';
-// 	return (ft_strlen(src));
-// }
-
-// t_token	*ft_lstnew(char *content)
-// {
-// 	t_token	*new;
-
-// 	new = (t_token *)malloc(sizeof(t_token));
-// 	if (!new)
-// 		return (NULL);
-// 	new->token = content;
-//     check_token(new);
-// 	new->next = NULL;
-// 	return (new);
-// }
 
 // void check_token(t_token *head)
 // {

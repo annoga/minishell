@@ -22,7 +22,6 @@
 typedef enum e_token_type
 {
 	ARG,
-	SPACE,
 	SINGLE_QUOTE,
 	DOUBLE_QUOTE,
 	PIPE,
@@ -34,11 +33,14 @@ typedef enum e_token_type
 	AND,
 	OR,
 	PAREN,
+	SPACE_TOKEN
 }					t_token_type;
 
 typedef struct s_token
 {
 	char			*token;
+	int 			and;
+	int 			or;
 	t_token_type	type;
 	struct s_token	*next;
 }					t_token;
@@ -58,6 +60,10 @@ t_token				*split_linker(char *line);
 void				print_list(t_token *head);
 void				free_token(t_token *token);
 void				add_token(t_token **head, t_token *new);
+
+/* PARSER */
+t_token				*check_bonus_token(t_token *head);
+t_token 			*assign_bonus_token(t_token *head, int type_bonus);
 
 // void check_builtin(t_token *head);
 // void check_pipe_bonus(t_token *head);

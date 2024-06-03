@@ -27,27 +27,24 @@ void	print_list(t_token *head)
 		printf("%s", tmp->token);
 		tmp = tmp->next;
 	}
+	printf("\n");
+	tmp = head;
+	printf("----------------------\n");
+	while (tmp)
+	{
+		printf("Token: '%s', type: %u, is_and: %d, is_or: %d\n", tmp->token, tmp->type, tmp->and, tmp->or);
+		tmp = tmp->next;
+	}
 }
 
 t_token	*split_linker(char *line)
 {
 	t_token	*token;
 
-	// int i;
-	// char **split;
 	token = tokenizer(line);
-	// t_token *head;
-	// t_token *tmp;
-	// i = 0;
-	// head = ft_lstnew(split[i]);
-	// tmp = head;
-	// i = 1;
-	// while(split[i])
-	// {
-	// 	tmp->next = ft_lstnew(split[i]);
-	// 	tmp = tmp->next;
-	// 	i++;
-	// }
+	token = check_bonus_token(token);
+
+
 	print_list(token);
 	printf("\n");
 	return (token);
@@ -77,7 +74,7 @@ int	main(void)
 
 	token = NULL;
 	i = 1;
-	while (i--)
+	while (i)
 	{
 		line = readline("💩 nugget 🐾$ ");
 		if (line[0] != '\0')
