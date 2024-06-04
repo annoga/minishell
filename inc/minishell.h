@@ -32,25 +32,26 @@ typedef enum e_token_type
 	BUILTIN,
 	AND,
 	OR,
-	PAREN,
+	L_PAREN,
+	R_PAREN,
 	SPACE_TOKEN
 }					t_token_type;
 
 typedef struct s_token
 {
 	char			*token;
-	int 			and;
-	int 			or;
+	// int 			and;
+	// int 			or;
 	t_token_type	type;
 	struct s_token	*next;
 }					t_token;
 
 /* TOKENIZER */
 t_token				*tokenizer(char *line);
-t_token				*get_token(char *line, int *i, int is_paren);
+t_token				*get_token(char *line, int *i);
 t_token				*handle_single_quote(char *line, int *i);
 t_token				*handle_double_quote(char *line, int *i);
-t_token				*handle_parenthesis(char *line, int *i, int is_paren);
+t_token				*handle_parenthesis(char *line, int *i);
 t_token				*handle_space(char *line, int *i);
 t_token				*handle_arg(char *line, int *i);
 t_token				*get_special_token(char *line, int *i);

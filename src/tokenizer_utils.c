@@ -11,24 +11,25 @@
 /* ************************************************************************** */
 #include "../inc/minishell.h"
 
-void	add_token(t_token **head, t_token *new)
+void add_token(t_token **head, t_token *new)
 {
-	t_token	*tmp;
+	t_token *tmp;
 
 	if (!*head)
 	{
 		*head = new;
-		return ;
+		return;
 	}
 	tmp = *head;
 	while (tmp->next)
 		tmp = tmp->next;
+
 	tmp->next = new;
 }
 
-t_token	*new_token(t_token_type type, char *value)
+t_token *new_token(t_token_type type, char *value)
 {
-	t_token	*token;
+	t_token *token;
 
 	token = (t_token *)malloc(sizeof(t_token));
 	if (!token)
@@ -39,13 +40,44 @@ t_token	*new_token(t_token_type type, char *value)
 	return (token);
 }
 
-t_token	*create_token(char type, char *value, int *i)
+t_token *create_token(char type, char *line, int *i)
 {
-	t_token	*token;
+	int start;
+	char *value;
+	t_token *token;
 
-	if (!ft_strncmp(value, ">>") || !ft_strncmp(value, "<<")
-		|| !ft_strncmp(value, "&&") || !ft_strncmp(value, "||"))
+	// printf("0. line: %s, start: %d, i: %d\n", &line[start], start, *i);
+	start = *i;
+	if (!ft_strncmp(&line[start], ">>") || !ft_strncmp(&line[start], "<<") || !ft_strncmp(&line[start], "&&") || !ft_strncmp(&line[start], "||"))
+	{
+		value = ft_strndup(&line[start], 2);
 		(*i)++;
+	}
+	else
+		value = ft_strndup(&line[start], 1);
+	// (*i)--;
+	// printf("2. line: %s, start: %d, i: %d\n", &line[start], start, *i);
+	// value = ft_strndup(&line[start], 2);
+	if (!value)
+		return (NULL);
 	token = new_token(type, value);
 	return (token);
 }
+
+// int		start;
+// char	*value;
+// t_token	*token;
+
+// start = *i;
+// while (line[*i] && !ft_isspace(line[*i]) && line[*i] != '\''
+// 	&& line[*i] != '"' && line[*i] != '<' && line[*i] != '>'
+// 	&& line[*i] != '|' && line[*i] != '(' && line[*i] != ')')
+// {
+// 	if (line[*i] == '&' && line[*i + 1] == '&')
+// 		break ;
+// 	(*i)++;
+// }
+// value = ft_strndup(&line[start], *i - start);
+// if (!value)
+// 	return (NULL);
+// token = new_token(ARG, value);

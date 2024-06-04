@@ -32,7 +32,7 @@ void	print_list(t_token *head)
 	printf("----------------------\n");
 	while (tmp)
 	{
-		printf("Token: '%s', type: %u, is_and: %d, is_or: %d\n", tmp->token, tmp->type, tmp->and, tmp->or);
+		printf("Token: '%s', type: %u\n", tmp->token, tmp->type);
 		tmp = tmp->next;
 	}
 }
@@ -42,11 +42,11 @@ t_token	*split_linker(char *line)
 	t_token	*token;
 
 	token = tokenizer(line);
-	token = check_bonus_token(token);
+	// token = check_bonus_token(token);
 
 
 	print_list(token);
-	printf("\n");
+	// printf("\n");
 	return (token);
 }
 
@@ -58,10 +58,12 @@ void	free_token(t_token *token)
 	{
 		tmp = token;
 		token = token->next;
-		if (tmp->type == ARG)
+		if (tmp->type == ARG || tmp->type == SPACE)
 		{
 			free(tmp->token);
+			tmp->token = NULL;
 			free(tmp);
+			tmp = NULL;
 		}
 	}
 }
@@ -74,7 +76,7 @@ int	main(void)
 
 	token = NULL;
 	i = 1;
-	while (i)
+	while (i--)
 	{
 		line = readline("💩 nugget 🐾$ ");
 		if (line[0] != '\0')

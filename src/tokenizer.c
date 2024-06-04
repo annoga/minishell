@@ -19,10 +19,14 @@ t_token	*get_special_token(char *line, int *i)
 		return (create_token(PIPE, "|", i));
 	else if (line[*i] == '&' && line[*i + 1] == '&')
 		return (create_token(AND, "&&", i));
+	else if (line[*i] == '\'')
+		return (handle_single_quote(line, i));
+	else if (line[*i] == '"')
+		return (handle_double_quote(line, i));
 	return (NULL);
 }
 
-t_token	*get_token(char *line, int *i, int is_paren)
+t_token	*get_token(char *line, int *i)
 {
 	t_token	*token;
 
@@ -37,16 +41,13 @@ t_token	*get_token(char *line, int *i, int is_paren)
 		token = create_token(REDIR_IN, "<", i);
 	else if (line[*i] == '>')
 		token = create_token(REDIR_OUT, ">", i);
-	else if (line[*i] == '\'')
-		token = handle_single_quote(line, i);
-	else if (line[*i] == '"')
-		token = handle_double_quote(line, i);
 	else if (ft_isspace(line[*i]))
 		token = handle_space(line, i);
 	else if ((line[*i] == '(' || line[*i] == ')'))
-		token = handle_parenthesis(line, i, is_paren);
+		token = handle_parenthesis(line, i);
 	else
 		token = handle_arg(line, i);
+	
 	return (token);
 }
 
@@ -60,11 +61,12 @@ t_token	*tokenizer(char *line)
 	i = 0;
 	while (line[i])
 	{
-		token = get_token(line, &i, 0);
+		token = get_token(line, &i);
 		if (!token)
 			return (NULL);
 		add_token(&head_token, token);
 		i++;
 	}
+	//print_list(head_token);
 	return (head_token);
 }
