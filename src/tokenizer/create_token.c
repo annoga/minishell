@@ -13,24 +13,19 @@
 
 t_token *create_token(char type, char *line, int *i)
 {
-//	int start;
-///	char *value;
+	char *value;
 	t_token *token;
 
-	// printf("0. line: %s, start: %d, i: %d\n", &line[start], start, *i);
-//	start = *i;
+	printf("line: %s\n", line);
 	if (!ft_strncmp(line, ">>") || !ft_strncmp(line, "<<") || !ft_strncmp(line, "&&") || !ft_strncmp(line, "||"))
 	{
-//		value = ft_strndup(&line[start], 2);
 		(*i)++;
 	}
-//	else
-//		value = ft_strndup(&line[start], 1);
+	value = ft_strdup(line);
 	// (*i)--;
-	// printf("2. line: %s, start: %d, i: %d\n", &line[start], start, *i);
-	// value = ft_strndup(&line[start], 2);
-//	if (!value)
-//		return (NULL);
-	token = new_token(type, line);
+	// value = ft_strdup(&line[start], 2);
+	if (!value)
+		return (NULL);
+	token = new_token(type, value);
 	return (token);
 }

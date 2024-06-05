@@ -45,7 +45,7 @@ int	main(void)
 
 	token = NULL;
 	i = 1;
-	while (i--)
+	while (i)
 	{
 		line = readline("💩 nugget 🐾$ ");
 		if (line[0] != '\0')
