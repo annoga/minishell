@@ -37,39 +37,6 @@ void	print_list(t_token *head)
 	}
 }
 
-t_token	*split_linker(char *line)
-{
-	t_token	*token;
-
-	token = tokenizer(line);
-	// token = check_bonus_token(token);
-
-
-	print_list(token);
-	// printf("\n");
-	return (token);
-}
-
-void	free_token(t_token *token)
-{
-	t_token	*tmp;
-
-	while (token)
-	{
-		tmp = token;
-		token = token->next;
-		if (tmp->type == ARG || tmp->type == SINGLE_QUOTE 
-			|| tmp->type == DOUBLE_QUOTE || tmp->type == L_PAREN 
-			|| tmp->type == R_PAREN)
-		{
-			free(tmp->token);
-			tmp->token = NULL;
-			free(tmp);
-			tmp = NULL;
-		}
-	}
-}
-
 int	main(void)
 {
 	char	*line;

@@ -3,8 +3,8 @@ NAME				=	minishell
 
 # Compiler and CFlags
 CC					=	gcc -g
-CFLAGS				=	-Wall -Werror -Wextra
-# CFLAGS				=	-Wall -Werror -Wextra -fsanitize=address
+# CFLAGS				=	-Wall -Werror -Wextra
+CFLAGS				=	-Wall -Werror -Wextra -fsanitize=address
 RM					=	rm -f
 # 
 # Determine the platform
@@ -17,13 +17,37 @@ SRC_DIR				=	src/
 OBJ_DIR				=	obj/
 
 # Source Files
-SRC					=	main.c utils.c tokenizer.c tokenizer_utils.c handle_tokens.c parser.c\
+
+HANDLE_TOKENS	=	$(SRC_DIR)handle_tokens/handle_args.c			\
+					$(SRC_DIR)handle_tokens/handle_double_quote.c	\
+					$(SRC_DIR)handle_tokens/handle_single_quote.c	\
+					$(SRC_DIR)handle_tokens/handle_space.c			\
+					$(SRC_DIR)handle_tokens/handle_parenthesis.c	
+
+TOKENIZER 		= 	$(SRC_DIR)tokenizer/tokenizer.c					\
+					$(SRC_DIR)tokenizer/get_token.c					\
+					$(SRC_DIR)tokenizer/get_special_token.c			\
+					$(SRC_DIR)tokenizer/add_token.c					\
+					$(SRC_DIR)tokenizer/create_token.c				\
+					$(SRC_DIR)tokenizer/free_token.c				\
+					$(SRC_DIR)tokenizer/new_token.c
+
+UTILS			=	$(SRC_DIR)utils/ft_strncmp.c					\
+					$(SRC_DIR)utils/ft_strndup.c					\
+					$(SRC_DIR)utils/return_error.c
+
+PARSER			=	$(SRC_DIR)parser/parser.c						
+
+MAIN			=	$(SRC_DIR)main.c								\
+					$(SRC_DIR)split_linker.c
+
+SRC				=	$(HANDLE_TOKENS) $(TOKENIZER) $(UTILS) $(PARSER) $(MAIN)
 
 
-SRCS				=	$(addprefix $(SRC_DIR), $(SRC))
+# SRCS			=	$(addprefix $(SRC_DIR), $(SRC))
 
 # Object files
-OBJ 				= 	$(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRCS))
+OBJ 				= 	$(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRC))
 
 # Build rules
 

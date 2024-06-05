@@ -1,4 +1,4 @@
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
 
 // t_token *check_bonus_token(t_token *head)
