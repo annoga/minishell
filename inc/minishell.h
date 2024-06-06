@@ -46,6 +46,14 @@ typedef struct s_token
 	struct s_token	*next;
 }					t_token;
 
+typedef struct s_redir
+{
+	char			*file;
+	int				type;
+	int 			fd;
+	struct s_redir	*next;
+}					t_redir;
+
 /* TOKENIZER */
 t_token				*tokenizer(char *line);
 t_token				*get_token(char *line, int *i);
