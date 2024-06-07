@@ -22,6 +22,7 @@ HANDLE_TOKENS	=	$(SRC_DIR)handle_tokens/handle_args.c			\
 					$(SRC_DIR)handle_tokens/handle_double_quote.c	\
 					$(SRC_DIR)handle_tokens/handle_single_quote.c	\
 					$(SRC_DIR)handle_tokens/handle_space.c			\
+					$(SRC_DIR)handle_tokens/handle_dollar.c			\
 					$(SRC_DIR)handle_tokens/handle_parenthesis.c	
 
 TOKENIZER 		= 	$(SRC_DIR)tokenizer/tokenizer.c					\

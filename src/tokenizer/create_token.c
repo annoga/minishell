@@ -22,8 +22,6 @@ t_token *create_token(char type, char *line, int *i)
 		(*i)++;
 	}
 	value = ft_strdup(line);
-	// (*i)--;
-	// value = ft_strdup(&line[start], 2);
 	if (!value)
 		return (NULL);
 	token = new_token(type, value);

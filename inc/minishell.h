@@ -34,7 +34,8 @@ typedef enum e_token_type
 	OR,
 	L_PAREN,
 	R_PAREN,
-	SPACE_TOKEN
+	SPACE_TOKEN,
+	ENV
 }					t_token_type;
 
 typedef struct s_token
@@ -62,6 +63,7 @@ t_token				*handle_double_quote(char *line, int *i);
 t_token				*handle_parenthesis(char *line, int *i);
 t_token				*handle_space(char *line, int *i);
 t_token				*handle_arg(char *line, int *i);
+t_token				*handle_dollar(char *line, int *i);
 t_token				*get_special_token(char *line, int *i);
 t_token				*new_token(t_token_type type, char *value);
 t_token				*create_token(char type, char *value, int *i);

@@ -12,5 +12,7 @@ t_token	*get_special_token(char *line, int *i)
 		return (handle_single_quote(line, i));
 	else if (line[*i] == '"')
 		return (handle_double_quote(line, i));
+	else if (line[*i] == '$')
+		return (handle_dollar(line, i));
 	return (NULL);
 }
