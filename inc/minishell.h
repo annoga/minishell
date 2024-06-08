@@ -55,6 +55,13 @@ typedef struct s_redir
 	struct s_redir	*next;
 }					t_redir;
 
+typedef struct s_env
+{
+	char			*key_name;
+	char			*value;
+	struct s_env	*next;
+}	t_env;
+
 /* TOKENIZER */
 t_token				*tokenizer(char *line);
 t_token				*get_token(char *line, int *i);
@@ -75,6 +82,9 @@ void				add_token(t_token **head, t_token *new);
 /* PARSER */
 t_token				*check_bonus_token(t_token *head);
 t_token 			*assign_bonus_token(t_token *head, int type_bonus);
+
+void prueba_env(t_token *head);
+void	ft_catch_env(char **envp, t_env **head);
 
 // void check_builtin(t_token *head);
 // void check_pipe_bonus(t_token *head);

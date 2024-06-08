@@ -37,7 +37,8 @@ UTILS			=	$(SRC_DIR)utils/ft_strncmp.c					\
 					$(SRC_DIR)utils/ft_strndup.c					\
 					$(SRC_DIR)utils/return_error.c
 
-PARSER			=	$(SRC_DIR)parser/parser.c						
+PARSER			=	$(SRC_DIR)parser/parser.c						\
+					$(SRC_DIR)parser/prueba_env.c						
 
 MAIN			=	$(SRC_DIR)main.c								\
 					$(SRC_DIR)split_linker.c

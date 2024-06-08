@@ -37,14 +37,19 @@ void	print_list(t_token *head)
 	}
 }
 
-int	main(void)
+int	main(int argc, char *argv[], char **envp)
 {
 	char	*line;
 	t_token	*token;
+	t_env	*head;
 	int		i;
 
+	(void)argc;
+	(void)argv;
 	token = NULL;
 	i = 1;
+	ft_catch_env(envp, &head);
+
 	while (i)
 	{
 		line = readline("💩 nugget 🐾$ ");

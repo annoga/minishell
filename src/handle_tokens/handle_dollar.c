@@ -18,7 +18,7 @@ t_token	*handle_dollar(char *line, int *i)
 	value = ft_strndup(&line[start], *i - start);
 	if (!value)
 		return (NULL);
-	token = new_token(ARG, value);
+	token = new_token(ENV, value);
 	(*i)--;
 	return (token);
 }

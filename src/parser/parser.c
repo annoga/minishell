@@ -1,5 +1,20 @@
 #include "../../inc/minishell.h"
-
+void prueba_env(t_token *head)
+{
+    t_token *tmp;
+    tmp = head;
+    printf("prueba_env\n");
+    while(tmp)
+    {
+        printf("token: %s\n", tmp->token);
+        if(tmp->type == ENV)
+        {
+            // getenv(tmp->token);
+            printf("ENV: %s\n", getenv(tmp->token));
+        }
+        tmp = tmp->next;
+    }
+}
 
 // t_token *check_bonus_token(t_token *head)
 // {
