@@ -83,9 +83,9 @@ void	ft_catch_env(char **envp, t_env **head)
 	shlvl_flag = 0;
 	while (envp[x])
 	{
-		printf("envp[%d]: %s\n", x, envp[x]);
 		ft_aux_envdup(&tmp, envp, x, div);
 		ft_aux_catch_env(&tmp, &shlvl_flag);
+		printf("key_name: %s, key_value: %s\n", tmp->key_name, tmp->value);
 		if (!*head)
 			*head = tmp;
 		else

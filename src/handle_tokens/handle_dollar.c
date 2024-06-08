@@ -6,7 +6,7 @@ t_token	*handle_dollar(char *line, int *i)
 	char	*value;
 	t_token	*token;
 
-	start = *i;
+	start = ++*i;
 	while (line[*i] && !ft_isspace(line[*i]) && line[*i] != '\''
 		&& line[*i] != '"' && line[*i] != '<' && line[*i] != '>'
 		&& line[*i] != '|' && line[*i] != '(' && line[*i] != ')')
@@ -18,7 +18,7 @@ t_token	*handle_dollar(char *line, int *i)
 	value = ft_strndup(&line[start], *i - start);
 	if (!value)
 		return (NULL);
-	token = new_token(ENV, value);
+	token = new_token(ENV, value, 0);
 	(*i)--;
 	return (token);
 }

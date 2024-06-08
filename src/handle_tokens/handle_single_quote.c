@@ -17,6 +17,6 @@ t_token	*handle_single_quote(char *line, int *i)
 	value = ft_strndup(&line[start], *i - start);
 	if (!value)
 		return (NULL);
-	token = new_token(SINGLE_QUOTE, value);
+	token = new_token(SINGLE_QUOTE, value, 0);
 	return (token);
 }

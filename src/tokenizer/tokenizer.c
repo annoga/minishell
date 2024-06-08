@@ -27,6 +27,7 @@ t_token	*tokenizer(char *line)
 		add_token(&head_token, token);
 		i++;
 	}
+	
 	//print_list(head_token);
 	return (head_token);
 }
