@@ -21,6 +21,5 @@ t_token	*get_token(char *line, int *i)
 		token = handle_parenthesis(line, i);
 	else
 		token = handle_arg(line, i);
-	
 	return (token);
 }
