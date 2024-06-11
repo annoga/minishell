@@ -10,11 +10,15 @@ t_token *handle_special_dollar(char *line, int *i)
 		&& line[*i] != '"' && line[*i] != '<' && line[*i] != '>'
 		&& line[*i] != '|' && line[*i] != '(' && line[*i] != ')')
 	{
+		if(line[*i] == '$')
+			break ;
 		if (line[*i] == '&' && line[*i + 1] == '&')
 			break ;
 		(*i)++;
 	}
+	
 	value = ft_strndup(&line[start - 1], (*i + 1)- start);
+	printf("value: %s\n", value);
 	if (!value)
 		return (NULL);
 	(*i)--;
@@ -33,7 +37,8 @@ t_token	*handle_dollar(char *line, int *i)
 		return (handle_special_dollar(line, i));
 	while (line[*i] && !ft_isspace(line[*i]) && line[*i] != '\''
 		&& line[*i] != '"' && line[*i] != '<' && line[*i] != '>'
-		&& line[*i] != '|' && line[*i] != '(' && line[*i] != ')')
+		&& line[*i] != '|' && line[*i] != '(' && line[*i] != ')'
+		&& line[*i] != '$')
 	{
 		if (line[*i] == '&' && line[*i + 1] == '&')
 			break ;
