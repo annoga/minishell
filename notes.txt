@@ -4,4 +4,4 @@ gcc filename.c -L/usr/include -lreadline -o filename
 history is literally making a bucle of every string that is written
 rl_on_new_line makes a new line, so in bash it will be a endless loop, combined with history.
 
-wtf replace_line??
+wtf replace_line?
