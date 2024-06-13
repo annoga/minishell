@@ -30,26 +30,31 @@ int check_quotes(char *line)
 
 int check_parenthesis(char *line)
 {
-    int i;
+    (void)line;
+    // int i;
 
-    i = 0;
-    while(line[i])
-    {
-        if(line[i] == '(')
-        {
-            printf("line[i]: %c\n", line[i]);
-            i++;
-            while(line[i] && line[i] != ')')
-                i++;
-            if(!line[i])
-                return(return_error("Error: syntax error near unexpected token `)'\n"), 0);
-            // i++;
-        }
-        printf("line[i]: %c\n", line[i]);
-        if(line[i + 1] == ')')
-            return(return_error("Error: syntax error near unexpected token `('\n"), 0);
-        i++;
-    }
+    // i = 0;
+    // while(line[i])
+    // {
+    //     if(line[i] == '(')
+    //     {
+    //         printf("line[i]: %c\n", line[i]);
+    //         i++;
+    //         while(line[i] && line[i] != ')')
+    //         {
+    //             if(line[i] == '(')
+    //                 check_parenthesis(line + i);
+    //             i++;
+    //         }
+    //         if(!line[i])
+    //             return(return_error("Error: syntax error near unexpected token `)'\n"), 0);
+    //         // i++;
+    //     }
+    //     printf("line[i]: %c\n", line[i]);
+    //     // if(line[i + 1] == ')')
+    //     //     return(return_error("Error: syntax error near unexpected token `('\n"), 0);
+    //     i++;
+    // }
     return (1);
 }
 
