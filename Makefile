@@ -18,37 +18,40 @@ OBJ_DIR				=	obj/
 
 # Source Files
 
-HANDLE_TOKENS	=	$(SRC_DIR)handle_tokens/handle_args.c			\
-					$(SRC_DIR)handle_tokens/handle_double_quote.c	\
-					$(SRC_DIR)handle_tokens/handle_single_quote.c	\
-					$(SRC_DIR)handle_tokens/handle_space.c			\
-					$(SRC_DIR)handle_tokens/handle_dollar.c			\
-					$(SRC_DIR)handle_tokens/handle_parenthesis.c	
+HANDLE_TOKENS	=	handle_tokens/handle_args.c			\
+					handle_tokens/handle_double_quote.c	\
+					handle_tokens/handle_single_quote.c	\
+					handle_tokens/handle_space.c			\
+					handle_tokens/handle_dollar.c			\
+					handle_tokens/handle_parenthesis.c	
 
-TOKENIZER 		= 	$(SRC_DIR)tokenizer/tokenizer.c					\
-					$(SRC_DIR)tokenizer/get_token.c					\
-					$(SRC_DIR)tokenizer/get_special_token.c			\
-					$(SRC_DIR)tokenizer/add_token.c					\
-					$(SRC_DIR)tokenizer/create_token.c				\
-					$(SRC_DIR)tokenizer/free_token.c				\
-					$(SRC_DIR)tokenizer/new_token.c
+TOKENIZER 		= 	tokenizer/tokenizer.c					\
+					tokenizer/get_token.c					\
+					tokenizer/get_special_token.c			\
+					tokenizer/add_token.c					\
+					tokenizer/create_token.c				\
+					tokenizer/free_token.c				\
+					tokenizer/new_token.c
 
-UTILS			=	$(SRC_DIR)utils/ft_strncmp.c					\
-					$(SRC_DIR)utils/ft_strndup.c					\
-					$(SRC_DIR)utils/return_error.c
+UTILS			=	utils/ft_strncmp.c					\
+					utils/ft_strndup.c					\
+					utils/check_is_ok.c					\
+					utils/return_error.c
 
-PARSER			=	$(SRC_DIR)parser/parser.c						
+PARSER			=	parser/parser.c						\
+					parser/prueba_env.c					\
+					parser/push_midlist.c						
 
-MAIN			=	$(SRC_DIR)main.c								\
-					$(SRC_DIR)split_linker.c
+MAIN			=	main.c								\
+					split_linker.c
 
 SRC				=	$(HANDLE_TOKENS) $(TOKENIZER) $(UTILS) $(PARSER) $(MAIN)
 
 
-# SRCS			=	$(addprefix $(SRC_DIR), $(SRC))
+SRCS			=	$(addprefix $(SRC_DIR), $(SRC))
 
 # Object files
-OBJ 				= 	$(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRC))
+OBJ 				= 	$(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRCS))
 
 # Build rules
 

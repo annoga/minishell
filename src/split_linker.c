@@ -40,7 +40,7 @@ t_token	*split_linker(char *line)
 
 	token = tokenizer(line);
 	// token = check_env(token);
-
+	token = prueba_env(token);
 
 	print_list(token);
 	// printf("\n");

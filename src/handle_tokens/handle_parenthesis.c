@@ -20,9 +20,9 @@ t_token	*handle_parenthesis(char *line, int *i)
 	if (!value)
 		return (NULL);
 	if(line[*i] == '(')
-		token = new_token(L_PAREN, value);
+		token = new_token(L_PAREN, value, 0);
 	else if(line[*i] == ')')
-		token = new_token(R_PAREN, value);
+		token = new_token(R_PAREN, value, 0);
 	return (token);
 }
 

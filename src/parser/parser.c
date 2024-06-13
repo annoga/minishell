@@ -1,5 +1,44 @@
 #include "../../inc/minishell.h"
+void tokenize_env(t_token **tmp2, t_token **tmp, t_token **head)
+{
+    char *env;
+    env = getenv((*tmp)->token);
+    if(!env)
+        env = ft_strdup("");
+    else
+        env = ft_strdup(env);
+    (*tmp) = tokenizer(env);
+    add_top(*tmp2, *tmp);
+    if (*tmp)
+        erase_one(head, (*tmp2));
+    else
+    {
+        free((*tmp2)->token);
+        (*tmp2)->token = NULL;
+        (*tmp2)->token = env;
+    }
+    tmp = tmp2;
+}
 
+t_token *prueba_env(t_token *head)
+{
+    t_token *tmp;
+    t_token *tmp2;
+    tmp = head;
+    // char *env;
+    while(tmp)
+    {
+        if(tmp->type == ENV)
+        {
+            tmp2 = tmp;
+            tokenize_env(&tmp2, &tmp, &head);
+        }
+        if(tmp)
+            tmp = tmp->next;
+    }
+    tmp = head;
+    return (head);
+}
 
 // t_token *check_bonus_token(t_token *head)
 // {
