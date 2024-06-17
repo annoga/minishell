@@ -17,11 +17,8 @@ t_token *handle_special_dollar(char *line, int *i)
 		if(line[*i] == '$')
 			break ;
 	}
-	printf("dollar line: %s\n", line);
-	printf("line[i]: %c\n", line[*i]);
 	value = ft_strndup(&line[start - 1], (*i + 1)- start);
 	// value = ft_strndup(&line[start - 1], (*i + 1)- start);
-	printf("value: %s\n", value);
 	if (!value)
 		return (NULL);
 	(*i)--;
@@ -36,7 +33,6 @@ t_token	*handle_dollar(char *line, int *i)
 	char	*value;
 
 	start = ++*i;
-	printf("line[start]: %c\n", line[start]);
 	if(!ft_isalpha(line[start]) && line[start] != '_')
 		return (handle_special_dollar(line, i));
 	while (line[*i] && (ft_isalpha(line[*i]) || line[*i] == '_'))
