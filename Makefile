@@ -3,8 +3,8 @@ NAME				=	minishell
 
 # Compiler and CFlags
 CC					=	gcc -g
-# CFLAGS				=	-Wall -Werror -Wextra
-CFLAGS				=	-Wall -Werror -Wextra -fsanitize=address
+CFLAGS				=	-Wall -Werror -Wextra
+# CFLAGS				=	-Wall -Werror -Wextra -fsanitize=address
 RM					=	rm -f
 # 
 # Determine the platform
