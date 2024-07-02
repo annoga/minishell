@@ -42,10 +42,12 @@ PARSER			=	parser/parser.c						\
 					parser/prueba_env.c					\
 					parser/push_midlist.c						
 
+EXEC			=	exec/echo.c								
+
 MAIN			=	main.c								\
 					split_linker.c
 
-SRC				=	$(HANDLE_TOKENS) $(TOKENIZER) $(UTILS) $(PARSER) $(MAIN)
+SRC				=	$(HANDLE_TOKENS) $(TOKENIZER) $(UTILS) $(PARSER) $(EXEC) $(MAIN)
 
 
 SRCS			=	$(addprefix $(SRC_DIR), $(SRC))

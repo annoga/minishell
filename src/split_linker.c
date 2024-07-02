@@ -40,7 +40,10 @@ t_token	*split_linker(char *line)
 
 	token = tokenizer(line);
 	// token = check_env(token);
-	token = prueba_env(token);
+//	token = prueba_env(token);
+	// prueba builtin
+	token = mock_builtin_tokenizer(token);
+
 
 	print_list(token);
 	// printf("\n");

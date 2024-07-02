@@ -6,13 +6,13 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 20:55:00 by angeln            #+#    #+#             */
-/*   Updated: 2024/06/23 19:24:14 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/07/02 21:00:02 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../inc/minishell.h"
 
-/* This should go in our libft, but first check it is correct */
+/* Substitute with existing strncmp */
 int	ft_strcmp(const char *s1, const char *s2)
 {
 	unsigned int	i;
@@ -27,13 +27,13 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return (0);
 }
 
-t_token	*mock_builtin_tokenizer(t_token *head)
+int	print_token(t_token *head)
 {
-	if (!head)
-		return (NULL);
-	if (!ft_strmcp(head->token, "echo"))
-		echo(head->next);
-	
+	if (head->token && head->next->token)
+	{
+		printf("%s", head->next->token);
+	}
+	return (0);
 }
 
 /* This function prints the given string followed by a new line. 
@@ -44,11 +44,30 @@ t_token	*mock_builtin_tokenizer(t_token *head)
 void	echo(t_token *head)
 {
 	if (!head)
+	{
 		printf("%s", "\n");
 		return ;
-	if (str)
-		printf("%s", str);
-	if (options)
+	}
+	if (head->token && head->next->token)
+	{
+		//parse, separate string from options
+		//mb make if recursive
+		printf("%s\n","here I am");
+		printf("%s", head->next->token);
+	}
+/*	if (options)
 		if (options[0] == '-' && options[1] == 'n')
-			printf("%c", '\n');
+			printf("%c", '\n');*/
+}
+
+t_token	*mock_builtin_tokenizer(t_token *head)
+{
+	if (!head)
+		return (NULL);
+	if (!ft_strncmp(head->token, "echo"))
+	{
+		printf("%s", head->token);
+		echo(head->next);
+	}
+	return (head);
 }
