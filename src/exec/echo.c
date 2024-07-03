@@ -6,14 +6,14 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 20:55:00 by angeln            #+#    #+#             */
-/*   Updated: 2024/07/02 21:00:02 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/07/03 19:05:14 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 /* Substitute with existing strncmp */
-int	ft_strcmp(const char *s1, const char *s2)
+/*int	ft_strcmp(const char *s1, const char *s2)
 {
 	unsigned int	i;
 
@@ -25,13 +25,28 @@ int	ft_strcmp(const char *s1, const char *s2)
 		i++;
 	}
 	return (0);
-}
+}*/
 
 int	print_token(t_token *head)
 {
 	if (head->token && head->next->token)
 	{
 		printf("%s", head->next->token);
+	}
+	return (0);
+}
+
+int	is_n_option(t_token *node)
+{
+	char	*str;
+
+	if (node && node->token)
+	{
+		str = node->token;
+		while (*str)
+		{
+
+		}
 	}
 	return (0);
 }
@@ -43,21 +58,28 @@ int	print_token(t_token *head)
 //void	echo(char *options, char *str)
 void	echo(t_token *head)
 {
-	if (!head)
+	t_token *node;
+
+	node = head;
+	if (!head || !head->token)
 	{
 		printf("%s", "\n");
 		return ;
 	}
-	if (head->token && head->next->token)
+	if (head->next && head->next->token)
 	{
+		while (node && node->type == 13 && is_n_option(node->next))
+		{
+			node = node->next->next
+		}
 		//parse, separate string from options
 		//mb make if recursive
 		printf("%s\n","here I am");
 		printf("%s", head->next->token);
+		if (options)
+			if (options[0] == '-' && options[1] == 'n')
+				printf("%c", '\n');
 	}
-/*	if (options)
-		if (options[0] == '-' && options[1] == 'n')
-			printf("%c", '\n');*/
 }
 
 t_token	*mock_builtin_tokenizer(t_token *head)
