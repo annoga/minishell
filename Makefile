@@ -42,7 +42,7 @@ PARSER			=	parser/parser.c						\
 					parser/prueba_env.c					\
 					parser/push_midlist.c						
 
-EXEC			=	exec/echo.c								
+EXEC			=	exec/echo.c exec/mock_builtin_tokenizer.c								
 
 MAIN			=	main.c								\
 					split_linker.c
