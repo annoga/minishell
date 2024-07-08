@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:55:21 by angeln            #+#    #+#             */
-/*   Updated: 2024/05/23 20:16:53 by crmanzan         ###   ########.fr       */
+/*   Updated: 2024/07/08 21:01:21 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	print_list(t_token *head)
 	while (tmp)
 	{
 		// printf("Token: '%s', type: %u\n", tmp->token, tmp->type);
-		printf("%s", tmp->token);
+		//printf("%s", tmp->token);
 		tmp = tmp->next;
 	}
 	printf("\n");
@@ -55,7 +55,7 @@ int	main(int argc, char *argv[], char **envp)
 	while (i)
 	{
 		line = readline("💩 nugget 🐾$ ");
-		printf("line: %s\n", line);
+		//printf("line: %s\n", line);
 		if(!check_is_ok(line))
 			return (free(line), 1);
 		if (ft_strncmp(line, "exit") == 0)
