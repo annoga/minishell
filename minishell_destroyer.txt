@@ -1,0 +1,310 @@
+CDPATH: variable de entorno que, si la creas, define un PATH prioritario para cd a la hora de buscar rutas relativas.
+
+
+car3s1% bash
+anovoa@car3s1:~/Documents/minishell$ export p="pepe    peep"
+anovoa@car3s1:~/Documents/minishell$ env
+SHELL=/bin/zsh
+SESSION_MANAGER=local/car3s1.42barcelona.com:@/tmp/.ICE-unix/692514,unix/car3s1.42barcelona.com:/tmp/.ICE-unix/692514
+QT_ACCESSIBILITY=1
+COLORTERM=truecolor
+XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg
+SSH_AGENT_LAUNCHER=gnome-keyring
+XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session10
+XDG_MENU_PREFIX=gnome-
+GNOME_DESKTOP_SESSION_ID=this-is-deprecated
+GTK_IM_MODULE=ibus
+SSH_AUTH_SOCK=/run/user/101208/keyring/ssh
+XMODIFIERS=@im=ibus
+DESKTOP_SESSION=ubuntu
+FT_HOOK_NAME=login-user
+GTK_MODULES=gail:atk-bridge
+FT_HOOK_PATHNAME=login-user.d
+PWD=/home/anovoa/Documents/minishell
+KRB5CCNAME=FILE:/tmp/krb5cc_101208_bktlhq
+LOGNAME=anovoa
+XDG_SESSION_DESKTOP=ubuntu
+XDG_SESSION_TYPE=x11
+GPG_AGENT_INFO=/run/user/101208/gnupg/S.gpg-agent:0:1
+SYSTEMD_EXEC_PID=693345
+XAUTHORITY=/home/anovoa/.Xauthority
+XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/anovoa
+p=pepe    peep
+HOME=/home/anovoa
+IM_CONFIG_PHASE=1
+LANG=en_US.UTF-8
+XDG_CURRENT_DESKTOP=ubuntu:GNOME
+VTE_VERSION=6800
+XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0
+GNOME_TERMINAL_SCREEN=/org/gnome/Terminal/screen/b005fc37_0ea7_490e_8488_9c8f0b7bd079
+XDG_SESSION_CLASS=user
+TERM=xterm-256color
+LIBVIRT_DEFAULT_URI=qemu:///system
+USER=anovoa
+GNOME_TERMINAL_SERVICE=:1.97
+DISPLAY=:0
+SHLVL=2
+QT_IM_MODULE=ibus
+XDG_RUNTIME_DIR=/run/user/101208
+DOCKER_HOST=unix:///run/user/101208/docker.sock
+XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop
+PATH=/home/anovoa/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+MACADDRESS=18:7e:b9:06:c7:a1
+GDMSESSION=ubuntu
+DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/101208/bus
+OLDPWD=/home/anovoa/Documents/minishell
+_=/usr/bin/env
+anovoa@car3s1:~/Documents/minishell$ export P=$p
+anovoa@car3s1:~/Documents/minishell$ env
+SHELL=/bin/zsh
+SESSION_MANAGER=local/car3s1.42barcelona.com:@/tmp/.ICE-unix/692514,unix/car3s1.42barcelona.com:/tmp/.ICE-unix/692514
+QT_ACCESSIBILITY=1
+COLORTERM=truecolor
+XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg
+SSH_AGENT_LAUNCHER=gnome-keyring
+XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session10
+XDG_MENU_PREFIX=gnome-
+GNOME_DESKTOP_SESSION_ID=this-is-deprecated
+GTK_IM_MODULE=ibus
+SSH_AUTH_SOCK=/run/user/101208/keyring/ssh
+XMODIFIERS=@im=ibus
+DESKTOP_SESSION=ubuntu
+FT_HOOK_NAME=login-user
+GTK_MODULES=gail:atk-bridge
+FT_HOOK_PATHNAME=login-user.d
+PWD=/home/anovoa/Documents/minishell
+KRB5CCNAME=FILE:/tmp/krb5cc_101208_bktlhq
+LOGNAME=anovoa
+XDG_SESSION_DESKTOP=ubuntu
+XDG_SESSION_TYPE=x11
+GPG_AGENT_INFO=/run/user/101208/gnupg/S.gpg-agent:0:1
+SYSTEMD_EXEC_PID=693345
+XAUTHORITY=/home/anovoa/.Xauthority
+P=pepe    peep
+XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/anovoa
+p=pepe    peep
+HOME=/home/anovoa
+IM_CONFIG_PHASE=1
+LANG=en_US.UTF-8
+XDG_CURRENT_DESKTOP=ubuntu:GNOME
+VTE_VERSION=6800
+XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0
+GNOME_TERMINAL_SCREEN=/org/gnome/Terminal/screen/b005fc37_0ea7_490e_8488_9c8f0b7bd079
+XDG_SESSION_CLASS=user
+TERM=xterm-256color
+LIBVIRT_DEFAULT_URI=qemu:///system
+USER=anovoa
+GNOME_TERMINAL_SERVICE=:1.97
+DISPLAY=:0
+SHLVL=2
+QT_IM_MODULE=ibus
+XDG_RUNTIME_DIR=/run/user/101208
+DOCKER_HOST=unix:///run/user/101208/docker.sock
+XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop
+PATH=/home/anovoa/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+MACADDRESS=18:7e:b9:06:c7:a1
+GDMSESSION=ubuntu
+DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/101208/bus
+OLDPWD=/home/anovoa/Documents/minishell
+_=/usr/bin/env
+anovoa@car3s1:~/Documents/minishell$ echo $p
+pepe peep
+anovoa@car3s1:~/Documents/minishell$ export $p
+anovoa@car3s1:~/Documents/minishell$ export
+declare -x COLORTERM="truecolor"
+declare -x DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/101208/bus"
+declare -x DESKTOP_SESSION="ubuntu"
+declare -x DISPLAY=":0"
+declare -x DOCKER_HOST="unix:///run/user/101208/docker.sock"
+declare -x FT_HOOK_NAME="login-user"
+declare -x FT_HOOK_PATHNAME="login-user.d"
+declare -x GDMSESSION="ubuntu"
+declare -x GNOME_DESKTOP_SESSION_ID="this-is-deprecated"
+declare -x GNOME_TERMINAL_SCREEN="/org/gnome/Terminal/screen/b005fc37_0ea7_490e_8488_9c8f0b7bd079"
+declare -x GNOME_TERMINAL_SERVICE=":1.97"
+declare -x GPG_AGENT_INFO="/run/user/101208/gnupg/S.gpg-agent:0:1"
+declare -x GTK_IM_MODULE="ibus"
+declare -x GTK_MODULES="gail:atk-bridge"
+declare -x HOME="/home/anovoa"
+declare -x IM_CONFIG_PHASE="1"
+declare -x KRB5CCNAME="FILE:/tmp/krb5cc_101208_bktlhq"
+declare -x LANG="en_US.UTF-8"
+declare -x LIBVIRT_DEFAULT_URI="qemu:///system"
+declare -x LOGNAME="anovoa"
+declare -x MACADDRESS="18:7e:b9:06:c7:a1"
+declare -x OLDPWD="/home/anovoa/Documents/minishell"
+declare -x P="pepe    peep"
+declare -x PATH="/home/anovoa/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
+declare -x PWD="/home/anovoa/Documents/minishell"
+declare -x QT_ACCESSIBILITY="1"
+declare -x QT_IM_MODULE="ibus"
+declare -x SESSION_MANAGER="local/car3s1.42barcelona.com:@/tmp/.ICE-unix/692514,unix/car3s1.42barcelona.com:/tmp/.ICE-unix/692514"
+declare -x SHELL="/bin/zsh"
+declare -x SHLVL="2"
+declare -x SSH_AGENT_LAUNCHER="gnome-keyring"
+declare -x SSH_AUTH_SOCK="/run/user/101208/keyring/ssh"
+declare -x SYSTEMD_EXEC_PID="693345"
+declare -x TERM="xterm-256color"
+declare -x USER="anovoa"
+declare -x VTE_VERSION="6800"
+declare -x XAUTHORITY="/home/anovoa/.Xauthority"
+declare -x XDG_CONFIG_DIRS="/etc/xdg/xdg-ubuntu:/etc/xdg"
+declare -x XDG_CURRENT_DESKTOP="ubuntu:GNOME"
+declare -x XDG_DATA_DIRS="/usr/share/ubuntu:/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop"
+declare -x XDG_GREETER_DATA_DIR="/var/lib/lightdm-data/anovoa"
+declare -x XDG_MENU_PREFIX="gnome-"
+declare -x XDG_RUNTIME_DIR="/run/user/101208"
+declare -x XDG_SEAT_PATH="/org/freedesktop/DisplayManager/Seat0"
+declare -x XDG_SESSION_CLASS="user"
+declare -x XDG_SESSION_DESKTOP="ubuntu"
+declare -x XDG_SESSION_PATH="/org/freedesktop/DisplayManager/Session10"
+declare -x XDG_SESSION_TYPE="x11"
+declare -x XMODIFIERS="@im=ibus"
+declare -x p="pepe    peep"
+declare -x peep
+declare -x pepe
+anovoa@car3s1:~/Documents/minishell$ env
+SHELL=/bin/zsh
+SESSION_MANAGER=local/car3s1.42barcelona.com:@/tmp/.ICE-unix/692514,unix/car3s1.42barcelona.com:/tmp/.ICE-unix/692514
+QT_ACCESSIBILITY=1
+COLORTERM=truecolor
+XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg
+SSH_AGENT_LAUNCHER=gnome-keyring
+XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session10
+XDG_MENU_PREFIX=gnome-
+GNOME_DESKTOP_SESSION_ID=this-is-deprecated
+GTK_IM_MODULE=ibus
+SSH_AUTH_SOCK=/run/user/101208/keyring/ssh
+XMODIFIERS=@im=ibus
+DESKTOP_SESSION=ubuntu
+FT_HOOK_NAME=login-user
+GTK_MODULES=gail:atk-bridge
+FT_HOOK_PATHNAME=login-user.d
+PWD=/home/anovoa/Documents/minishell
+KRB5CCNAME=FILE:/tmp/krb5cc_101208_bktlhq
+LOGNAME=anovoa
+XDG_SESSION_DESKTOP=ubuntu
+XDG_SESSION_TYPE=x11
+GPG_AGENT_INFO=/run/user/101208/gnupg/S.gpg-agent:0:1
+SYSTEMD_EXEC_PID=693345
+XAUTHORITY=/home/anovoa/.Xauthority
+P=pepe    peep
+XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/anovoa
+p=pepe    peep
+HOME=/home/anovoa
+IM_CONFIG_PHASE=1
+LANG=en_US.UTF-8
+XDG_CURRENT_DESKTOP=ubuntu:GNOME
+VTE_VERSION=6800
+XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0
+GNOME_TERMINAL_SCREEN=/org/gnome/Terminal/screen/b005fc37_0ea7_490e_8488_9c8f0b7bd079
+XDG_SESSION_CLASS=user
+TERM=xterm-256color
+LIBVIRT_DEFAULT_URI=qemu:///system
+USER=anovoa
+GNOME_TERMINAL_SERVICE=:1.97
+DISPLAY=:0
+SHLVL=2
+QT_IM_MODULE=ibus
+XDG_RUNTIME_DIR=/run/user/101208
+DOCKER_HOST=unix:///run/user/101208/docker.sock
+XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop
+PATH=/home/anovoa/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+MACADDRESS=18:7e:b9:06:c7:a1
+GDMSESSION=ubuntu
+DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/101208/bus
+OLDPWD=/home/anovoa/Documents/minishell
+_=/usr/bin/env
+anovoa@car3s1:~/Documents/minishell$ export "pablo    perez"
+bash: export: `pablo    perez': not a valid identifier
+anovoa@car3s1:~/Documents/minishell$ << $USER
+> $
+> USER
+> << $USER
+$
+USER
+^C
+anovoa@car3s1:~/Documents/minishell$ << $USER
+$
+USER
+^C
+anovoa@car3s1:~/Documents/minishell$ ^C
+anovoa@car3s1:~/Documents/minishell$ ^C
+anovoa@car3s1:~/Documents/minishell$ ^C
+anovoa@car3s1:~/Documents/minishell$ ^C
+anovoa@car3s1:~/Documents/minishell$ ^C
+anovoa@car3s1:~/Documents/minishell$ ^C
+anovoa@car3s1:~/Documents/minishell$ << $USER cat
+> hola
+> $PWD
+> $USER
+hola
+/home/anovoa/Documents/minishell
+anovoa@car3s1:~/Documents/minishell$ << $USER    
+$   
+USER^C
+anovoa@car3s1:~/Documents/minishell$ ^C
+anovoa@car3s1:~/Documents/minishell$ ^C
+anovoa@car3s1:~/Documents/minishell$ << eof""
+> hola
+> $USER
+> $PWD
+> eof
+anovoa@car3s1:~/Documents/minishell$ << eof"" cat
+> hola
+> $USER
+> eof
+hola
+$USER
+anovoa@car3s1:~/Documents/minishell$ << e""of cat
+> hola
+> $USER
+> eof
+hola
+$USER
+anovoa@car3s1:~/Documents/minishell$ << eof << eof3 | | <<eof2
+bash: syntax error near unexpected token `|'
+> aasdasdsa
+> eof
+> qweqweqwe
+> eof3
+anovoa@car3s1:~/Documents/minishell$ < $nada
+bash: $nada: ambiguous redirect
+anovoa@car3s1:~/Documents/minishell$ echo $?
+1
+anovoa@car3s1:~/Documents/minishell$ exit 123
+exit
+car3s1% echo $?
+123
+car3s1% bash   
+anovoa@car3s1:~/Documents/minishell$ exit 1 1
+exit
+bash: exit: too many arguments
+anovoa@car3s1:~/Documents/minishell$ exit a
+exit
+bash: exit: a: numeric argument required
+car3s1% echo $?
+2
+car3s1% bash   
+anovoa@car3s1:~/Documents/minishell$ exit a 1
+exit
+bash: exit: a: numeric argument required
+car3s1% echo $?
+2
+car3s1% bash   
+anovoa@car3s1:~/Documents/minishell$ exit -1
+exit
+car3s1% echo $?
+255
+car3s1% bash   
+anovoa@car3s1:~/Documents/minishell$ exit 2345678909878654332233465432212343567776543223457654321234567654321213456776543223245677654322345676523455676543245676543456776543234567765432345678
+exit
+bash: exit: 2345678909878654332233465432212343567776543223457654321234567654321213456776543223245677654322345676523455676543245676543456776543234567765432345678: numeric argument required
+car3s1% echo $?
+2
+car3s1% bash   
+anovoa@car3s1:~/Documents/minishell$ exit 123456789012345
+exit
+car3s1% echo $?
+121
+ 
