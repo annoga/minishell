@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:55:21 by angeln            #+#    #+#             */
-/*   Updated: 2024/07/08 21:01:21 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/07/11 12:16:15 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 // #include <readline/readline.h>
 // #include <readline/history.h>
+
+int	debug = 0;//TEST, DELETE
 
 void	print_list(t_token *head)
 {

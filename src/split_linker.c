@@ -45,7 +45,8 @@ t_token	*split_linker(char *line)
 	token = mock_builtin_tokenizer(token);
 
 
-	print_list(token);
+	if (debug)//FOR TESTING ONLY, DELETE
+		print_list(token);
 	// printf("\n");
 	return (token);
 }
