@@ -1,5 +1,6 @@
 # Output Binary
 /minishell
+readline/
 
 # Hidden macOS files
 .DS_Store
