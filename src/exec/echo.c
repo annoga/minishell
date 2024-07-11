@@ -6,41 +6,14 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 20:55:00 by angeln            #+#    #+#             */
-/*   Updated: 2024/07/11 11:37:44 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/07/11 12:30:46 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-/* Assumes strings between quotes come as a single token. Validates
- * only options of the form "-n", "-nn", "-nnn", etc */
-static int	has_n_option(t_token *node)
-{
-	char	*str;
-
-	if (node && node->token)
-	{
-		str = node->token;
-		if (*str != '-')
-			return (0);
-		str++;
-		while (*str)
-		{
-			if (*str != 'n')
-				return (0);
-			str++;
-		}
-	}
-	return (1);
-}
-
-/* Checks if a node exists and contains a token */
-static int	token_exists(t_token *node)
-{
-	if (!node || !node->token)
-		return (0);
-	return (1);
-}
+static int	has_n_option(t_token *node);
+static int	token_exists(t_token *node);
 
 /* This function prints the given string followed by a new line. 
  * If given the -n option, it will not add the trailing new line. 
@@ -71,4 +44,34 @@ void	echo(t_token *head)
 		if (!has_n)
 			printf("%c", '\n');
 	}
+}
+
+/* Checks if a node exists and contains a token */
+static int	token_exists(t_token *node)
+{
+	if (!node || !node->token)
+		return (0);
+	return (1);
+}
+
+/* Assumes strings between quotes come as a single token. Validates
+ * only options of the form "-n", "-nn", "-nnn", etc */
+static int	has_n_option(t_token *node)
+{
+	char	*str;
+
+	if (node && node->token)
+	{
+		str = node->token;
+		if (*str != '-')
+			return (0);
+		str++;
+		while (*str)
+		{
+			if (*str != 'n')
+				return (0);
+			str++;
+		}
+	}
+	return (1);
 }
