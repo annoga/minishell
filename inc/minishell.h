@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:52:44 by angeln            #+#    #+#             */
-/*   Updated: 2024/07/11 12:00:52 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/07/14 14:36:30 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void	ft_catch_env(char **envp, t_env **head);
 /* EXECUTE */
 t_token	*mock_builtin_tokenizer(t_token *head);//just for testing
 void	echo(t_token *head);
+void	ft_exit(t_token *head);//int argc, char *argv[]);
 
 /* UTILS */
 char	*ft_strndup(const char *s, size_t n);

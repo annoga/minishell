@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:55:21 by angeln            #+#    #+#             */
-/*   Updated: 2024/07/11 12:16:15 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/07/14 13:46:28 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,11 @@ int	main(int argc, char *argv[], char **envp)
 		//printf("line: %s\n", line);
 		if(!check_is_ok(line))
 			return (free(line), 1);
-		if (ft_strncmp(line, "exit") == 0)
-		{
-			free(line);
-			return (0);
-		}
+//		if (ft_strncmp(line, "exit") == 0)
+//		{
+//			free(line);
+//			return (0);
+//		}
 		if (line[0] != '\0')
 		{
 			token = split_linker(line);
