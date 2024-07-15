@@ -38,8 +38,9 @@ UTILS			=	utils/ft_strncmp.c					\
 					utils/check_is_ok.c					\
 					utils/return_error.c
 
-PARSER			=	parser/parser.c						\
+PARSER			=	parser/expand_env.c						\
 					parser/prueba_env.c					\
+					parser/wildcard.c					\
 					parser/push_midlist.c						
 
 MAIN			=	main.c								\
