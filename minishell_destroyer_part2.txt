@@ -1,0 +1,76 @@
+
+car3s1% bash
+anovoa@car3s1:~/Documents/minishell$ echo -n -n -n bla
+blaanovoa@car3s1:~/Documents/minishell$ echo "-n -n -n" bla
+-n -n -n bla
+anovoa@car3s1:~/Documents/minishell$ echo    a   ""   b   $nada    c   "$nada"   d
+a  b c  d
+anovoa@car3s1:~/Documents/minishell$ 
+anovoa@car3s1:~/Documents/minishell$ export a="hola       mundo"
+anovoa@car3s1:~/Documents/minishell$ env
+SHELL=/bin/zsh
+SESSION_MANAGER=local/car3s1.42barcelona.com:@/tmp/.ICE-unix/692514,unix/car3s1.42barcelona.com:/tmp/.ICE-unix/692514
+QT_ACCESSIBILITY=1
+COLORTERM=truecolor
+XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg
+SSH_AGENT_LAUNCHER=gnome-keyring
+XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session10
+XDG_MENU_PREFIX=gnome-
+GNOME_DESKTOP_SESSION_ID=this-is-deprecated
+GTK_IM_MODULE=ibus
+SSH_AUTH_SOCK=/run/user/101208/keyring/ssh
+XMODIFIERS=@im=ibus
+DESKTOP_SESSION=ubuntu
+FT_HOOK_NAME=login-user
+GTK_MODULES=gail:atk-bridge
+FT_HOOK_PATHNAME=login-user.d
+PWD=/home/anovoa/Documents/minishell
+KRB5CCNAME=FILE:/tmp/krb5cc_101208_bktlhq
+LOGNAME=anovoa
+XDG_SESSION_DESKTOP=ubuntu
+XDG_SESSION_TYPE=x11
+GPG_AGENT_INFO=/run/user/101208/gnupg/S.gpg-agent:0:1
+SYSTEMD_EXEC_PID=693345
+XAUTHORITY=/home/anovoa/.Xauthority
+XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/anovoa
+HOME=/home/anovoa
+a=hola       mundo
+IM_CONFIG_PHASE=1
+LANG=en_US.UTF-8
+XDG_CURRENT_DESKTOP=ubuntu:GNOME
+VTE_VERSION=6800
+XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0
+GNOME_TERMINAL_SCREEN=/org/gnome/Terminal/screen/0990ab8b_3251_4498_b316_deb0515ae600
+XDG_SESSION_CLASS=user
+TERM=xterm-256color
+LIBVIRT_DEFAULT_URI=qemu:///system
+USER=anovoa
+GNOME_TERMINAL_SERVICE=:1.97
+DISPLAY=:0
+SHLVL=2
+QT_IM_MODULE=ibus
+XDG_RUNTIME_DIR=/run/user/101208
+DOCKER_HOST=unix:///run/user/101208/docker.sock
+XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop
+PATH=/home/anovoa/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+MACADDRESS=18:7e:b9:06:c7:a1
+GDMSESSION=ubuntu
+DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/101208/bus
+OLDPWD=/home/anovoa/Documents/minishell
+_=/usr/bin/env
+anovoa@car3s1:~/Documents/minishell$ echo $a
+hola mundo
+anovoa@car3s1:~/Documents/minishell$ echo "$a"
+hola       mundo
+anovoa@car3s1:~/Documents/minishell$ echo $a$a
+hola mundohola mundo
+anovoa@car3s1:~/Documents/minishell$ echo hola    mundohola   mundo
+hola mundohola mundo
+anovoa@car3s1:~/Documents/minishell$ echo $a"$a"
+hola mundohola       mundo
+anovoa@car3s1:~/Documents/minishell$ echo $a'$a'
+hola mundo$a
+anovoa@car3s1:~/Documents/minishell$ echo $
+$
+anovoa@car3s1:~/Documents/minishell$ echo $.
+$.
