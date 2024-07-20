@@ -56,28 +56,43 @@ void search_directory(const char *base_path, const char *pattern) {
         char full_path[1024];
         snprintf(full_path, sizeof(full_path), "%s/%s", base_path, dp->d_name);
 
+        // Skip directories
+        if (is_directory(full_path)) {
+            continue;
+        }
+
         // Check if the entry matches the pattern
         if (match_pattern(pattern, dp->d_name)) {
             printf("%s\n", full_path);
-        }
-
-        // Check if the entry is a directory and recursively search it
-        if (is_directory(full_path)) {
-            search_directory(full_path, pattern);
         }
     }
 
     closedir(dir);
 }
 
+void parse_path_and_pattern(const char *input, char *directory, char *pattern) {
+    const char *last_slash = strrchr(input, '/');
+    if (last_slash) {
+        size_t dir_len = last_slash - input;
+        strncpy(directory, input, dir_len);
+        directory[dir_len] = '\0';
+        strcpy(pattern, last_slash + 1);
+    } else {
+        strcpy(directory, ".");
+        strcpy(pattern, input);
+    }
+}
+
 int main(int argc, char *argv[]) {
-    if (argc != 3) {
-        fprintf(stderr, "Usage: %s <directory> <pattern>\n", argv[0]);
+    if (argc != 2) {
+        fprintf(stderr, "Usage: %s <directory/pattern>\n", argv[0]);
         exit(EXIT_FAILURE);
     }
 
-    const char *directory = argv[1];
-    const char *pattern = argv[2];
+    char directory[1024];
+    char pattern[1024];
+
+    parse_path_and_pattern(argv[1], directory, pattern);
 
     search_directory(directory, pattern);
 
