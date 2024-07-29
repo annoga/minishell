@@ -37,43 +37,43 @@ void	print_list(t_token *head)
 	}
 }
 
-int	main(int argc, char *argv[], char **envp)
-{
-	char	*line;
-	t_token	*token;
-	t_env	*head;
-	int		i;
+// int	main(int argc, char *argv[], char **envp)
+// {
+// 	char	*line;
+// 	t_token	*token;
+// 	t_env	*head;
+// 	int		i;
 
-	(void)argc;
-	(void)argv;
-	// (void)envp;
-	head = NULL;
-	token = NULL;
-	i = 1;
+// 	(void)argc;
+// 	(void)argv;
+// 	// (void)envp;
+// 	head = NULL;
+// 	token = NULL;
+// 	i = 1;
 
-	ft_catch_env(envp, &head);
-	while (i)
-	{
-		line = readline("💩 nugget 🐾$ ");
-		printf("line: %s\n", line);
-		if(!check_is_ok(line))
-			return (free(line), 1);
-		if (ft_strncmp(line, "exit") == 0)
-		{
-			free(line);
-			return (0);
-		}
-		if (line[0] != '\0')
-		{
-			token = split_linker(line);
-			if(!token)
-				return(1);
-			add_history(line);
-		}
-		free(line);
-		free_token(token);
-		rl_on_new_line();
-	}
-	exit(0);
-	return (0);
-}
+// 	ft_catch_env(envp, &head);
+// 	while (i)
+// 	{
+// 		line = readline("💩 nugget 🐾$ ");
+// 		printf("line: %s\n", line);
+// 		if(!check_is_ok(line))
+// 			return (free(line), 1);
+// 		if (ft_strncmp(line, "exit") == 0)
+// 		{
+// 			free(line);
+// 			return (0);
+// 		}
+// 		if (line[0] != '\0')
+// 		{
+// 			token = split_linker(line);
+// 			if(!token)
+// 				return(1);
+// 			add_history(line);
+// 		}
+// 		free(line);
+// 		free_token(token);
+// 		rl_on_new_line();
+// 	}
+// 	exit(0);
+// 	return (0);
+// }
