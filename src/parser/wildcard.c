@@ -84,18 +84,18 @@ void parse_path_and_pattern(const char *input, char *directory, char *pattern) {
     }
 }
 
-int main(int argc, char *argv[]) {
-    // if (argc != 2) {
-    //     fprintf(stderr, "Usage: %s <directory/pattern>\n", argv[0]);
-    //     exit(EXIT_FAILURE);
-    // }
-    (void)argc;
-    char directory[1024];
-    char pattern[1024];
+// int main(int argc, char *argv[]) {
+//     // if (argc != 2) {
+//     //     fprintf(stderr, "Usage: %s <directory/pattern>\n", argv[0]);
+//     //     exit(EXIT_FAILURE);
+//     // }
+//     (void)argc;
+//     char directory[1024];
+//     char pattern[1024];
 
-    parse_path_and_pattern(argv[1], directory, pattern);
+//     parse_path_and_pattern(argv[1], directory, pattern);
 
-    search_directory(directory, pattern);
+//     search_directory(directory, pattern);
 
-    return 0;
-}
+//     return 0;
+// }
