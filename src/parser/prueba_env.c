@@ -52,13 +52,13 @@ static void	ft_aux_shlvl(t_env **tmp, t_env **last, int shlvl_flag)
 	}
 }
 
-static void	ft_aux_envdup(t_env **tmp, char **envp, int x, char *div)
+static void	ft_aux_envdup(t_env **tmp, char **envp, int i, char *div)
 {
 	*tmp = (t_env *)malloc(sizeof(t_env));
 	if (!tmp)
 		exit(1);
-	div = ft_strchr(envp[x], '=');
-	(*tmp)->key_name = ft_substr(envp[x], 0, (div - envp[x]));
+	div = ft_strchr(envp[i], '=');
+	(*tmp)->key_name = ft_substr(envp[i], 0, (div - envp[i]));
 	if (!(*tmp)->key_name)
 		exit (1);
 	(*tmp)->value = ft_substr(div + 1, 0, ft_strlen(div));
@@ -70,28 +70,28 @@ static void	ft_aux_envdup(t_env **tmp, char **envp, int x, char *div)
 // creates an add one at the end of the list
 void	ft_catch_env(char **envp, t_env **head)
 {
-	int		x;
+	int		i;
 	char	*div;
 	int		shlvl_flag;
 	t_env	*tmp;
 	t_env	*last;
 
-	x = 0;
+	i = 0;
 	last = NULL;
 	tmp = NULL;
 	div = NULL;
 	shlvl_flag = 0;
-	while (envp[x])
+	while (envp[i])
 	{
-		ft_aux_envdup(&tmp, envp, x, div);
+		ft_aux_envdup(&tmp, envp, i, div);
 		ft_aux_catch_env(&tmp, &shlvl_flag);
-		printf("key_name: %s, key_value: %s\n", tmp->key_name, tmp->value);
+		printf("key_name=key_value: %s = \" %s \"\n", tmp->key_name, tmp->value);
 		if (!*head)
 			*head = tmp;
 		else
 			last->next = tmp;
 		last = tmp;
-		x++;
+		i++;
 	}
 	ft_aux_shlvl(&tmp, &last, shlvl_flag);
 	last->next = NULL;
