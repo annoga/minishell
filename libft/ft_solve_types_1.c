@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 04:48:17 by anovoa            #+#    #+#             */
-/*   Updated: 2024/02/11 17:56:13 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/07/29 22:10:30 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int	solve_hex(unsigned int n, char *prefix, t_params *p)
 		base = "0123456789ABCDEF";
 	}
 	if (p->prefx)
-		(1 && (n && (p->prefx = 2)) || (p->prefx = 0));
+		(1 && (n && (p->prefx = 2)));
 	if (set_padding(count_digits_base(n, 16), p) && !put_left_blanks(p))
 		return (0);
 	if (p->prefx && n && !p_putstr(prefix, p))

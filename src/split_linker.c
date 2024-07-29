@@ -42,11 +42,10 @@ t_token	*split_linker(char *line)
 	// token = check_env(token);
 //	token = expand_env(token);
 	// prueba builtin
-	token = mock_builtin_tokenizer(token);
-
 
 	if (debug)//FOR TESTING ONLY, DELETE
 		print_list(token);
 	// printf("\n");
+	token = mock_builtin_tokenizer(token);
 	return (token);
 }

@@ -6,7 +6,7 @@
 #    By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/19 22:41:29 by anovoa            #+#    #+#              #
-#    Updated: 2024/03/01 21:34:32 by anovoa           ###   ########.fr        #
+#    Updated: 2024/07/29 22:30:04 by anovoa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ OBJECTS = $(SOURCES:.c=.o)
 
 CC = gcc
 
-CFLAGS = #-Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 #-fsanitize=address
 #-g
 

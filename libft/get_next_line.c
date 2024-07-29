@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 19:13:54 by angeln            #+#    #+#             */
-/*   Updated: 2024/02/10 00:56:06 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/07/29 22:12:39 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || fd > MAX_FD - 1 || BUFFER_SIZE < 0)
 		return (NULL);
-	(data[fd] || (data[fd] = (char *)ft_calloc(1, sizeof(char))));
+	if (!data[fd])
+		data[fd] = (char *)ft_calloc(1, sizeof(char));
 	if (!data[fd] || !resize_mem(&data[fd], 10))
 		return (ft_reset(&data[fd]));
 	if (!ft_read(fd, &data[fd]))
