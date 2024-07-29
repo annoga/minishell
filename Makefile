@@ -3,8 +3,8 @@ NAME				=	minishell
 
 # Compiler and CFlags
 CC					=	gcc -g
-# CFLAGS				=	-Wall -Werror -Wextra
-CFLAGS				=	-Wall -Werror -Wextra -fsanitize=address
+CFLAGS				=	-Wall -Werror -Wextra
+# CFLAGS				=	-Wall -Werror -Wextra -fsanitize=address
 RM					=	rm -f
 # 
 # Determine the platform
@@ -38,8 +38,9 @@ UTILS			=	utils/ft_strncmp.c					\
 					utils/check_is_ok.c					\
 					utils/return_error.c
 
-PARSER			=	parser/parser.c						\
+PARSER			=	parser/expand_env.c						\
 					parser/prueba_env.c					\
+					parser/wildcard.c					\
 					parser/push_midlist.c						
 
 EXEC			=	exec/echo.c exec/mock_builtin_tokenizer.c \

@@ -17,6 +17,7 @@
 # include "readline/readline.h"
 # include <stdio.h>
 # include <unistd.h>
+# include <dirent.h>
 //# include ".h"
 
 extern int	debug;//This is a test variable and should be removed
@@ -89,7 +90,7 @@ void	erase_one(t_token **head, t_token *to_erase);
 t_token	*check_bonus_token(t_token *head);
 t_token	*assign_bonus_token(t_token *head, int type_bonus);
 
-t_token	*prueba_env(t_token *head);
+t_token *expand_env(t_token *head);
 void	ft_catch_env(char **envp, t_env **head);
 
 // void check_builtin(t_token *head);

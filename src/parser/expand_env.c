@@ -1,53 +1,5 @@
 #include "../../inc/minishell.h"
-// void tokenize_env(t_token **tmp2, t_token **tmp, t_token **head)
-// {
-//     char *env;
-//     env = getenv((*tmp)->token);
-//     if(!env)
-//     {
-//         printf("2 env: %s\n", env);
-//         env = ft_strdup("");
-//     }
-//     else
-//     {
-//         printf("2 env: %s\n", env);
-//         env = ft_strdup(env);
-//     }
-//     (*tmp) = tokenizer(env);
-//     add_top(*tmp2, *tmp);
-//     if (*tmp)
-//         erase_one(head, (*tmp2));
-//     else
-//     {
-//         free((*tmp2)->token);
-//         (*tmp2)->token = NULL;
-//         (*tmp2)->token = env;
-//     }
-//     tmp = tmp2;
-// }
-
-// t_token *prueba_env(t_token *head)
-// {
-//     t_token *tmp;
-//     t_token *tmp2;
-//     tmp = head;
-//     // char *env;
-//     while(tmp)
-//     {
-//         if(tmp->type == ENV)
-//         {
-//             tmp2 = tmp;
-//             printf("1 env: %s\n", tmp->token);
-//             tokenize_env(&tmp2, &tmp, &head);
-//         }
-//         if(tmp)
-//             tmp = tmp->next;
-//     }
-//     tmp = head;
-//     return (head);
-// }
-
-void tokenize_env(t_token **tmp2, t_token **tmp, t_token **head)
+static void tokenize_env(t_token **tmp2, t_token **tmp, t_token **head)
 {
     char *env;
     t_token *new_tokens;
@@ -71,7 +23,7 @@ void tokenize_env(t_token **tmp2, t_token **tmp, t_token **head)
     }
 }
 
-t_token *prueba_env(t_token *head)
+t_token *expand_env(t_token *head)
 {
     t_token *tmp = head;
     t_token *tmp2;
@@ -80,7 +32,11 @@ t_token *prueba_env(t_token *head)
         if (tmp->type == ENV)
         {
             tmp2 = tmp;
-            printf("1 env: %s\n", tmp->token);
+            tokenize_env(&tmp2, &tmp, &head);
+        }
+        else if(tmp->type == ARG && ft_strchr(tmp->token, '*'))
+        {
+            tmp2 = tmp;
             tokenize_env(&tmp2, &tmp, &head);
         }
         tmp = tmp->next;
