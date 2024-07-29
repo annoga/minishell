@@ -49,13 +49,13 @@ void search_directory(const char *base_path, const char *pattern) {
 
     while ((dp = readdir(dir)) != NULL) {
         // Skip the "." and ".." entries
+        printf(":%s)\n", dp->d_name);
         if (strcmp(dp->d_name, ".") == 0 || strcmp(dp->d_name, "..") == 0)
             continue;
 
         // Construct the full path
         char full_path[1024];
         snprintf(full_path, sizeof(full_path), "%s/%s", base_path, dp->d_name);
-
         // Skip directories
         if (is_directory(full_path)) {
             continue;
@@ -63,6 +63,7 @@ void search_directory(const char *base_path, const char *pattern) {
 
         // Check if the entry matches the pattern
         if (match_pattern(pattern, dp->d_name)) {
+            printf("%c\n", dp->d_type);
             printf("%s\n", full_path);
         }
     }
@@ -84,11 +85,11 @@ void parse_path_and_pattern(const char *input, char *directory, char *pattern) {
 }
 
 int main(int argc, char *argv[]) {
-    if (argc != 2) {
-        fprintf(stderr, "Usage: %s <directory/pattern>\n", argv[0]);
-        exit(EXIT_FAILURE);
-    }
-
+    // if (argc != 2) {
+    //     fprintf(stderr, "Usage: %s <directory/pattern>\n", argv[0]);
+    //     exit(EXIT_FAILURE);
+    // }
+    (void)argc;
     char directory[1024];
     char pattern[1024];
 
