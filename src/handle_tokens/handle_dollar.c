@@ -2,28 +2,30 @@
 
 t_token *handle_special_dollar(char *line, int *i)
 {
-	int		start;
-	char	*value;
+    int		start;
+    char	*value;
 
-	start = ++*i;
-	while (line[*i] && !ft_isspace(line[*i]) && line[*i] != '\''
-		&& line[*i] != '"' && line[*i] != '<' && line[*i] != '>'
-		&& line[*i] != '|' && line[*i] != '(' && line[*i] != ')'
-		&& !ft_isalpha(line[*i]))
-	{
-		if (line[*i] == '&' && line[*i + 1] == '&')
-			break ;
-		if(line[*i] == '$' && (ft_isalpha(line[*i + 1]) || line[*i + 1] == '_'))
-			break ;
-		(*i)++;
-	}
-	// value = ft_strndup(&line[start - 1], (*i + 1)- start);
-	value = ft_strndup(&line[start], *i - start);
-	// value = ft_strndup(&line[start - 1], (*i + 1)- start);
-	if (!value)
-		return (NULL);
-	(*i)--;
-	return (new_token(ARG, value, 0));
+    start = ++*i;
+    printf("%s\n", &line[start]);
+    while (line[*i] && !ft_isspace(line[*i]) && line[*i] != '\''
+        && line[*i] != '"' && line[*i] != '<' && line[*i] != '>'
+        && line[*i] != '|' && line[*i] != '(' && line[*i] != ')'
+        && !ft_isalpha(line[*i]))
+    {
+        if (line[*i] == '&' && line[*i + 1] == '&')
+            break ;
+        if((ft_isalpha(line[*i + 1]) || line[*i + 1] == '_'))
+            break ;
+		
+        (*i)++;
+    }
+	// while(line[*i] && line[*i] == '$')
+	// 		(*i)++;
+    value = ft_strndup(&line[start - 1], (*i + 1)- start);
+    if (!value)
+        return (NULL);
+    (*i) -= 2;
+    return (new_token(ARG, value, 0));
 }
 
 
@@ -33,11 +35,13 @@ t_token	*handle_dollar(char *line, int *i)
 	int		start;
 	char	*value;
 
-	start = ++*i;
+	// start = ++*i;
 	printf("holi\n");
+	start = ++*i;
 	if(!ft_isalpha(line[start]) && line[start] != '_')
 		return (handle_special_dollar(line, i));
-	start = ++*i;
+	printf("handle %s\n", &line[start]);
+
 	while (line[*i] && (ft_isalpha(line[*i]) || line[*i] == '_'))
 	{
 		if (line[*i] == '&' && line[*i + 1] == '&')
