@@ -17,13 +17,14 @@ t_token	*mock_builtin_tokenizer(t_token *head)
 {
 	if (!head)
 		return (NULL);
-	if (!ft_strncmp(head->token, "zorionak"))/*DEBUG start*/
-	{
-		if (debug)
-			debug = 0;
-		else
-			debug = 1;
-	}/*DEBUG end*/
+	debug = 1;
+	// if (!ft_strncmp(head->token, "zorionak"))/*DEBUG start*/
+	// {
+	// 	if (debug)
+	// 		debug = 0;
+	// 	else
+	// 		debug = 1;
+	// }/*DEBUG end*/
 	if (!ft_strncmp(head->token, "echo"))
 		echo(head->next);
 	else if (!ft_strncmp(head->token, "exit"))

@@ -108,5 +108,6 @@ char	*ft_strndup(const char *s, size_t n);
 int		ft_strncmp(const char *s1, const char *s2);
 void	*return_error(char *str);
 int		check_is_ok(char *line);
+int ft_istoken(char c);
 
 #endif

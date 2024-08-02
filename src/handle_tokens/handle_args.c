@@ -7,9 +7,7 @@ t_token	*handle_arg(char *line, int *i)
 	t_token	*token;
 
 	start = *i;
-	while (line[*i] && !ft_isspace(line[*i]) && line[*i] != '\''
-		&& line[*i] != '"' && line[*i] != '<' && line[*i] != '>'
-		&& line[*i] != '|' && line[*i] != '(' && line[*i] != ')'
+	while (line[*i] && !ft_istoken(line[*i])
 		&& line[*i] != '$')
 	{
 		if (line[*i] == '&' && line[*i + 1] == '&')
