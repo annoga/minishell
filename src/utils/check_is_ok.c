@@ -68,8 +68,14 @@ parenthesis\n");
 int	check_is_ok(char *line)
 {
 	if (!check_quotes(line))
+	{
+		ft_printf("Error: missing quotes\n");
 		return (0);
+	}
 	if (!check_parenthesis(line))
+	{
+		ft_printf("Error: missing parenthesis\n");
 		return (0);
+	}
 	return (1);
 }
