@@ -4,36 +4,22 @@ t_token *handle_special_dollar(char *line, int *i)
 {
 	int		start;
 	char	*value;
-	int		new_env;
 
 	start = ++*i;
-	new_env = 0;
 	while (line[*i] && !ft_istoken(line[*i]) && !ft_isalpha(line[*i]))
 	{
-		(*i)++;
 		if (line[*i] == '&' && line[*i + 1] == '&')
 			break ;
 		
-		while(line[*i] && line[*i] == '$')
-		{
-			(*i)++;
-			if((ft_isalpha(line[*i]) || line[*i] == '_'))
-			{
-				new_env = 1;
-				break ;
-			}
-		}
+		if(line[*i] == '$' && (ft_isalpha(line[*i + 1]) || line[*i + 1] == '_'))
+			break ;
+		(*i)++;
 	}
-	// value = ft_strndup(&line[start - 1], (*i + 1)- start);
-	value = ft_strndup(&line[start], (*i)- start);
-	printf("new_env: %d\n", new_env);
+	value = ft_strndup(&line[start - 1], (*i)- start + 1);
 	printf("value: %s\n", value);
 	if (!value)
 		return (NULL);
-	if (new_env)
-		(*i) -= 2;
-	else
-		(*i) -= 1;
+	(*i) -= 1;
 	return (new_token(ARG, value, 0));
 }
 
