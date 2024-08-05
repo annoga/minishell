@@ -58,14 +58,14 @@ int	main(int argc, char *argv[], char **envp)
 	{
 		line = readline("💩 nugget 🐾$ ");
 		//printf("line: %s\n", line);
-		if(!check_is_ok(line))
-			return (free(line), 1);
+		// if(!check_is_ok(line))
+		// 	return (free(line), 1);
 //		if (ft_strncmp(line, "exit") == 0)
 //		{
 //			free(line);
 //			return (0);
 //		}
-		if (line[0] != '\0')
+		if (line[0] != '\0' && check_is_ok(line))
 		{
 			token = split_linker(line);
 			if(!token)

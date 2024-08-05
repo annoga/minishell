@@ -55,26 +55,25 @@ int	check_parenthesis(char *line)
 			if (count == 0)
 			{
 				return_error("Error: missing opening \
-parenthesis\n");
+parenthesis");
 				return (0);
 			}
 			count--;
 		}
 		i++;
 	}
+	if(count > 0)
+		ft_printf("Error: missing closing parenthesis\n");
 	return (count == 0);
 }
 
 int	check_is_ok(char *line)
 {
 	if (!check_quotes(line))
-	{
-		ft_printf("Error: missing quotes\n");
 		return (0);
-	}
 	if (!check_parenthesis(line))
 	{
-		ft_printf("Error: missing parenthesis\n");
+		// ft_printf("Error: missing parenthesis\n");
 		return (0);
 	}
 	return (1);
