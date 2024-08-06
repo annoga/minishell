@@ -50,7 +50,7 @@ void search_directory(const char *base_path, const char *pattern) {
     while ((dp = readdir(dir)) != NULL) {
         // Skip the "." and ".." entries
         printf(":%s)\n", dp->d_name);
-        if (strcmp(dp->d_name, ".") == 0 || strcmp(dp->d_name, "..") == 0)
+        if (ft_strncmp(dp->d_name, ".") == 0 || ft_strncmp(dp->d_name, "..") == 0)
             continue;
 
         // Construct the full path

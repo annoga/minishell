@@ -26,7 +26,7 @@ void	print_list(t_token *head)
 	while (tmp)
 	{
 		// printf("Token: '%s', type: %u\n", tmp->token, tmp->type);
-		//printf("%s", tmp->token);
+		printf("%s", tmp->token);
 		tmp = tmp->next;
 	}
 	printf("\n");

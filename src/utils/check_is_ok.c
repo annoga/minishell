@@ -53,11 +53,8 @@ int	check_parenthesis(char *line)
 		else if (line[i] == ')')
 		{
 			if (count == 0)
-			{
 				return_error("Error: missing opening \
 parenthesis");
-				return (0);
-			}
 			count--;
 		}
 		i++;
@@ -72,9 +69,6 @@ int	check_is_ok(char *line)
 	if (!check_quotes(line))
 		return (0);
 	if (!check_parenthesis(line))
-	{
-		// ft_printf("Error: missing parenthesis\n");
 		return (0);
-	}
 	return (1);
 }
