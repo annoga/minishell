@@ -1,7 +1,5 @@
 #include "../../inc/minishell.h"
 
-
-
 static void tokenize_env(t_token **tmp2, t_token **tmp, t_token **head)
 {
     char *env;
@@ -26,30 +24,82 @@ static void tokenize_env(t_token **tmp2, t_token **tmp, t_token **head)
     }
 }
 
-// Updated tokenize_wildcards function
-void tokenize_wildcards(t_token **tmp2, t_token **tmp, t_token **head) {
+char *construct_full_path(const char *dir_path, const char *entry_name)
+{
+    char *full_path = malloc(2048);
+    if (!full_path)
+    {
+        perror("malloc");
+        return NULL;
+    }
+    snprintf(full_path, 2048, "%s/%s", dir_path, entry_name);
+    return full_path;
+}
+
+t_token *allocate_token()
+{
+    t_token *new_token = malloc(sizeof(t_token));
+    if (!new_token)
+    {
+        perror("malloc");
+        return NULL;
+    }
+    new_token->next = NULL;
+    return new_token;
+}
+
+int initialize_token(t_token *token, const char *full_path)
+{
+    token->token = strdup(full_path);
+    if (!token->token)
+    {
+        perror("strdup");
+        free(token);
+        return -1;
+    }
+    token->type = ARG;
+    token->is_quote = 0;
+    return 0;
+}
+
+t_token *create_token_from_entry(const char *dir_path, const char *entry_name)
+{
+    t_token *new_token;
+    char *full_path;
+    
+    full_path = construct_full_path(dir_path, entry_name);
+    if (!full_path)
+        return NULL;
+
+    new_token = allocate_token();
+    if (!new_token)
+    {
+        free(full_path);
+        return NULL;
+    }
+
+    if (initialize_token(new_token, full_path) < 0)
+    {
+        free(full_path);
+        return NULL;
+    }
+
+    free(full_path);
+    return (new_token);
+}
+
+t_token *match_wildcards_in_directory(const char *dir_path, const char *pattern)
+{
     DIR *dir;
     struct dirent *entry;
     t_token *new_tokens = NULL;
     t_token *last_token = NULL;
 
-    char *pattern = (*tmp)->token;
-    char dir_path[1024] = ".";
-    char *slash_pos = ft_strrchr(pattern, '/');
-
-    if (slash_pos != NULL) {
-        // Extract the directory path
-        size_t dir_len = slash_pos - pattern;
-        strncpy(dir_path, pattern, dir_len);
-        dir_path[dir_len] = '\0';
-        pattern = slash_pos + 1;
-    }
-
     // Open the target directory for reading
     dir = opendir(dir_path);
     if (!dir) {
         perror("opendir");
-        return;
+        return NULL;
     }
 
     // Iterate over directory entries
@@ -61,35 +111,44 @@ void tokenize_wildcards(t_token **tmp2, t_token **tmp, t_token **head) {
 
         // Use custom fnmatch logic to match wildcard patterns
         if (my_fnmatch(pattern, entry->d_name) == 0) {
-            char full_path[2048];
-            snprintf(full_path, sizeof(full_path), "%s/%s", dir_path, entry->d_name);
-            
-            t_token *new_token = malloc(sizeof(t_token));
-            new_token->token = strdup(full_path);
-            new_token->type = ARG;
-            new_token->is_quote = 0;
-            new_token->next = NULL;
-
-            // Add the new token to the linked list
-            if (!new_tokens) {
-                new_tokens = new_token;
-            } else {
-                last_token->next = new_token;
+            t_token *new_token = create_token_from_entry(dir_path, entry->d_name);
+            if (new_token) {
+                // Add the new token to the linked list
+                if (!new_tokens) {
+                    new_tokens = new_token;
+                } else {
+                    last_token->next = new_token;
+                }
+                last_token = new_token;
             }
-            last_token = new_token;
         }
     }
 
     closedir(dir);
+    return new_tokens;
+}
 
-    // If new tokens were found, replace the current token
-    if (new_tokens) {
+static void tokenize_wildcards(t_token **tmp2, t_token **tmp, t_token **head)
+{
+    char *pattern = (*tmp)->token;
+    char dir_path[1024] = ".";
+    char *slash_pos = ft_strrchr(pattern, '/');
+
+    if (slash_pos != NULL)
+    {
+        size_t dir_len = slash_pos - pattern;
+        strncpy(dir_path, pattern, dir_len);
+        dir_path[dir_len] = '\0';
+        pattern = slash_pos + 1;
+    }
+    t_token *new_tokens = match_wildcards_in_directory(dir_path, pattern);
+    if (new_tokens)
+    {
         add_top(*tmp2, new_tokens);
         erase_one(head, *tmp2);
         *tmp = new_tokens;
     }
 }
-
 
 t_token *expansor(t_token *head)
 {

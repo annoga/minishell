@@ -101,8 +101,6 @@ void	ft_catch_env(char **envp, t_env **head);
 /* WILDCARD */
 // void listFiles(const char *pattern);
 int my_fnmatch(const char *pattern, const char *string);
-char* my_fgets(char *str, int n, FILE *stream);
-int my_fgetc(FILE *stream);
 
 
 /* EXECUTE */

@@ -6,42 +6,14 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-int is_directory(const char *path) {
+int is_directory(const char *path) 
+{
     struct stat path_stat;
     stat(path, &path_stat);
     return S_ISDIR(path_stat.st_mode);
 }
 
-// Custom fgetc function to read a single character from stdin
-int my_fgetc(FILE *stream) {
-    char ch;
-    if (read(fileno(stream), &ch, 1) == 1) {
-        return (unsigned char) ch;
-    } else {
-        return EOF;
-    }
-}
-
-// Custom fgets function to read input
-char* my_fgets(char *str, int n, FILE *stream) {
-    int ch, i = 0;
-
-    // Read characters until end-of-file or newline
-    while (i < n - 1 && (ch = my_fgetc(stream)) != EOF) {
-        str[i++] = ch;
-        if (ch == '\n')
-            break;
-    }
-    str[i] = '\0';
-
-    // Return NULL if no characters were read
-    if (i == 0 && ch == EOF)
-        return NULL;
-    return str;
-}
-
-// Custom fnmatch function to match patterns
-int my_fnmatch(const char *pattern, const char *string) 
+int my_fnmatch(const char *pattern, const char *string)
 {
     const char *p = pattern, *s = string;
 
@@ -72,7 +44,6 @@ int my_fnmatch(const char *pattern, const char *string)
 
     return (*p == '\0' && *s == '\0') ? 0 : -1;
 }
-
 
 
 // int main() {
