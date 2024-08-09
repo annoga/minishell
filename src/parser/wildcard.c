@@ -15,34 +15,34 @@ int is_directory(const char *path)
 
 int my_fnmatch(const char *pattern, const char *string)
 {
-    const char *p = pattern, *s = string;
+    const char *patt = pattern, *s = string;
 
-    while (*p != '\0' && *s != '\0') {
-        if (*p == '*') {
-            p++;
-            if (*p == '\0') {
+    while (*patt != '\0' && *s != '\0') {
+        if (*patt == '*') {
+            patt++;
+            if (*patt == '\0') {
                 return 0;  // Trailing '*' matches everything
             }
             while (*s != '\0') {
-                if (my_fnmatch(p, s) == 0) {
+                if (my_fnmatch(patt, s) == 0) {
                     return 0;
                 }
                 s++;
             }
             return -1;
-        } else if (*p == *s) {
-            p++;
+        } else if (*patt == *s) {
+            patt++;
             s++;
         } else {
             return -1;
         }
     }
 
-    if (*p == '*') {
-        p++;
+    if (*patt == '*') {
+        patt++;
     }
 
-    return (*p == '\0' && *s == '\0') ? 0 : -1;
+    return (*patt == '\0' && *s == '\0') ? 0 : -1;
 }
 
 
