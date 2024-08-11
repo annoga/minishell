@@ -90,13 +90,18 @@ void	erase_one(t_token **head, t_token *to_erase);
 t_token	*check_bonus_token(t_token *head);
 t_token	*assign_bonus_token(t_token *head, int type_bonus);
 
-t_token *expand_env(t_token *head);
+t_token *expansor(t_token *head);
 void	ft_catch_env(char **envp, t_env **head);
 
 // void check_builtin(t_token *head);
 // void check_pipe_bonus(t_token *head);
 // void check_redirect(t_token *head);
 // void check_token(t_token *head);
+
+/* WILDCARD */
+// void listFiles(const char *pattern);
+int my_fnmatch(const char *pattern, const char *string);
+
 
 /* EXECUTE */
 t_token	*mock_builtin_tokenizer(t_token *head);//just for testing
@@ -108,5 +113,6 @@ char	*ft_strndup(const char *s, size_t n);
 int		ft_strncmp(const char *s1, const char *s2);
 void	*return_error(char *str);
 int		check_is_ok(char *line);
+int ft_istoken(char c);
 
 #endif

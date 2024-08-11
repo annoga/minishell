@@ -53,15 +53,14 @@ int	check_parenthesis(char *line)
 		else if (line[i] == ')')
 		{
 			if (count == 0)
-			{
 				return_error("Error: missing opening \
-parenthesis\n");
-				return (0);
-			}
+parenthesis");
 			count--;
 		}
 		i++;
 	}
+	if(count > 0)
+		ft_printf("Error: missing closing parenthesis\n");
 	return (count == 0);
 }
 

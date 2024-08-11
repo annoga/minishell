@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:55:21 by angeln            #+#    #+#             */
-/*   Updated: 2024/07/14 13:46:28 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/08/11 16:14:55 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // #include <readline/readline.h>
 // #include <readline/history.h>
 
-int	debug = 0;//TEST, DELETE
+int	debug = 1;//TEST, DELETE
 
 void	print_list(t_token *head)
 {
@@ -26,7 +26,7 @@ void	print_list(t_token *head)
 	while (tmp)
 	{
 		// printf("Token: '%s', type: %u\n", tmp->token, tmp->type);
-		//printf("%s", tmp->token);
+		printf("%s", tmp->token);
 		tmp = tmp->next;
 	}
 	printf("\n");
@@ -58,14 +58,14 @@ int	main(int argc, char *argv[], char **envp)
 	{
 		line = readline("💩 nugget 🐾$ ");
 		//printf("line: %s\n", line);
-		if(!check_is_ok(line))
-			return (free(line), 1);
+		// if(!check_is_ok(line))
+		// 	return (free(line), 1);
 //		if (ft_strncmp(line, "exit") == 0)
 //		{
 //			free(line);
 //			return (0);
 //		}
-		if (line[0] != '\0')
+		if (line[0] != '\0' && check_is_ok(line))
 		{
 			token = split_linker(line);
 			if(!token)

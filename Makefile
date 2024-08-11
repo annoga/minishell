@@ -36,9 +36,10 @@ TOKENIZER 		= 	tokenizer/tokenizer.c					\
 UTILS			=	utils/ft_strncmp.c					\
 					utils/ft_strndup.c					\
 					utils/check_is_ok.c					\
+					utils/ft_istoken.c					\
 					utils/return_error.c
 
-PARSER			=	parser/expand_env.c						\
+PARSER			=	parser/expansor.c						\
 					parser/prueba_env.c					\
 					parser/wildcard.c					\
 					parser/push_midlist.c						
