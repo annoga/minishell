@@ -104,6 +104,7 @@ void	ft_catch_env(char **envp, t_env **head);
 // void listFiles(const char *pattern);
 int ft_fnmatch(const char *pattern, const char *string);
 int match_pattern(const char *pattern, const char *string);
+t_token *match_wildcards_in_directory(const char *dir_path, const char *pattern);
 int handle_asterisk(const char *patt, const char *s);
 
 /* EXECUTE */
