@@ -37,10 +37,12 @@ static void tokenize_wildcards(t_token **tmp2, t_token **tmp, t_token **head)
     if (slash_pos)
     {
         dir_len = slash_pos - pattern;
+        dir_len++;
         ft_strlcpy(dir_path, pattern, dir_len);
         dir_path[dir_len] = '\0';
         pattern = slash_pos + 1;
     }
+    printf("pattern: %s\n", dir_path);
     new_tokens = match_wildcards_in_directory(dir_path, pattern);
     if (new_tokens)
     {

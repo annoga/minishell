@@ -69,6 +69,8 @@
     "utility": "c",
     "stdlib.h": "c",
     "string.h": "c",
-    "stdio.h": "c"
+    "stdio.h": "c",
+    "stat.h": "c",
+    "limits.h": "c"
   }
 }

@@ -9,7 +9,9 @@ char *construct_full_path(const char *dir_path, const char *entry_name)
         perror("malloc");
         return NULL;
     }
-    snprintf(full_path, 2048, "%s/%s", dir_path, entry_name);
+    ft_strlcpy(full_path, dir_path, PATH_MAX);
+    ft_strlcat(full_path, "/", PATH_MAX);
+    ft_strlcat(full_path, (char *)entry_name, PATH_MAX);
     return full_path;
 }
 
@@ -50,19 +52,12 @@ t_token *create_token_from_entry(const char *dir_path, const char *entry_name)
 
     new_token = allocate_token();
     if (!new_token)
-    {
-        free(full_path);
-        return NULL;
-    }
+        return (free(full_path), NULL);
 
     if (initialize_token(new_token, full_path) < 0)
-    {
-        free(full_path);
-        return NULL;
-    }
+        return (free(full_path), NULL);
 
-    free(full_path);
-    return (new_token);
+    return (free(full_path), new_token);
 }
 
 t_token *match_wildcards_in_directory(const char *dir_path, const char *pattern)
@@ -76,9 +71,10 @@ t_token *match_wildcards_in_directory(const char *dir_path, const char *pattern)
     new_tokens = NULL;
     last_token = NULL;
     // Open the target directory for reading
+    printf("Matching pattern %s in directory %s\n", pattern, dir_path);
     dir = opendir(dir_path);
     if (!dir)
-        return (perror("💩 nugget 🐾"), NULL);
+        return (perror("bash: "), NULL);
 
     // Iterate over directory entries
     while ((entry = readdir(dir)) != NULL) 
