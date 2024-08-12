@@ -36,7 +36,7 @@ char *construct_full_path(const char *dir_path, const char *entry_name)
     return full_path;
 }
 
-t_token *allocate_token()
+t_token *allocate_token(void)
 {
     t_token *new_token = malloc(sizeof(t_token));
     if (!new_token)
@@ -110,7 +110,7 @@ t_token *match_wildcards_in_directory(const char *dir_path, const char *pattern)
             continue;
 
         // Use custom fnmatch logic to match wildcard patterns
-        if (my_fnmatch(pattern, entry->d_name) == 0)
+        if (ft_fnmatch(pattern, entry->d_name) == 0)
         {
             new_token = create_token_from_entry(dir_path, entry->d_name);
             if (new_token) 

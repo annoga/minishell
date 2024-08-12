@@ -41,7 +41,7 @@ UTILS			=	utils/ft_strncmp.c					\
 
 PARSER			=	parser/expansor.c						\
 					parser/prueba_env.c					\
-					parser/wildcard.c					\
+					parser/ft_fnmatch.c					\
 					parser/push_midlist.c						
 
 EXEC			=	exec/echo.c exec/mock_builtin_tokenizer.c \

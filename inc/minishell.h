@@ -18,6 +18,8 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <dirent.h>
+# include <sys/stat.h>
+
 //# include ".h"
 
 extern int	debug;//This is a test variable and should be removed
@@ -100,8 +102,9 @@ void	ft_catch_env(char **envp, t_env **head);
 
 /* WILDCARD */
 // void listFiles(const char *pattern);
-int my_fnmatch(const char *pattern, const char *string);
-
+int ft_fnmatch(const char *pattern, const char *string);
+int match_pattern(const char *pattern, const char *string);
+int handle_asterisk(const char *patt, const char *s);
 
 /* EXECUTE */
 t_token	*mock_builtin_tokenizer(t_token *head);//just for testing
