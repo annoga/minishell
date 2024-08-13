@@ -1,6 +1,6 @@
 #include "../../inc/minishell.h"
 
-int finalize_match(const char *patt, const char *s)
+static int finalize_match(const char *patt, const char *s)
 {
     if (*patt == '*')
         patt++;
@@ -10,7 +10,7 @@ int finalize_match(const char *patt, const char *s)
         return (-1);
 }
 
-int match_pattern(const char *patt, const char *s)
+static int match_pattern(const char *patt, const char *s)
 {
     while (*patt != '\0' && *s != '\0')
     {
