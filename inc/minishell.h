@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:52:44 by angeln            #+#    #+#             */
-/*   Updated: 2024/08/15 17:19:27 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/08/15 23:18:15 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,12 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <dirent.h>
-# include <linux/limits.h>
+# include <limits.h>
 # include <sys/stat.h>
+
+// Apaños para mac
+//# include <string.h>
+# include <linux/limits.h>
 
 //# include ".h"
 
