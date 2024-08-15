@@ -42,7 +42,6 @@ static void tokenize_wildcards(t_token **tmp2, t_token **tmp, t_token **head)
         dir_path[dir_len] = '\0';
         pattern = slash_pos + 1;
     }
-    printf("pattern: %s\n", dir_path);
     new_tokens = match_wildcards_in_directory(dir_path, pattern);
     if (new_tokens)
     {

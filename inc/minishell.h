@@ -102,12 +102,12 @@ void	ft_catch_env(char **envp, t_env **head);
 // void check_token(t_token *head);
 
 /* WILDCARD */
-// void listFiles(const char *pattern);
 int ft_fnmatch(const char *pattern, const char *string);
 t_token *match_wildcards_in_directory(const char *dir_path, const char *pattern);
 int handle_asterisk(const char *patt, const char *s);
 DIR *open_directory(const char *dir_path);
 void process_directory_entries(DIR *dir, const char *pattern, t_token **new_tokens, t_token **last_token);
+t_token	*allocate_token(void);
 t_token *create_token_from_entry(const char *dir_path, const char *entry_name);
 
 /* EXECUTE */
