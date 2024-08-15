@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:47:15 by anovoa            #+#    #+#             */
-/*   Updated: 2024/08/15 20:05:04 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/08/15 20:59:51 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@ static int	is_limit_error(int sign, char *str);
 
 static int	has_one_arg(t_token *head);
 static int	is_long(char *str);
+static int	int_free(char **str, int status);
 
-/* Returns 1 if we have the following sequence of tokens:
+/* Returns 0 if we have the following sequence of tokens:
  * ' ', 'arg1', ' ', 'arg2'
- * Otherwise, it returns 0.
+ * Otherwise, it returns 1.
  * */
 static int	has_one_arg(t_token *head)//32
 {
@@ -28,12 +29,16 @@ static int	has_one_arg(t_token *head)//32
 
 	arg = head->next;//arg1
 	if (arg && arg->token)
+	{
 		arg = arg->next;//32
 		if (arg && arg->token)
+		{
 			arg = arg->next;//arg2
 			if (arg && arg->token)
-				return (1);
-	return (0);
+				return (0);
+		}
+	}
+	return (1);
 }
 
 /* Returns 1 if the given string can be read as a number
@@ -42,9 +47,45 @@ static int	has_one_arg(t_token *head)//32
  * */
 static int	is_long(char *str)
 {
-	return (0);
+	//trim
+	//sign
+	//too long? out
+	//any nondigit? out
+	//return 1
+	int	len;
+	int	sign;
+	int	i;
+
+	i = 0;
+	sign = 1;
+	str = ft_strtrim(str, " ");//what happens if empty?
+	if (ft_issign(str[i]))
+		if (str[i++] == '-')
+			sign = -1;
+	len = ft_strlen(&str[i]);//length without sign, if any
+	if (len > 19)
+		return (0);
+	else if (len == 19)
+	{
+		if (sign == 1 && ft_strncmp((str), "9223372036854775807") > 0)
+			return (int_free(&str, 0));
+		if (sign == -1 && ft_strncmp((str), "9223372036854775808") > 0)
+			return (int_free(&str, 0));
+	}
+	while (str[i])
+		if (!ft_isdigit(str[i++]))
+			return (int_free(&str, 0));
+	return (int_free(&str, 1));
 }
 
+static int	int_free(char **str, int status)
+{
+	free(*str);
+	*str = NULL;
+	return (status);
+}
+
+/* ToDo: Print "exit" when it fits (at least after success) */
 void	ft_exit(t_token *head)
 {
 	unsigned char	exit_code;
@@ -59,12 +100,12 @@ void	ft_exit(t_token *head)
 	{
 		if (is_long(head->next->token))// is long
 		{
-			//exit_code = (unsigned char)atol(head->next->token);
-			//exit(exit_code);
-			printf("exit_code: %s\n***\n", head->next->token);
+			exit_code = (unsigned char)ft_atol(head->next->token);
+			exit(exit_code);
 		}
 		else// not long
 		{
+			printf("exit: numeric argument required\n");// ToDo print through fd 2!!
 			exit_code = 2;
 			exit(2);
 		}
@@ -74,17 +115,18 @@ void	ft_exit(t_token *head)
 		if (is_long(head->next->token))// arg 1 is long
 		{
 			//ToDo: Update $? to 1
-			printf("exit: too many arguments");
+			printf("exit: too many arguments\n");// ToDo print through fd 2!!
 			return ;
 		}
 		else// arg 1 !long
 		{
+			printf("exit: numeric argument required\n");// ToDo print through fd 2!!
 			exit_code = 2;
 			exit(exit_code);
 		}
 	}
 //		printf("token: %s\n***\n", head->next->token);
-
+	return ;
 
 	// is n1 a num?
 	exit_code = is_num_error(head->token, exit_code);

@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 18:11:12 by anovoa            #+#    #+#             */
-/*   Updated: 2024/03/01 21:33:29 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/08/15 20:51:32 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,8 @@ int				ft_isspace(int c);
 int				ft_issign(int c);
 char			*ft_strnstr(const char *str, const char *needle, size_t len);
 char			*get_whole_file(int fd);
+
+/* minishell */
+long			ft_atol(const char *str);
 
 #endif
