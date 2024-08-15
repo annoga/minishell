@@ -11,6 +11,9 @@ RM					=	rm -f
 LIBS = -Lreadline -lreadline -lhistory -ltermcap
 INC = inc/minishell.h libft/libft.h
 
+# Apaños para mac
+#LIBS = -Lreadline -lreadline -ltermcap
+
 # Directories
 LIBFT				=	./libft/libftgnl.a
 SRC_DIR				=	src/

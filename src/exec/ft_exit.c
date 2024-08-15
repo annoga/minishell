@@ -6,14 +6,11 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:47:15 by anovoa            #+#    #+#             */
-/*   Updated: 2024/08/15 20:59:51 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/08/15 23:26:20 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-static int	is_num_error(char *token, unsigned char exit_code);
-static int	is_limit_error(int sign, char *str);
 
 static int	has_one_arg(t_token *head);
 static int	is_long(char *str);
@@ -41,21 +38,20 @@ static int	has_one_arg(t_token *head)//32
 	return (1);
 }
 
-/* Returns 1 if the given string can be read as a number
- * of type long.
+/* Returns 1 if the given string can be read as a number of type long.
  * Otherwise, it returns 0.
  * */
 static int	is_long(char *str)
 {
-	//trim
-	//sign
-	//too long? out
-	//any nondigit? out
-	//return 1
 	int	len;
 	int	sign;
 	int	i;
 
+	//trim
+	//sign
+	//too long? return 0
+	//any nondigit? return 0
+	//return 1
 	i = 0;
 	sign = 1;
 	str = ft_strtrim(str, " ");//what happens if empty?
@@ -96,104 +92,34 @@ void	ft_exit(t_token *head)
 		exit(0);
 	// exit_code = read num?
 	//
-	if (has_one_arg(head))// one arg
+	if (has_one_arg(head))
 	{
-		if (is_long(head->next->token))// is long
+		if (is_long(head->next->token))
 		{
 			exit_code = (unsigned char)ft_atol(head->next->token);
 			exit(exit_code);
 		}
-		else// not long
+		else
 		{
-			printf("exit: numeric argument required\n");// ToDo print through fd 2!!
+			printf("exit: numeric argument required\n");// ToDo print via fd 2!!
 			exit_code = 2;
 			exit(2);
 		}
 	}
 	else// multiple args
 	{
-		if (is_long(head->next->token))// arg 1 is long
+		if (is_long(head->next->token))
 		{
-			//ToDo: Update $? to 1
+			//ToDo: Update $? to 1, possibly via return
 			printf("exit: too many arguments\n");// ToDo print through fd 2!!
 			return ;
 		}
 		else// arg 1 !long
 		{
-			printf("exit: numeric argument required\n");// ToDo print through fd 2!!
+			printf("exit: numeric argument required\n");// ToDo print via fd 2!!
 			exit_code = 2;
 			exit(exit_code);
 		}
 	}
-//		printf("token: %s\n***\n", head->next->token);
 	return ;
-
-	// is n1 a num?
-	exit_code = is_num_error(head->token, exit_code);
-//	printf("_exit_code: %i\n", exit_code);
-	if (!exit_code)
-	{
-//		printf("exit_code:%i", exit_code);
-		exit(exit_code);
-	}
-//		print_exit_error(err)
-	if (!ft_isdigit(atoi(head->token)))
-		exit(exit_code);
-//	if (argc == 0)
-/*	if (argc == 1)// && !isdigit(argv[0]))
-		ft_atol();
-	if (argc > 1)
-		printf("Argument error");*/
-//	if (argc == 1)//if under long
-//		exit_code = atoi(argv[0]);
-	exit(exit_code);//2 = numeric arg required//1 = too many args
-}
-
-static int	is_num_error(char *token, unsigned char exit_code)
-{
-	int		has_num;
-	int		sign;
-	char	*str;
-	int		i;
-
-	i = 0;
-	has_num = 0;
-	sign = 1;
-	str = ft_strtrim(token, " ");//what happens if empty?
-	if (ft_issign(str[i]))
-		if (str[i++] == '-')
-			sign = -1;
-	exit_code = is_limit_error(sign, &str[i]);//could have non digits
-	while (str[i] && ft_isdigit(str[i]))
-	{
-		has_num = 1;
-		i++;
-	}
-	if (exit_code != 2 && has_num && !str[i])
-		exit_code = 0;
-	else
-		exit_code = 2;
-	free(str);
-	return(exit_code);
-}
-
-static int	is_limit_error(int sign, char *str)
-{
-	int	len;
-
-	if (!str)
-		return (2);
-	len = ft_strlen(str);
-	if (len < 19)
-		return (0);
-	else if (len == 19)
-	{
-		if (sign == 1 && ft_strncmp((str), "9223372036854775807") > 0)
-			return (2);
-		if (sign == -1 && ft_strncmp((str), "9223372036854775808") > 0)
-			return (2);
-	}
-	else if (len > 19)
-		return (2);
-	return (0);
 }
