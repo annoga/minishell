@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:52:44 by angeln            #+#    #+#             */
-/*   Updated: 2024/07/14 14:36:30 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/08/15 17:19:27 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ t_token	*new_token(t_token_type type, char *value, int is_quote);
 t_token	*create_token(char type, char *value, int *i);
 t_token	*split_linker(char *line);
 void	print_list(t_token *head);
-void	free_token(t_token *token);
+void	free_token(t_token **token);
 void	add_token(t_token **head, t_token *new);
 
 void	add_top(t_token *head, t_token *new);
