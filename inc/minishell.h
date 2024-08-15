@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:52:44 by angeln            #+#    #+#             */
-/*   Updated: 2024/07/14 14:36:30 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/08/15 17:19:27 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <dirent.h>
+# include <linux/limits.h>
+# include <sys/stat.h>
+
 //# include ".h"
 
 extern int	debug;//This is a test variable and should be removed
@@ -80,7 +83,7 @@ t_token	*new_token(t_token_type type, char *value, int is_quote);
 t_token	*create_token(char type, char *value, int *i);
 t_token	*split_linker(char *line);
 void	print_list(t_token *head);
-void	free_token(t_token *token);
+void	free_token(t_token **token);
 void	add_token(t_token **head, t_token *new);
 
 void	add_top(t_token *head, t_token *new);
@@ -99,9 +102,13 @@ void	ft_catch_env(char **envp, t_env **head);
 // void check_token(t_token *head);
 
 /* WILDCARD */
-// void listFiles(const char *pattern);
-int my_fnmatch(const char *pattern, const char *string);
-
+int ft_fnmatch(const char *pattern, const char *string);
+t_token *match_wildcards_in_directory(const char *dir_path, const char *pattern);
+int handle_asterisk(const char *patt, const char *s);
+DIR *open_directory(const char *dir_path);
+void process_directory_entries(DIR *dir, const char *pattern, t_token **new_tokens, t_token **last_token);
+t_token	*allocate_token(void);
+t_token *create_token_from_entry(const char *dir_path, const char *entry_name);
 
 /* EXECUTE */
 t_token	*mock_builtin_tokenizer(t_token *head);//just for testing

@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:55:21 by angeln            #+#    #+#             */
-/*   Updated: 2024/08/11 16:14:55 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/08/15 17:44:32 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	main(int argc, char *argv[], char **envp)
 			add_history(line);
 		}
 		free(line);
-		free_token(token);
+		free_token(&token);
 		rl_on_new_line();
 	}
 	exit(0);

@@ -24,7 +24,7 @@ SOURCES = ft_isalpha.c ft_toupper.c ft_isdigit.c ft_tolower.c \
       ft_printf.c ft_printf_aux.c ft_solve_types_1.c ft_solve_types_2.c \
       ft_writers.c get_next_line.c get_next_line_utils.c \
 	  get_whole_file.c ft_atoi_base.c ft_countdigits.c \
-	  ft_isspace.c ft_issign.c ft_strnstr.c
+	  ft_isspace.c ft_issign.c ft_strnstr.c ft_strlcat.c
 
 OBJECTS = $(SOURCES:.c=.o)
 
