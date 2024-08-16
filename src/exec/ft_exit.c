@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:47:15 by anovoa            #+#    #+#             */
-/*   Updated: 2024/08/16 18:16:23 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/08/16 19:16:42 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,19 @@ static int	has_one_arg(t_token *head);
 static int	is_long(char *str);
 static int	int_free(char **str, int status);
 
-/* ToDo: Print "exit" when it fits (at least after success) */
-// ToDo print through fd 2!!
+/* Leaves minishell and sets errno to 0, 1 or 2 as appropriate.
+ * If misused, it may not leave minishell, instead returning the relevant value
+ * of errno.
+ * */
 void	ft_exit(t_token *head)
 {
-	if ((!head || !head->next) && printf("exit\n"))
+	if ((!head || !head->next) && ft_putendl_fd("exit", 2))
 		exit(0);
 	if (has_one_arg(head))
 	{
-		if (is_long(head->next->token) && printf("exit\n"))
+		if (is_long(head->next->token) && ft_putendl_fd("exit", 2))
 			exit((unsigned char)ft_atol(head->next->token));
-		else if (printf("exit\nexit: numeric argument required\n"))
+		else if (ft_putendl_fd("exit\nexit: numeric argument required", 2))
 			exit(2);
 	}
 	else
@@ -34,10 +36,10 @@ void	ft_exit(t_token *head)
 		if (is_long(head->next->token))
 		{
 			//ToDo: Update $? to 1, possibly via return
-			printf("exit\nexit: too many arguments\n");
+			ft_putendl_fd("exit\nexit: too many arguments", 2);
 			return ;
 		}
-		else if (printf("exit\nexit: numeric argument required\n"))
+		else if (ft_putendl_fd("exit\nexit: numeric argument required", 2))
 			exit(2);
 	}
 	return ;
