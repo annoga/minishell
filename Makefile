@@ -40,6 +40,7 @@ UTILS			=	utils/ft_strncmp.c					\
 					utils/ft_strndup.c					\
 					utils/check_is_ok.c					\
 					utils/ft_istoken.c					\
+					utils/sort_alphabetic_order.c		\
 					utils/return_error.c
 
 PARSER			=	parser/expansor.c						\

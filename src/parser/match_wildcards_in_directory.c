@@ -14,7 +14,7 @@ static t_token *create_space_token(void)
         free(space_token);
         return (NULL);
     }
-    space_token->type = ARG;
+    space_token->type = SPACE_TOKEN;
     space_token->is_quote = 0;
     return (space_token);
 }

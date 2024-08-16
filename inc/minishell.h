@@ -113,6 +113,7 @@ DIR *open_directory(const char *dir_path);
 void process_directory_entries(DIR *dir, const char *pattern, t_token **new_tokens, t_token **last_token);
 t_token	*allocate_token(void);
 t_token *create_token_from_entry(const char *dir_path, const char *entry_name);
+void sort_alphabetic_token(t_token *head);
 
 /* EXECUTE */
 t_token	*mock_builtin_tokenizer(t_token *head);//just for testing

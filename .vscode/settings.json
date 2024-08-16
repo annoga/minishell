@@ -71,6 +71,7 @@
     "string.h": "c",
     "stdio.h": "c",
     "stat.h": "c",
-    "limits.h": "c"
+    "limits.h": "c",
+    "random": "c"
   }
 }

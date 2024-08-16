@@ -78,5 +78,6 @@ void	process_directory_entries(DIR *dir, const char *pattern,
 		if (is_valid_entry(entry->d_name))
 			add_matching_token(entry->d_name, pattern, new_tokens, last_token);
 	}
-
+	
+	sort_alphabetic_token(*new_tokens);
 }
