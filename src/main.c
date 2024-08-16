@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:55:21 by angeln            #+#    #+#             */
-/*   Updated: 2024/08/15 17:44:32 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/08/16 19:24:22 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,17 @@ int	main(int argc, char *argv[], char **envp)
 {
 	char	*line;
 	t_token	*token;
-	t_env	*head;
+	t_env	*env;
 	int		i;
 
 	(void)argc;
 	(void)argv;
 	// (void)envp;
-	head = NULL;
+	env = NULL;
 	token = NULL;
 	i = 1;
 
-	ft_catch_env(envp, &head);
+	ft_catch_env(envp, &env);
 	while (i)
 	{
 		line = readline("💩 nugget 🐾$ ");
@@ -67,7 +67,7 @@ int	main(int argc, char *argv[], char **envp)
 //		}
 		if (line[0] != '\0' && check_is_ok(line))
 		{
-			token = split_linker(line);
+			token = split_linker(line, &env);
 			if(!token)
 				return(1);
 			add_history(line);
