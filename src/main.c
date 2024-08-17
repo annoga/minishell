@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:55:21 by angeln            #+#    #+#             */
-/*   Updated: 2024/08/16 19:24:22 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/08/17 17:56:57 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,21 @@ void	print_list(t_token *head)
 		tmp = tmp->next;
 	}
 }
+/*
+static void	print_env(char **envp)
+{	
+	int	i;
 
+	i = 0;
+	printf("memes\n");
+	if (envp)
+	{
+		while (envp[i])
+			ft_putendl_fd(envp[i++], 1);
+	}
+	printf("memes\n\n\n\n");
+}
+*/
 int	main(int argc, char *argv[], char **envp)
 {
 	char	*line;
