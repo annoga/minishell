@@ -16,21 +16,50 @@ static int	has_one_arg(t_token *head);
 static int	is_long(char *str);
 static int	int_free(char **str, int status);
 
+/* Leaves minishell and sets errno to 0, 1 or 2 as appropriate.
+ * If misused, it may not leave minishell, instead returning the relevant value
+ * of errno.
+ * */
+void	ft_exit(t_token *head)
+{
+	if ((!head || !head->next) && ft_putendl_fd("exit", 2))
+		exit(0);
+	if (has_one_arg(head))
+	{
+		if (is_long(head->next->token) && ft_putendl_fd("exit", 2))
+			exit((unsigned char)ft_atol(head->next->token));
+		else if (ft_putendl_fd("exit\nexit: numeric argument required", 2))
+			exit(2);
+	}
+	else
+	{
+		if (is_long(head->next->token))
+		{
+			//ToDo: Update $? to 1, possibly via return
+			ft_putendl_fd("exit\nexit: too many arguments", 2);
+			return ;
+		}
+		else if (ft_putendl_fd("exit\nexit: numeric argument required", 2))
+			exit(2);
+	}
+	return ;
+}
+
 /* Returns 0 if we have the following sequence of tokens:
  * ' ', 'arg1', ' ', 'arg2'
  * Otherwise, it returns 1.
  * */
-static int	has_one_arg(t_token *head)//32
+static int	has_one_arg(t_token *head)
 {
 	t_token	*arg;
 
-	arg = head->next;//arg1
+	arg = head->next;
 	if (arg && arg->token)
 	{
-		arg = arg->next;//32
+		arg = arg->next;
 		if (arg && arg->token)
 		{
-			arg = arg->next;//arg2
+			arg = arg->next;
 			if (arg && arg->token)
 				return (0);
 		}
@@ -54,11 +83,11 @@ static int	is_long(char *str)
 	//return 1
 	i = 0;
 	sign = 1;
-	str = ft_strtrim(str, " ");//what happens if empty?
+	str = ft_strtrim(str, " ");
 	if (ft_issign(str[i]))
 		if (str[i++] == '-')
 			sign = -1;
-	len = ft_strlen(&str[i]);//length without sign, if any
+	len = ft_strlen(&str[i]);
 	if (len > 19)
 		return (0);
 	else if (len == 19)
@@ -74,52 +103,10 @@ static int	is_long(char *str)
 	return (int_free(&str, 1));
 }
 
+/* Frees and returns the appropriate status */
 static int	int_free(char **str, int status)
 {
 	free(*str);
 	*str = NULL;
 	return (status);
-}
-
-/* ToDo: Print "exit" when it fits (at least after success) */
-void	ft_exit(t_token *head)
-{
-	unsigned char	exit_code;
-
-	exit_code = 0;
-	// has args?
-	if (!head)
-		exit(0);
-	// exit_code = read num?
-	//
-	if (has_one_arg(head))
-	{
-		if (is_long(head->next->token))
-		{
-			exit_code = (unsigned char)ft_atol(head->next->token);
-			exit(exit_code);
-		}
-		else
-		{
-			printf("exit: numeric argument required\n");// ToDo print via fd 2!!
-			exit_code = 2;
-			exit(2);
-		}
-	}
-	else// multiple args
-	{
-		if (is_long(head->next->token))
-		{
-			//ToDo: Update $? to 1, possibly via return
-			printf("exit: too many arguments\n");// ToDo print through fd 2!!
-			return ;
-		}
-		else// arg 1 !long
-		{
-			printf("exit: numeric argument required\n");// ToDo print via fd 2!!
-			exit_code = 2;
-			exit(exit_code);
-		}
-	}
-	return ;
 }

@@ -85,7 +85,7 @@ t_token	*handle_dollar(char *line, int *i);
 t_token	*get_special_token(char *line, int *i);
 t_token	*new_token(t_token_type type, char *value, int is_quote);
 t_token	*create_token(char type, char *value, int *i);
-t_token	*split_linker(char *line);
+t_token	*split_linker(char *line, t_env **env);
 void	print_list(t_token *head);
 void	free_token(t_token **token);
 void	add_token(t_token **head, t_token *new);
@@ -116,9 +116,10 @@ t_token *create_token_from_entry(const char *dir_path, const char *entry_name);
 void sort_alphabetic_token(t_token *head);
 
 /* EXECUTE */
-t_token	*mock_builtin_tokenizer(t_token *head);//just for testing
+t_token	*mock_builtin_tokenizer(t_token *head, t_env **env);//just for testing
 void	echo(t_token *head);
-void	ft_exit(t_token *head);//int argc, char *argv[]);
+void	ft_exit(t_token *head);
+int		ft_env(t_token *head, t_env *env);//maybe should return unsigned char
 
 /* UTILS */
 char	*ft_strndup(const char *s, size_t n);

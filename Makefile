@@ -52,7 +52,8 @@ PARSER			=	parser/expansor.c						\
 					parser/push_midlist.c						
 
 EXEC			=	exec/echo.c exec/mock_builtin_tokenizer.c \
-					exec/ft_exit.c
+					exec/ft_exit.c \
+					exec/ft_env.c
 
 MAIN			=	main.c								\
 					split_linker.c
