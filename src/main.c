@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:55:21 by angeln            #+#    #+#             */
-/*   Updated: 2024/08/17 17:56:57 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/08/19 18:46:40 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	main(int argc, char *argv[], char **envp)
 	env = NULL;
 	token = NULL;
 	i = 1;
-
+//	print_env(envp);
 	ft_catch_env(envp, &env);
 	while (i)
 	{
@@ -79,7 +79,7 @@ int	main(int argc, char *argv[], char **envp)
 //			free(line);
 //			return (0);
 //		}
-		if (line[0] != '\0' && check_is_ok(line))
+		if (line && line[0] != '\0' && check_is_ok(line))
 		{
 			token = split_linker(line, &env);
 			if(!token)
