@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:51:07 by anovoa            #+#    #+#             */
-/*   Updated: 2024/08/16 20:37:22 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/08/19 18:58:40 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_env(t_token *head, t_env *env)
 		ft_putendl_fd("env: No such file or directory", 2);
 		return (127);
 	}
-	while (env->next)
+	while (env)
 	{
 		printf("%s=%s\n", env->key_name, env->value);
 		env = env->next;

@@ -60,10 +60,10 @@ static void	ft_aux_envdup(t_env **tmp, char **envp, int i, char *div)
 	div = ft_strchr(envp[i], '=');
 	(*tmp)->key_name = ft_substr(envp[i], 0, (div - envp[i]));
 	if (!(*tmp)->key_name)
-		exit (1);
+		exit(1);
 	(*tmp)->value = ft_substr(div + 1, 0, ft_strlen(div));
 	if (!(*tmp)->value)
-		exit (1);
+		exit(1);
 }
 
 //make a linked list on env, iter shlvl, and ind case of no shlvl,
