@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:55:21 by angeln            #+#    #+#             */
-/*   Updated: 2024/08/19 18:46:40 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/08/19 20:39:30 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,19 +66,13 @@ int	main(int argc, char *argv[], char **envp)
 	env = NULL;
 	token = NULL;
 	i = 1;
-//	print_env(envp);
 	ft_catch_env(envp, &env);
 	while (i)
 	{
 		line = readline("💩 nugget 🐾$ ");
-		//printf("line: %s\n", line);
-		// if(!check_is_ok(line))
-		// 	return (free(line), 1);
-//		if (ft_strncmp(line, "exit") == 0)
-//		{
-//			free(line);
-//			return (0);
-//		}
+		//Ctrl+D: envia un NULL a readline -> salimos
+		if (!line && ft_putendl_fd("exit", 2) && free_env(&env))
+			exit(0);
 		if (line && line[0] != '\0' && check_is_ok(line))
 		{
 			token = split_linker(line, &env);
