@@ -26,23 +26,9 @@ static void tokenize_env(t_token **tmp2, t_token **tmp, t_token **head)
 
 static void tokenize_wildcards(t_token **tmp2, t_token **tmp, t_token **head)
 {
-    char *pattern;
-    char dir_path[1024] = ".";
-    char *slash_pos;
-    size_t dir_len;
     t_token *new_tokens;
 
-    pattern = (*tmp)->token;
-    slash_pos = ft_strrchr(pattern, '/');
-    if (slash_pos)
-    {
-        dir_len = slash_pos - pattern;
-        dir_len++;
-        ft_strlcpy(dir_path, pattern, dir_len);
-        dir_path[dir_len] = '\0';
-        pattern = slash_pos + 1;
-    }
-    new_tokens = match_wildcards_in_directory(dir_path, pattern);
+    new_tokens = handle_input((*tmp)->token);
     if (new_tokens)
     {
         add_top(*tmp2, new_tokens);

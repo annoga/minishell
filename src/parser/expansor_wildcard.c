@@ -11,75 +11,103 @@
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
 
-static char	*construct_full_path(const char *dir_path, const char *entry_name)
+static void process_wildcard_input(char *input, t_token **token_list)
 {
-	char	*full_path;
-
-	(void)dir_path;
-	full_path = malloc(2048);
-	if (!full_path)
-	{
-		perror("malloc");
-		return (NULL);
-	}
-	ft_strlcpy(full_path, dir_path, PATH_MAX);
-	ft_strlcat(full_path, "/", PATH_MAX);
-	ft_strlcat(full_path, (char *)entry_name, PATH_MAX);
-	return (full_path);
-}
-
-t_token	*allocate_token(void)
-{
-	t_token	*new_token;
-
-	new_token = malloc(sizeof(t_token));
-	if (!new_token)
-	{
-		perror("malloc");
-		return (NULL);
-	}
-	new_token->next = NULL;
-	return (new_token);
-}
-
-static int	initialize_token(t_token *token, char *full_path, const char *dir_path, const char *entry_name)
-{
-	char *token_value;
-
-	if (strcmp(dir_path, ".") == 0)
-        token_value = strdup(entry_name);
+    char prefix[1024] = "";
+    char suffix[1024] = "";
+    char *star_pos;
+    t_wilds params;
+    
+    star_pos = ft_strchr(input, '*');
+    if (star_pos == input)
+        ft_strncpy(suffix, input + 1, sizeof(suffix) - 1);
+    else if (*(star_pos + 1) == '\0')
+        ft_strncpy(prefix, input, star_pos - input);
     else
-	{
-        token_value = strdup(full_path);
-	}
-	if (!token_value)
     {
-        perror("strdup");
-        free(token);
-        free(full_path);
-        return (0);
+        ft_strncpy(prefix, input, star_pos - input);
+        ft_strncpy(suffix, star_pos + 1, sizeof(suffix) - 1);
     }
-	token->token = token_value;
-	token->type = ARG;
-	token->is_quote = 0;
-
-	return (0);
+    params.path = ".";
+    set_params(&params, prefix, suffix, 0);
+    handle_directory(&params, token_list);
 }
 
-t_token	*create_token_from_entry(const char *dir_path, const char *entry_name)
+static void process_star_slash(char *input, t_token **token_list)
 {
-	t_token	*new_token;
-	char	*full_path;
+    char path[1024];
+    char *star_slash_pos;
+    size_t i;
+    t_wilds params;
+    
+    i = 0;
+    star_slash_pos = ft_strstr(input, "/*");
+    while (input + i != star_slash_pos)
+    {
+        path[i] = input[i];
+        i++;
+    }
+    path[i] = '\0';
+    if (ft_strcmp(path, "*") == 0)
+        list_all_directories(token_list);
+    else
+    {
+        params.path = path;
+        set_params(&params, NULL, NULL, 0);
+        handle_directory(&params, token_list);
+    }
+}
 
-	full_path = construct_full_path(dir_path, entry_name);
-	if (!full_path)
-		return (NULL);
-	new_token = allocate_token();
-	if (!new_token)
-		return (free(full_path), NULL);
-	if (initialize_token(new_token, full_path, dir_path, entry_name) < 0)
-		return (free(full_path), NULL);
-	return (free(full_path), new_token);
+void handle_directory(const t_wilds *params, t_token **token_list)
+{
+    struct dirent *entry;
+    DIR *dp;
+    
+    dp = opendir(params->path);
+    if (dp == NULL)
+    {
+        perror("opendir");
+        return ;
+    }
+    while ((entry = readdir(dp)) != NULL)
+        process_entry(params->path, entry, params, token_list);
+    closedir(dp);
+}
+
+
+static void process_special_cases(char *input, t_token **token_list)
+{
+    t_wilds params;
+
+    if (ft_strcmp(input, "**/*") == 0 || ft_strcmp(input, "***/*") == 0)
+    {
+        params.path = ".";
+        set_params(&params, NULL, NULL, 1000);
+        handle_directory(&params, token_list);
+    }
+}
+
+t_token *handle_input(char *input)
+{
+    t_token *token_list;
+    t_wilds params;
+    
+    token_list = NULL;
+    process_special_cases(input, &token_list);
+    normalize_input(input);
+    if (ft_strcmp(input, "*") == 0)
+    {
+        params.path = ".";
+        set_params(&params, NULL, NULL, 0);
+        handle_directory(&params, &token_list);
+    }
+    else if (ft_strstr(input, "/*") != NULL)
+        process_star_slash(input, &token_list);
+    else if (ft_strchr(input, '*'))
+        process_wildcard_input(input, &token_list);
+    sort_alphabetic_token(token_list);
+    insert_space_tokens(&token_list);
+    return (token_list);
 }
 
 

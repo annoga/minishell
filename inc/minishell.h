@@ -73,6 +73,15 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
+typedef struct s_wilds
+{
+    const char *path;
+    const char *prefix;
+    const char *suffix;
+    int depth;
+}	t_wilds;
+
+
 /* TOKENIZER */
 t_token	*tokenizer(char *line);
 t_token	*get_token(char *line, int *i);
@@ -106,14 +115,19 @@ void	ft_catch_env(char **envp, t_env **head);
 // void check_token(t_token *head);
 
 /* WILDCARD */
-int ft_fnmatch(const char *pattern, const char *string);
-t_token *match_wildcards_in_directory(const char *dir_path, const char *pattern);
-int handle_asterisk(const char *patt, const char *s);
-DIR *open_directory(const char *dir_path);
-void process_directory_entries(DIR *dir, const char *pattern, t_token **new_tokens, t_token **last_token);
-t_token	*allocate_token(void);
-t_token *create_token_from_entry(const char *dir_path, const char *entry_name);
 void sort_alphabetic_token(t_token *head);
+t_token *handle_input(char *input);
+void set_params(t_wilds *params, const char *prefix, const char *suffix, int depth);
+void insert_space_tokens(t_token **tokens);
+void list_all_directories(t_token **token_list);
+void normalize_input(char *input);
+void handle_directory(const t_wilds *params, t_token **token_list);
+void process_entry(const char *path, struct dirent *entry, const t_wilds *params, t_token **token_list);
+char	*construct_full_path(const char *dir_path, const char *entry_name);
+int prefix_compare(const char *str, const char *prefix);
+int suffix_compare(const char *str, const char *suffix);
+int is_directory(const char *path);
+
 
 /* EXECUTE */
 t_token	*mock_builtin_tokenizer(t_token *head, t_env **env);//just for testing
@@ -124,7 +138,10 @@ int		free_env(t_env **envp);
 
 /* UTILS */
 char	*ft_strndup(const char *s, size_t n);
-int		ft_strncmp(const char *s1, const char *s2);
+int		ft_strcmp(const char *s1, const char *s2);
+int	ft_strncmp(const char *s1, const char *s2, size_t n);
+void ft_strncpy(char *dest, const char *src, size_t n);
+char *ft_strstr(const char *str, const char *needle);
 void	*return_error(char *str);
 int		check_is_ok(char *line);
 int ft_istoken(char c);

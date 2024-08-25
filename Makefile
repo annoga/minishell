@@ -36,20 +36,24 @@ TOKENIZER 		= 	tokenizer/tokenizer.c					\
 					tokenizer/free_token.c				\
 					tokenizer/new_token.c
 
-UTILS			=	utils/ft_strncmp.c					\
+UTILS			=	utils/ft_strcmp.c					\
 					utils/ft_strndup.c					\
+					utils/ft_strncmp.c					\
+					utils/ft_strstr.c					\
+					utils/ft_strncpy.c					\
 					utils/check_is_ok.c					\
 					utils/ft_istoken.c					\
 					utils/sort_alphabetic_order.c		\
 					utils/return_error.c
 
-PARSER			=	parser/expansor.c						\
-					parser/prueba_env.c					\
-					parser/ft_fnmatch.c					\
-					parser/expansor_wildcard.c			\
-					parser/match_wildcards_in_directory.c	\
-					parser/wildcard_utils.c			\
-					parser/push_midlist.c						
+PARSER			=	parser/expansor_wildcard.c						\
+					parser/expansor.c					\
+					parser/insert_space_tokens.c					\
+					parser/list_all_directories.c	\
+					parser/process_entry.c	\
+					parser/prueba_env.c			\
+					parser/push_midlist.c			\
+					parser/wildcard_utils.c						
 
 EXEC			=	exec/echo.c exec/mock_builtin_tokenizer.c \
 					exec/ft_exit.c \

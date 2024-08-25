@@ -12,7 +12,7 @@ static void	ft_aux_catch_env(t_env **tmp, int *shlvl_flag)
 	int	shlvl;
 
 	shlvl = 0;
-	if (ft_strncmp((*tmp)->key_name, "SHLVL\0") == 0)
+	if (ft_strcmp((*tmp)->key_name, "SHLVL\0") == 0)
 	{
 		shlvl = ft_atoi((*tmp)->value);
 		if (shlvl > 999)

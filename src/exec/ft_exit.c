@@ -92,9 +92,9 @@ static int	is_long(char *str)
 		return (0);
 	else if (len == 19)
 	{
-		if (sign == 1 && ft_strncmp((str), "9223372036854775807") > 0)
+		if (sign == 1 && ft_strcmp((str), "9223372036854775807") > 0)
 			return (int_free(&str, 0));
-		if (sign == -1 && ft_strncmp((str), "9223372036854775808") > 0)
+		if (sign == -1 && ft_strcmp((str), "9223372036854775808") > 0)
 			return (int_free(&str, 0));
 	}
 	while (str[i])

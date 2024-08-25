@@ -39,12 +39,12 @@ char	*ft_strndup(const char *s, size_t n)
 //     t_token *tmp;
 
 //     tmp = head;
-//     if(!ft_strncmp(tmp->token, "|"))
+//     if(!ft_strcmp(tmp->token, "|"))
 //     {
 //         head->is_pipe = 1;
 //         head->is_bonus = 0;
 //     }
-//     else if(!ft_strncmp(tmp->token, "||") || !ft_strncmp(tmp->token, "&&"))
+//     else if(!ft_strcmp(tmp->token, "||") || !ft_strcmp(tmp->token, "&&"))
 //     {
 //         head->is_pipe = 0;
 //         head->is_bonus = 1;
@@ -61,8 +61,8 @@ char	*ft_strndup(const char *s, size_t n)
 //     t_token *tmp;
 
 //     tmp = head;
-//     if(!ft_strncmp(tmp->token, ">") || !ft_strncmp(tmp->token, ">>") ||
-//         !ft_strncmp(tmp->token, "<") || !ft_strncmp(tmp->token, "<<"))
+//     if(!ft_strcmp(tmp->token, ">") || !ft_strcmp(tmp->token, ">>") ||
+//         !ft_strcmp(tmp->token, "<") || !ft_strcmp(tmp->token, "<<"))
 //         head->is_redir = 1;
 //     else
 //         head->is_redir = 0;
@@ -73,11 +73,11 @@ char	*ft_strndup(const char *s, size_t n)
 //     t_token *tmp;
 
 //     tmp = head;
-//     if(!ft_strncmp(tmp->token, "echo") || !ft_strncmp(tmp->token, "cd") ||
-//         !ft_strncmp(tmp->token, "pwd") || !ft_strncmp(tmp->token, "export")
+//     if(!ft_strcmp(tmp->token, "echo") || !ft_strcmp(tmp->token, "cd") ||
+//         !ft_strcmp(tmp->token, "pwd") || !ft_strcmp(tmp->token, "export")
 //	||
-//         !ft_strncmp(tmp->token, "unset") || !ft_strncmp(tmp->token, "env") ||
-//         !ft_strncmp(tmp->token, "exit"))
+//         !ft_strcmp(tmp->token, "unset") || !ft_strcmp(tmp->token, "env") ||
+//         !ft_strcmp(tmp->token, "exit"))
 //         head->is_builtin = 1;
 //     else
 //         head->is_builtin = 0;
