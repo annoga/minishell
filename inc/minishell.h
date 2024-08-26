@@ -45,6 +45,7 @@ typedef enum e_token_type
 	L_PAREN,
 	R_PAREN,
 	SPACE_TOKEN,
+	EXIT_STATUS,
 	ENV
 }					t_token_type;
 
