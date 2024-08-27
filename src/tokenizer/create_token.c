@@ -17,7 +17,7 @@ t_token *create_token(char type, char *line, int *i)
 	t_token *token;
 
 	//printf("line: %s\n", line);
-	if (!ft_strncmp(line, ">>") || !ft_strncmp(line, "<<") || !ft_strncmp(line, "&&") || !ft_strncmp(line, "||"))
+	if (!ft_strcmp(line, ">>") || !ft_strcmp(line, "<<") || !ft_strcmp(line, "&&") || !ft_strcmp(line, "||"))
 	{
 		(*i)++;
 	}

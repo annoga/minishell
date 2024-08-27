@@ -11,78 +11,55 @@
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
 
-DIR	*open_directory(const char *dir_path)
+void set_params(t_wilds *params, const char *prefix, const char *suffix, int depth)
 {
-	DIR	*dir;
-	
-	dir = opendir(dir_path);
-	if (!dir)
-		perror("bash: ");
-	return (dir);
+    params->prefix = prefix;
+    params->suffix = suffix;
+    params->depth = depth;
+}
+void normalize_input(char *input)
+{
+    char *src;
+    char *dst;
+
+    dst = input;
+    src = input;
+    while (*src != '\0') 
+    {
+        *dst = *src;
+        if (*src == '*') 
+        {
+            while (*(src + 1) == '*')
+                src++;
+        }
+        src++;
+        dst++;
+    }
+    *dst = '\0';
 }
 
-// static void	insert_token_sorted(t_token **new_tokens, t_token *new_token)
-// {
-//     t_token	*current;
-//     t_token	*previous;
-
-//     if (!(*new_tokens) || ft_strncmp(new_token->token, (*new_tokens)->token) < 0)
-//     {
-//         new_token->next = *new_tokens;
-//         *new_tokens = new_token;
-//     }
-//     else
-//     {
-//         previous = NULL;
-//         current = *new_tokens;
-//         while (current && ft_strncmp(new_token->token, current->token) >= 0)
-//         {
-//             previous = current;
-//             current = current->next;
-//         }
-//         new_token->next = current;
-//         previous->next = new_token;
-//     }
-// }
-
-static void	add_matching_token(const char *entry_name, const char *pattern,
-				t_token **new_tokens, t_token **last_token)
+int is_directory(const char *path)
 {
-	t_token	*new_token;
+    struct stat statbuf;
 
-	(void)last_token;
-	if (ft_fnmatch(pattern, entry_name) == 0) 
-	{
-		new_token = create_token_from_entry(".", entry_name);
-		if (new_token) 
-		{
-			if (!(*new_tokens))
-				*new_tokens = new_token;
-			else
-				(*last_token)->next = new_token;
-			*last_token = new_token;
-			// insert_token_sorted(new_tokens, new_token);
-		}
-	}
+    if (stat(path, &statbuf) != 0)
+        return (0);
+    return (S_ISDIR(statbuf.st_mode));
 }
 
-static int	is_valid_entry(const char *entry_name)
+int prefix_compare(const char *str, const char *prefix)
 {
-	if (ft_strncmp(entry_name, ".") != 0 && ft_strncmp(entry_name, "..") != 0 && entry_name[0] != '.')
-		return 1;
-	return 0;
+    return (ft_strncmp(str, prefix, ft_strlen(prefix)));
 }
-
-void	process_directory_entries(DIR *dir, const char *pattern,
-				t_token **new_tokens, t_token **last_token)
+//3
+int suffix_compare(const char *str, const char *suffix)
 {
-	struct dirent	*entry;
+    size_t len_str;
+    size_t len_suffix;
 
-	while ((entry = readdir(dir)) != NULL)
-	{
-		if (is_valid_entry(entry->d_name))
-			add_matching_token(entry->d_name, pattern, new_tokens, last_token);
-	}
-	
-	sort_alphabetic_token(*new_tokens);
+    len_str = ft_strlen(str);
+    len_suffix = ft_strlen(suffix);
+    if (len_str < len_suffix)
+        return (1);
+    return (ft_strcmp(str + len_str - len_suffix, suffix));
 }

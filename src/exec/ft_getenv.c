@@ -18,7 +18,7 @@ char	*ft_getenv(char *key, t_env *envp)
 {
 	while(envp)
 	{
-		if (ft_strncmp(envp->key_name, key))
+		if (ft_strcmp(envp->key_name, key))
 			return (envp->value);
 		envp = envp->next;
 	}
