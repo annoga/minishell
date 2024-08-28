@@ -25,7 +25,7 @@ HANDLE_TOKENS	=	handle_tokens/handle_args.c			\
 					handle_tokens/handle_double_quote.c	\
 					handle_tokens/handle_single_quote.c	\
 					handle_tokens/handle_space.c			\
-					handle_tokens/handle_dollar.c			\
+					handle_tokens/handle_expansion.c		\
 					handle_tokens/handle_parenthesis.c	
 
 TOKENIZER 		= 	tokenizer/tokenizer.c					\
@@ -46,14 +46,15 @@ UTILS			=	utils/ft_strcmp.c					\
 					utils/sort_alphabetic_order.c		\
 					utils/return_error.c
 
-PARSER			=	parser/expansor_wildcard.c						\
-					parser/expansor.c					\
-					parser/insert_space_tokens.c					\
-					parser/list_all_directories.c	\
-					parser/process_entry.c	\
-					parser/prueba_env.c			\
-					parser/push_midlist.c			\
-					parser/wildcard_utils.c						
+PARSER			=	parser/prueba_env.c						\
+					parser/push_midlist.c
+
+EXPANSOR		=	expansor/expansor_wildcard.c						\
+					expansor/expansor.c					\
+					expansor/insert_space_tokens.c					\
+					expansor/list_all_directories.c	\
+					expansor/process_entry.c	\
+					expansor/wildcard_utils.c						
 
 EXEC			=	exec/echo.c exec/mock_builtin_tokenizer.c \
 					exec/ft_exit.c \
@@ -64,7 +65,7 @@ EXEC			=	exec/echo.c exec/mock_builtin_tokenizer.c \
 MAIN			=	main.c								\
 					split_linker.c
 
-SRC				=	$(HANDLE_TOKENS) $(TOKENIZER) $(UTILS) $(PARSER) $(EXEC) $(MAIN)
+SRC				=	$(HANDLE_TOKENS) $(TOKENIZER) $(UTILS) $(PARSER) $(EXEC) $(EXPANSOR) $(MAIN)
 
 
 SRCS			=	$(addprefix $(SRC_DIR), $(SRC))

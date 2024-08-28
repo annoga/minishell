@@ -1,6 +1,6 @@
 #include "../../inc/minishell.h"
 
-t_token *handle_special_dollar(char *line, int *i)
+t_token *handle_no_expansion(char *line, int *i)
 {
 	int		start;
 	char	*value;
@@ -26,16 +26,24 @@ t_token *handle_special_dollar(char *line, int *i)
 	return (new_token(ARG, value, 0));
 }
 
+t_token *handle_special_expansion(char *line, int *i)
+{
+	if(line[*i + 1] == ' ' || line[*i + 1] == '\0' || line[*i + 1] == '/')
+		return (new_token(ENV, ft_strdup("HOME"), 0));
+	return (handle_no_expansion(line, i));
+}
 
 
-t_token	*handle_dollar(char *line, int *i)
+t_token	*handle_expansion(char *line, int *i)
 {
 	int		start;
 	char	*value;
 
 	start = *i;
+	if (line[start] == '~')
+		return (handle_special_expansion(line, i));
 	if(!ft_isalpha(line[start + 1]) && line[start + 1] != '_')
-		return (handle_special_dollar(line, i));
+		return (handle_no_expansion(line, i));
 	printf("here\n");
 	start = ++*i;
 	while (line[*i] && (ft_isalpha(line[*i]) || line[*i] == '_'))

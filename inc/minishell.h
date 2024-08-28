@@ -91,7 +91,7 @@ t_token	*handle_double_quote(char *line, int *i);
 t_token	*handle_parenthesis(char *line, int *i);
 t_token	*handle_space(char *line, int *i);
 t_token	*handle_arg(char *line, int *i);
-t_token	*handle_dollar(char *line, int *i);
+t_token	*handle_expansion(char *line, int *i);
 t_token	*get_special_token(char *line, int *i);
 t_token	*new_token(t_token_type type, char *value, int is_quote);
 t_token	*create_token(char type, char *value, int *i);

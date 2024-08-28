@@ -5,7 +5,10 @@ static void tokenize_env(t_token **tmp2, t_token **tmp, t_token **head)
     char *env;
     t_token *new_tokens;
 
-    env = getenv((*tmp)->token);
+    // if (strchr((*tmp)->token, '~'))
+    //     env = getenv("HOME");
+    // else
+        env = getenv((*tmp)->token);
     if(!env)
         env = ft_strdup("");
     else
