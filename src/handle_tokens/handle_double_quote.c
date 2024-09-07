@@ -94,10 +94,8 @@ char *parse_double_quote_content(char *line, int *i)
         result = append_str(result, temp);
     }
 
-    // Add the ending quote to the result
     result = append_str(result, ft_strdup("\""));
-
-    return result;
+    return (result);
 }
 
 t_token *handle_double_quote(char *line, int *i)
@@ -116,29 +114,9 @@ t_token *handle_double_quote(char *line, int *i)
     token = new_token(DOUBLE_QUOTE, result);
     (*i)--;
 
-    return token;
+    return (token);
 }
 
-
-// t_token *handle_double_quote(char *line, int *i)
-// {
-//     char *result;
-//     t_token *token;
-
-//     (*i)++;
-//     result = parse_double_quote_content(line, i);
-
-//     if (line[*i] == '"')
-//         (*i)++;
-
-//     if (!result)
-//         result = ft_strdup("");
-
-//     token = new_token(DOUBLE_QUOTE, result);
-//     (*i)--;
-
-//     return token;
-// }
 
 // t_token	*handle_double_quote(char *line, int *i)
 // {
