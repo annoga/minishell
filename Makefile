@@ -49,6 +49,9 @@ UTILS			=	utils/ft_strcmp.c					\
 PARSER			=	parser/prueba_env.c						\
 					parser/push_midlist.c
 
+SYNTAX			=	syntax/analize_syntax.c						\
+					syntax/assign_type.c					\
+
 EXPANSOR		=	expansor/expansor_wildcard.c						\
 					expansor/expansor.c					\
 					expansor/insert_space_tokens.c					\
@@ -65,7 +68,7 @@ EXEC			=	exec/echo.c exec/mock_builtin_tokenizer.c \
 MAIN			=	main.c								\
 					split_linker.c
 
-SRC				=	$(HANDLE_TOKENS) $(TOKENIZER) $(UTILS) $(PARSER) $(EXEC) $(EXPANSOR) $(MAIN)
+SRC				=	$(HANDLE_TOKENS) $(TOKENIZER) $(UTILS) $(PARSER) $(SYNTAX) $(EXEC) $(EXPANSOR) $(MAIN)
 
 
 SRCS			=	$(addprefix $(SRC_DIR), $(SRC))

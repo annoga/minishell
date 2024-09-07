@@ -72,6 +72,7 @@
     "stdio.h": "c",
     "stat.h": "c",
     "limits.h": "c",
-    "random": "c"
+    "random": "c",
+    "compare": "c"
   }
 }

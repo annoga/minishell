@@ -43,14 +43,18 @@ int	check_parenthesis(char *line)
 {
 	int	count;
 	int	i;
+	int is_quote;
 
 	count = 0;
+	is_quote = 0;
 	i = 0;
 	while (line[i])
 	{
-		if (line[i] == '(')
+		if (line[i] == '\'' || line[i] == '"')
+			is_quote = !is_quote;
+		if (line[i] == '(' && !is_quote)
 			count++;
-		else if (line[i] == ')')
+		else if (line[i] == ')' && !is_quote)
 		{
 			if (count == 0)
 				return_error("Error: missing opening \

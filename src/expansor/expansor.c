@@ -5,10 +5,7 @@ static void tokenize_env(t_token **tmp2, t_token **tmp, t_token **head)
     char *env;
     t_token *new_tokens;
 
-    // if (strchr((*tmp)->token, '~'))
-    //     env = getenv("HOME");
-    // else
-        env = getenv((*tmp)->token);
+    env = getenv((*tmp)->token);
     if(!env)
         env = ft_strdup("");
     else
@@ -51,7 +48,6 @@ t_token *expansor(t_token *head)
             tmp2 = tmp;
             tokenize_env(&tmp2, &tmp, &head);
         }
-        // AQUI EMPIEZA EL EXPANSOR DE WILDCARDS
         else if(tmp->type == ARG && ft_strchr(tmp->token, '*'))
         {
             tmp2 = tmp;

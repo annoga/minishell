@@ -7,7 +7,7 @@ t_token *handle_no_expansion(char *line, int *i)
 
 	start = ++*i;
 	if(line[*i] == '?')
-		return(new_token(EXIT_STATUS, ft_strdup("$?"), 0));
+		return(new_token(EXIT_STATUS, ft_strdup("$?")));
 	while (line[*i] && !ft_istoken(line[*i]) && !ft_isalpha(line[*i]) && line[*i] != ' ')
 	{
 		if (line[*i] == '&' && line[*i + 1] == '&')
@@ -22,14 +22,14 @@ t_token *handle_no_expansion(char *line, int *i)
 		return (NULL);
 	(*i) -= 1;
 	if (value[1] == '?')
-		return(new_token(EXIT_STATUS, value, 0));
-	return (new_token(ARG, value, 0));
+		return(new_token(EXIT_STATUS, value));
+	return (new_token(ARG, value));
 }
 
 t_token *handle_special_expansion(char *line, int *i)
 {
 	if(line[*i + 1] == ' ' || line[*i + 1] == '\0' || line[*i + 1] == '/')
-		return (new_token(ENV, ft_strdup("HOME"), 0));
+		return (new_token(ENV, ft_strdup("HOME")));
 	return (handle_no_expansion(line, i));
 }
 
@@ -56,5 +56,5 @@ t_token	*handle_expansion(char *line, int *i)
 	if (!value)
 		return (NULL);
 	(*i)--;
-	return (new_token(ENV, value, 0));
+	return (new_token(ENV, value));
 }
