@@ -63,16 +63,16 @@ int analize_tokens(t_token *token)
     bzero(&anal_data, sizeof(t_synt));
     while (token)
     {
-        token->type = assing_type(token->token, &anal_data);
+        token->syntaxis = assing_type(token->token, &anal_data);
 
-        if (error_syntax(&anal_data, token->type))
+        if (error_syntax(&anal_data, token->syntaxis))
             break;
-        if (token->type == SPACE_TOKEN)
+        if (token->syntaxis == SPACE_TOKEN)
         {
             token = token->next;
             continue;
         }
-        anal_data.last_token_type = token->type;
+        anal_data.last_token_type = token->syntaxis;
         token = token->next;
     }
     return (!check_syntax_error(token, &anal_data));

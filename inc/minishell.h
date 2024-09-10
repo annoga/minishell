@@ -51,29 +51,12 @@ typedef enum e_token_type
 	ENV
 }					t_token_type;
 
-// typedef enum e_type
-// {
-// 	NO_TYPE = 0,
-// 	AND_TWO,
-// 	OR_TWO,
-// 	PIPE_TWO,
-// 	O_PAR,
-// 	C_PAR,
-// 	R_IN,
-// 	R_OUT,
-// 	HDOC,
-// 	APP,
-// 	CMD,
-// 	ARG_TWO,
-// 	FILES,
-// }	t_anal_type;
-
 typedef struct s_token
 {
 	char			*token;
 	int				is_quote;
 	t_token_type	type;
-	// t_anal_type		anal_type;
+	t_token_type	syntaxis;
 	struct s_token	*next;
 }					t_token;
 

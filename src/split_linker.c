@@ -43,7 +43,6 @@ t_token	*split_linker(char *line, t_env **env)
 
 	if(!analize_tokens(token))
 		return(NULL);
-
 	token = expansor(token);
 	// prueba builtin
 
