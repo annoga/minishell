@@ -60,20 +60,12 @@ typedef struct s_token
 	struct s_token	*next;
 }					t_token;
 
-// typedef struct s_token_two
-// {
-// 	char			*string;
-// 	t_type	type;
-// 	struct s_token_two	*next;
-// }					t_token_two;
-
-typedef struct s_redir
+typedef struct s_file
 {
-	char			*file;
-	int				type;
-	int				fd;
-	struct s_redir	*next;
-}					t_redir;
+	char			*name;
+	t_token_type	type;
+	struct t_file	*next;
+}					t_file;
 
 typedef struct s_env
 {
@@ -128,6 +120,9 @@ t_token	*assign_bonus_token(t_token *head, int type_bonus);
 
 t_token *expansor(t_token *head);
 void	ft_catch_env(char **envp, t_env **head);
+int ft_issafedup(t_env **tmp, char *name, char *value);
+void ft_empty_env(t_env **tmp);
+
 
 // void check_builtin(t_token *head);
 // void check_pipe_bonus(t_token *head);
@@ -170,5 +165,6 @@ char *ft_strstr(const char *str, const char *needle);
 void	*return_error(char *str);
 int		check_is_ok(char *line);
 int ft_istoken(char c);
+void	ft_soft_itoa(t_env **tmp, int n);
 
 #endif

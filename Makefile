@@ -3,8 +3,8 @@ NAME				=	minishell
 
 # Compiler and CFlags
 CC					=	gcc -g
-CFLAGS				=	-Wall -Werror -Wextra
-# CFLAGS				=	-Wall -Werror -Wextra -fsanitize=address
+# CFLAGS				=	-Wall -Werror -Wextra
+CFLAGS				=	-Wall -Werror -Wextra -fsanitize=address
 RM					=	rm -f
 # 
 # Determine the platform
@@ -44,10 +44,13 @@ UTILS			=	utils/ft_strcmp.c					\
 					utils/check_is_ok.c					\
 					utils/ft_istoken.c					\
 					utils/sort_alphabetic_order.c		\
+					utils/ft_soft_itoa.c		\
 					utils/return_error.c
 
-PARSER			=	parser/prueba_env.c						\
-					parser/push_midlist.c
+PARSER			=	parser/push_midlist.c
+
+ENV				=	env/ft_catch_env.c						\
+					env/ft_empty_env.c
 
 SYNTAX			=	syntax/analize_syntax.c						\
 					syntax/assign_type.c					\
@@ -68,7 +71,7 @@ EXEC			=	exec/echo.c exec/mock_builtin_tokenizer.c \
 MAIN			=	main.c								\
 					split_linker.c
 
-SRC				=	$(HANDLE_TOKENS) $(TOKENIZER) $(UTILS) $(PARSER) $(SYNTAX) $(EXEC) $(EXPANSOR) $(MAIN)
+SRC				=	$(HANDLE_TOKENS) $(TOKENIZER) $(UTILS) $(PARSER) $(ENV) $(SYNTAX) $(EXEC) $(EXPANSOR) $(MAIN)
 
 
 SRCS			=	$(addprefix $(SRC_DIR), $(SRC))
