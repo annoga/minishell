@@ -98,7 +98,13 @@ typedef struct s_cmd
 	char			**heredoc; // ESTO ES UN ARRAY PARA LOS HEREDOCS
 	t_file			**files;
 	t_token_type	connection_type; //AND, OR, PIPE
+	struct s_cmd	*subcommand;
+	struct s_cmd	*next;
 }	t_cmd;
+
+
+
+
 
 /* TOKENIZER */
 t_token	*tokenizer(char *line);
