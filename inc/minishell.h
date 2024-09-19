@@ -86,13 +86,19 @@ typedef struct s_wilds
 typedef struct s_synt
 {
 	t_token_type	last_token_type;
-	int		parenthesis_balance;
-	int	is_cmd_assigned;
-	int	expecting_cmd;
-	int	has_content;
-	char	**path_split;
-
+	int				parenthesis_balance;
+	int				is_cmd_assigned;
+	int				expecting_cmd;
+	int				has_content;
 }	t_synt;
+
+typedef struct s_cmd
+{
+	char			**cmd;
+	char			**heredoc; // ESTO ES UN ARRAY PARA LOS HEREDOCS
+	t_file			**files;
+	t_token_type	connection_type; //AND, OR, PIPE
+}	t_cmd;
 
 /* TOKENIZER */
 t_token	*tokenizer(char *line);

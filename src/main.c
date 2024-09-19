@@ -34,7 +34,7 @@ void	print_list(t_token *head)
 	printf("----------------------\n");
 	while (tmp)
 	{
-		printf("Token: '%s', type: %u\n", tmp->token, tmp->type);
+		printf("Token: '%s', type: %u\n", tmp->token, tmp->syntaxis);
 		tmp = tmp->next;
 	}
 }
