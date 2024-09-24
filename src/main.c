@@ -34,7 +34,7 @@ void	print_list(t_token *head)
 	printf("----------------------\n");
 	while (tmp)
 	{
-		printf("Token: '%s', type: %u\n", tmp->token, tmp->type);
+		printf("Token: '%s', type: %u\n", tmp->token, tmp->syntaxis);
 		tmp = tmp->next;
 	}
 }
@@ -78,7 +78,8 @@ int	main(int argc, char *argv[], char **envp)
 		{
 			token = split_linker(line, &env);
 			if(!token)
-				return(1);
+				continue;
+
 			add_history(line);
 		}
 		free(line);

@@ -17,7 +17,7 @@ t_token	*handle_arg(char *line, int *i)
 	value = ft_strndup(&line[start], *i - start);
 	if (!value)
 		return (NULL);
-	token = new_token(ARG, value, 0);
+	token = new_token(ARG, value);
 	(*i)--;
 	return (token);
 }

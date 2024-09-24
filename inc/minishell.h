@@ -31,20 +31,22 @@ extern int	debug;//This is a test variable and should be removed
 
 typedef enum e_token_type
 {
-	ARG,
-	SINGLE_QUOTE,
-	DOUBLE_QUOTE,
+	NO_TYPE = 0,
+	AND,
+	OR,
 	PIPE,
+	L_PAREN,
+	R_PAREN,
 	REDIR_IN,
 	REDIR_OUT,
 	HEREDOC,
 	APPEND,
-	BUILTIN,
-	AND,
-	OR,
-	L_PAREN,
-	R_PAREN,
+	COMMAND,
+	ARG,
 	SPACE_TOKEN,
+	SINGLE_QUOTE,
+	DOUBLE_QUOTE,
+	FILES,
 	EXIT_STATUS,
 	ENV
 }					t_token_type;
@@ -53,19 +55,17 @@ typedef struct s_token
 {
 	char			*token;
 	int				is_quote;
-	// int 			and;
-	// int 			or;
 	t_token_type	type;
+	t_token_type	syntaxis;
 	struct s_token	*next;
 }					t_token;
 
-typedef struct s_redir
+typedef struct s_file
 {
-	char			*file;
-	int				type;
-	int				fd;
-	struct s_redir	*next;
-}					t_redir;
+	char			*name;
+	t_token_type	type;
+	struct t_file	*next;
+}					t_file;
 
 typedef struct s_env
 {
@@ -83,6 +83,23 @@ typedef struct s_wilds
 }	t_wilds;
 
 
+typedef struct s_synt
+{
+	t_token_type	last_token_type;
+	int				parenthesis_balance;
+	int				is_cmd_assigned;
+	int				expecting_cmd;
+	int				has_content;
+}	t_synt;
+
+typedef struct s_cmd
+{
+	char			**cmd;
+	char			**heredoc; // ESTO ES UN ARRAY PARA LOS HEREDOCS
+	t_file			**files;
+	t_token_type	connection_type; //AND, OR, PIPE
+}	t_cmd;
+
 /* TOKENIZER */
 t_token	*tokenizer(char *line);
 t_token	*get_token(char *line, int *i);
@@ -91,9 +108,9 @@ t_token	*handle_double_quote(char *line, int *i);
 t_token	*handle_parenthesis(char *line, int *i);
 t_token	*handle_space(char *line, int *i);
 t_token	*handle_arg(char *line, int *i);
-t_token	*handle_dollar(char *line, int *i);
+t_token	*handle_expansion(char *line, int *i);
 t_token	*get_special_token(char *line, int *i);
-t_token	*new_token(t_token_type type, char *value, int is_quote);
+t_token	*new_token(t_token_type type, char *value);
 t_token	*create_token(char type, char *value, int *i);
 t_token	*split_linker(char *line, t_env **env);
 void	print_list(t_token *head);
@@ -109,6 +126,9 @@ t_token	*assign_bonus_token(t_token *head, int type_bonus);
 
 t_token *expansor(t_token *head);
 void	ft_catch_env(char **envp, t_env **head);
+int ft_issafedup(t_env **tmp, char *name, char *value);
+void ft_empty_env(t_env **tmp);
+
 
 // void check_builtin(t_token *head);
 // void check_pipe_bonus(t_token *head);
@@ -129,6 +149,11 @@ int prefix_compare(const char *str, const char *prefix);
 int suffix_compare(const char *str, const char *suffix);
 int is_directory(const char *path);
 
+/* SYNTAX */
+int	analize_tokens(t_token *token);
+t_token_type	assing_type(char *token, t_synt *state);
+
+int check_syntax(t_token *token);
 
 /* EXECUTE */
 t_token	*mock_builtin_tokenizer(t_token *head, t_env **env);//just for testing
@@ -146,5 +171,6 @@ char *ft_strstr(const char *str, const char *needle);
 void	*return_error(char *str);
 int		check_is_ok(char *line);
 int ft_istoken(char c);
+void	ft_soft_itoa(t_env **tmp, int n);
 
 #endif
