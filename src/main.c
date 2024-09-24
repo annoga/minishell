@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:55:21 by angeln            #+#    #+#             */
-/*   Updated: 2024/09/24 17:56:49 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/09/24 17:59:18 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 int	debug = 1;//TEST, DELETE
 
+/*Just for testing*/
 char	*print_type(t_token_type type)
 {
 	if (type == 0)
@@ -58,6 +59,7 @@ char	*print_type(t_token_type type)
 	return ("UNDEFINED TYPE");
 }
 
+/*Just for testing*/
 void	print_list(t_token *head)
 {
 	t_token	*tmp;
