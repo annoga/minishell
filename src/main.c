@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:55:21 by angeln            #+#    #+#             */
-/*   Updated: 2024/08/19 20:39:30 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/09/24 17:54:29 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,45 @@
 // #include <readline/history.h>
 
 int	debug = 1;//TEST, DELETE
+
+char	*print_type(t_token_type type)
+{
+	if (type == 0)
+		return ("NO_TYPE");
+	else if(type == 1)
+		return ("AND");
+	else if(type == 2)
+		return ("OR");
+	else if(type == 3)
+		return ("PIPE");
+	else if(type == 4)
+		return ("L_PAREN");
+	else if(type == 5)
+		return ("REDIR_IN");
+	else if(type == 6)
+		return ("REDIR_OUT");
+	else if(type == 7)
+		return ("HEREDOC");
+	else if(type == 8)
+		return ("APPEND");
+	else if(type == 9)
+		return ("COMMAND");
+	else if(type == 10)
+		return ("ARG");
+	else if(type == 11)
+		return ("SPACE_TOKEN");
+	else if(type == 12)
+		return ("SINGLE_QUOTE");
+	else if(type == 13)
+		return ("DOUBLE_QUOTE");
+	else if(type == 14)
+		return ("FILES");
+	else if(type == 15)
+		return ("EXIT_STATUS");
+	else if(type == 16)
+		return ("ENV");
+	return ("UNDEFINED TYPE");
+}
 
 void	print_list(t_token *head)
 {
@@ -34,7 +73,7 @@ void	print_list(t_token *head)
 	printf("----------------------\n");
 	while (tmp)
 	{
-		printf("Token: '%s', type: %u\n", tmp->token, tmp->syntaxis);
+		printf("Token: '%s', type: %s\n", tmp->token, print_type(tmp->syntaxis));
 		tmp = tmp->next;
 	}
 }
