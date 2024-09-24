@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:55:21 by angeln            #+#    #+#             */
-/*   Updated: 2024/09/24 17:54:29 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/09/24 17:56:49 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,28 +30,30 @@ char	*print_type(t_token_type type)
 	else if(type == 4)
 		return ("L_PAREN");
 	else if(type == 5)
-		return ("REDIR_IN");
+		return ("R_PAREN");
 	else if(type == 6)
-		return ("REDIR_OUT");
+		return ("REDIR_IN");
 	else if(type == 7)
-		return ("HEREDOC");
+		return ("REDIR_OUT");
 	else if(type == 8)
-		return ("APPEND");
+		return ("HEREDOC");
 	else if(type == 9)
-		return ("COMMAND");
+		return ("APPEND");
 	else if(type == 10)
-		return ("ARG");
+		return ("COMMAND");
 	else if(type == 11)
-		return ("SPACE_TOKEN");
+		return ("ARG");
 	else if(type == 12)
-		return ("SINGLE_QUOTE");
+		return ("SPACE_TOKEN");
 	else if(type == 13)
-		return ("DOUBLE_QUOTE");
+		return ("SINGLE_QUOTE");
 	else if(type == 14)
-		return ("FILES");
+		return ("DOUBLE_QUOTE");
 	else if(type == 15)
-		return ("EXIT_STATUS");
+		return ("FILES");
 	else if(type == 16)
+		return ("EXIT_STATUS");
+	else if(type == 17)
 		return ("ENV");
 	return ("UNDEFINED TYPE");
 }
