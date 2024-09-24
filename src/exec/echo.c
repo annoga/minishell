@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 20:55:00 by angeln            #+#    #+#             */
-/*   Updated: 2024/07/11 12:30:46 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/09/24 17:08:32 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	echo(t_token *head)
 		printf("%s", "\n");
 	else if (token_exists(nextn))
 	{
-		while (head && head->type == 13 && has_n_option(nextn))
+		while (head && head->type == 12 && has_n_option(nextn))
 		{
 			has_n = 1;
 			head = nextn->next;
