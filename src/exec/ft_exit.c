@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:47:15 by anovoa            #+#    #+#             */
-/*   Updated: 2024/08/15 23:26:20 by angeln           ###   ########.fr       */
+/*   Updated: 2024/09/24 17:10:15 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,11 @@ static int	has_one_arg(t_token *head)
 	return (1);
 }
 
+	//trim
+	//sign
+	//too long? return 0
+	//any nondigit? return 0
+	//return 1
 /* Returns 1 if the given string can be read as a number of type long.
  * Otherwise, it returns 0.
  * */
@@ -76,11 +81,6 @@ static int	is_long(char *str)
 	int	sign;
 	int	i;
 
-	//trim
-	//sign
-	//too long? return 0
-	//any nondigit? return 0
-	//return 1
 	i = 0;
 	sign = 1;
 	str = ft_strtrim(str, " ");
