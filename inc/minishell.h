@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:52:44 by angeln            #+#    #+#             */
-/*   Updated: 2024/08/19 20:37:42 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/09/25 19:52:14 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,7 @@ void	echo(t_token *head);
 void	ft_exit(t_token *head);
 int		ft_env(t_token *head, t_env *env);//maybe should return unsigned char
 int		free_env(t_env **envp);
+char	*ft_getenv(char *key, t_env *envp);
 
 /* UTILS */
 char	*ft_strndup(const char *s, size_t n);

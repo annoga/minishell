@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 21:23:03 by anovoa            #+#    #+#             */
-/*   Updated: 2024/09/24 16:59:15 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/09/25 19:10:37 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,21 @@ t_token	*mock_builtin_tokenizer(t_token *head, t_env **env)
 		ft_exit(head->next);
 	else if (!ft_strcmp(head->token, "env"))
 		ft_env(head->next, *env);//returns errno, should put it somewhere
+	else
+	{
+		if (head->type == SPACE_TOKEN && head->next)
+			ft_analyze_cmd(head->next);
+		else 
+			ft_analyze_cmd(head);
+		//for each command split by && or || 
+	//	if (head->type == REDIR_IN || head->type == REDIR_OUT)
+
+		printf("command:\n");
+		while (head)
+		{
+			printf("\"%s\"\n", head->token);
+			head = head->next;
+		}
+	}
 	return (head);
 }
