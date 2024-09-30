@@ -128,10 +128,10 @@ void	add_top(t_token *head, t_token *new);
 void	erase_one(t_token **head, t_token *to_erase);
 
 /* PARSER */
-t_cmd *parser(t_token *token);
+t_cmd	*parser(t_token *token);
 void	*add_dir(void *array, void *dir);
 void	free_split(char **split);
-int	ft_arraylen(void *array);
+int		ft_arraylen(void *array);
 void	del_command(void *command);
 void	lstclear(void *list, void (*del)(void *));
 void	set_subcommand(t_cmd **cmd, t_token **tkn_p);
@@ -139,6 +139,8 @@ t_cmd	*add_command(t_cmd **cmd_lst);
 void	set_file(t_cmd **cmd, t_token **token);
 void	lst_add_back(void *lst, void *new);
 t_cmd	*add_command(t_cmd **cmd_lst);
+
+void print_cmd(t_cmd *cmd, int level);
 
 
 t_token *expansor(t_token *head);

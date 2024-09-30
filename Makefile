@@ -78,7 +78,8 @@ EXEC			=	exec/echo.c exec/mock_builtin_tokenizer.c 	\
 					exec/free_env.c
 
 MAIN			=	main.c									\
-					split_linker.c
+					split_linker.c							\
+					print_functions.c
 
 SRC				=	$(HANDLE_TOKENS) $(TOKENIZER) $(UTILS) $(PARSER) $(ENV) $(SYNTAX) $(EXEC) $(EXPANSOR) $(MAIN)
 
