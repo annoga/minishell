@@ -20,11 +20,20 @@ t_token	*mock_builtin_tokenizer(t_token *head, t_env **env)
 //	debug = 1;
 	 if (!ft_strcmp(head->token, "zorionak"))/*DEBUG start*/
 	 {
-	 	if (debug)
+	 	if (debug == 1)
 	 		debug = 0;
 	 	else
 	 		debug = 1;
-	 }/*DEBUG end*/
+	 }
+	if (!ft_strcmp(head->token, "cmd"))/*DEBUG start*/
+	 {
+	 	if (debug == 2)
+	 		debug = 0;
+	 	else
+	 		debug = 2;
+	 }
+	 
+	 /*DEBUG end*/
 	if (!ft_strcmp(head->token, "echo"))
 		echo(head->next);
 	else if (!ft_strcmp(head->token, "exit"))

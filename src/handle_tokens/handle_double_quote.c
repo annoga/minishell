@@ -88,7 +88,7 @@ char *parse_double_quote_content(char *line, int *i)
         else
             (*i)++;
     }
-    if (start < *i)
+    if (start < (*i))
     {
         temp = ft_strndup(&line[start], *i - start);
         result = append_str(result, temp);

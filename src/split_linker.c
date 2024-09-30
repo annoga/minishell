@@ -46,7 +46,7 @@ t_token	*split_linker(char *line, t_env **env)
 	token = expansor(token);
 	// prueba builtin
 
-	if (debug)//FOR TESTING ONLY, DELETE
+	if (debug == 1)//FOR TESTING ONLY, DELETE
 		print_list(token);
 	// printf("\n");
 	token = mock_builtin_tokenizer(token, env);

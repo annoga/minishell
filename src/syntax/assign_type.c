@@ -52,7 +52,7 @@ t_token_type	assing_type(char *token, t_synt *state)
 	if (current_type)
 		return (current_type);
 
-	if (state->last_token_type >= REDIR_IN && state->last_token_type <= APPEND)
+	if (state->last_token_type >= REDIR_IN && state->last_token_type <= HEREDOC)
 		return (FILES);
 
 	if (state->is_cmd_assigned)

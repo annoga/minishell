@@ -102,11 +102,11 @@ int	main(int argc, char *argv[], char **envp)
 	char	*line;
 	t_token	*token;
 	t_env	*env;
+	t_cmd	*cmd;
 	int		i;
 
 	(void)argc;
 	(void)argv;
-	// (void)envp;
 	env = NULL;
 	token = NULL;
 	i = 1;
@@ -122,7 +122,10 @@ int	main(int argc, char *argv[], char **envp)
 			token = split_linker(line, &env);
 			if(!token)
 				continue;
-
+			cmd = parser(token);
+			// (void)cmd;
+			if(debug == 2)
+				print_cmd(cmd, 0);
 			add_history(line);
 		}
 		free(line);

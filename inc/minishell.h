@@ -39,8 +39,8 @@ typedef enum e_token_type
 	R_PAREN,
 	REDIR_IN,
 	REDIR_OUT,
-	HEREDOC,
 	APPEND,
+	HEREDOC,
 	COMMAND,
 	ARG,
 	SPACE_TOKEN,
@@ -64,7 +64,7 @@ typedef struct s_file
 {
 	char			*name;
 	t_token_type	type;
-	struct t_file	*next;
+	struct s_file	*next;
 }					t_file;
 
 typedef struct s_env
@@ -96,9 +96,16 @@ typedef struct s_cmd
 {
 	char			**cmd;
 	char			**heredoc; // ESTO ES UN ARRAY PARA LOS HEREDOCS
-	t_file			**files;
+	t_file			*files;
 	t_token_type	connection_type; //AND, OR, PIPE
+	int 			parenthesis;
+	struct s_cmd	*subcommand;
+	struct s_cmd	*next;
 }	t_cmd;
+
+
+
+
 
 /* TOKENIZER */
 t_token	*tokenizer(char *line);
@@ -121,8 +128,20 @@ void	add_top(t_token *head, t_token *new);
 void	erase_one(t_token **head, t_token *to_erase);
 
 /* PARSER */
-t_token	*check_bonus_token(t_token *head);
-t_token	*assign_bonus_token(t_token *head, int type_bonus);
+t_cmd	*parser(t_token *token);
+void	*add_dir(void *array, void *dir);
+void	free_split(char **split);
+int		ft_arraylen(void *array);
+void	del_command(void *command);
+void	lstclear(void *list, void (*del)(void *));
+void	set_subcommand(t_cmd **cmd, t_token **tkn_p);
+t_cmd	*add_command(t_cmd **cmd_lst);
+void	set_file(t_cmd **cmd, t_token **token);
+void	lst_add_back(void *lst, void *new);
+t_cmd	*add_command(t_cmd **cmd_lst);
+
+void print_cmd(t_cmd *cmd, int level);
+
 
 t_token *expansor(t_token *head);
 void	ft_catch_env(char **envp, t_env **head);
@@ -172,5 +191,10 @@ void	*return_error(char *str);
 int		check_is_ok(char *line);
 int ft_istoken(char c);
 void	ft_soft_itoa(t_env **tmp, int n);
+void	lst_add_back(void *lst, void *new);
+void	lstclear(void *list, void (*del)(void *));
+void	free_split(char **split);
+
+
 
 #endif
