@@ -35,6 +35,12 @@ typedef struct s_params
 	int		wc;
 }	t_params;
 
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+}		t_list;
+
 /* libft */
 int				ft_isalpha(int c);
 int				ft_toupper(int c);
@@ -52,6 +58,11 @@ char			*ft_strtrim(char const *s1, char const *set);
 char			**ft_split(char const *s, char c);
 char			*ft_itoa(int n);
 size_t			ft_strlcat(char *dest, char *src, size_t size);
+void			ft_lstclear(t_list **lst, void (*del)(void*));
+void			ft_lstadd_back(t_list **lst, t_list *new);
+t_list			*ft_lstlast(t_list *lst);
+
+
 
 /* ft_printf */
 size_t			ft_countwords(char const *str, char c);

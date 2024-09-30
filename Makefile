@@ -21,9 +21,9 @@ OBJ_DIR				=	obj/
 
 # Source Files
 
-HANDLE_TOKENS	=	handle_tokens/handle_args.c			\
-					handle_tokens/handle_double_quote.c	\
-					handle_tokens/handle_single_quote.c	\
+HANDLE_TOKENS	=	handle_tokens/handle_args.c				\
+					handle_tokens/handle_double_quote.c		\
+					handle_tokens/handle_single_quote.c		\
 					handle_tokens/handle_space.c			\
 					handle_tokens/handle_expansion.c		\
 					handle_tokens/handle_parenthesis.c	
@@ -33,42 +33,51 @@ TOKENIZER 		= 	tokenizer/tokenizer.c					\
 					tokenizer/get_special_token.c			\
 					tokenizer/add_token.c					\
 					tokenizer/create_token.c				\
-					tokenizer/free_token.c				\
+					tokenizer/free_token.c					\
 					tokenizer/new_token.c
 
-UTILS			=	utils/ft_strcmp.c					\
-					utils/ft_strndup.c					\
-					utils/ft_strncmp.c					\
-					utils/ft_strstr.c					\
-					utils/ft_strncpy.c					\
-					utils/check_is_ok.c					\
-					utils/ft_istoken.c					\
-					utils/sort_alphabetic_order.c		\
-					utils/ft_soft_itoa.c		\
+UTILS			=	utils/ft_strcmp.c						\
+					utils/ft_strndup.c						\
+					utils/ft_strncmp.c						\
+					utils/ft_strstr.c						\
+					utils/ft_strncpy.c						\
+					utils/check_is_ok.c						\
+					utils/ft_istoken.c						\
+					utils/sort_alphabetic_order.c			\
+					utils/ft_soft_itoa.c					\
+					utils/lst_add_back.c					\
+					utils/lstclear.c					\
+					utils/free_split.c					\
 					utils/return_error.c
 
-PARSER			=	parser/push_midlist.c
+PARSER			=	parser/parser.c							\
+					parser/add_dir.c						\
+					parser/add_command.c					\
+					parser/del_command.c					\
+					parser/set_subcommand.c					\
+					parser/set_file.c						
 
 ENV				=	env/ft_catch_env.c						\
 					env/ft_empty_env.c
 
-SYNTAX			=	syntax/analize_syntax.c						\
-					syntax/assign_type.c					\
+SYNTAX			=	syntax/analize_syntax.c					\
+					syntax/assign_type.c					
 
-EXPANSOR		=	expansor/expansor_wildcard.c						\
-					expansor/expansor.c					\
-					expansor/insert_space_tokens.c					\
-					expansor/list_all_directories.c	\
-					expansor/process_entry.c	\
+EXPANSOR		=	expansor/expansor_wildcard.c			\
+					expansor/expansor.c						\
+					expansor/insert_space_tokens.c			\
+					expansor/list_all_directories.c			\
+					expansor/process_entry.c				\
+					expansor/push_midlist.c					\
 					expansor/wildcard_utils.c						
 
-EXEC			=	exec/echo.c exec/mock_builtin_tokenizer.c \
-					exec/ft_exit.c \
-					exec/ft_env.c \
-					exec/ft_getenv.c \
+EXEC			=	exec/echo.c exec/mock_builtin_tokenizer.c 	\
+					exec/ft_exit.c 								\
+					exec/ft_env.c 								\
+					exec/ft_getenv.c 							\
 					exec/free_env.c
 
-MAIN			=	main.c								\
+MAIN			=	main.c									\
 					split_linker.c
 
 SRC				=	$(HANDLE_TOKENS) $(TOKENIZER) $(UTILS) $(PARSER) $(ENV) $(SYNTAX) $(EXEC) $(EXPANSOR) $(MAIN)
