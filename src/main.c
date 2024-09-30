@@ -59,28 +59,6 @@ char	*print_type(t_token_type type)
 	return ("UNDEFINED TYPE");
 }
 
-/*Just for testing*/
-void	print_list(t_token *head)
-{
-	t_token	*tmp;
-
-	tmp = head;
-	printf("----------------------\n");
-	while (tmp)
-	{
-		// printf("Token: '%s', type: %u\n", tmp->token, tmp->type);
-		printf("%s", tmp->token);
-		tmp = tmp->next;
-	}
-	printf("\n");
-	tmp = head;
-	printf("----------------------\n");
-	while (tmp)
-	{
-		printf("Token: '%s', type: %s\n", tmp->token, print_type(tmp->syntaxis));
-		tmp = tmp->next;
-	}
-}
 /*
 static void	print_env(char **envp)
 {	
@@ -123,7 +101,6 @@ int	main(int argc, char *argv[], char **envp)
 			if(!token)
 				continue;
 			cmd = parser(token);
-			// (void)cmd;
 			if(debug == 2)
 				print_cmd(cmd, 0);
 			add_history(line);
