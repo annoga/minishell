@@ -37,6 +37,23 @@ static void tokenize_wildcards(t_token **tmp2, t_token **tmp, t_token **head)
     }
 }
 
+static char *clean_quotes(t_token *head)
+{
+    t_token *tmp;
+    
+    tmp = head;
+    if(tmp->type == SINGLE_QUOTE)
+    {
+        tmp->token = ft_strtrim(tmp->token, "\'");
+    }
+    else if(tmp->type == DOUBLE_QUOTE)
+    {
+        tmp->token = ft_strtrim(tmp->token, "\"");
+    }
+    return tmp->token;
+    
+}
+
 t_token *expansor(t_token *head)
 {
     t_token *tmp = head;
@@ -52,6 +69,10 @@ t_token *expansor(t_token *head)
         {
             tmp2 = tmp;
             tokenize_wildcards(&tmp2, &tmp, &head);
+        }
+        if(tmp->type == SINGLE_QUOTE || tmp->type == DOUBLE_QUOTE)
+        {
+            tmp->token = clean_quotes(tmp);
         }
         tmp = tmp->next;
     }
