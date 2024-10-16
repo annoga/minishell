@@ -1,5 +1,6 @@
 #include "../inc/minishell.h"
 
+
 void	print_list(t_token *head)
 {
 	t_token	*tmp;
@@ -51,6 +52,7 @@ void print_cmd(t_cmd *cmd, int level)
     }
 
     while (cmd) {
+        printf("%*sI'm in this commando: %p\n",level * 4,"", cmd);
         // Print each command and its arguments on a single line
         if (cmd->cmd) {
             printf("%*sCommand: ", level * 4, "");  // Indentation based on level
@@ -79,15 +81,15 @@ void print_cmd(t_cmd *cmd, int level)
             printf("%*sHeredoc array is NULL\n", level * 4, "");
         }
 
-        // Print connection type with indentation
-        if (cmd->connection_type == AND || cmd->connection_type == OR || cmd->connection_type == PIPE) {
-            printf("%*sConnection: %s\n", level * 4, "", get_connection_type(cmd->connection_type));
-        }
-
         // Print subcommands with increased indentation level
         if (cmd->subcommand) {
             printf("%*sSubcommand:\n", level * 4, "");
             print_cmd(cmd->subcommand, level + 1);  // Recursive call with increased level
+        }
+
+        // Print connection type with indentation
+        if (cmd->connection_type == AND || cmd->connection_type == OR || cmd->connection_type == PIPE) {
+            printf("%*sConnection: %s\n", level * 4, "", get_connection_type(cmd->connection_type));
         }
 
         // Move to the next command in the sequence

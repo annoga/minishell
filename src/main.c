@@ -15,7 +15,7 @@
 // #include <readline/readline.h>
 // #include <readline/history.h>
 
-int	debug = 1;//TEST, DELETE
+int	debug = 2;//TEST, DELETE
 
 /*Just for testing*/
 char	*print_type(t_token_type type)

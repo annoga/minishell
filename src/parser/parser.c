@@ -46,7 +46,7 @@ static void	set_connection(t_token *token, t_cmd **command)
 	*command = new_cmd;
 }
 
-t_cmd *parser_dos(t_token *token, t_cmd *command, t_cmd *head)
+static t_cmd *parser_two(t_token *token, t_cmd *command, t_cmd *head)
 {
     while (token)
     {
@@ -64,8 +64,12 @@ t_cmd *parser_dos(t_token *token, t_cmd *command, t_cmd *head)
         else if (token->syntaxis == HEREDOC)
             set_heredoc(&command, &token);
         else if (token->syntaxis == L_PAREN)
+		{
             set_subcommand(&command, &token);
-
+			continue ;
+		}
+		else if (token->syntaxis == R_PAREN)
+			return (head);
         if (token)
             token = token->next;
     }
@@ -79,7 +83,7 @@ t_cmd *parser(t_token *token)
 
 	command = NULL;
     head = NULL;
-	return parser_dos(token, command, head);
+	return parser_two(token, command, head);
 }
 
 // (echo "1" && (echo "2" && echo "3")) || echo "4" 
