@@ -5,7 +5,7 @@ static int	check_syntax_conditions(t_synt *state, t_token_type current_type)
 	if ((state->expecting_cmd && (current_type == COMMAND || current_type == L_PAREN))
 		|| (!state->has_content && ((current_type >= AND && current_type <= PIPE)
 		|| current_type == R_PAREN))
-		|| ((state->last_token_type >= REDIR_IN && state->last_token_type <= APPEND)
+		|| ((state->last_token_type >= REDIR_IN && state->last_token_type <= HEREDOC)
 		&& current_type != FILES))
 		return (1);
 

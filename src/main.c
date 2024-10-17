@@ -15,7 +15,7 @@
 // #include <readline/readline.h>
 // #include <readline/history.h>
 
-int	debug = 1;//TEST, DELETE
+int	debug = 2;//TEST, DELETE
 
 /*Just for testing*/
 char	*print_type(t_token_type type)
@@ -59,28 +59,6 @@ char	*print_type(t_token_type type)
 	return ("UNDEFINED TYPE");
 }
 
-/*Just for testing*/
-void	print_list(t_token *head)
-{
-	t_token	*tmp;
-
-	tmp = head;
-	printf("----------------------\n");
-	while (tmp)
-	{
-		// printf("Token: '%s', type: %u\n", tmp->token, tmp->type);
-		printf("%s", tmp->token);
-		tmp = tmp->next;
-	}
-	printf("\n");
-	tmp = head;
-	printf("----------------------\n");
-	while (tmp)
-	{
-		printf("Token: '%s', type: %s\n", tmp->token, print_type(tmp->syntaxis));
-		tmp = tmp->next;
-	}
-}
 /*
 static void	print_env(char **envp)
 {	
@@ -102,11 +80,11 @@ int	main(int argc, char *argv[], char **envp)
 	char	*line;
 	t_token	*token;
 	t_env	*env;
+	t_cmd	*cmd;
 	int		i;
 
 	(void)argc;
 	(void)argv;
-	// (void)envp;
 	env = NULL;
 	token = NULL;
 	i = 1;
@@ -122,7 +100,9 @@ int	main(int argc, char *argv[], char **envp)
 			token = split_linker(line, &env);
 			if(!token)
 				continue;
-
+			cmd = parser(token);
+			if(debug == 2)
+				print_cmd(cmd, 0);
 			add_history(line);
 		}
 		free(line);

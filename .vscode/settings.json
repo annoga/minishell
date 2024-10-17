@@ -73,6 +73,7 @@
     "stat.h": "c",
     "limits.h": "c",
     "random": "c",
-    "compare": "c"
+    "compare": "c",
+    "typeinfo": "c"
   }
 }
