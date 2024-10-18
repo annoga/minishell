@@ -64,7 +64,6 @@ int analize_tokens(t_token *token)
     while (token)
     {
         token->syntaxis = assing_type(token->token, &anal_data);
-
         if (error_syntax(&anal_data, token->syntaxis))
             break;
         if (token->syntaxis == SPACE_TOKEN)

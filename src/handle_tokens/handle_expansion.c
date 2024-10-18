@@ -44,7 +44,6 @@ t_token	*handle_expansion(char *line, int *i)
 		return (handle_special_expansion(line, i));
 	if(!ft_isalpha(line[start + 1]) && line[start + 1] != '_')
 		return (handle_no_expansion(line, i));
-	printf("here\n");
 	start = ++*i;
 	while (line[*i] && (ft_isalpha(line[*i]) || line[*i] == '_'))
 	{
