@@ -16,23 +16,6 @@ static void	set_command(t_cmd **cmd, t_token *token)
 		return (lstclear(cmd, del_command), free(tmp));
 }
 
-
-static void	set_heredoc(t_cmd **cmd, t_token **token)
-{
-	if (!(*cmd))
-		*cmd = add_command(cmd);
-	if (!(*cmd))
-		return (lstclear(cmd, del_command));
-	while (*token && (*token)->syntaxis != FILES)
-		*token = (*token)->next;
-	if (!(*token))
-		return (lstclear(cmd, del_command));
-	(*cmd)->heredoc = (char **)add_dir((*cmd)->heredoc, (*token)->token);
-	if (!(*cmd)->heredoc)
-		return (lstclear(cmd, del_command));
-	*token = (*token)->next;
-}
-
 static void	set_connection(t_token *token, t_cmd **command)
 {
 	t_cmd	*new_cmd;
@@ -58,11 +41,12 @@ static t_cmd *parser_two(t_token *token, t_cmd *command, t_cmd *head)
         if (token->syntaxis == COMMAND || token->syntaxis == ARG)
             set_command(&command, token);
         else if (token->syntaxis == AND || token->syntaxis == OR || token->syntaxis == PIPE)
-            set_connection(token, &command);  // Modify the function call to pass the command pointer by reference
-        else if (token->syntaxis >= REDIR_IN && token->syntaxis <= APPEND)
+            set_connection(token, &command);
+        else if (token->syntaxis >= REDIR_IN && token->syntaxis <= HEREDOC)
+		{
             set_file(&command, &token);
-        else if (token->syntaxis == HEREDOC)
-            set_heredoc(&command, &token);
+			continue ;
+		}
         else if (token->syntaxis == L_PAREN)
 		{
             set_subcommand(&command, &token);

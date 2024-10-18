@@ -18,7 +18,7 @@ void	print_list(t_token *head)
 	printf("----------------------\n");
 	while (tmp)
 	{
-		printf("Token: '%s', type: %u\n", tmp->token, tmp->syntaxis);
+		printf("Token: '%s', type: %s\n", tmp->token, print_type(tmp->syntaxis));
 		tmp = tmp->next;
 	}
 }
@@ -52,7 +52,7 @@ void print_cmd(t_cmd *cmd, int level)
     }
 
     while (cmd) {
-        printf("%*sI'm in this commando: %p\n",level * 4,"", cmd);
+        // printf("%*sI'm in this commando: %p\n",level * 4,"", cmd);
         // Print each command and its arguments on a single line
         if (cmd->cmd) {
             printf("%*sCommand: ", level * 4, "");  // Indentation based on level
@@ -70,15 +70,6 @@ void print_cmd(t_cmd *cmd, int level)
                 printf("%*s  %s %s\n", level * 4, "", get_redirection_type(file->type), file->name);
                 file = file->next;
             }
-        }
-
-        // Print heredocs with indentation
-        if (cmd->heredoc) {
-            for (int i = 0; cmd->heredoc[i]; i++) {
-                printf("%*sheredoc[%d]: %s\n", level * 4, "", i, cmd->heredoc[i]);
-            }
-        } else {
-            printf("%*sHeredoc array is NULL\n", level * 4, "");
         }
 
         // Print subcommands with increased indentation level

@@ -13,7 +13,6 @@ void	del_command(void *command)
 		return ;
 	tmp = command;
 	free_split(tmp->cmd);
-    free_split(tmp->heredoc);
 	lstclear(&tmp->files, del_file);
 	lstclear(&tmp->subcommand, del_command);
 }
