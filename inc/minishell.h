@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:52:44 by angeln            #+#    #+#             */
-/*   Updated: 2024/09/25 19:52:14 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/10/21 13:19:24 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@
 # include <sys/stat.h>
 
 // Apaños para mac
-//# include <limits.h>
-//# include <string.h>
-# include <linux/limits.h>
+# include <limits.h>
+# include <string.h>
+//# include <linux/limits.h>
 
 //# include ".h"
 
@@ -129,7 +129,7 @@ void	erase_one(t_token **head, t_token *to_erase);
 /* PARSER */
 t_cmd	*parser(t_token *token);
 void	*add_dir(void *array, void *dir);
-void	free_split(char **split);
+//void	free_split(char **split);
 int		ft_arraylen(void *array);
 void	del_command(void *command);
 void	lstclear(void *list, void (*del)(void *));
@@ -180,6 +180,10 @@ void	ft_exit(t_token *head);
 int		ft_env(t_token *head, t_env *env);//maybe should return unsigned char
 int		free_env(t_env **envp);
 char	*ft_getenv(char *key, t_env *envp);
+char	**ft_get_env_array(t_env *env);
+int		ft_analyze_cmd(t_token *head, t_env *env);
+char	*find_cmd_path(char *cmd, char *path_env);
+int		is_command(char *path);
 
 /* UTILS */
 char	*ft_strndup(const char *s, size_t n);
@@ -193,7 +197,7 @@ int ft_istoken(char c);
 void	ft_soft_itoa(t_env **tmp, int n);
 void	lst_add_back(void *lst, void *new);
 void	lstclear(void *list, void (*del)(void *));
-void	free_split(char **split);
+char	*free_split(char **split);
 char	*print_type(t_token_type type);
 
 

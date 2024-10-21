@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:55:21 by angeln            #+#    #+#             */
-/*   Updated: 2024/09/24 17:59:18 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/10/17 16:45:22 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	main(int argc, char *argv[], char **envp)
 	char	*line;
 	t_token	*token;
 	t_env	*env;
-	t_cmd	*cmd;
+//	t_cmd	*cmd;
 	int		i;
 
 	(void)argc;
@@ -100,9 +100,9 @@ int	main(int argc, char *argv[], char **envp)
 			token = split_linker(line, &env);
 			if(!token)
 				continue;
-			cmd = parser(token);
-			if(debug == 2)
-				print_cmd(cmd, 0);
+//			cmd = parser(token);
+//			if(debug == 2)
+//				print_cmd(cmd, 0);
 			add_history(line);
 		}
 		free(line);
