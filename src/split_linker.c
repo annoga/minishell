@@ -40,10 +40,10 @@ t_token	*split_linker(char *line, t_env **env)
 
 	token = tokenizer(line);
 	// token = check_env(token);
+	token = expansor(token);
 
 	if(!analize_tokens(token))
 		return(NULL);
-	token = expansor(token);
 	// prueba builtin
 
 	if (debug == 1)//FOR TESTING ONLY, DELETE

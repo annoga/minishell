@@ -60,12 +60,12 @@ typedef struct s_token
 	struct s_token	*next;
 }					t_token;
 
-typedef struct s_file
-{
-	char			*name;
-	t_token_type	type;
-	struct s_file	*next;
-}					t_file;
+	typedef struct s_file
+	{
+		char			*name;
+		t_token_type	type;
+		struct s_file	*next;
+	}					t_file;
 
 typedef struct s_env
 {
@@ -95,7 +95,6 @@ typedef struct s_synt
 typedef struct s_cmd
 {
 	char			**cmd;
-	char			**heredoc; // ESTO ES UN ARRAY PARA LOS HEREDOCS
 	t_file			*files;
 	t_token_type	connection_type; //AND, OR, PIPE
 	int 			parenthesis;
@@ -195,7 +194,7 @@ void	ft_soft_itoa(t_env **tmp, int n);
 void	lst_add_back(void *lst, void *new);
 void	lstclear(void *list, void (*del)(void *));
 void	free_split(char **split);
-
+char	*print_type(t_token_type type);
 
 
 #endif
