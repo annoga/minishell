@@ -78,8 +78,9 @@ EXEC			=	exec/echo.c exec/mock_builtin_tokenizer.c 	\
 					exec/free_env.c								\
 					exec/ft_analyze_cmd.c						\
 					exec/is_command.c							\
-					exec/find_cmd_path.c								\
-					exec/ft_get_env_array.c
+					exec/find_cmd_path.c						\
+					exec/ft_get_env_array.c						\
+					exec/do_fork.c								
 
 MAIN			=	main.c									\
 					split_linker.c							\

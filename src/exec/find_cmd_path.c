@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 17:50:17 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/21 13:27:56 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/22 16:46:07 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ char	*find_cmd_path(char *cmd, char *path_env)
 
 	i = 0;
 	path = NULL;
+	folders = NULL;//
+	printf("here split:%p\n", path_env);
+//	return (NULL);
+	if (path_env)//
+	{//
 	folders = ft_split(path_env, ':');
 	if (!folders)
 		return (NULL);
@@ -35,11 +40,14 @@ char	*find_cmd_path(char *cmd, char *path_env)
 		if (access(path, F_OK) == 0 && access(path, X_OK) == 0)
 			break ;
 		free(path);
+		path = NULL;
 		i++;
 	}
+	}//
 	if (!path && access(cmd, F_OK) == 0 && access(cmd, X_OK) == 0)
 		path = ft_strdup(cmd);
-	free_split(folders);
+	if (folders)//
+		free_split(folders);
 	return (path);
 }
 

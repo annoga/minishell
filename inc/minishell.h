@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:52:44 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/21 13:19:24 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/22 13:48:24 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,18 @@ typedef enum e_token_type
 	EXIT_STATUS,
 	ENV
 }					t_token_type;
+
+typedef enum e_pipe_ends
+{
+	READ = 0,
+	WRITE = 1
+}					t_pipe_ends;
+
+typedef struct s_pipe
+{
+	int	prev_fd[2];
+	int	next_fd[2];
+}					t_pipe;
 
 typedef struct s_token
 {
@@ -184,6 +196,7 @@ char	**ft_get_env_array(t_env *env);
 int		ft_analyze_cmd(t_token *head, t_env *env);
 char	*find_cmd_path(char *cmd, char *path_env);
 int		is_command(char *path);
+pid_t	do_fork(void);
 
 /* UTILS */
 char	*ft_strndup(const char *s, size_t n);
