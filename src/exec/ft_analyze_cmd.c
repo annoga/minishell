@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:46:11 by anovoa            #+#    #+#             */
-/*   Updated: 2024/10/23 16:33:04 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/23 16:40:55 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,13 @@ int	redir_file(char *filename, int mode)
 {
 	int	fd;
 
-	if (mode == REDDIR_OUT)
+	if (mode == REDIR_OUT)
 	{
-		fd = open(cmnd->files->name, O_WRONLY | O_CREAT | O_TRUNC,
-				OPEN_FILE_MODE)
+		fd = open(cmnd->files->name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	}
 	else if (mode == APPEND)
 	{
-		fd = open(cmnd->files->name, O_WRONLY | O_CREAT | O_APPEND,
-				OPEN_FILE_MODE)
+		fd = open(cmnd->files->name, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	}
 	dup2(fd, 1);//err msg?
 	close(fd);
@@ -89,7 +87,7 @@ int	ft_analyze_cmd(t_token *head, t_env *env)
 	while (cmnd)
 	{
 		if (cmnd->connection_type == PIPE)
-			pipe(fds->next);//msg if err?
+			pipe(fds.next);//msg if err?
 	pid = do_fork();
 	if (pid == 0)
 	{
@@ -97,14 +95,14 @@ int	ft_analyze_cmd(t_token *head, t_env *env)
 		{
 	//command n0: dup input
 			if (j != 0)//movemos IN en el primero
-				dup_in_to_pipe(fds->next);
+				dup_in_to_pipe(fds.next);
 	//command ...(n - 1): dup output
 			if (j == 0 || cmnd->next)//movemos OUT salvo en el último
-				dup_out_to_pipe(fds->next);
+				dup_out_to_pipe(fds.next);
 		}
 	//command ...n: dup output to file, heredoc, or (1)
 		if (cmnd->connection_type == REDIR_OUT)
-			redir_file(cmnd->files->name, REDDIR_OUT);
+			redir_file(cmnd->files->name, REDIR_OUT);
 		if (cmnd->connection_type == APPEND)
 			redir_file(cmnd->files->name, APPEND);
 
