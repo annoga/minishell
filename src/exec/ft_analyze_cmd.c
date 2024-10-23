@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:46:11 by anovoa            #+#    #+#             */
-/*   Updated: 2024/10/23 16:40:55 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/23 16:43:16 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,14 @@ int	redir_file(char *filename, int mode)
 {
 	int	fd;
 
+	fd = 0;
 	if (mode == REDIR_OUT)
 	{
-		fd = open(cmnd->files->name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	}
 	else if (mode == APPEND)
 	{
-		fd = open(cmnd->files->name, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	}
 	dup2(fd, 1);//err msg?
 	close(fd);
