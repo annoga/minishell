@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:52:44 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/22 13:48:24 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/23 16:34:57 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ typedef enum e_pipe_ends
 
 typedef struct s_pipe
 {
-	int	prev_fd[2];
-	int	next_fd[2];
+	int	prev[2];
+	int	next[2];
 }					t_pipe;
 
 typedef struct s_token
