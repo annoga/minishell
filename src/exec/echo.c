@@ -12,69 +12,61 @@
 
 #include "../../inc/minishell.h"
 
-static int	has_n_option(t_cmd *node);
-static int	token_exists(t_cmd *node);
+static int	has_n_option(char *str);
 
 /* This function prints the given string followed by a new line. 
  * If given the -n option, it will not add the trailing new line. 
  * Usage: receives token after "echo"
 */
+void echo_options(t_cmd next, int *has_n, int *i)
+{
+	while (next.cmd[*i] && has_n_option(next.cmd[*i]))
+	{
+		*has_n = 1;
+		(*i)++;
+	}
+}
+
 void	echo(t_cmd *head)
 {
 	t_cmd	*nextn;
 	int		has_n;
 	int		i;
 
-	i = 0;
+	i = 1;
 	has_n = 0;
-	if (head)
-		nextn = head->next;
-	if (!head || !head->cmd || !head->cmd[i])
+	if (!head || !head->cmd || !head->cmd[0])
 		printf("%s", "\n");
-	else if (token_exists(nextn))
+	else
 	{
-		while (head && has_n_option(nextn))
+		nextn = head;
+		echo_options(*nextn, &has_n, &i);
+		while(nextn->cmd[i])
 		{
-			has_n = 1;
-			head = nextn->next;
-			if (!head)
-				break ;
-			nextn = head->next;
-		}
-		while (head && token_exists(nextn) && printf("%s", nextn->cmd[i]))
+			printf("%s", nextn->cmd[i]);
+			if(nextn->cmd && nextn->cmd[i + 1])
+				printf(" ");
 			i++;
-		if (!has_n)
+		}
+		if(!has_n)
 			printf("%c", '\n');
 	}
 }
 
-/* Checks if a node exists and contains a token */
-static int	token_exists(t_cmd *node)
-{
-	if (!node || !node->cmd)
-		return (0);
-	return (1);
-}
-
 /* Assumes strings between quotes come as a single token. Validates
  * only options of the form "-n", "-nn", "-nnn", etc */
-static int	has_n_option(t_cmd *node)
+static int has_n_option(char *str)
 {
-	char	*str;
-
-	if (node && node->cmd)
-	{
-		str = ft_strdup("hola");
-		// str = node->cmd;
-		if (*str != '-')
-			return (0);
-		str++;
-		while (*str)
-		{
-			if (*str != 'n')
-				return (0);
-			str++;
-		}
-	}
-	return (1);
+    if (str && str[0] == '-')
+    {
+        str++;
+        while (*str)
+        {
+            if (*str != 'n')
+                return (0);
+            str++;
+        }
+        return (1);
+    }
+    return (0);
 }
