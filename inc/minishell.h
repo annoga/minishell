@@ -101,14 +101,14 @@ t_token_type	assing_type(char *token, t_synt *state);
 int check_syntax(t_token *token);
 
 /* EXECUTE */
-t_token	*mock_builtin_tokenizer(t_token *head, t_env **env);//just for testing
-void	echo(t_token *head);
+t_token	*mock_builtin_tokenizer(t_token *head, t_env **env, t_cmd *cmd);//just for testing
+void	echo(t_cmd *head);
 void	ft_exit(t_token *head);
 int		ft_env(t_token *head, t_env *env);//maybe should return unsigned char
 int		free_env(t_env **envp);
 char	*ft_getenv(char *key, t_env *envp);
 char	**ft_get_env_array(t_env *env);
-int		ft_analyze_cmd(t_token *head, t_env *env);
+int		ft_analyze_cmd(t_env *env, t_cmd *cmd);
 char	*find_cmd_path(char *cmd, char *path_env);
 int		is_command(char *path);
 pid_t	do_fork(void);

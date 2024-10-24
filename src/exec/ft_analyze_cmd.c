@@ -13,13 +13,12 @@
 #include "../../inc/minishell.h"
 
 /* This function takes one or more commands and goes through them */
-int	ft_analyze_cmd(t_token *head, t_env *env)
+int	ft_analyze_cmd(t_env *env, t_cmd *cmnd)
 {
 	char	*path;
 	char	**env_arr;
-	t_cmd	*cmnd;
+	// t_cmd	*cmnd;
 //	int		i;//
-
 //	i = 0;//
 	env_arr = ft_get_env_array(env);//need to free_split when done
 	if (!env_arr)
@@ -29,7 +28,7 @@ int	ft_analyze_cmd(t_token *head, t_env *env)
 	}
 //	while (env_arr[i])//
 //		printf("%s\n", env_arr[i++]);//print envp
-	cmnd = parser(head);//tb debe liberarse
+	// cmnd = parser(head);//tb debe liberarse
 	path = find_cmd_path(cmnd->cmd[0], ft_getenv("PATH", env));
 	if (path == NULL)
 		return (0);

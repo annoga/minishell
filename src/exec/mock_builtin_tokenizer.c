@@ -13,7 +13,7 @@
 #include "../../inc/minishell.h"
 
 /* This function calls builtins. For test purposes only */
-t_token	*mock_builtin_tokenizer(t_token *head, t_env **env)
+t_token	*mock_builtin_tokenizer(t_token *head, t_env **env, t_cmd *cmd)
 {
 	if (!head)
 		return (NULL);
@@ -35,7 +35,7 @@ t_token	*mock_builtin_tokenizer(t_token *head, t_env **env)
 	 
 	 /*DEBUG end*/
 	if (!ft_strcmp(head->token, "echo"))
-		echo(head->next);
+		echo(cmd);
 	else if (!ft_strcmp(head->token, "exit"))
 		ft_exit(head->next);
 	else if (!ft_strcmp(head->token, "env"))
@@ -43,9 +43,9 @@ t_token	*mock_builtin_tokenizer(t_token *head, t_env **env)
 	else
 	{
 		if (head->type == SPACE_TOKEN && head->next)
-			ft_analyze_cmd(head->next, *env);
+			ft_analyze_cmd(*env, cmd);
 		else 
-			ft_analyze_cmd(head, *env);
+			ft_analyze_cmd(*env, cmd);
 		//for each command split by && or || 
 	//	if (head->type == REDIR_IN || head->type == REDIR_OUT)
 
