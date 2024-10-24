@@ -69,7 +69,7 @@ t_cmd	*add_command(t_cmd **cmd_lst);
 void print_cmd(t_cmd *cmd, int level);
 
 
-t_token *expansor(t_token *head);
+t_token *expansor(t_token *head, t_env **env);
 void	ft_catch_env(char **envp, t_env **head);
 int ft_issafedup(t_env **tmp, char *name, char *value);
 void ft_empty_env(t_env **tmp);

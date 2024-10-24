@@ -17,18 +17,39 @@ int	ft_analyze_cmd(t_env *env, t_cmd *cmnd)
 {
 	char	*path;
 	char	**env_arr;
+<<<<<<< HEAD
 	// t_cmd	*cmnd;
 //	int		i;//
 //	i = 0;//
+=======
+	t_cmd	*cmnd;
+	// int		i;//
+
+	// i = 0;//
+>>>>>>> cris
 	env_arr = ft_get_env_array(env);//need to free_split when done
 	if (!env_arr)
 	{
 		printf("error translating t_env\n");
 		return (0);
 	}
+<<<<<<< HEAD
 //	while (env_arr[i])//
 //		printf("%s\n", env_arr[i++]);//print envp
 	// cmnd = parser(head);//tb debe liberarse
+=======
+	// while (env_arr[i])//
+	// 	printf("%s\n", env_arr[i++]);//print envp
+	cmnd = parser(head);//tb debe liberarse
+//	return (0);	
+//	printf("cmd[0]:%s\n", cmnd->cmd[0]);
+//	printf("cmd[1]:%s\n", cmnd->cmd[1]);
+//	printf("cmd:%s\n", cmnd->heredoc[0]);//Uninitialised if empty
+//	printf("next:%p\n", cmnd->next);//NULL if empty
+//	printf("conType:%i\n", cmnd->connection_type);//NULL if empty
+
+	//if cmd exists
+>>>>>>> cris
 	path = find_cmd_path(cmnd->cmd[0], ft_getenv("PATH", env));
 	if (path == NULL)
 		return (0);
@@ -99,10 +120,17 @@ int	ft_analyze_cmd(t_env *env, t_cmd *cmnd)
 		err_code = stat_loc;
 	if (WIFEXITED(err_code))
 	{
+<<<<<<< HEAD
 		//printf("Im in WIFEXITED");
 		err_code = WEXITSTATUS(err_code);
 	}
 //	printf("pid:%i\nlast_pid:%i\nerr_code:%i\n", pid, last_pid, err_code);
+=======
+		// printf("Im in WIFEXITED");
+		err_code = WEXITSTATUS(err_code);
+	}
+	// printf("pid:%i\nlast_pid:%i\nerr_code:%i\n", pid, last_pid, err_code);
+>>>>>>> cris
 
 
 	//while (cmd)//lista de t_cmd

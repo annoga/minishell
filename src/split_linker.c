@@ -41,7 +41,7 @@ t_token	*split_linker(char *line, t_env **env)
 
 	token = tokenizer(line);
 	// token = check_env(token);
-	token = expansor(token);
+	token = expansor(token, env);
 
 	if(!analize_tokens(token))
 		return(NULL);

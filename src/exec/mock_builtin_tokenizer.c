@@ -49,10 +49,10 @@ t_token	*mock_builtin_tokenizer(t_token *head, t_env **env, t_cmd *cmd)
 		//for each command split by && or || 
 	//	if (head->type == REDIR_IN || head->type == REDIR_OUT)
 
-		printf("command:\n");
+		// printf("command:\n");
 		while (head)
 		{
-			printf("\"%s\"\n", head->token);
+			// printf("\"%s\"\n", head->token);
 			head = head->next;
 		}
 	}

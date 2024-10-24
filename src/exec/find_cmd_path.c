@@ -25,7 +25,7 @@ char	*find_cmd_path(char *cmd, char *path_env)
 	i = 0;
 	path = NULL;
 	folders = NULL;//
-//	printf("here split:%p\n", path_env);
+	printf("here split:%p\n", path_env);
 //	return (NULL);
 	if (path_env)//
 	{//
