@@ -53,17 +53,17 @@ int	ft_analyze_cmd(t_token *head, t_env *env)
 	char	*path;
 	char	**env_arr;
 	t_cmd	*cmnd;
-	int		i;//
+	// int		i;//
 
-	i = 0;//
+	// i = 0;//
 	env_arr = ft_get_env_array(env);//need to free_split when done
 	if (!env_arr)
 	{
 		printf("error translating t_env\n");
 		return (0);
 	}
-	while (env_arr[i])//
-		printf("%s\n", env_arr[i++]);//print envp
+	// while (env_arr[i])//
+	// 	printf("%s\n", env_arr[i++]);//print envp
 	cmnd = parser(head);//tb debe liberarse
 //	return (0);	
 //	printf("cmd[0]:%s\n", cmnd->cmd[0]);
@@ -123,10 +123,10 @@ int	ft_analyze_cmd(t_token *head, t_env *env)
 		err_code = stat_loc;
 	if (WIFEXITED(err_code))
 	{
-		printf("Im in WIFEXITED");
+		// printf("Im in WIFEXITED");
 		err_code = WEXITSTATUS(err_code);
 	}
-	printf("pid:%i\nlast_pid:%i\nerr_code:%i\n", pid, last_pid, err_code);
+	// printf("pid:%i\nlast_pid:%i\nerr_code:%i\n", pid, last_pid, err_code);
 
 
 	//while (cmd)//lista de t_cmd
