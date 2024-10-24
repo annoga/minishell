@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 17:50:17 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/22 16:46:07 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/24 11:36:07 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*find_cmd_path(char *cmd, char *path_env)
 	i = 0;
 	path = NULL;
 	folders = NULL;//
-	printf("here split:%p\n", path_env);
+//	printf("here split:%p\n", path_env);
 //	return (NULL);
 	if (path_env)//
 	{//

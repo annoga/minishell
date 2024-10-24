@@ -8,11 +8,11 @@ CFLAGS				=	-Wall -Werror -Wextra -fsanitize=address
 RM					=	rm -f
 # 
 # Determine the platform
-LIBS = -Lreadline -lreadline -lhistory -ltermcap
+##LIBS = -Lreadline -lreadline -lhistory -ltermcap
 INC = inc/minishell.h inc/struct.h libft/libft.h
 
 # Apaños para mac
-#LIBS = -Lreadline -lreadline -ltermcap
+LIBS = -Lreadline -lreadline -ltermcap
 
 # Directories
 LIBFT				=	./libft/libftgnl.a
@@ -80,7 +80,12 @@ EXEC			=	exec/echo.c exec/mock_builtin_tokenizer.c 	\
 					exec/is_command.c							\
 					exec/find_cmd_path.c						\
 					exec/ft_get_env_array.c						\
+					exec/pipe_write_stdout.c					\
+					exec/pipe_read_stdin.c						\
+					exec/exec_child.c							\
+					exec/redir_file_stdout.c					\
 					exec/do_fork.c								
+
 
 MAIN			=	main.c									\
 					split_linker.c							\
