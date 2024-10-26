@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redir_file_stdout.c                                :+:      :+:    :+:   */
+/*   update_pipes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/24 13:42:21 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/26 15:39:46 by angeln           ###   ########.fr       */
+/*   Created: 2024/10/26 16:21:09 by angeln            #+#    #+#             */
+/*   Updated: 2024/10/26 16:27:03 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-/* Opens or creates the given filename and redirects output to it.
- * File permissions rw-r--r-- */
-int	redir_file_stdout(char *filename, int mode)
+void	update_pipes(t_pipe *fds, int j)
 {
-	int	fd;
-
-	fd = 0;
-	if (mode == REDIR_OUT)
-		fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	else if (mode == APPEND)
-		fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	dup2(fd, 1);//err msg?
-	close(fd);
-	return (0);//return exit code
+	close(fds->prev[READ]);
+	close(fds->prev[WRITE]);
+	//en todos menos el último y el primero
+	fds->prev[READ] = fds->next[READ];
+	fds->prev[WRITE] = fds->next[WRITE];
+	if (j == 0)//
+		j++;//
 }

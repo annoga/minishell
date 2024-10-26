@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:46:11 by anovoa            #+#    #+#             */
-/*   Updated: 2024/10/24 17:45:13 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/26 16:27:11 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,33 @@ int	ft_analyze_cmd(t_env *env, t_cmd *cmnd)
 //	while (env_arr[i])//
 //		printf("%s\n", env_arr[i++]);//print envp
 	// cmnd = parser(head);//tb debe liberarse
-	path = find_cmd_path(cmnd->cmd[0], ft_getenv("PATH", env));
+	//Calculo path para cada comando. Por ahora ignoro subcmds
+	t_cmd	*tmp_cmd;
+
+	tmp_cmd = cmnd;
+	while (tmp_cmd)
+	{
+//	path = find_cmd_path(cmnd->cmd[0], ft_getenv("PATH", env));
+	path = find_cmd_path(tmp_cmd->cmd[0], ft_getenv("PATH", env));
 	if (path == NULL)
 		return (0);
-	cmnd->path = path;
+	tmp_cmd->path = path;
+	tmp_cmd = tmp_cmd->next;
+	}
+
 //	return (0);	
-	printf("cmd[0]:%s\n", cmnd->cmd[0]);
+/*	printf("cmd[0]:%s\n", cmnd->cmd[0]);
 	printf("cmd[1]:%s\n", cmnd->cmd[1]);
 	printf("path:%s\n", cmnd->path);
 	printf("next:%p\n", cmnd->next);//NULL if empty
+	if (cmnd->files)
+	{
 	printf("conType:%i\n", cmnd->connection_type);//NULL if empty
-
+	printf("fName:%s\n", cmnd->files->name);//
+	printf("fType:%i\n", cmnd->files->type);//
+	printf("fNxt:%p\n", cmnd->files->next);//
+	}
+*/
 	//if cmd exists
 //	path[0] = '\n';
 	int		err_code;
@@ -52,45 +68,35 @@ int	ft_analyze_cmd(t_env *env, t_cmd *cmnd)
 
 	while (cmnd)
 	{
+		printf("path:%s\n", cmnd->path);
 		if (cmnd->connection_type == PIPE)
 		{
 			pipe(fds.next);//msg if err?
 		printf("dad - read:%i, write:%i\n",fds.next[READ],fds.next[WRITE]);
 		}
-	pid = do_fork();
-	if (pid == 0)
-	{
-		exec_child(cmnd, fds, env_arr, j);
-/*		if (cmnd->connection_type == PIPE)
+		pid = do_fork();
+		if (pid == 0)
 		{
-		printf("kid - read:%i, write:%i\n",fds.next[READ],fds.next[WRITE]);
-	//command n0: dup input
-	//command n0: dup input
-/			if (j != 0)//movemos IN en el primero
-				pipe_read_stdin(fds.next);
-	//command ...(n - 1): dup output
-			if (j == 0 || cmnd->next)//movemos OUT salvo en el último
-				pipe_write_stdout(fds.next);
+			exec_child(cmnd, fds, env_arr, j);
 		}
-	//command ...n: dup output to file, heredoc, or (1)
-		if (cmnd->connection_type == REDIR_OUT)
-			redir_file(cmnd->files->name, REDIR_OUT);
-		if (cmnd->connection_type == APPEND)
-			redir_file(cmnd->files->name, APPEND);
-
-		execve(path, cmnd->cmd, env_arr);
-		exit(1);//martillo de emergencia*/
-	}
-	last_pid = pid;
+		last_pid = pid;
+		//en todas las secuencias en las que ha habido al menos un PIPE
+		if (cmnd->connection_type == PIPE && j != 0)
+		{
+			update_pipes(&fds, j);
+		}
 	//free path
 
-	if (cmnd->connection_type == PIPE)
-	{
-		close(fds.next[WRITE]);
+		if (cmnd->connection_type == PIPE)
+		{
+			close(fds.next[WRITE]);
+		}
+		cmnd = cmnd->next;
+		j++;
 	}
-	cmnd = cmnd->next;
-	j++;
-	}
+
+//	if (j >= 0)//
+//		j++;//
 
 	int	stat_loc;
 
