@@ -1,34 +1,56 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   find_cmd_path.c                                    :+:      :+:    :+:   */
+/*   get_cmd_path.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 17:50:17 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/26 15:47:07 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/27 20:51:05 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
+static char	*get_from_envpath(char *cmd, char *path_env);
 static char	*ft_pathjoin(char const *path, char const *file);
 
-/* This function will iterate the PATH element in env variable in order to find
- * one that can be executed */
-char	*find_cmd_path(char *cmd, char *path_env)
+/* This function will attempt to find a valid path to the given command,
+ * mimicking bash behaviour:
+ * 1) If the command contains a '/', it will be returned as is, if it 
+ * exists, or NULL otherwise.
+ * 2) If a path exists that is contained in the PATH environment variable,
+ * it will be returned, or NULL otherwise.
+ * 3) If the PATH environment variable does not exist, but the command 
+ * points to an existing file, it will be returned, NULL otherwise.
+ * */
+//if '/', check if it exists, and return it.
+//else, split path
+char	*get_cmd_path(char *cmd, char *path_env)
+{
+	if (ft_strchr(cmd, '/'))
+	{
+		if (access(cmd, F_OK) == 0)
+			return (ft_strdup(cmd));
+		else
+			return (NULL);
+	}
+	if (path_env)
+		return (get_from_envpath(cmd, path_env));
+	else if (!path_env)
+		if (access(cmd, F_OK) == 0)
+			return (ft_strdup(cmd));
+	return (NULL);
+}
+
+static char	*get_from_envpath(char *cmd, char *path_env)
 {
 	char	**folders;
-	int		i;
 	char	*path;
+	int		i;
 
 	i = 0;
 	path = NULL;
-	folders = NULL;//
-//	printf("here split:%p\n", path_env);
-//	return (NULL);
-	if (path_env)//
-	{//
 	folders = ft_split(path_env, ':');
 	if (!folders)
 		return (NULL);
@@ -37,17 +59,13 @@ char	*find_cmd_path(char *cmd, char *path_env)
 		path = ft_pathjoin(folders[i], cmd);
 		if (!path)
 			return (free_split(folders));
-		if (access(path, F_OK) == 0 && access(path, X_OK) == 0)
+		if (access(path, F_OK) == 0)
 			break ;
 		free(path);
 		path = NULL;
 		i++;
 	}
-	}//
-	if (!path && access(cmd, F_OK) == 0 && access(cmd, X_OK) == 0)
-		path = ft_strdup(cmd);
-	if (folders)//
-		free_split(folders);
+	free_split(folders);
 	return (path);
 }
 
