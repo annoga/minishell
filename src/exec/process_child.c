@@ -1,32 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_child.c                                       :+:      :+:    :+:   */
+/*   process_child.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:55:05 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/27 21:12:48 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/27 22:54:53 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-#include <errno.h>//
 
-static void	validate_cmd(char *cmd);
+static void	validate_cmdpath(char *cmd);
+
+/* Executes redirections for the given command.
+ * Executes heredocs across all commands */
+static int	process_redirs(t_cmd *cmd)
+{
+	if (cmd->files && cmd->files->type == REDIR_IN)
+		redir_file_stdin(cmd->files->name, REDIR_IN);
+	if (cmd->files && cmd->files->type == REDIR_OUT)
+		redir_file_stdout(cmd->files->name, REDIR_OUT);
+	if (cmd->files && cmd->files->type == APPEND)
+		redir_file_stdout(cmd->files->name, APPEND);
+	return (0);
+	//while cmd... if cmd->files... type==HEREDOC
+	//igual el heredoc se puede hacer separado
+}
 
 /* Can fit in analze_cmd */
-int	exec_child(t_cmd *cmd, t_pipe *fds, char *env[], int j)
+int	process_child(t_cmd *cmd, t_pipe *fds, char *env[], int cmd_index)
 {
-	if (cmd->connection_type == PIPE || (j != 0 && !cmd->next))
+	if (cmd->connection_type == PIPE || (cmd_index != 0 && !cmd->next))
 	{
 //		printf("kid#%i, read:%i write:%i\n",j,fds->next[READ],fds->next[WRITE]);
-		if (j != 0)//movemos IN salvo en el primero
+		if (cmd_index != 0)//movemos IN salvo en el primero
 		{
 //			printf("pos:%i, linking read %i to 0",j,fds->prev[READ]);
 			pipe_read_stdin(fds->prev);
 		}
-		if (j == 0 || cmd->next)//movemos OUT salvo en el último (no PIPE)
+		//movemos OUT salvo en el último (no PIPE)
+		if (cmd_index == 0 || cmd->next)
 		{
 //			printf("pos:%i, linking write %i to 1",j,fds->next[WRITE]);
 			pipe_write_stdout(fds->next);
@@ -34,17 +49,14 @@ int	exec_child(t_cmd *cmd, t_pipe *fds, char *env[], int j)
 	}
 //	if (j >= 0)//
 //		j++;//
-	if (cmd->files && cmd->files->type == REDIR_OUT)
+	process_redirs(cmd);
+/*	if (cmd->files && cmd->files->type == REDIR_OUT)
 		redir_file_stdout(cmd->files->name, REDIR_OUT);
 	if (cmd->files && cmd->files->type == APPEND)
-		redir_file_stdout(cmd->files->name, APPEND);
-	//check
-	//1)path exists
-	//2)path is a directory
-	//3)path has permissions
-	validate_cmd(cmd->path);
+		redir_file_stdout(cmd->files->name, APPEND);*/
+	validate_cmdpath(cmd->path);
 	execve(cmd->path, cmd->cmd, env);// No se están retornando:
-	exit(42);
+	exit(1);
 	return (0);
 }
 
@@ -53,7 +65,7 @@ int	exec_child(t_cmd *cmd, t_pipe *fds, char *env[], int j)
  * Command does not have execution permissions: 126
  * Command points to a directory: 126
  * */
-static void	validate_cmd(char *cmd)
+static void	validate_cmdpath(char *cmd)
 {
 	struct	stat	s;
 

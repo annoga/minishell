@@ -6,16 +6,18 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:46:11 by anovoa            #+#    #+#             */
-/*   Updated: 2024/10/27 21:10:28 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/27 23:01:53 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
+static void	fill_cmd_paths(t_cmd *cmd, char *envpaths);
+
 /* This function takes one or more commands and goes through them */
 int	ft_analyze_cmd(t_env *env, t_cmd *cmnd)
 {
-	char	*path;
+//	char	*path;
 	char	**env_arr;
 	// t_cmd	*cmnd;
 //	int		i;//
@@ -28,27 +30,15 @@ int	ft_analyze_cmd(t_env *env, t_cmd *cmnd)
 	}
 //	while (env_arr[i])//
 //		printf("%s\n", env_arr[i++]);//print envp
-	// cmnd = parser(head);//tb debe liberarse
-	//Calculo path para cada comando. Por ahora ignoro subcmds
-	t_cmd	*tmp_cmd;
 
-	tmp_cmd = cmnd;
-	while (tmp_cmd)
-	{
-//	path = find_cmd_path(cmnd->cmd[0], ft_getenv("PATH", env));
-	path = get_cmd_path(tmp_cmd->cmd[0], ft_getenv("PATH", env));
-	printf("path:%s\n", path);
-//	if (path == NULL)
-//		return (0);
-	tmp_cmd->path = path;
-	tmp_cmd = tmp_cmd->next;
-	}
+	fill_cmd_paths(cmnd, ft_getenv("PATH", env));
 
-//	return (0);	
-/*	printf("cmd[0]:%s\n", cmnd->cmd[0]);
-	printf("cmd[1]:%s\n", cmnd->cmd[1]);
-	printf("path:%s\n", cmnd->path);
+//	printf("cmd[0]:%s\n", cmnd->cmd[0]);
+//	printf("cmd[1]:%s\n", cmnd->cmd[1]);
+/*	printf("path:%s\n", cmnd->path);
 	printf("next:%p\n", cmnd->next);//NULL if empty
+	printf("next:%p\n", cmnd->subcommand);//NULL if empty
+	printf("files:%p\n", cmnd->files);//NULL if empty
 	if (cmnd->files)
 	{
 	printf("conType:%i\n", cmnd->connection_type);//NULL if empty
@@ -57,8 +47,6 @@ int	ft_analyze_cmd(t_env *env, t_cmd *cmnd)
 	printf("fNxt:%p\n", cmnd->files->next);//
 	}
 */
-	//if cmd exists
-//	path[0] = '\n';
 	int		err_code;
 	pid_t	last_pid;
 	pid_t	pid;
@@ -66,9 +54,9 @@ int	ft_analyze_cmd(t_env *env, t_cmd *cmnd)
 	int	j;
 
 	j = 0;
-	pid_t	pid_arr[MAX_CMD];
+	pid_t	pid_arr[MAX_CMD];//
 
-	ft_bzero(pid_arr, sizeof(pid_arr));
+	ft_bzero(pid_arr, sizeof(pid_arr));//
 	while (cmnd)
 	{
 	//	printf("path:%s\n", cmnd->path);
@@ -81,7 +69,7 @@ int	ft_analyze_cmd(t_env *env, t_cmd *cmnd)
 		pid = do_fork();
 		if (pid == 0)
 		{
-			exec_child(cmnd, &fds, env_arr, j);
+			process_child(cmnd, &fds, env_arr, j);
 		}
 		pid_arr[j] = pid;
 		last_pid = pid;
@@ -127,4 +115,25 @@ int	ft_analyze_cmd(t_env *env, t_cmd *cmnd)
 	}
 //	printf("pid:%i\nlast_pid:%i\nerr_code:%i\n", pid, last_pid, err_code);
 	return (err_code);
+}
+
+/* Sets a possible path for each command, or NULL if none is found */
+static void	fill_cmd_paths(t_cmd *cmd, char *envpaths)
+{
+	t_cmd	*tmp_cmd;
+	char	*path;
+
+	tmp_cmd = cmd;
+	path = NULL;
+	while (tmp_cmd)
+	{
+		if (tmp_cmd->cmd)
+			path = get_cmd_path(tmp_cmd->cmd[0], envpaths);
+		printf("path:%s\n", path);
+		tmp_cmd->path = path;
+		path = NULL;
+		if (tmp_cmd->subcommand)
+			fill_cmd_paths(tmp_cmd->subcommand, envpaths);
+		tmp_cmd = tmp_cmd->next;
+	}
 }

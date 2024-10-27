@@ -83,8 +83,9 @@ EXEC			=	exec/echo.c exec/mock_builtin_tokenizer.c 	\
 					exec/pipe_write_stdout.c					\
 					exec/pipe_read_stdin.c						\
 					exec/update_pipes.c							\
-					exec/exec_child.c							\
+					exec/process_child.c						\
 					exec/redir_file_stdout.c					\
+					exec/redir_file_stdin.c						\
 					exec/do_fork.c								
 
 
