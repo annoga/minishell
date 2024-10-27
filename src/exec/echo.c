@@ -12,66 +12,61 @@
 
 #include "../../inc/minishell.h"
 
-static int	has_n_option(t_token *node);
-static int	token_exists(t_token *node);
+static int	has_n_option(char *str);
 
 /* This function prints the given string followed by a new line. 
  * If given the -n option, it will not add the trailing new line. 
  * Usage: receives token after "echo"
 */
-void	echo(t_token *head)
+void echo_options(t_cmd next, int *has_n, int *i)
 {
-	t_token	*nextn;
-	int		has_n;
-
-	has_n = 0;
-	if (head)
-		nextn = head->next;
-	if (!head || !head->token || !head->next)
-		printf("%s", "\n");
-	else if (token_exists(nextn))
+	while (next.cmd[*i] && has_n_option(next.cmd[*i]))
 	{
-		while (head && head->type == 12 && has_n_option(nextn))
+		*has_n = 1;
+		(*i)++;
+	}
+}
+
+void	echo(t_cmd *head)
+{
+	t_cmd	*nextn;
+	int		has_n;
+	int		i;
+
+	i = 1;
+	has_n = 0;
+	if (!head || !head->cmd || !head->cmd[0])
+		printf("%s", "\n");
+	else
+	{
+		nextn = head;
+		echo_options(*nextn, &has_n, &i);
+		while(nextn->cmd[i])
 		{
-			has_n = 1;
-			head = nextn->next;
-			if (!head)
-				break ;
-			nextn = head->next;
+			printf("%s", nextn->cmd[i]);
+			if(nextn->cmd && nextn->cmd[i + 1])
+				printf(" ");
+			i++;
 		}
-		while (head && token_exists(nextn) && printf("%s", nextn->token))
-			nextn = nextn->next;
-		if (!has_n)
+		if(!has_n)
 			printf("%c", '\n');
 	}
 }
 
-/* Checks if a node exists and contains a token */
-static int	token_exists(t_token *node)
-{
-	if (!node || !node->token)
-		return (0);
-	return (1);
-}
-
 /* Assumes strings between quotes come as a single token. Validates
  * only options of the form "-n", "-nn", "-nnn", etc */
-static int	has_n_option(t_token *node)
+static int has_n_option(char *str)
 {
-	char	*str;
-
-	if (node && node->token)
-	{
-		str = node->token;
-		if (*str != '-')
-			return (0);
-		str++;
-		while (*str)
-		{
-			if (*str != 'n')
-				return (0);
-			str++;
-		}
-	}
-	return (1);
+    if (str && str[0] == '-')
+    {
+        str++;
+        while (*str)
+        {
+            if (*str != 'n')
+                return (0);
+            str++;
+        }
+        return (1);
+    }
+    return (0);
 }

@@ -37,18 +37,20 @@
 t_token	*split_linker(char *line, t_env **env)
 {
 	t_token	*token;
+	t_cmd	*cmd;
 
 	token = tokenizer(line);
 	// token = check_env(token);
-	token = expansor(token);
+	token = expansor(token, env);
 
 	if(!analize_tokens(token))
 		return(NULL);
 	// prueba builtin
-
+	cmd = parser(token);
+	
 	if (debug == 1)//FOR TESTING ONLY, DELETE
 		print_list(token);
 	// printf("\n");
-	token = mock_builtin_tokenizer(token, env);
+	token = mock_builtin_tokenizer(token, env, cmd);
 	return (token);
 }

@@ -6,7 +6,7 @@
 #    By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/19 22:41:29 by anovoa            #+#    #+#              #
-#    Updated: 2024/08/15 20:47:29 by anovoa           ###   ########.fr        #
+#    Updated: 2024/10/27 09:05:57 by angeln           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ SOURCES = ft_isalpha.c ft_toupper.c ft_isdigit.c ft_tolower.c \
       ft_writers.c get_next_line.c get_next_line_utils.c \
 	  get_whole_file.c ft_atoi_base.c ft_countdigits.c \
 	  ft_isspace.c ft_issign.c ft_strnstr.c ft_strlcat.c \
-	  ft_atol.c ft_lstadd_back.c ft_lstclear.c ft_lstlast.c
+	  ft_atol.c ft_lstadd_back.c ft_lstclear.c ft_lstlast.c \
+	  ft_bzero.c
 
 OBJECTS = $(SOURCES:.c=.o)
 

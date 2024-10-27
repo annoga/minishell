@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 18:11:12 by anovoa            #+#    #+#             */
-/*   Updated: 2024/08/15 20:51:32 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/10/27 10:25:58 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,7 @@ size_t			ft_strlcat(char *dest, char *src, size_t size);
 void			ft_lstclear(t_list **lst, void (*del)(void*));
 void			ft_lstadd_back(t_list **lst, t_list *new);
 t_list			*ft_lstlast(t_list *lst);
-
-
+void			ft_bzero(void *s, size_t n);
 
 /* ft_printf */
 size_t			ft_countwords(char const *str, char c);

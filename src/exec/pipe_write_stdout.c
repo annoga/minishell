@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   pipe_write_stdout.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/27 10:24:33 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/27 10:25:07 by angeln           ###   ########.fr       */
+/*   Created: 2024/10/24 13:26:07 by angeln            #+#    #+#             */
+/*   Updated: 2024/10/24 13:26:26 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../inc/minishell.h"
 
-t_list	*ft_lstlast(t_list *lst)
+/* Links standard output to our pipe's input */
+void	pipe_write_stdout(int *pipe)
 {
-	if (!lst)
-		return (NULL);
-	while (lst)
-	{
-		if (lst->next == NULL)
-			return (lst);
-		lst = lst->next;
-	}
-	return (lst);
+	close(pipe[READ]);
+	dup2(pipe[WRITE], 1);
+	close(pipe[WRITE]);
 }

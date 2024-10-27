@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   do_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/27 10:24:33 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/27 10:25:07 by angeln           ###   ########.fr       */
+/*   Created: 2024/10/22 13:21:31 by angeln            #+#    #+#             */
+/*   Updated: 2024/10/22 13:25:36 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../inc/minishell.h"
 
-t_list	*ft_lstlast(t_list *lst)
+pid_t	do_fork(void)
 {
-	if (!lst)
-		return (NULL);
-	while (lst)
-	{
-		if (lst->next == NULL)
-			return (lst);
-		lst = lst->next;
-	}
-	return (lst);
+	pid_t	pid;
+
+	pid = fork();
+	if (pid == -1)
+		exit(1);
+	return (pid);
 }

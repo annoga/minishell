@@ -6,14 +6,14 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 21:23:03 by anovoa            #+#    #+#             */
-/*   Updated: 2024/09/24 16:59:15 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/10/17 18:12:47 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 /* This function calls builtins. For test purposes only */
-t_token	*mock_builtin_tokenizer(t_token *head, t_env **env)
+t_token	*mock_builtin_tokenizer(t_token *head, t_env **env, t_cmd *cmd)
 {
 	if (!head)
 		return (NULL);
@@ -35,10 +35,26 @@ t_token	*mock_builtin_tokenizer(t_token *head, t_env **env)
 	 
 	 /*DEBUG end*/
 	if (!ft_strcmp(head->token, "echo"))
-		echo(head->next);
+		echo(cmd);
 	else if (!ft_strcmp(head->token, "exit"))
 		ft_exit(head->next);
 	else if (!ft_strcmp(head->token, "env"))
 		ft_env(head->next, *env);//returns errno, should put it somewhere
+	else
+	{
+		if (head->type == SPACE_TOKEN && head->next)
+			ft_analyze_cmd(*env, cmd);
+		else 
+			ft_analyze_cmd(*env, cmd);
+		//for each command split by && or || 
+	//	if (head->type == REDIR_IN || head->type == REDIR_OUT)
+
+		// printf("command:\n");
+		while (head)
+		{
+			// printf("\"%s\"\n", head->token);
+			head = head->next;
+		}
+	}
 	return (head);
 }

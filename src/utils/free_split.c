@@ -1,13 +1,14 @@
 #include "../../inc/minishell.h"
 
-void	free_split(char **split)
+char	*free_split(char **split)
 {
 	int	i;
 
 	if (!split)
-		return ;
+		return (NULL);
 	i = 0;
 	while (split[i])
 		free(split[i++]);
 	free(split);
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 19:06:38 by anovoa            #+#    #+#             */
-/*   Updated: 2024/09/24 17:11:14 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/10/21 11:10:30 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_getenv(char *key, t_env *envp)
 {
 	while (envp)
 	{
-		if (ft_strcmp(envp->key_name, key))
+		if (ft_strcmp(envp->key_name, key) == 0)
 			return (envp->value);
 		envp = envp->next;
 	}
