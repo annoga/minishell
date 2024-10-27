@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:52:44 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/27 08:29:31 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/27 10:30:31 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@
 # include <fcntl.h>
 
 // Apaños para mac
-# include <limits.h>
-# include <string.h>
-//# include <linux/limits.h>
+//# include <limits.h>
+//# include <string.h>
+# include <linux/limits.h>
 
 //# include ".h"
 
