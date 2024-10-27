@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:46:11 by anovoa            #+#    #+#             */
-/*   Updated: 2024/10/27 10:22:24 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/27 21:10:28 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int	ft_analyze_cmd(t_env *env, t_cmd *cmnd)
 	while (tmp_cmd)
 	{
 //	path = find_cmd_path(cmnd->cmd[0], ft_getenv("PATH", env));
-	path = find_cmd_path(tmp_cmd->cmd[0], ft_getenv("PATH", env));
+	path = get_cmd_path(tmp_cmd->cmd[0], ft_getenv("PATH", env));
+	printf("path:%s\n", path);
 //	if (path == NULL)
 //		return (0);
 	tmp_cmd->path = path;

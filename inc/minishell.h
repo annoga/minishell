@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:52:44 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/27 08:29:31 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/27 20:06:00 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int		free_env(t_env **envp);
 char	*ft_getenv(char *key, t_env *envp);
 char	**ft_get_env_array(t_env *env);
 int		ft_analyze_cmd(t_env *env, t_cmd *cmd);
-char	*find_cmd_path(char *cmd, char *path_env);
+char	*get_cmd_path(char *cmd, char *path_env);
 int		is_command(char *path);
 pid_t	do_fork(void);
 void	pipe_write_stdout(int *pipe);
