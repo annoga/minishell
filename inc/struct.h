@@ -1,5 +1,8 @@
 #ifndef STRUCT_H
 # define STRUCT_H
+#  ifndef MAX_CMD
+#   define MAX_CMD 42
+#  endif
 
 typedef enum e_token_type
 {

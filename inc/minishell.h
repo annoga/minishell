@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:52:44 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/24 13:43:55 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/27 10:30:31 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@
 # include <fcntl.h>
 
 // Apaños para mac
-# include <limits.h>
-# include <string.h>
-//# include <linux/limits.h>
+//# include <limits.h>
+//# include <string.h>
+# include <linux/limits.h>
 
 //# include ".h"
 
@@ -114,8 +114,9 @@ int		is_command(char *path);
 pid_t	do_fork(void);
 void	pipe_write_stdout(int *pipe);
 void	pipe_read_stdin(int *pipe);
-int		exec_child(t_cmd *cmd, t_pipe fds, char *env[], int j);
+int		exec_child(t_cmd *cmd, t_pipe *fds, char *env[], int j);
 int		redir_file_stdout(char *filename, int mode);
+void	update_pipes(t_pipe *fds, int j, t_cmd *next_cmd);
 
 /* UTILS */
 char	*ft_strndup(const char *s, size_t n);
