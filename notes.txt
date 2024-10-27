@@ -2,6 +2,7 @@ To fix:
     ◦ Cambiar el getenv() por nuestro propio get_env                ✅
         ◦ Probar el env -i con el $PWD                              ✅
     ◦ echo con la opción -n. : CAMBIAR TOKENS POR LA LISTA DE CMD   ✅
+    ◦ shlvl ???????????????
 
 Check built-is:
     ◦ env sin opciones o argumentos.
