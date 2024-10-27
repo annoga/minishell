@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:55:05 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/27 22:54:53 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/27 23:51:45 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,16 @@ static void	validate_cmdpath(char *cmd);
  * Executes heredocs across all commands */
 static int	process_redirs(t_cmd *cmd)
 {
+	int	err_code;
+	
+	err_code = 0;
 	if (cmd->files && cmd->files->type == REDIR_IN)
-		redir_file_stdin(cmd->files->name, REDIR_IN);
+		err_code = redir_file_stdin(cmd->files->name, REDIR_IN);
 	if (cmd->files && cmd->files->type == REDIR_OUT)
-		redir_file_stdout(cmd->files->name, REDIR_OUT);
+		err_code = redir_file_stdout(cmd->files->name, REDIR_OUT);
 	if (cmd->files && cmd->files->type == APPEND)
-		redir_file_stdout(cmd->files->name, APPEND);
-	return (0);
+		err_code = redir_file_stdout(cmd->files->name, APPEND);
+	return (err_code);
 	//while cmd... if cmd->files... type==HEREDOC
 	//igual el heredoc se puede hacer separado
 }
@@ -32,6 +35,9 @@ static int	process_redirs(t_cmd *cmd)
 /* Can fit in analze_cmd */
 int	process_child(t_cmd *cmd, t_pipe *fds, char *env[], int cmd_index)
 {
+	int	err_code;
+
+	err_code = 0;
 	if (cmd->connection_type == PIPE || (cmd_index != 0 && !cmd->next))
 	{
 //		printf("kid#%i, read:%i write:%i\n",j,fds->next[READ],fds->next[WRITE]);
@@ -49,7 +55,13 @@ int	process_child(t_cmd *cmd, t_pipe *fds, char *env[], int cmd_index)
 	}
 //	if (j >= 0)//
 //		j++;//
-	process_redirs(cmd);
+	err_code = process_redirs(cmd);
+	if (err_code != 0)// || !cmd->cmd)
+		exit(err_code);
+	//Esto sería para salir correctamente cuando hay un "< infile |"
+	//No me recuerda el input, pero sí marca el exit status correcto
+	if (!cmd->cmd)//Falta considerar subCommandos
+		exit(0);
 /*	if (cmd->files && cmd->files->type == REDIR_OUT)
 		redir_file_stdout(cmd->files->name, REDIR_OUT);
 	if (cmd->files && cmd->files->type == APPEND)

@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:46:11 by anovoa            #+#    #+#             */
-/*   Updated: 2024/10/27 23:01:53 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/27 23:44:59 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,10 @@ int	ft_analyze_cmd(t_env *env, t_cmd *cmnd)
 
 //	printf("cmd[0]:%s\n", cmnd->cmd[0]);
 //	printf("cmd[1]:%s\n", cmnd->cmd[1]);
-/*	printf("path:%s\n", cmnd->path);
+	printf("cmd:%p\n", cmnd->cmd);
+	printf("path:%s\n", cmnd->path);
 	printf("next:%p\n", cmnd->next);//NULL if empty
-	printf("next:%p\n", cmnd->subcommand);//NULL if empty
+	printf("subC:%p\n", cmnd->subcommand);//NULL if empty
 	printf("files:%p\n", cmnd->files);//NULL if empty
 	if (cmnd->files)
 	{
@@ -46,7 +47,7 @@ int	ft_analyze_cmd(t_env *env, t_cmd *cmnd)
 	printf("fType:%i\n", cmnd->files->type);//
 	printf("fNxt:%p\n", cmnd->files->next);//
 	}
-*/
+
 	int		err_code;
 	pid_t	last_pid;
 	pid_t	pid;
@@ -109,7 +110,7 @@ int	ft_analyze_cmd(t_env *env, t_cmd *cmnd)
 	if (WIFEXITED(err_code))
 	{
 		//printf("----Command Finished----\n");
-		//printf("Last cmd exited with status %d\n", WEXITSTATUS(err_code));
+		printf("Last cmd exited with status %d\n", WEXITSTATUS(err_code));
 		err_code = WEXITSTATUS(err_code);
 		//printf("err_code: %d\n", err_code);
 	}
