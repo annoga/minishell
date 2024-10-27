@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:46:11 by anovoa            #+#    #+#             */
-/*   Updated: 2024/10/27 23:44:59 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/27 23:54:09 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_analyze_cmd(t_env *env, t_cmd *cmnd)
 
 //	printf("cmd[0]:%s\n", cmnd->cmd[0]);
 //	printf("cmd[1]:%s\n", cmnd->cmd[1]);
-	printf("cmd:%p\n", cmnd->cmd);
+/*	printf("cmd:%p\n", cmnd->cmd);
 	printf("path:%s\n", cmnd->path);
 	printf("next:%p\n", cmnd->next);//NULL if empty
 	printf("subC:%p\n", cmnd->subcommand);//NULL if empty
@@ -47,7 +47,7 @@ int	ft_analyze_cmd(t_env *env, t_cmd *cmnd)
 	printf("fType:%i\n", cmnd->files->type);//
 	printf("fNxt:%p\n", cmnd->files->next);//
 	}
-
+*/
 	int		err_code;
 	pid_t	last_pid;
 	pid_t	pid;
@@ -109,12 +109,9 @@ int	ft_analyze_cmd(t_env *env, t_cmd *cmnd)
 	}
 	if (WIFEXITED(err_code))
 	{
-		//printf("----Command Finished----\n");
-		printf("Last cmd exited with status %d\n", WEXITSTATUS(err_code));
+		//printf("Last cmd exited with status %d\n", WEXITSTATUS(err_code));
 		err_code = WEXITSTATUS(err_code);
-		//printf("err_code: %d\n", err_code);
 	}
-//	printf("pid:%i\nlast_pid:%i\nerr_code:%i\n", pid, last_pid, err_code);
 	return (err_code);
 }
 
@@ -130,7 +127,7 @@ static void	fill_cmd_paths(t_cmd *cmd, char *envpaths)
 	{
 		if (tmp_cmd->cmd)
 			path = get_cmd_path(tmp_cmd->cmd[0], envpaths);
-		printf("path:%s\n", path);
+		//printf("path:%s\n", path);
 		tmp_cmd->path = path;
 		path = NULL;
 		if (tmp_cmd->subcommand)
