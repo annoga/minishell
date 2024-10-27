@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:46:11 by anovoa            #+#    #+#             */
-/*   Updated: 2024/10/26 16:27:11 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/27 10:22:24 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int	ft_analyze_cmd(t_env *env, t_cmd *cmnd)
 	{
 //	path = find_cmd_path(cmnd->cmd[0], ft_getenv("PATH", env));
 	path = find_cmd_path(tmp_cmd->cmd[0], ft_getenv("PATH", env));
-	if (path == NULL)
-		return (0);
+//	if (path == NULL)
+//		return (0);
 	tmp_cmd->path = path;
 	tmp_cmd = tmp_cmd->next;
 	}
@@ -65,33 +65,37 @@ int	ft_analyze_cmd(t_env *env, t_cmd *cmnd)
 	int	j;
 
 	j = 0;
+	pid_t	pid_arr[MAX_CMD];
 
+	ft_bzero(pid_arr, sizeof(pid_arr));
 	while (cmnd)
 	{
-		printf("path:%s\n", cmnd->path);
+	//	printf("path:%s\n", cmnd->path);
 		if (cmnd->connection_type == PIPE)
 		{
-			pipe(fds.next);//msg if err?
-		printf("dad - read:%i, write:%i\n",fds.next[READ],fds.next[WRITE]);
+			if (pipe(fds.next) == -1)//msg if err?
+				printf("pipe error. Oh shit!\n");
+//		printf("dad#%i - read:%i, write:%i\n",j,fds.next[READ],fds.next[WRITE]);
 		}
 		pid = do_fork();
 		if (pid == 0)
 		{
-			exec_child(cmnd, fds, env_arr, j);
+			exec_child(cmnd, &fds, env_arr, j);
 		}
+		pid_arr[j] = pid;
 		last_pid = pid;
 		//en todas las secuencias en las que ha habido al menos un PIPE
-		if (cmnd->connection_type == PIPE && j != 0)
-		{
-			update_pipes(&fds, j);
-		}
+		if (cmnd->connection_type == PIPE || (j != 0 && !cmnd->next))
+			update_pipes(&fds, j, cmnd->next);
 	//free path
 
-		if (cmnd->connection_type == PIPE)
+		//Volcamos el resultado de la pipe
+/*		if (cmnd->connection_type == PIPE || (j != 0 && !cmnd->next))
 		{
+			printf("here j:%i\n", j);
 			close(fds.next[WRITE]);
 		}
-		cmnd = cmnd->next;
+*/		cmnd = cmnd->next;
 		j++;
 	}
 
@@ -99,38 +103,27 @@ int	ft_analyze_cmd(t_env *env, t_cmd *cmnd)
 //		j++;//
 
 	int	stat_loc;
+	int	k;
 
-	pid = wait(&stat_loc);
-	if (pid == last_pid)
-		err_code = stat_loc;
+	k = 0;
+
+	while (k++ < j)
+	{
+		pid = waitpid(-1, &stat_loc, 0);
+		if (pid == last_pid)
+		{
+				err_code = stat_loc;
+			//if (WIFEXITED(stat_loc))
+				//err_code = WEXITSTATUS(stat_loc);// Faltaría signal check
+		}
+	}
 	if (WIFEXITED(err_code))
 	{
-		//printf("Im in WIFEXITED");
+		//printf("----Command Finished----\n");
+		//printf("Last cmd exited with status %d\n", WEXITSTATUS(err_code));
 		err_code = WEXITSTATUS(err_code);
+		//printf("err_code: %d\n", err_code);
 	}
 //	printf("pid:%i\nlast_pid:%i\nerr_code:%i\n", pid, last_pid, err_code);
-
-
-	//while (cmd)//lista de t_cmd
-	//REDIR
-//	if (head->type == REDIR_IN || head->type == REDIR_OUT)
-	//	ft_redir(token, fd) --> 0, 1
-	//CMD
-	//if (.... COMMAND)
-	//	ft_check_cmd
-	//	ft_do_cmd
-	//PIPE
-	//if (PIPE)
-	//	ft_redir(token, fd) --> 0
-	//...and start again
-//	ft_validate_cmd
-
-	//have args? 
-/*	if (!ft_strchr(path, '/'))
-		path = find_cmd(path, env);
-	is_valid_path(path);
-	//printerror(path);
-	//exit(1);//fail
-	printf("Here: %s\n", head->token);*/
-	return (0);
+	return (err_code);
 }
