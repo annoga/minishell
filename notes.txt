@@ -7,7 +7,6 @@ To fix:
 Check built-is:
     ◦ env sin opciones o argumentos.
     ◦ exit sin opciones
-    
 
 To-do:
     1 ◦ pwd sin opciones.
