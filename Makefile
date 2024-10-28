@@ -78,13 +78,14 @@ EXEC			=	exec/echo.c exec/mock_builtin_tokenizer.c 	\
 					exec/free_env.c								\
 					exec/ft_analyze_cmd.c						\
 					exec/is_command.c							\
-					exec/find_cmd_path.c						\
+					exec/get_cmd_path.c							\
 					exec/ft_get_env_array.c						\
 					exec/pipe_write_stdout.c					\
 					exec/pipe_read_stdin.c						\
 					exec/update_pipes.c							\
-					exec/exec_child.c							\
+					exec/process_child.c						\
 					exec/redir_file_stdout.c					\
+					exec/redir_file_stdin.c						\
 					exec/do_fork.c								
 
 
