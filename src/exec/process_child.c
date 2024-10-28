@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:55:05 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/28 10:53:11 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/28 15:11:00 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	execute_builtin(t_cmd *cmd)
 	int	err_code;
 
 	err_code = 0;
-	if (!ft_strcmp(cmd->cmd[0], "echo"))
+	if (cmd->cmd && !ft_strcmp(cmd->cmd[0], "echo"))
 	{
 		err_code = echo(cmd);
 		exit(err_code);
@@ -75,10 +75,8 @@ int	process_child(t_cmd *cmd, t_pipe *fds, char *env[], int cmd_index)
 //	if (j >= 0)//
 //		j++;//
 	err_code = process_redirs(cmd);
-	if (err_code != 0)// || !cmd->cmd)
+	if (err_code != 0 || !cmd->cmd)
 		exit(err_code);
-	//Esto sería para salir correctamente cuando hay un "< infile |"
-	//No me recuerda el input, pero sí marca el exit status correcto
 	if (!cmd->cmd)//Falta considerar subCommandos
 		exit(0);
 /*	if (cmd->files && cmd->files->type == REDIR_OUT)
