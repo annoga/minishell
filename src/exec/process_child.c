@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:55:05 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/27 23:51:45 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/28 10:53:11 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,25 @@ static int	process_redirs(t_cmd *cmd)
 	return (err_code);
 	//while cmd... if cmd->files... type==HEREDOC
 	//igual el heredoc se puede hacer separado
+}
+
+static void	execute_builtin(t_cmd *cmd)
+{
+	int	err_code;
+
+	err_code = 0;
+	if (!ft_strcmp(cmd->cmd[0], "echo"))
+	{
+		err_code = echo(cmd);
+		exit(err_code);
+	}
+//	else if (!ft_strcmp(cmd->cmd[0], "env"))
+//	{
+//		err_code = ft_env(head->next, *env);
+//		exit(err_code);
+//	}
+//	else if (!ft_strcmp(cmd->cmd[0], "exit"))
+//		err_code = ft_exit(head->next);
 }
 
 /* Can fit in analze_cmd */
@@ -66,6 +85,8 @@ int	process_child(t_cmd *cmd, t_pipe *fds, char *env[], int cmd_index)
 		redir_file_stdout(cmd->files->name, REDIR_OUT);
 	if (cmd->files && cmd->files->type == APPEND)
 		redir_file_stdout(cmd->files->name, APPEND);*/
+
+	execute_builtin(cmd);
 	validate_cmdpath(cmd->path);
 	execve(cmd->path, cmd->cmd, env);// No se están retornando:
 	exit(1);

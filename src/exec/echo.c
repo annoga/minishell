@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 20:55:00 by angeln            #+#    #+#             */
-/*   Updated: 2024/09/24 17:08:32 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/10/28 10:49:37 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void echo_options(t_cmd next, int *has_n, int *i)
 	}
 }
 
-void	echo(t_cmd *head)
+int	echo(t_cmd *head)
 {
 	t_cmd	*nextn;
 	int		has_n;
@@ -51,6 +51,7 @@ void	echo(t_cmd *head)
 		if(!has_n)
 			printf("%c", '\n');
 	}
+	return (0);
 }
 
 /* Assumes strings between quotes come as a single token. Validates

@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:46:11 by anovoa            #+#    #+#             */
-/*   Updated: 2024/10/27 23:54:09 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/28 10:30:16 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int	ft_analyze_cmd(t_env *env, t_cmd *cmnd)
 	}
 	if (WIFEXITED(err_code))
 	{
-		//printf("Last cmd exited with status %d\n", WEXITSTATUS(err_code));
+		printf("Last cmd exited with status %d\n", WEXITSTATUS(err_code));
 		err_code = WEXITSTATUS(err_code);
 	}
 	return (err_code);
