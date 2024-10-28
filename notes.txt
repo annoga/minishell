@@ -10,7 +10,8 @@ Check built-is:
 
 To-do:
     1 ◦ pwd sin opciones.
-    2 ◦ cd solo con una ruta relativa o absoluta.
-    3 ◦ Señales
+    2 ◦ $?
+    3 ◦ cd solo con una ruta relativa o absoluta.
+    4 ◦ Señales
     ◦ export sin opciones.
     ◦ unset sin opciones.

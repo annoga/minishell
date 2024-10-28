@@ -34,14 +34,15 @@ static int	process_redirs(t_cmd *cmd)
 
 static void	execute_builtin(t_cmd *cmd)
 {
-	int	err_code;
+	// int	err_code;
 
-	err_code = 0;
-	if (!ft_strcmp(cmd->cmd[0], "echo"))
-	{
-		err_code = echo(cmd);
-		exit(err_code);
-	}
+	// err_code = 0;
+	(void)cmd;
+	// if (!ft_strcmp(cmd->cmd[0], "echo"))
+	// {
+	// 	err_code = echo(cmd);
+	// 	exit(err_code);
+	// }
 //	else if (!ft_strcmp(cmd->cmd[0], "env"))
 //	{
 //		err_code = ft_env(head->next, *env);
