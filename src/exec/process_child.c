@@ -34,7 +34,7 @@ static int	process_redirs(t_cmd *cmd)
 
 static void	execute_builtin(t_cmd *cmd)
 {
-	int	err_code;
+	 int	err_code;
 
 	err_code = 0;
 	if (cmd->cmd && !ft_strcmp(cmd->cmd[0], "echo"))

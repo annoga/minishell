@@ -5,7 +5,7 @@ static void	ft_aux_catch_env(t_env **tmp, int *shlvl_flag)
 	int	shlvl;
 
 	shlvl = 0;
-	if (ft_strcmp((*tmp)->key_name, "SHLVL\0") == 0)
+	if ((*tmp)->key_name && ft_strcmp((*tmp)->key_name, "SHLVL\0") == 0)
 	{
 		shlvl = ft_atoi((*tmp)->value);
 		if (shlvl > 999)
@@ -22,7 +22,7 @@ static void	ft_aux_catch_env(t_env **tmp, int *shlvl_flag)
 		else
 			shlvl = 0;
 		free((*tmp)->value);
-		ft_soft_itoa(tmp, shlvl - 1);
+		ft_soft_itoa(tmp, shlvl);
 		*shlvl_flag = 1;
 	}
 }
@@ -31,7 +31,7 @@ static void	ft_aux_shlvl(t_env **tmp, t_env **last, int shlvl_flag)
 {
 	if (shlvl_flag == 0)
 	{
-		if(!ft_issafedup(tmp, "SHLVL", "1"))
+		if(!ft_issafedup(tmp, "SHLVL", "1 "))
 			exit(1);
 		(*last)->next = *tmp;
 		*last = *tmp;
@@ -43,6 +43,12 @@ static void	ft_aux_envdup(t_env **tmp, char **envp, int i, char *div)
 	*tmp = (t_env *)malloc(sizeof(t_env));
 	if (!tmp)
 		exit(1);
+	if(envp[i] && !ft_strcmp(envp[i], "SHLVL=1"))
+	{
+		free(*tmp);
+		*tmp = NULL;
+		return ;
+	}
 	div = ft_strchr(envp[i], '=');
 	(*tmp)->key_name = ft_substr(envp[i], 0, (div - envp[i]));
 	if (!(*tmp)->key_name)
@@ -50,6 +56,15 @@ static void	ft_aux_envdup(t_env **tmp, char **envp, int i, char *div)
 	(*tmp)->value = ft_substr(div + 1, 0, ft_strlen(div));
 	if (!(*tmp)->value)
 		exit(1);
+}
+
+void totally_auxiliar(t_env **head, t_env **last, t_env **tmp)
+{
+	if (!*head)
+		*head = *tmp;
+	else
+		(*last)->next = *tmp;
+	*last = *tmp;
 }
 
 void ft_full_env(char **envp, t_env **head)
@@ -68,13 +83,13 @@ void ft_full_env(char **envp, t_env **head)
 	while (envp[i])
 	{
 		ft_aux_envdup(&tmp, envp, i, div);
+		if(!tmp)
+		{
+			i++;
+			continue ;
+		}
 		ft_aux_catch_env(&tmp, &shlvl_flag);
-		// printf("key_name=key_value: %s = \" %s \"\n", tmp->key_name, tmp->value);
-		if (!*head)
-			*head = tmp;
-		else
-			last->next = tmp;
-		last = tmp;
+		totally_auxiliar(head, &last, &tmp);
 		i++;
 	}
 	ft_aux_shlvl(&tmp, &last, shlvl_flag);
@@ -88,5 +103,5 @@ void	ft_catch_env(char **envp, t_env **head)
 	if(envp && envp[0])
 		ft_full_env(envp, head);
 	else
-		ft_empty_env(head);	
+		ft_empty_env(head);
 }

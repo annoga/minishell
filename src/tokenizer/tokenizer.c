@@ -6,7 +6,7 @@
 /*   By: crmanzan <crmanzan@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 21:49:33 by crmanzan          #+#    #+#             */
-/*   Updated: 2024/05/30 21:50:57 by crmanzan         ###   ########.fr       */
+/*   Updated: 2024/10/28 17:27:13 by crmanzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
@@ -27,7 +27,5 @@ t_token	*tokenizer(char *line)
 		add_token(&head_token, token);
 		i++;
 	}
-	
-	//print_list(head_token);
 	return (head_token);
 }

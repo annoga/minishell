@@ -105,6 +105,7 @@ t_token	*mock_builtin_tokenizer(t_token *head, t_env **env, t_cmd *cmd);//just f
 int		echo(t_cmd *head);
 void	ft_exit(t_token *head);
 int		ft_env(t_token *head, t_env *env);//maybe should return unsigned char
+int    ft_pwd(t_cmd *cmd);
 int		free_env(t_env **envp);
 char	*ft_getenv(char *key, t_env *envp);
 char	**ft_get_env_array(t_env *env);
@@ -136,4 +137,4 @@ char	*print_type(t_token_type type);
 char	*free_tcmd(t_cmd **cmd_list);
 
 
-#endif
+# endif
