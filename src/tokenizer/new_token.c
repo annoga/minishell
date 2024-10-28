@@ -15,7 +15,7 @@ t_token	*new_token(t_token_type type, char *value)
 {
 	t_token	*token;
 
-	token = (t_token *)malloc(sizeof(t_token));
+	token = (t_token *)ft_calloc(sizeof(t_token), 1);
 	if (!token)
 		return (NULL);
 	token->type = type;

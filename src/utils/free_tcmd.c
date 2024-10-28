@@ -18,9 +18,10 @@ char	*free_tcmd(t_cmd **cmd_list)
 {
 	t_cmd	*tmp;
 
-	tmp = *cmd_list;
-	while (tmp)
+	while (*cmd_list)
 	{
+		tmp = *cmd_list;
+		*cmd_list = (*cmd_list)->next;
 		free(tmp->path);
 		tmp->path = NULL;
 		free_split(tmp->cmd);
@@ -29,7 +30,8 @@ char	*free_tcmd(t_cmd **cmd_list)
 		tmp->files = NULL;
 		if (tmp->subcommand)
 			free_tcmd(&(tmp->subcommand));
-		tmp = tmp->next;
+		free(tmp);
+		tmp = NULL;
 	}
 	free(*cmd_list);
 	*cmd_list = NULL;

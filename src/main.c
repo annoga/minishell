@@ -78,7 +78,7 @@ static void	print_env(char **envp)
 int	main(int argc, char *argv[], char **envp)
 {
 	char	*line;
-	t_token	*token;
+	//t_token	*token;
 	t_env	*env;
 //	t_cmd	*cmd;
 	int		i;
@@ -86,7 +86,7 @@ int	main(int argc, char *argv[], char **envp)
 	(void)argc;
 	(void)argv;
 	env = NULL;
-	token = NULL;
+	//token = NULL;
 	i = 1;
 	ft_catch_env(envp, &env);
 	while (i)
@@ -97,16 +97,17 @@ int	main(int argc, char *argv[], char **envp)
 			exit(0);
 		if (line && line[0] != '\0' && check_is_ok(line))
 		{
-			token = split_linker(line, &env);
-			if(!token)
-				continue;
+			split_linker(line, &env);
+			// if(!token)
+			// 	continue;
 //			cmd = parser(token);
 //			if(debug == 2)
 //				print_cmd(cmd, 0);
 			add_history(line);
 		}
+
 		free(line);
-		free_token(&token);
+		// free_token(&token);
 		rl_on_new_line();
 	}
 	exit(0);

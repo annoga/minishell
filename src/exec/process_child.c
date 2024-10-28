@@ -42,6 +42,12 @@ static void	execute_builtin(t_cmd *cmd)
 		err_code = echo(cmd);
 		exit(err_code);
 	}
+	else if(cmd->cmd && !ft_strcmp(cmd->cmd[0], "pwd"))
+	{
+		err_code = ft_pwd(cmd);
+		free_tcmd(&cmd);
+		exit(err_code);
+	}
 //	else if (!ft_strcmp(cmd->cmd[0], "env"))
 //	{
 //		err_code = ft_env(head->next, *env);
@@ -83,7 +89,7 @@ int	process_child(t_cmd *cmd, t_pipe *fds, char *env[], int cmd_index)
 		redir_file_stdout(cmd->files->name, REDIR_OUT);
 	if (cmd->files && cmd->files->type == APPEND)
 		redir_file_stdout(cmd->files->name, APPEND);*/
-
+	(void)env;
 	execute_builtin(cmd);
 	//printf("I'm about to execute things\n");
 	validate_cmdpath(cmd->path);

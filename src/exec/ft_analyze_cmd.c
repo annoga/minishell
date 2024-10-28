@@ -35,7 +35,7 @@ int	ft_analyze_cmd(t_env *env, t_cmd *cmnd)
 
 //	printf("cmd[0]:%s\n", cmnd->cmd[0]);
 //	printf("cmd[1]:%s\n", cmnd->cmd[1]);
-	t_cmd	*tmp2;
+	/*t_cmd	*tmp2;
 
 	printf("cmd:%p\n", cmnd->cmd);
 	printf("path:%s\n", cmnd->path);
@@ -64,7 +64,7 @@ int	ft_analyze_cmd(t_env *env, t_cmd *cmnd)
 	printf("fType2:%i\n", cmnd->files->type);//
 	printf("fNxt2:%p\n", cmnd->files->next);//
 	}
-	}
+	}*/
 
 	int		err_code;
 	pid_t	last_pid;
