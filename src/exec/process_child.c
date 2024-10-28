@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:55:05 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/28 15:11:00 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/28 19:31:04 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,15 @@ int	process_child(t_cmd *cmd, t_pipe *fds, char *env[], int cmd_index)
 	err_code = process_redirs(cmd);
 	if (err_code != 0 || !cmd->cmd)
 		exit(err_code);
-	if (!cmd->cmd)//Falta considerar subCommandos
-		exit(0);
+	//if (!cmd->cmd)//Falta considerar subCommandos
+		//exit(0);
 /*	if (cmd->files && cmd->files->type == REDIR_OUT)
 		redir_file_stdout(cmd->files->name, REDIR_OUT);
 	if (cmd->files && cmd->files->type == APPEND)
 		redir_file_stdout(cmd->files->name, APPEND);*/
 
 	execute_builtin(cmd);
+	//printf("I'm about to execute things\n");
 	validate_cmdpath(cmd->path);
 	execve(cmd->path, cmd->cmd, env);// No se están retornando:
 	exit(1);

@@ -6,13 +6,13 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 17:59:43 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/21 10:36:31 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/28 18:15:37 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	env_listlen(t_env *env);
+static int	env_listlen(t_env *env);
 
 char	**ft_get_env_array(t_env *env)
 {
@@ -41,7 +41,7 @@ char	**ft_get_env_array(t_env *env)
 	return (env_arr);
 }
 
-int	env_listlen(t_env *env_list)
+static int	env_listlen(t_env *env_list)
 {
 	int	count;
 

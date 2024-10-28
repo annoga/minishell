@@ -52,5 +52,7 @@ t_token	*split_linker(char *line, t_env **env)
 		print_list(token);
 	// printf("\n");
 	token = mock_builtin_tokenizer(token, env, cmd);
+	free_tcmd(&cmd);
+	cmd = NULL;
 	return (token);
 }

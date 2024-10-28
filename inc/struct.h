@@ -41,7 +41,6 @@ typedef struct s_pipe
 typedef struct s_token
 {
 	char			*token;
-	int				is_quote;
 	t_token_type	type;
 	t_token_type	syntaxis;
 	struct s_token	*next;

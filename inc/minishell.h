@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:52:44 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/28 10:57:20 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/28 19:14:15 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ void	lst_add_back(void *lst, void *new);
 void	lstclear(void *list, void (*del)(void *));
 char	*free_split(char **split);
 char	*print_type(t_token_type type);
+char	*free_tcmd(t_cmd **cmd_list);
 
 
 #endif

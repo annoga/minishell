@@ -46,10 +46,11 @@ UTILS			=	utils/ft_strcmp.c						\
 					utils/sort_alphabetic_order.c			\
 					utils/ft_soft_itoa.c					\
 					utils/lst_add_back.c					\
-					utils/lstclear.c					\
-					utils/free_split.c					\
+					utils/lstclear.c						\
+					utils/free_split.c						\
+					utils/free_tcmd.c						\
 					utils/return_error.c
-
+ 
 PARSER			=	parser/parser.c							\
 					parser/add_dir.c						\
 					parser/add_command.c					\
