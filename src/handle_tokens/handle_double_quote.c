@@ -69,7 +69,7 @@ char	*parse_double_quote_content(char *line, int *i)
 	char	*temp;
 
 	start = *i;
-	*result = NULL;
+	result = NULL;
 	result = append_str(result, ft_strdup("\""));
 	while (line[*i] && line[*i] != '"')
 	{

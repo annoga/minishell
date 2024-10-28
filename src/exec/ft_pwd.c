@@ -21,7 +21,7 @@ int ft_pwd(t_cmd *cmd)
     if (!cwd)
     {
         ft_putendl_fd("minishell: pwd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory", 2);
-        exit(1);
+        return(2);
     }
     ft_putendl_fd(cwd, 1);
     free(cwd);

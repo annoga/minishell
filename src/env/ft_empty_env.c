@@ -25,7 +25,7 @@ void ft_empty_env(t_env **tmp)
 		exit(1);
 	if(!ft_issafedup(&((*tmp)->next), "OLDPWD", pwd))
 		exit(1);
-	if(!ft_issafedup(&((*tmp)->next->next), "SHLVL", "1"))
+	if(!ft_issafedup(&((*tmp)->next->next), "SHLVL", "1 "))
 		exit(1);
 	(*tmp)->next->next->next = NULL;
 	free(pwd);
