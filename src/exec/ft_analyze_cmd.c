@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:46:11 by anovoa            #+#    #+#             */
-/*   Updated: 2024/10/28 19:29:19 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/10/29 08:53:00 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,15 +95,7 @@ int	ft_analyze_cmd(t_env *env, t_cmd *cmnd)
 		//en todas las secuencias en las que ha habido al menos un PIPE
 		if (cmnd->connection_type == PIPE || (j != 0 && !cmnd->next))
 			update_pipes(&fds, j, cmnd->next);
-	//free path
-
-		//Volcamos el resultado de la pipe
-/*		if (cmnd->connection_type == PIPE || (j != 0 && !cmnd->next))
-		{
-			printf("here j:%i\n", j);
-			close(fds.next[WRITE]);
-		}
-*/		cmnd = cmnd->next;
+		cmnd = cmnd->next;
 		j++;
 	}
 
@@ -127,7 +119,7 @@ int	ft_analyze_cmd(t_env *env, t_cmd *cmnd)
 	}
 	if (WIFEXITED(err_code))
 	{
-		printf("Last cmd exited with status %d\n", WEXITSTATUS(err_code));
+		//printf("Last cmd exited with status %d\n", WEXITSTATUS(err_code));
 		err_code = WEXITSTATUS(err_code);
 	}
 	free_split(env_arr);
