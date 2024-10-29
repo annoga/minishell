@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:55:05 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/30 00:10:19 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/30 00:45:32 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,14 @@ int	process_child(t_cmd *cmd, t_pipe *fds, t_env *tenv, int cmd_index)
 	char	**env;
 
 	err_code = 0;
-	if (cmd->connection_type == PIPE || (cmd_index != 0 && !cmd->next))
+	if (cmd->connection_type == PIPE || is_last_cmd_in_pipe(cmd, cmd_index))
 	{
-//		printf("kid#%i, read:%i write:%i\n",j,fds->next[READ],fds->next[WRITE]);
 		if (cmd_index != 0)//movemos IN salvo en el primero
 		{
-//			printf("pos:%i, linking read %i to 0",j,fds->prev[READ]);
 			pipe_read_stdin(fds->prev);
 		}
-		//movemos OUT salvo en el último (no PIPE)
 		if (cmd_index == 0 || cmd->next)
 		{
-//			printf("pos:%i, linking write %i to 1",j,fds->next[WRITE]);
 			pipe_write_stdout(fds->next);
 		}
 	}
@@ -84,29 +80,16 @@ static int	process_redirs(t_cmd *cmd)
 	//igual el heredoc se puede hacer separado
 }
 
-/* If a given command matches a builtin, it runs the builtin. Then,
+/* If a given command matches a builtin, it runs the builtin and
  * the process is killed. Otherwise, it does nothing */
 static void	execute_builtin(t_cmd *cmd, t_env *tenv)
 {
-	 int	err_code;
-
-	err_code = 0;
 	if (cmd->cmd && !ft_strcmp(cmd->cmd[0], "echo"))
-	{
-		err_code = echo(cmd);
-		exit(err_code);
-	}
+		echo(cmd);
 	else if (cmd->cmd && !ft_strcmp(cmd->cmd[0], "pwd"))
-	{
-		err_code = ft_pwd(cmd);
-		exit(err_code);
-	}
+		ft_pwd(cmd);
 	else if (cmd->cmd && !ft_strcmp(cmd->cmd[0], "env"))
 		ft_env(tenv);
-	//else if (!ft_strcmp(head->token, "env"))
-		//ft_env(head->next, *env);//returns errno, should put it somewhere
-//	else if (!ft_strcmp(cmd->cmd[0], "exit"))
-//		err_code = ft_exit(head->next);
 }
 
 /* Exits with the corresponding error, when applicable:

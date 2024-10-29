@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:52:44 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/30 00:09:30 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/30 00:46:55 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,10 @@ int check_syntax(t_token *token);
 
 /* EXECUTE */
 t_token	*mock_builtin_tokenizer(t_token *head, t_env **env, t_cmd *cmd);//just for testing
-int		echo(t_cmd *head);
+void	echo(t_cmd *head);
 void	ft_exit(t_token *head);
 void	ft_env(t_env *env);
-int		ft_pwd(t_cmd *cmd);
+void	ft_pwd(t_cmd *cmd);
 int 	ft_unset(const char *key_name, t_env **env);
 int		free_env(t_env **envp);
 char	*ft_getenv(char *key, t_env *envp);
@@ -117,11 +117,12 @@ int		is_command(char *path);
 pid_t	safe_fork(void);
 void	pipe_write_stdout(int *pipe);
 void	pipe_read_stdin(int *pipe);
+t_cmd	*process_command_block(t_cmd *cmd, int *err_code, t_env *tenv);
+int		is_last_cmd_in_pipe(t_cmd *cmd, int pos);
+void	update_pipes(t_pipe *fds, int j, t_cmd *next_cmd);
 int		process_child(t_cmd *cmd, t_pipe *fds, t_env *tenv, int cmd_index);
 int		redir_file_stdout(char *filename, int mode);
 int		redir_file_stdin(char *filename, int mode);
-void	update_pipes(t_pipe *fds, int j, t_cmd *next_cmd);
-t_cmd	*process_command_block(t_cmd *cmd, int *err_code, t_env *tenv);
 
 /* UTILS */
 char	*ft_strndup(const char *s, size_t n);

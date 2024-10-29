@@ -6,14 +6,13 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 23:06:00 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/29 23:52:29 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/30 00:47:28 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 static void		safe_pipe(t_pipe *fds);
-static int		is_last_cmd_in_pipe(t_cmd *cmd, int pos);
 static pid_t	wait_for_status(pid_t last_pid, int n);
 
 t_cmd	*process_command_block(t_cmd *cmd, int *err_code, t_env *tenv)
@@ -61,19 +60,6 @@ static void	safe_pipe(t_pipe *fds)
 		perror("minishell: pipe");
 		exit(1);
 	}
-}
-
-/* Returns 1 when the given command is the last of a sequence of PIPEs. 
- * Returns 0 if there is no sequence, or if it has not ended */
-static int	is_last_cmd_in_pipe(t_cmd *cmd, int pos)
-{
-	if (pos == 0 || cmd->connection_type == PIPE)
-		return (0);
-	if (cmd->connection_type == AND || cmd->connection_type == OR)
-		return (1);
-	if (!cmd->next)
-		return (1);
-	return (0);
 }
 
 /* Waits for n children processes to end.

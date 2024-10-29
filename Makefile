@@ -85,6 +85,7 @@ EXEC			=	exec/echo.c exec/mock_builtin_tokenizer.c 	\
 					exec/tenv_to_array.c						\
 					exec/pipe_write_stdout.c					\
 					exec/pipe_read_stdin.c						\
+					exec/is_last_cmd_in_pipe.c					\
 					exec/update_pipes.c							\
 					exec/process_command_block.c				\
 					exec/process_child.c						\
