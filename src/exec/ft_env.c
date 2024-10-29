@@ -6,30 +6,20 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:51:07 by anovoa            #+#    #+#             */
-/*   Updated: 2024/08/19 18:58:40 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/10/30 00:09:05 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-/* Prints environment variables. Returns 0 if executed correctly, 125 if any
- * option is passed, or 127 for any other argument */
-int	ft_env(t_token *head, t_env *env)
+/* Prints environment variables. Ignores options and arguments.
+ * Always returns 0 */
+void	ft_env(t_env *env)
 {
-	if (head && head->next)
-	{
-		if (head->next->token[0] == '-')
-		{
-			ft_putendl_fd("env: invalid option", 2);
-			return (125);
-		}
-		ft_putendl_fd("env: No such file or directory", 2);
-		return (127);
-	}
 	while (env)
 	{
 		printf("%s=%s\n", env->key_name, env->value);
 		env = env->next;
 	}
-	return (0);
+	exit(0);
 }

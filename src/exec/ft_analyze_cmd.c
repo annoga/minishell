@@ -6,28 +6,22 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:46:11 by anovoa            #+#    #+#             */
-/*   Updated: 2024/10/29 08:53:00 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/29 23:30:41 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static void	fill_cmd_paths(t_cmd *cmd, char *envpaths);
+static void		fill_cmd_paths(t_cmd *cmd, char *envpaths);
 
 /* This function takes one or more commands and goes through them */
 int	ft_analyze_cmd(t_env *env, t_cmd *cmnd)
 {
 //	char	*path;
-	char	**env_arr;
+	//char	**env_arr;
 	// t_cmd	*cmnd;
 //	int		i;//
 //	i = 0;//
-	env_arr = ft_get_env_array(env);//need to free_split when done
-	if (!env_arr)
-	{
-		printf("error translating t_env\n");
-		return (0);
-	}
 //	while (env_arr[i])//
 //		printf("%s\n", env_arr[i++]);//print envp
 
@@ -66,63 +60,48 @@ int	ft_analyze_cmd(t_env *env, t_cmd *cmnd)
 	}
 	}*/
 
+	/*env_arr = ft_get_env_array(env);//need to free_split when done
+	if (!env_arr)
+	{
+		printf("error translating t_env\n");
+		return (0);
+	}*/
+
 	int		err_code;
+//&err_code
+	process_command_block(cmnd, &err_code, env);//returns last cmd executed
+	/*start	
 	pid_t	last_pid;
 	pid_t	pid;
 	t_pipe	fds;
 	int	j;
 
 	j = 0;
-	pid_t	pid_arr[MAX_CMD];//
 
-	ft_bzero(pid_arr, sizeof(pid_arr));//
 	while (cmnd)
 	{
-	//	printf("path:%s\n", cmnd->path);
 		if (cmnd->connection_type == PIPE)
-		{
-			if (pipe(fds.next) == -1)//msg if err?
-				printf("pipe error. Oh shit!\n");
-//		printf("dad#%i - read:%i, write:%i\n",j,fds.next[READ],fds.next[WRITE]);
-		}
-		pid = do_fork();
+			safe_pipe(&fds);
+		pid = safe_fork();
 		if (pid == 0)
-		{
 			process_child(cmnd, &fds, env_arr, j);
-		}
-		pid_arr[j] = pid;
 		last_pid = pid;
-		//en todas las secuencias en las que ha habido al menos un PIPE
-		if (cmnd->connection_type == PIPE || (j != 0 && !cmnd->next))
+		if (cmnd->connection_type == PIPE || is_last_cmd_in_pipe(cmnd, j))
 			update_pipes(&fds, j, cmnd->next);
-		cmnd = cmnd->next;
 		j++;
-	}
-
-//	if (j >= 0)//
-//		j++;//
-
-	int	stat_loc;
-	int	k;
-
-	k = 0;
-
-	while (k++ < j)
-	{
-		pid = waitpid(-1, &stat_loc, 0);
-		if (pid == last_pid)
+		if (cmnd->connection_type == AND || cmnd->connection_type == OR)
 		{
-				err_code = stat_loc;
-			//if (WIFEXITED(stat_loc))
-				//err_code = WEXITSTATUS(stat_loc);// Faltaría signal check
+			cmnd = cmnd->next;//return (cmnd);
+			break ;
 		}
+		else
+			cmnd = cmnd->next;
 	}
-	if (WIFEXITED(err_code))
-	{
-		//printf("Last cmd exited with status %d\n", WEXITSTATUS(err_code));
-		err_code = WEXITSTATUS(err_code);
-	}
+
+	err_code = wait_for_status(last_pid, j);
+	printf("Last cmd exited with status %d\n", err_code);
 	free_split(env_arr);
+	*///end
 	return (err_code);
 }
 
@@ -138,7 +117,6 @@ static void	fill_cmd_paths(t_cmd *cmd, char *envpaths)
 	{
 		if (tmp_cmd->cmd)
 			path = get_cmd_path(tmp_cmd->cmd[0], envpaths);
-		//printf("path:%s\n", path);
 		tmp_cmd->path = path;
 		path = NULL;
 		if (tmp_cmd->subcommand)
