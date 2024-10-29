@@ -3,6 +3,7 @@
 #  ifndef MAX_CMD
 #   define MAX_CMD 42
 #  endif
+# include <signal.h>
 
 typedef enum e_token_type
 {
@@ -25,23 +26,23 @@ typedef enum e_token_type
 	EXIT_STATUS,
 	ENV
 }					t_token_type;
-// typedef struct sigaction	t_sigaction;
+typedef struct sigaction	t_sigaction;
 
-// enum e_signal
-// {
-// 	SIG_HANDLE_DEFAULT = 0,
-// 	SIG_HANDLE_IDLE,
-// 	SIG_HANDLE_HDOC,
-// 	SIG_HANDLE_EXEC,
-// 	SIG_HANDLE_BLCK
-// };
+enum e_signal_handle
+{
+	SIG_HANDLE_DEFAULT,
+	SIG_HANDLE_IDLE,
+	SIG_HANDLE_HDOC,
+	SIG_HANDLE_EXEC,
+	SIG_HANDLE_BLCK
+};
 
 
-// typedef struct s_signal
-// {
-// 	t_sigaction		sigint;
-// 	t_sigaction		sigquit;
-// }	t_signal;
+typedef struct s_signal
+{
+	t_sigaction		ctrl_c;
+	t_sigaction		ctrl_slash;
+}	t_signal;
 
 // sigint = 130;
 // sigquit = 131;

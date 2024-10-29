@@ -138,5 +138,9 @@ char	*free_split(char **split);
 char	*print_type(t_token_type type);
 char	*free_tcmd(t_cmd **cmd_list);
 
+/* SIGNAL */
+void handle_update_signal(t_signal *signals, enum e_signal_handle mode);
+
+
 
 # endif

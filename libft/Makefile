@@ -26,7 +26,7 @@ SOURCES = ft_isalpha.c ft_toupper.c ft_isdigit.c ft_tolower.c \
 	  get_whole_file.c ft_atoi_base.c ft_countdigits.c \
 	  ft_isspace.c ft_issign.c ft_strnstr.c ft_strlcat.c \
 	  ft_atol.c ft_lstadd_back.c ft_lstclear.c ft_lstlast.c \
-	  ft_bzero.c
+	  ft_bzero.c ft_memset.c
 
 OBJECTS = $(SOURCES:.c=.o)
 

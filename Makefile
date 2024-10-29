@@ -91,12 +91,13 @@ EXEC			=	exec/echo.c exec/mock_builtin_tokenizer.c 	\
 					exec/redir_file_stdin.c						\
 					exec/do_fork.c								
 
+SIGNAL				=	signal/handle_update_signal.c
 
 MAIN			=	main.c									\
 					split_linker.c							\
 					print_functions.c
 
-SRC				=	$(HANDLE_TOKENS) $(TOKENIZER) $(UTILS) $(PARSER) $(ENV) $(SYNTAX) $(EXEC) $(EXPANSOR) $(MAIN)
+SRC				=	$(HANDLE_TOKENS) $(TOKENIZER) $(UTILS) $(PARSER) $(ENV) $(SYNTAX) $(EXEC) $(EXPANSOR) $(MAIN) $(SIGNAL)
 
 
 SRCS			=	$(addprefix $(SRC_DIR), $(SRC))

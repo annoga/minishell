@@ -61,6 +61,7 @@ size_t			ft_strlcat(char *dest, char *src, size_t size);
 void			ft_lstclear(t_list **lst, void (*del)(void*));
 void			ft_lstadd_back(t_list **lst, t_list *new);
 t_list			*ft_lstlast(t_list *lst);
+void			*ft_memset(void *b, int c, size_t len);
 void			ft_bzero(void *s, size_t n);
 
 /* ft_printf */
