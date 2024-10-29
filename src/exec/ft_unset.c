@@ -45,10 +45,8 @@ static void erase_two(t_env **head, t_env *to_erase)
         free_two_env(to_erase);
         return;
     }
-    
     prev = *head;
     aux = (*head)->next;
-
     while (aux)
     {
         if (aux == to_erase)

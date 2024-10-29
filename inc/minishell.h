@@ -107,7 +107,7 @@ int		echo(t_cmd *head);
 void	ft_exit(t_token *head);
 int		ft_env(t_token *head, t_env *env);//maybe should return unsigned char
 int    ft_pwd(t_cmd *cmd);
-void ft_unset(const char *key_name, t_env **env);
+int ft_unset(const char *key_name, t_env **env);
 int		free_env(t_env **envp);
 char	*ft_getenv(char *key, t_env *envp);
 char	**ft_get_env_array(t_env *env);
