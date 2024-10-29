@@ -88,6 +88,7 @@ int	main(int argc, char *argv[], char **envp)
 	env = NULL;
 	//token = NULL;
 	i = 1;
+	
 	ft_catch_env(envp, &env);
 	while (i)
 	{

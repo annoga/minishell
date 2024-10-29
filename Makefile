@@ -77,6 +77,7 @@ EXEC			=	exec/echo.c exec/mock_builtin_tokenizer.c 	\
 					exec/ft_env.c 								\
 					exec/ft_pwd.c 								\
 					exec/ft_getenv.c 							\
+					exec/ft_unset.c 							\
 					exec/free_env.c								\
 					exec/ft_analyze_cmd.c						\
 					exec/is_command.c							\

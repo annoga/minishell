@@ -42,7 +42,7 @@ static void	execute_builtin(t_cmd *cmd)
 		err_code = echo(cmd);
 		exit(err_code);
 	}
-	else if(cmd->cmd && !ft_strcmp(cmd->cmd[0], "pwd"))
+	else if (cmd->cmd && !ft_strcmp(cmd->cmd[0], "pwd"))
 	{
 		err_code = ft_pwd(cmd);
 		// free_tcmd(&cmd);

@@ -40,6 +40,8 @@ t_token	*mock_builtin_tokenizer(t_token *head, t_env **env, t_cmd *cmd)
 		ft_exit(head->next);
 	else if (!ft_strcmp(head->token, "env"))
 		ft_env(head->next, *env);//returns errno, should put it somewhere
+	else if(!ft_strcmp(head->token, "unset"))
+		ft_unset(cmd->cmd[1], env);
 	// else if(!ft_strcmp(head->token, "pwd"))
 	// 	ft_pwd(cmd);
 	else
