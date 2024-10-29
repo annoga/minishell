@@ -11,7 +11,7 @@ Built-is:
 To-do:
     1 ◦ pwd sin opciones.                                           ✅
     2 ◦ cd solo con una ruta relativa o absoluta.
-    3 ◦ unset sin opciones.
+    3 ◦ unset sin opciones.                                         ✅
     4 ◦ $?                                                          
     5 ◦ Señales
     ◦ export sin opciones.

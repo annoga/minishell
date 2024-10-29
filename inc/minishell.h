@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:52:44 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/28 19:14:15 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/10/30 00:46:55 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <fcntl.h>
+# include <signal.h>
 
 // Apaños para mac
-//# include <limits.h>
-//# include <string.h>
-# include <linux/limits.h>
+# include <limits.h>
+# include <string.h>
+//# include <linux/limits.h>
 
 //# include ".h"
 
@@ -102,23 +103,26 @@ int check_syntax(t_token *token);
 
 /* EXECUTE */
 t_token	*mock_builtin_tokenizer(t_token *head, t_env **env, t_cmd *cmd);//just for testing
-int		echo(t_cmd *head);
+void	echo(t_cmd *head);
 void	ft_exit(t_token *head);
-int		ft_env(t_token *head, t_env *env);//maybe should return unsigned char
-int    ft_pwd(t_cmd *cmd);
+void	ft_env(t_env *env);
+void	ft_pwd(t_cmd *cmd);
+int 	ft_unset(const char *key_name, t_env **env);
 int		free_env(t_env **envp);
 char	*ft_getenv(char *key, t_env *envp);
-char	**ft_get_env_array(t_env *env);
+char	**tenv_to_array(t_env *env);
 int		ft_analyze_cmd(t_env *env, t_cmd *cmd);
 char	*get_cmd_path(char *cmd, char *path_env);
 int		is_command(char *path);
-pid_t	do_fork(void);
+pid_t	safe_fork(void);
 void	pipe_write_stdout(int *pipe);
 void	pipe_read_stdin(int *pipe);
-int		process_child(t_cmd *cmd, t_pipe *fds, char *env[], int cmd_index);
+t_cmd	*process_command_block(t_cmd *cmd, int *err_code, t_env *tenv);
+int		is_last_cmd_in_pipe(t_cmd *cmd, int pos);
+void	update_pipes(t_pipe *fds, int j, t_cmd *next_cmd);
+int		process_child(t_cmd *cmd, t_pipe *fds, t_env *tenv, int cmd_index);
 int		redir_file_stdout(char *filename, int mode);
 int		redir_file_stdin(char *filename, int mode);
-void	update_pipes(t_pipe *fds, int j, t_cmd *next_cmd);
 
 /* UTILS */
 char	*ft_strndup(const char *s, size_t n);
