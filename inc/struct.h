@@ -25,6 +25,26 @@ typedef enum e_token_type
 	EXIT_STATUS,
 	ENV
 }					t_token_type;
+// typedef struct sigaction	t_sigaction;
+
+// enum e_signal
+// {
+// 	SIG_HANDLE_DEFAULT = 0,
+// 	SIG_HANDLE_IDLE,
+// 	SIG_HANDLE_HDOC,
+// 	SIG_HANDLE_EXEC,
+// 	SIG_HANDLE_BLCK
+// };
+
+
+// typedef struct s_signal
+// {
+// 	t_sigaction		sigint;
+// 	t_sigaction		sigquit;
+// }	t_signal;
+
+// sigint = 130;
+// sigquit = 131;
 
 typedef enum e_pipe_ends
 {
