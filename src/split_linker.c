@@ -44,7 +44,7 @@ t_token	*split_linker(char *line, t_env **env)
 	token = expansor(token, env);
 
 	if(!analize_tokens(token))
-		return(NULL);
+		return(free_token(&token), NULL);
 	// prueba builtin
 	cmd = parser(token);
 	
