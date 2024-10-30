@@ -1,8 +1,5 @@
 #ifndef STRUCT_H
 # define STRUCT_H
-#  ifndef MAX_CMD
-#   define MAX_CMD 42
-#  endif
 
 typedef enum e_token_type
 {
@@ -101,7 +98,7 @@ typedef struct s_synt
 typedef struct s_cmd
 {
 	char			**cmd;
-	char			*path;
+	//char			*path;
 	t_file			*files;
 	t_token_type	connection_type; //AND, OR, PIPE
 	int 			parenthesis;

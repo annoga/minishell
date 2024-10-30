@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 23:06:00 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/30 01:23:09 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/30 09:04:44 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 static void		safe_pipe(t_pipe *fds);
 static pid_t	wait_for_status(pid_t last_pid, int n);
 
+/* Executes a sequence of commands, performing redirections as needed.
+ * Commands joined through pipes are executed. 
+ * Commands joined through && and || operators are returned, only
+ * the first command executed.
+ * Exit status of the last command executed is updated to a pointer */
 t_cmd	*process_command_block(t_cmd *cmd, int *err_code, t_env *tenv)
 {
 	pid_t	last_pid;
@@ -34,16 +39,13 @@ t_cmd	*process_command_block(t_cmd *cmd, int *err_code, t_env *tenv)
 		if (cmd->connection_type == PIPE || is_last_cmd_in_pipe(cmd, pos))
 			update_pipes(&fds, pos, cmd->next);
 		pos++;
+		//if AND/OR, return CURRENT cmd but check first for subCmd
 		if (cmd->connection_type == AND || cmd->connection_type == OR)
-		{
-			//cmd = cmd->next;//return CURRENT cmd but check first for subCmd
 			break ;
-		}
 		else
 			cmd = cmd->next;
 	}
 	*err_code = wait_for_status(last_pid, pos);
-	printf("Last cmd exited with status %d\n", *err_code);
 	return (cmd);
 }
 

@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:55:05 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/30 04:52:55 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/30 09:43:54 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	process_redirs(t_cmd *cmd);
 static void	execute_builtin(t_cmd *cmd, t_env *tenv);
-static void	validate_cmdpath(char *cmd);
+static char	*validate_cmdpath(t_cmd *cmd, t_env *tenv);
 
 /* Runs a single command or builtin within a fork. Handles pipes and 
  * redirections. When finished, or in case of error, the process exits 
@@ -23,7 +23,6 @@ int	process_child(t_cmd *cmd, t_pipe *fds, t_env *tenv, int cmd_index)
 {
 	int		err_code;
 	char	**env;
-	char	*path;//
 
 	err_code = 0;
 	if (cmd->connection_type == PIPE || is_last_cmd_in_pipe(cmd, cmd_index))
@@ -36,15 +35,9 @@ int	process_child(t_cmd *cmd, t_pipe *fds, t_env *tenv, int cmd_index)
 	err_code = process_redirs(cmd);
 	if (err_code != 0 || !cmd->cmd)
 		exit(err_code);
-	//if (!cmd->cmd)//Falta considerar subCommandos
-		//exit(0);
 	execute_builtin(cmd, tenv);
-	validate_cmdpath(cmd->path);
 	env = tenv_to_array(tenv);
-	path = get_cmd_path(cmd->cmd[0], ft_getenv("PATH", tenv));//apaño! unset && env | grep
-	if (path == NULL)//si funciona
-		exit(127);//se queda. Probarlo bien primero!
-	execve(cmd->path, cmd->cmd, env);
+	execve(validate_cmdpath(cmd, tenv), cmd->cmd, env);
 	free(env);
 	exit(1);
 	return (0);
@@ -69,7 +62,12 @@ static int	process_redirs(t_cmd *cmd)
 }
 
 /* If a given command matches a builtin, it runs the builtin and
- * the process is killed. Otherwise, it does nothing */
+ * the process is killed. Otherwise, it does nothing.
+ * Allowed builtins:
+ * echo with or without -n option
+ * env 
+ * exit with up to 1 argument
+ * export with no arguments */
 static void	execute_builtin(t_cmd *cmd, t_env *tenv)
 {
 	if (cmd->cmd && !ft_strcmp(cmd->cmd[0], "echo"))
@@ -80,22 +78,26 @@ static void	execute_builtin(t_cmd *cmd, t_env *tenv)
 		exit(ft_exit(cmd));
 	else if (cmd->cmd && !ft_strcmp(cmd->cmd[0], "pwd"))
 		ft_pwd(cmd);
-	//if (!ft_strcmp(cmd_name, "export"))////OJO! sólo si no tiene argumentos
+	else if (!ft_strcmp(cmd->cmd[0], "export"))////OJO! sólo si no tiene argumentos
+		exit(ft_export(cmd, &tenv));
 }
 
 /* Exits with the corresponding error, when applicable:
  * Command does not exist: 127 
  * Command does not have execution permissions: 126
  * Command points to a directory: 126 */
-static void	validate_cmdpath(char *cmd)
+static char	*validate_cmdpath(t_cmd *cmd, t_env *tenv)
 {
 	struct	stat	s;
+	char			*path;
 
-	if (!cmd)
+	path = get_cmd_path(cmd->cmd[0], ft_getenv("PATH", tenv));
+	if (!path)
 		exit(127);
-	if (access(cmd, X_OK) == -1)
+	if (access(path, X_OK) == -1)
 		exit(126);
-	if (stat(cmd, &s) == 0)
+	if (stat(path, &s) == 0)
 		if (s.st_mode & S_IFDIR)
 			exit(126);
+	return (path);
 }
