@@ -11,6 +11,9 @@
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
 
+
+
+
 static void process_wildcard_input(char *input, t_token **token_list)
 {
     char prefix[1024] = "";
@@ -28,9 +31,11 @@ static void process_wildcard_input(char *input, t_token **token_list)
         ft_strncpy(prefix, input, star_pos - input);
         ft_strncpy(suffix, star_pos + 1, sizeof(suffix) - 1);
     }
-    params.path = ".";
+    params.path = last_slash(prefix);
     set_params(&params, prefix, suffix, 0);
     handle_directory(&params, token_list);
+    if (params.path)
+        free((char *)params.path);
 }
 
 static void process_star_slash(char *input, t_token **token_list)

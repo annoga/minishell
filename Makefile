@@ -49,6 +49,7 @@ UTILS			=	utils/ft_strcmp.c						\
 					utils/lstclear.c						\
 					utils/free_split.c						\
 					utils/free_tcmd.c						\
+					utils/ft_memmove.c						\
 					utils/return_error.c
  
 PARSER			=	parser/parser.c							\
@@ -66,6 +67,7 @@ SYNTAX			=	syntax/analize_syntax.c					\
 
 EXPANSOR		=	expansor/expansor_wildcard.c			\
 					expansor/expansor.c						\
+					expansor/last_slash.c					\
 					expansor/insert_space_tokens.c			\
 					expansor/list_all_directories.c			\
 					expansor/process_entry.c				\

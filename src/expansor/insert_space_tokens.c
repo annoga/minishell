@@ -39,6 +39,8 @@ void insert_space_tokens(t_token **tokens)
     t_token *next;
 
     current = *tokens;
+    if(!current)
+        return ;
     while (current->next)
     {
         next = current->next;

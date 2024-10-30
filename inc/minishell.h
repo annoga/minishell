@@ -94,6 +94,8 @@ char	*construct_full_path(const char *dir_path, const char *entry_name);
 int prefix_compare(const char *str, const char *prefix);
 int suffix_compare(const char *str, const char *suffix);
 int is_directory(const char *path);
+char *last_slash(char *prefix);
+
 
 /* SYNTAX */
 int	analize_tokens(t_token *token);
@@ -140,6 +142,8 @@ void	lstclear(void *list, void (*del)(void *));
 char	*free_split(char **split);
 char	*print_type(t_token_type type);
 char	*free_tcmd(t_cmd **cmd_list);
+void	*ft_memmove(void *dst, const void *src, size_t len);
+
 
 /* SIGNAL */
 void handle_update_signal(t_signal *signals, enum e_signal_handle mode);
