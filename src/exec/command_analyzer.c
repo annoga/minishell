@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_analyzer.c                           :+:      :+:    :+:   */
+/*   command_analyzer.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/08 21:23:03 by anovoa            #+#    #+#             */
-/*   Updated: 2024/10/30 01:42:37 by angeln           ###   ########.fr       */
+/*   Created: 2024/10/30 01:53:43 by angeln            #+#    #+#             */
+/*   Updated: 2024/10/30 04:06:30 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ t_token	*command_analyzer(t_token *head, t_env **env, t_cmd *cmd)
 	 }
 	 
 	 /*DEBUG end*/
-	//exit, unset, export. Any builtins that do NOT work with pipes
-	if (!ft_strcmp(head->token, "exit"))
-		ft_exit(head->next);
-	else if(!ft_strcmp(head->token, "unset"))
-		ft_unset(cmd->cmd[1], env);
-	else//everything else goes in here
-		ft_analyze_cmd(*env, cmd);
+	//if (!ft_strcmp(head->token, "exit"))
+		//ft_exit(head->next);
+	//else if(!ft_strcmp(head->token, "unset"))//ojo que esto es segfault si te pongo "unset"
+		//ft_unset(cmd->cmd[1], env);
+	//else//everything else goes in here
+	if (cmd)
+		ft_analyze_cmd(env, cmd);
 	return (head);
 }
