@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 23:06:00 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/30 00:47:28 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/30 01:23:09 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,34 +20,30 @@ t_cmd	*process_command_block(t_cmd *cmd, int *err_code, t_env *tenv)
 	pid_t	last_pid;
 	pid_t	pid;
 	t_pipe	fds;
-	int	j;
+	int	pos;
 
-	j = 0;
-
-
+	pos = 0;
 	while (cmd)
 	{
 		if (cmd->connection_type == PIPE)
 			safe_pipe(&fds);
 		pid = safe_fork();
 		if (pid == 0)
-			process_child(cmd, &fds, tenv, j);
+			process_child(cmd, &fds, tenv, pos);
 		last_pid = pid;
-		if (cmd->connection_type == PIPE || is_last_cmd_in_pipe(cmd, j))
-			update_pipes(&fds, j, cmd->next);
-		j++;
+		if (cmd->connection_type == PIPE || is_last_cmd_in_pipe(cmd, pos))
+			update_pipes(&fds, pos, cmd->next);
+		pos++;
 		if (cmd->connection_type == AND || cmd->connection_type == OR)
 		{
-			cmd = cmd->next;//return (cmd);
+			//cmd = cmd->next;//return CURRENT cmd but check first for subCmd
 			break ;
 		}
 		else
 			cmd = cmd->next;
 	}
-
-	*err_code = wait_for_status(last_pid, j);
+	*err_code = wait_for_status(last_pid, pos);
 	printf("Last cmd exited with status %d\n", *err_code);
-	//free_split(env_arr);
 	return (cmd);
 }
 

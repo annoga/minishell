@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mock_builtin_tokenizer.c                           :+:      :+:    :+:   */
+/*   command_analyzer.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 21:23:03 by anovoa            #+#    #+#             */
-/*   Updated: 2024/10/29 23:52:55 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/30 01:42:37 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 /* This function calls builtins. For test purposes only */
-t_token	*mock_builtin_tokenizer(t_token *head, t_env **env, t_cmd *cmd)
+t_token	*command_analyzer(t_token *head, t_env **env, t_cmd *cmd)
 {
 	if (!head)
 		return (NULL);
@@ -34,33 +34,12 @@ t_token	*mock_builtin_tokenizer(t_token *head, t_env **env, t_cmd *cmd)
 	 }
 	 
 	 /*DEBUG end*/
+	//exit, unset, export. Any builtins that do NOT work with pipes
 	if (!ft_strcmp(head->token, "exit"))
 		ft_exit(head->next);
 	else if(!ft_strcmp(head->token, "unset"))
 		ft_unset(cmd->cmd[1], env);
-	// if (!ft_strcmp(head->token, "echo"))
-	// 	echo(cmd);
-	//else if (!ft_strcmp(head->token, "env"))
-		//ft_env(head->next, *env);//returns errno, should put it somewhere
-	// else if(!ft_strcmp(head->token, "pwd"))
-	// 	ft_pwd(cmd);
-	else
-	{
-		//if (head->type == SPACE_TOKEN && head->next)
-			ft_analyze_cmd(*env, cmd);
-		//else 
-			//ft_analyze_cmd(*env, cmd);
-		//for each command split by && or || 
-	//	if (head->type == REDIR_IN || head->type == REDIR_OUT)
-
-		// // printf("command:\n");
-		//printf("head:%p\n", head);
-		// while (head)
-		// {
-		// 	// printf("\"%s\"\n", head->token);
-		// 	head = head->next;
-		// }
-	// printf("freeing token: \"%s\"\n", (head)->token);
-	}
+	else//everything else goes in here
+		ft_analyze_cmd(*env, cmd);
 	return (head);
 }
