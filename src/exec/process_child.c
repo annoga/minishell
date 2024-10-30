@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:55:05 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/30 09:43:54 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/30 12:54:29 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	execute_builtin(t_cmd *cmd, t_env *tenv)
 	else if (cmd->cmd && !ft_strcmp(cmd->cmd[0], "env"))
 		ft_env(tenv);
 	else if (!ft_strcmp(cmd->cmd[0], "exit"))
-		exit(ft_exit(cmd));
+		exit(ft_exit(cmd, 0));
 	else if (cmd->cmd && !ft_strcmp(cmd->cmd[0], "pwd"))
 		ft_pwd(cmd);
 	else if (!ft_strcmp(cmd->cmd[0], "export"))////OJO! sólo si no tiene argumentos
