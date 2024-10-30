@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:52:44 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/30 04:57:50 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/30 09:55:34 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ int		ft_exit(t_cmd *cmd);
 void	ft_env(t_env *env);
 void	ft_pwd(t_cmd *cmd);
 int 	ft_unset(const char *key_name, t_env **env);
+int		ft_export(t_cmd *cmd, t_env **env);
 int		free_env(t_env **envp);
 char	*ft_getenv(char *key, t_env *envp);
 char	**tenv_to_array(t_env *env);

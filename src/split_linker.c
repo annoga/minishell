@@ -6,13 +6,13 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 01:32:41 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/30 04:54:36 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/30 09:53:33 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-static void		fill_cmd_paths(t_cmd *cmd, char *envpaths);
+//static void		fill_cmd_paths(t_cmd *cmd, char *envpaths);
 
 // int check_dollar(char *line)
 // {
@@ -62,7 +62,7 @@ t_token	*split_linker(char *line, t_env **env)
 		return(free_token(&token), NULL);
 	// prueba builtin
 	cmd = parser(token);
-	fill_cmd_paths(cmd, ft_getenv("PATH", *env));//lo moveré a process_child
+	//fill_cmd_paths(cmd, ft_getenv("PATH", *env));//lo moveré a process_child
 	
 	if (debug == 1)//FOR TESTING ONLY, DELETE
 		print_list(token);
@@ -76,7 +76,7 @@ t_token	*split_linker(char *line, t_env **env)
 }
 
 /* Sets a possible path for each command, or NULL if none is found */
-static void	fill_cmd_paths(t_cmd *cmd, char *envpaths)
+/*static void	fill_cmd_paths(t_cmd *cmd, char *envpaths)
 {
 	t_cmd	*tmp_cmd;
 	char	*path;
@@ -93,4 +93,4 @@ static void	fill_cmd_paths(t_cmd *cmd, char *envpaths)
 			fill_cmd_paths(tmp_cmd->subcommand, envpaths);
 		tmp_cmd = tmp_cmd->next;
 	}
-}
+}*/

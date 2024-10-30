@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 01:53:43 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/30 04:54:21 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/30 09:33:10 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,11 @@ t_token	*command_analyzer(t_token *head, t_env **env, t_cmd *cmd)
 	 }
 	 /*DEBUG end*/
 	 
+	int	status;
+
+	status = 0;
 	if (cmd)
-		ft_analyze_cmd(env, cmd);
+		status = ft_analyze_cmd(env, cmd);
+	printf("Last cmd exited with status %d\n", status);
 	return (head);
 }

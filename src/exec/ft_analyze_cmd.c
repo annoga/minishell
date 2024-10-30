@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:46:11 by anovoa            #+#    #+#             */
-/*   Updated: 2024/10/30 04:34:05 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/30 09:34:36 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ int	ft_analyze_cmd(t_env **env, t_cmd *cmd)
 		else
 			return (err_code);
 	}
+	return (err_code);
+}
 
 	//##COMMANDS##//
 	//SUBCOMMANDS
@@ -94,8 +96,6 @@ int	ft_analyze_cmd(t_env **env, t_cmd *cmd)
 	//1)run block.
 	//2)if err_code == 0, stop. else, update to next cmd and go to 1) 
 	//process_command_block(cmd, &err_code, env);//returns last cmd executed
-	return (err_code);
-}
 
 /* This function filters those builtins that cannot run through a PIPE */
 static int	can_pipe(t_cmd *command)

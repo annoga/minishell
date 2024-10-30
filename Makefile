@@ -73,13 +73,14 @@ EXPANSOR		=	expansor/expansor_wildcard.c			\
 					expansor/wildcard_utils.c						
 
 EXEC			=	exec/echo.c 								\
-					exec/command_analyzer.c						\
 					exec/ft_exit.c 								\
 					exec/ft_env.c 								\
 					exec/ft_pwd.c 								\
 					exec/ft_getenv.c 							\
 					exec/ft_unset.c 							\
+					exec/ft_export.c 							\
 					exec/free_env.c								\
+					exec/command_analyzer.c						\
 					exec/ft_analyze_cmd.c						\
 					exec/is_command.c							\
 					exec/get_cmd_path.c							\
