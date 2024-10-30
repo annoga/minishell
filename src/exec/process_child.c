@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:55:05 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/30 04:03:14 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/30 04:52:55 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	process_child(t_cmd *cmd, t_pipe *fds, t_env *tenv, int cmd_index)
 {
 	int		err_code;
 	char	**env;
+	char	*path;//
 
 	err_code = 0;
 	if (cmd->connection_type == PIPE || is_last_cmd_in_pipe(cmd, cmd_index))
@@ -40,6 +41,9 @@ int	process_child(t_cmd *cmd, t_pipe *fds, t_env *tenv, int cmd_index)
 	execute_builtin(cmd, tenv);
 	validate_cmdpath(cmd->path);
 	env = tenv_to_array(tenv);
+	path = get_cmd_path(cmd->cmd[0], ft_getenv("PATH", tenv));//apaño! unset && env | grep
+	if (path == NULL)//si funciona
+		exit(127);//se queda. Probarlo bien primero!
 	execve(cmd->path, cmd->cmd, env);
 	free(env);
 	exit(1);

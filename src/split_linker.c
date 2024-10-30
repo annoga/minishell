@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 01:32:41 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/30 01:39:19 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/30 04:54:36 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_token	*split_linker(char *line, t_env **env)
 		return(free_token(&token), NULL);
 	// prueba builtin
 	cmd = parser(token);
-	fill_cmd_paths(cmd, ft_getenv("PATH", *env));
+	fill_cmd_paths(cmd, ft_getenv("PATH", *env));//lo moveré a process_child
 	
 	if (debug == 1)//FOR TESTING ONLY, DELETE
 		print_list(token);

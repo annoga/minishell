@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:46:11 by anovoa            #+#    #+#             */
-/*   Updated: 2024/10/30 04:13:30 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/30 04:34:05 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ int	ft_analyze_cmd(t_env **env, t_cmd *cmd)
 			}
 			else
 				current = process_command_block(current, &err_code, *env);
-				//if null, ha terminado. si no, es porque hay AND / OR
 		}
 		else if (current->subcommand)//files o subC
 		{
