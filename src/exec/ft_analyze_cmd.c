@@ -148,7 +148,7 @@ static t_cmd	*run_builtin(t_cmd *cmd, int *exit_status, t_env **env)
 {
 	//unset, export, cd. Any builtins that do NOT work with pipes
 	if (!ft_strcmp(cmd->cmd[0], "unset"))//ojo que esto es segfault si te pongo "unset"
-		*exit_status = ft_unset(cmd->cmd[1], env);
+		*exit_status = ft_unset(cmd, env);
 	else if (!ft_strcmp(cmd->cmd[0], "exit"))//sólo si NO tiene pipe
 		*exit_status = ft_exit(cmd, 1);
 	else if (!ft_strcmp(cmd->cmd[0], "export"))//sólo si tiene args

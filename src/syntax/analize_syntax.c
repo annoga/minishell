@@ -60,7 +60,7 @@ int analize_tokens(t_token *token)
 {
     t_synt anal_data;
 
-    bzero(&anal_data, sizeof(t_synt));
+    ft_bzero(&anal_data, sizeof(t_synt));
     while (token)
     {
         token->syntaxis = assing_type(token->token, &anal_data);

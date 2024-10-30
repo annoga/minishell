@@ -4,26 +4,26 @@ static t_token_type	ft_gettokentype(char *str)
 {
 	if (!str)
 		return (0);
-	if (!ft_strncmp(str, "&&", 2))
+	if (!ft_strcmp(str, "&&"))
 		return (AND);
-	if (!ft_strncmp(str, "||", 2))
+	if (!ft_strcmp(str, "||"))
 		return (OR);
-	if (!ft_strncmp(str, "<<", 2))
+	if (!ft_strcmp(str, "<<"))
 		return (HEREDOC);
-	if (!ft_strncmp(str, ">>", 2))
+	if (!ft_strcmp(str, ">>"))
 		return (APPEND);
-	if (!ft_strncmp(str, "|", 1))
+	if (!ft_strcmp(str, "|"))
 		return (PIPE);
-	if (!ft_strncmp(str, " ", 1))
-		return (SPACE_TOKEN);
-	if (!ft_strncmp(str, "(", 1))
+	if (!ft_strcmp(str, "("))
 		return (L_PAREN);
-	if (!ft_strncmp(str, ")", 1))
+	if (!ft_strcmp(str, ")"))
 		return (R_PAREN);
-	if (!ft_strncmp(str, "<", 1))
+	if (!ft_strcmp(str, "<"))
 		return (REDIR_IN);
-	if (!ft_strncmp(str, ">", 1))
+	if (!ft_strcmp(str, ">"))
 		return (REDIR_OUT);
+	if (!ft_strcmp(str, " "))
+		return (SPACE_TOKEN);
 	return (0);
 }
 

@@ -80,6 +80,7 @@ int	main(int argc, char *argv[], char **envp)
 	char	*line;
 	//t_token	*token;
 	t_env	*env;
+	t_signal	signals;
 //	t_cmd	*cmd;
 	int		i;
 
@@ -90,6 +91,7 @@ int	main(int argc, char *argv[], char **envp)
 	i = 1;
 	
 	ft_catch_env(envp, &env);
+	handle_update_signal(&signals, SIG_HANDLE_IDLE);
 	while (i)
 	{
 		line = readline("💩 nugget 🐾$ ");

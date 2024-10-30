@@ -68,6 +68,9 @@ t_token	*split_linker(char *line, t_env **env)
 		print_list(token);
 	// printf("\n");
 	token = command_analyzer(token, env, cmd);
+
+	if(debug == 2)//FOR TESTING ONLY, DELETE
+		print_cmd(cmd, 0);
 	free_token(&token);
 	token = NULL;
 	free_tcmd(&cmd);

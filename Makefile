@@ -49,6 +49,7 @@ UTILS			=	utils/ft_strcmp.c						\
 					utils/lstclear.c						\
 					utils/free_split.c						\
 					utils/free_tcmd.c						\
+					utils/ft_memmove.c						\
 					utils/return_error.c
  
 PARSER			=	parser/parser.c							\
@@ -66,6 +67,7 @@ SYNTAX			=	syntax/analize_syntax.c					\
 
 EXPANSOR		=	expansor/expansor_wildcard.c			\
 					expansor/expansor.c						\
+					expansor/last_slash.c					\
 					expansor/insert_space_tokens.c			\
 					expansor/list_all_directories.c			\
 					expansor/process_entry.c				\
@@ -95,12 +97,13 @@ EXEC			=	exec/echo.c 								\
 					exec/redir_file_stdin.c						\
 					exec/safe_fork.c								
 
+SIGNAL				=	signal/handle_update_signal.c
 
 MAIN			=	main.c									\
 					split_linker.c							\
 					print_functions.c
 
-SRC				=	$(HANDLE_TOKENS) $(TOKENIZER) $(UTILS) $(PARSER) $(ENV) $(SYNTAX) $(EXEC) $(EXPANSOR) $(MAIN)
+SRC				=	$(HANDLE_TOKENS) $(TOKENIZER) $(UTILS) $(PARSER) $(ENV) $(SYNTAX) $(EXEC) $(EXPANSOR) $(MAIN) $(SIGNAL)
 
 
 SRCS			=	$(addprefix $(SRC_DIR), $(SRC))
