@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:47:15 by anovoa            #+#    #+#             */
-/*   Updated: 2024/10/30 13:32:12 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/30 13:34:03 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,6 @@ static int	has_one_arg(t_cmd *cmd)
 		return (0);
 }
 
-	//trim
-	//sign
-	//too long? return 0
-	//any nondigit? return 0
-	//return 1
 /* Returns 1 if the given string can be read as a number of type long.
  * Otherwise, it returns 0.
  * */
