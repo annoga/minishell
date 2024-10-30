@@ -72,7 +72,8 @@ EXPANSOR		=	expansor/expansor_wildcard.c			\
 					expansor/push_midlist.c					\
 					expansor/wildcard_utils.c						
 
-EXEC			=	exec/echo.c exec/command_analyzer.c			\
+EXEC			=	exec/echo.c 								\
+					exec/command_analyzer.c						\
 					exec/ft_exit.c 								\
 					exec/ft_env.c 								\
 					exec/ft_pwd.c 								\
