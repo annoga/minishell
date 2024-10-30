@@ -44,8 +44,8 @@ typedef struct s_signal
 	t_sigaction		ctrl_slash;
 }	t_signal;
 
-// sigint = 130;
-// sigquit = 131;
+// ctrl_c = 130;
+// crtl_slash = 131;
 
 typedef enum e_pipe_ends
 {
@@ -78,6 +78,7 @@ typedef struct s_env
 {
 	char			*key_name;
 	char			*value;
+	int				exit_status;
 	struct s_env	*next;
 }	t_env;
 

@@ -43,18 +43,22 @@ static void tokenize_wildcards(t_token **tmp2, t_token **tmp, t_token **head)
 static char *clean_quotes(t_token *head)
 {
     t_token *tmp;
-    
+    char *new_token;
+
     tmp = head;
     if(tmp->type == SINGLE_QUOTE)
     {
-        tmp->token = ft_strtrim(tmp->token, "\'");
+        new_token = ft_strtrim(tmp->token, "\'");
+        free(tmp->token);
+        tmp->token = new_token;
     }
     else if(tmp->type == DOUBLE_QUOTE)
     {
-        tmp->token = ft_strtrim(tmp->token, "\"");
+        new_token = ft_strtrim(tmp->token, "\"");
+        free(tmp->token);
+        tmp->token = new_token;
     }
-    return tmp->token;
-    
+    return (tmp->token);
 }
 
 t_token *expansor(t_token *head, t_env **env)

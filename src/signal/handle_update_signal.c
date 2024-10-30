@@ -16,41 +16,32 @@ static void init_signal(t_sigaction *sigact, int signal)
 
 }
 
-void ft_strappend(char **dest, const char *src) {
-    if (!dest || !src) return;
+void	rl_blank_line(void)
+{
+	char	*original_line;
+	char	*blank_line;
+	size_t	len;
 
-    size_t dest_len = (*dest) ? strlen(*dest) : 0;
-    size_t src_len = strlen(src);
-    char *new_str = realloc(*dest, dest_len + src_len + 1); // +1 for null terminator
-
-    if (new_str) {
-        *dest = new_str;
-        memcpy(*dest + dest_len, src, src_len); // Append src to dest
-        (*dest)[dest_len + src_len] = '\0';      // Null-terminate
-    }
+	original_line = ft_strdup(rl_line_buffer);
+	if (!original_line)
+		return;
+	len = ft_strlen(rl_line_buffer) + 2;
+	blank_line = (char *)malloc(len * sizeof(char));
+	if (!blank_line)
+	{
+		free(original_line);
+		return ;
+	}
+	ft_memset(blank_line, ' ', len - 1);
+	blank_line[len - 1] = '\0';
+	rl_on_new_line();
+	rl_replace_line(blank_line, 1);
+	rl_redisplay();
+	free(blank_line);
+	rl_replace_line(original_line, 1);
+	rl_redisplay();
+	free(original_line);
 }
-
-static void rl_blank_line(void) {
-    int i;
-    char *og_line;
-    char *temp = NULL;
-
-    og_line = ft_strdup(rl_line_buffer);
-    if (!og_line) return;  // Check for memory allocation failure
-
-    i = ft_strlen(rl_line_buffer) + 2; // Adjust for extra spaces and newline
-    while (i-- > 0) {
-        ft_strappend(&temp, " ");
-    }
-    rl_on_new_line();
-    rl_replace_line(temp, 1);    // Replace with blank line
-    rl_redisplay();
-    free(temp);                   // Free the temporary blank line
-    rl_replace_line(og_line, 1);  // Restore the original line
-    rl_redisplay();
-    free(og_line);                // Free the original line
-}
-
 
 void handle_idle_signal(int signal) {
     rl_blank_line();                        // Clear the line and refresh the prompt

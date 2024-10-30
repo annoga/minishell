@@ -3,15 +3,17 @@
 static void erase_two(t_env **head, t_env *to_erase);
 static void free_two_env(t_env *env);
 
-int ft_unset(const char *key_name, t_env **env)
+int ft_unset(t_cmd *cmd, t_env **env)
 {
     t_env *tmp = *env;
     t_env *next;
 
+    if (!cmd || !cmd->cmd[1])
+        return 0;
     while (tmp)
     {
         next = tmp->next;
-        if (ft_strcmp(tmp->key_name, key_name) == 0)
+        if (ft_strcmp(tmp->key_name, cmd->cmd[1]) == 0)
         {
             erase_two(env, tmp);
             break;
