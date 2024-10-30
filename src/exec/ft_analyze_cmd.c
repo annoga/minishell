@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:46:11 by anovoa            #+#    #+#             */
-/*   Updated: 2024/10/30 10:17:41 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/30 12:53:16 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ int	ft_analyze_cmd(t_env **env, t_cmd *cmd)
 	int		err_code;
 	t_cmd	*current;
 
-	if (!cmd)
+	if (!cmd)//
 		test_print(cmd);//
+	err_code = 0;
 	current = cmd;
 	while (current)
 	{
@@ -63,11 +64,8 @@ int	ft_analyze_cmd(t_env **env, t_cmd *cmd)
 			else
 				current = process_command_block(current, &err_code, *env);
 		}
-		else if (current->subcommand)//files o subC
-		{
+		else if (current->subcommand)
 			err_code = ft_analyze_cmd(env, current->subcommand);
-			//restart loop. Según err_code, evalúas si AND/OR se ejecuta
-		}
 		else//files, heredocs
 			current = process_command_block(current, &err_code, *env);
 		if (current && current->connection_type == AND && err_code == 0)
@@ -91,11 +89,9 @@ int	ft_analyze_cmd(t_env **env, t_cmd *cmd)
 	//AND 
 	//1)run block. 
 	//2)if err_code != 0, stop. else, update to next cmd and go to 1) 
-	//n)keep last err_code
 	//OR
 	//1)run block.
 	//2)if err_code == 0, stop. else, update to next cmd and go to 1) 
-	//process_command_block(cmd, &err_code, env);//returns last cmd executed
 
 /* This function filters those builtins that cannot run through a PIPE */
 static int	can_pipe(t_cmd *command)
@@ -126,7 +122,7 @@ static t_cmd	*run_builtin(t_cmd *cmd, int *exit_status, t_env **env)
 	if (!ft_strcmp(cmd->cmd[0], "unset"))//ojo que esto es segfault si te pongo "unset"
 		*exit_status = ft_unset(cmd->cmd[1], env);
 	else if (!ft_strcmp(cmd->cmd[0], "exit"))//sólo si NO tiene pipe
-		*exit_status = ft_exit(cmd);
+		*exit_status = ft_exit(cmd, 1);
 	else if (!ft_strcmp(cmd->cmd[0], "export"))//sólo si tiene args
 		*exit_status = ft_export(cmd, env);
 	return (cmd);

@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:52:44 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/30 09:44:08 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/30 12:48:18 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int check_syntax(t_token *token);
 /* EXECUTE */
 t_token	*command_analyzer(t_token *head, t_env **env, t_cmd *cmd);
 void	echo(t_cmd *head);
-int		ft_exit(t_cmd *cmd);
+int		ft_exit(t_cmd *cmd, int verbose);
 void	ft_env(t_env *env);
 void	ft_pwd(t_cmd *cmd);
 int 	ft_unset(const char *key_name, t_env **env);

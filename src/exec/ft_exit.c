@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:47:15 by anovoa            #+#    #+#             */
-/*   Updated: 2024/10/30 03:53:45 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/30 13:32:12 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,31 @@
 static int	has_one_arg(t_cmd *cmd);
 static int	is_long(char *str);
 static int	int_free(char **str, int status);
+static int	print_err(char *arg, char *msg, int verbose);
 
 /* Leaves minishell and sets errno to 0, 1 or 2 as appropriate.
  * If misused, it may not leave minishell, instead returning the relevant value
  * of errno.
  * */
-int	ft_exit(t_cmd *cmd)
+int	ft_exit(t_cmd *cmd, int verbose)
 {
-	if (!cmd->cmd[1] && ft_putendl_fd("exit", 2))
+	if (!cmd->cmd[1] && print_err(NULL, NULL, verbose))
 		exit(0);
 	if (has_one_arg(cmd))
 	{
-		if (is_long(cmd->cmd[1]) && ft_putendl_fd("exit", 2))
+		if (is_long(cmd->cmd[1]) && print_err(NULL, NULL, verbose))
 			exit((unsigned char)ft_atol(cmd->cmd[1]));
-		else if (ft_putendl_fd("exit\nexit: numeric argument required", 2))
+		else if (print_err(cmd->cmd[1], "numeric argument required", verbose))
 			exit(2);
 	}
 	else
 	{
 		if (is_long(cmd->cmd[1]))
 		{
-			ft_putendl_fd("exit\nexit: too many arguments", 2);
+			print_err(NULL, "too many arguments", verbose);
 			return (1);
 		}
-		else if (ft_putendl_fd("exit\nexit: numeric argument required", 2))
+		else if (print_err(cmd->cmd[1], "numeric argument required", verbose))
 			exit(2);
 	}
 	return (1);
@@ -98,4 +99,21 @@ static int	int_free(char **str, int status)
 	free(*str);
 	*str = NULL;
 	return (status);
+}
+
+static int	print_err(char *arg, char *msg, int verbose)
+{
+	if (verbose)
+		ft_putendl_fd("exit", 2);
+	if (msg)
+	{
+		ft_putstr_fd("minishell: exit: ", 2);
+		if (arg)
+		{
+			ft_putstr_fd(arg, 2);
+			ft_putstr_fd(": ", 2);
+		}
+		ft_putendl_fd(msg, 2);
+	}
+	return (1);
 }
