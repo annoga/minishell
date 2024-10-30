@@ -22,7 +22,9 @@ static void tokenize_env(t_token **tmp2, t_token **tmp, t_token **head, t_env **
     {
         free((*tmp2)->token);
         (*tmp2)->token = env;
+        printf("env: (%s)\n", env);
     }
+    //ESTO PETA CUANDO NO ENCUENTRA LA VARIABLE DE ENTORNO
 	free(env);
 	env = NULL;
 }

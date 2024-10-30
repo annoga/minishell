@@ -14,6 +14,8 @@ static t_token_type	ft_gettokentype(char *str)
 		return (APPEND);
 	if (!ft_strcmp(str, "|"))
 		return (PIPE);
+	if (!ft_strcmp(str, " "))
+		return (SPACE_TOKEN);
 	if (!ft_strcmp(str, "("))
 		return (L_PAREN);
 	if (!ft_strcmp(str, ")"))
@@ -22,8 +24,6 @@ static t_token_type	ft_gettokentype(char *str)
 		return (REDIR_IN);
 	if (!ft_strcmp(str, ">"))
 		return (REDIR_OUT);
-	if (!ft_strcmp(str, " "))
-		return (SPACE_TOKEN);
 	return (0);
 }
 
