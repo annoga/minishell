@@ -6,151 +6,128 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:46:11 by anovoa            #+#    #+#             */
-/*   Updated: 2024/10/28 19:29:19 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/10/30 10:17:41 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static void	fill_cmd_paths(t_cmd *cmd, char *envpaths);
+static int		can_pipe(t_cmd *command);
+static t_cmd	*run_builtin(t_cmd *cmd, int *exit_status, t_env **env);
 
-/* This function takes one or more commands and goes through them */
-int	ft_analyze_cmd(t_env *env, t_cmd *cmnd)
+static void	test_print(t_cmd *cmd)//
 {
-//	char	*path;
-	char	**env_arr;
-	// t_cmd	*cmnd;
-//	int		i;//
-//	i = 0;//
-	env_arr = ft_get_env_array(env);//need to free_split when done
-	if (!env_arr)
+	printf("p:%p\n",cmd->cmd);
+	printf("p_:%p\n",cmd->subcommand);
+	if (cmd->cmd)
 	{
-		printf("error translating t_env\n");
-		return (0);
+		printf("p:%p\n",cmd->cmd[0]);
+		if (cmd->cmd[0])
+			printf("p:%p\n",cmd->cmd[1]);
 	}
-//	while (env_arr[i])//
-//		printf("%s\n", env_arr[i++]);//print envp
-
-	fill_cmd_paths(cmnd, ft_getenv("PATH", env));
-
-//	printf("cmd[0]:%s\n", cmnd->cmd[0]);
-//	printf("cmd[1]:%s\n", cmnd->cmd[1]);
-	/*t_cmd	*tmp2;
-
-	printf("cmd:%p\n", cmnd->cmd);
-	printf("path:%s\n", cmnd->path);
-	printf("next:%p\n", cmnd->next);//NULL if empty
-	printf("subC:%p\n", cmnd->subcommand);//NULL if empty
-	printf("files:%p\n", cmnd->files);//NULL if empty
-	if (cmnd->files)
+	if (!cmd->cmd)
 	{
-	printf("conType:%i\n", cmnd->connection_type);//NULL if empty
-	printf("fName:%s\n", cmnd->files->name);//
-	printf("fType:%i\n", cmnd->files->type);//
-	printf("fNxt:%p\n", cmnd->files->next);//
+		if (cmd->subcommand)
+		{
+			printf("p_:%p\n",cmd->subcommand->cmd);
+			if (cmd->subcommand->cmd)
+				printf("p_:%p\n",cmd->subcommand->cmd[0]);
+		}
 	}
-	if (cmnd->next)
-	{
-		tmp2 = cmnd->next;
-	printf("cmd2:%s\n", tmp2->cmd[0]);
-	printf("path2:%s\n", tmp2->path);
-	printf("next2:%p\n", tmp2->next);//NULL if empty
-	printf("subC2:%p\n", tmp2->subcommand);//NULL if empty
-	printf("files2:%p\n", tmp2->files);//NULL if empty
-	if (cmnd->files)
-	{
-	printf("conType2:%i\n", cmnd->connection_type);//NULL if empty
-	printf("fName2:%s\n", cmnd->files->name);//
-	printf("fType2:%i\n", cmnd->files->type);//
-	printf("fNxt2:%p\n", cmnd->files->next);//
-	}
-	}*/
+}
 
+/* This function takes a series of commands and decides which to execute,
+ * depending on the connections between them */
+int	ft_analyze_cmd(t_env **env, t_cmd *cmd)
+{
 	int		err_code;
-	pid_t	last_pid;
-	pid_t	pid;
-	t_pipe	fds;
-	int	j;
+	t_cmd	*current;
 
-	j = 0;
-	pid_t	pid_arr[MAX_CMD];//
-
-	ft_bzero(pid_arr, sizeof(pid_arr));//
-	while (cmnd)
+	if (!cmd)
+		test_print(cmd);//
+	current = cmd;
+	while (current)
 	{
-	//	printf("path:%s\n", cmnd->path);
-		if (cmnd->connection_type == PIPE)
+		if (current->cmd)
 		{
-			if (pipe(fds.next) == -1)//msg if err?
-				printf("pipe error. Oh shit!\n");
-//		printf("dad#%i - read:%i, write:%i\n",j,fds.next[READ],fds.next[WRITE]);
+			if (!can_pipe(current))
+			{
+				if (current->files || current->connection_type == PIPE)
+				{
+					err_code = ft_analyze_cmd(env, current->next);//lo saltamos
+					current = NULL;
+				}
+				else
+					current = run_builtin(current, &err_code, env);
+			}
+			else
+				current = process_command_block(current, &err_code, *env);
 		}
-		pid = do_fork();
-		if (pid == 0)
+		else if (current->subcommand)//files o subC
 		{
-			process_child(cmnd, &fds, env_arr, j);
+			err_code = ft_analyze_cmd(env, current->subcommand);
+			//restart loop. Según err_code, evalúas si AND/OR se ejecuta
 		}
-		pid_arr[j] = pid;
-		last_pid = pid;
-		//en todas las secuencias en las que ha habido al menos un PIPE
-		if (cmnd->connection_type == PIPE || (j != 0 && !cmnd->next))
-			update_pipes(&fds, j, cmnd->next);
-	//free path
-
-		//Volcamos el resultado de la pipe
-/*		if (cmnd->connection_type == PIPE || (j != 0 && !cmnd->next))
-		{
-			printf("here j:%i\n", j);
-			close(fds.next[WRITE]);
-		}
-*/		cmnd = cmnd->next;
-		j++;
+		else//files, heredocs
+			current = process_command_block(current, &err_code, *env);
+		if (current && current->connection_type == AND && err_code == 0)
+			current = current->next;
+		else if (current && current->connection_type == OR && err_code != 0)
+			current = current->next;
+		else
+			return (err_code);
 	}
-
-//	if (j >= 0)//
-//		j++;//
-
-	int	stat_loc;
-	int	k;
-
-	k = 0;
-
-	while (k++ < j)
-	{
-		pid = waitpid(-1, &stat_loc, 0);
-		if (pid == last_pid)
-		{
-				err_code = stat_loc;
-			//if (WIFEXITED(stat_loc))
-				//err_code = WEXITSTATUS(stat_loc);// Faltaría signal check
-		}
-	}
-	if (WIFEXITED(err_code))
-	{
-		printf("Last cmd exited with status %d\n", WEXITSTATUS(err_code));
-		err_code = WEXITSTATUS(err_code);
-	}
-	free_split(env_arr);
 	return (err_code);
 }
 
-/* Sets a possible path for each command, or NULL if none is found */
-static void	fill_cmd_paths(t_cmd *cmd, char *envpaths)
-{
-	t_cmd	*tmp_cmd;
-	char	*path;
+	//##COMMANDS##//
+	//SUBCOMMANDS
+	//1)if cmd->cmd == NULL, but subC != NULL, run subC as block
+	//BUILTINS (PIPELESS)
+	//1)if connection_type == PIPE, update to next cmd.
+	//2)if connection_type == AND / OR, we run builtin as block.
+	
+	//##LINKS##//
+	//AND 
+	//1)run block. 
+	//2)if err_code != 0, stop. else, update to next cmd and go to 1) 
+	//n)keep last err_code
+	//OR
+	//1)run block.
+	//2)if err_code == 0, stop. else, update to next cmd and go to 1) 
+	//process_command_block(cmd, &err_code, env);//returns last cmd executed
 
-	tmp_cmd = cmd;
-	path = NULL;
-	while (tmp_cmd)
-	{
-		if (tmp_cmd->cmd)
-			path = get_cmd_path(tmp_cmd->cmd[0], envpaths);
-		//printf("path:%s\n", path);
-		tmp_cmd->path = path;
-		path = NULL;
-		if (tmp_cmd->subcommand)
-			fill_cmd_paths(tmp_cmd->subcommand, envpaths);
-		tmp_cmd = tmp_cmd->next;
-	}
+/* This function filters those builtins that cannot run through a PIPE */
+static int	can_pipe(t_cmd *command)
+{
+	char	*cmd_name;
+	char	*cmd_arg;
+
+	cmd_name = command->cmd[0];
+	cmd_arg = command->cmd[1];
+	if (!ft_strcmp(cmd_name, "exit"))
+		if (command->connection_type != PIPE)
+			return (0);
+	if (!ft_strcmp(cmd_name, "unset"))//hace algo sin args?
+		return (0);
+	if (!ft_strcmp(cmd_name, "export"))////OJO! export sin cmnd[1] sí puede PIPE!!!
+		if (cmd_arg)
+			return (0);
+	if (!ft_strcmp(cmd_name, "cd"))
+		return (0);
+	return (1);
+}
+
+/* This function runs a builtin depending on input, then returns the 
+ * appropriate exit status */
+static t_cmd	*run_builtin(t_cmd *cmd, int *exit_status, t_env **env)
+{
+	//unset, export. Any builtins that do NOT work with pipes
+	if (!ft_strcmp(cmd->cmd[0], "unset"))//ojo que esto es segfault si te pongo "unset"
+		*exit_status = ft_unset(cmd->cmd[1], env);
+	else if (!ft_strcmp(cmd->cmd[0], "exit"))//sólo si NO tiene pipe
+		*exit_status = ft_exit(cmd);
+	else if (!ft_strcmp(cmd->cmd[0], "export"))//sólo si tiene args
+		*exit_status = ft_export(cmd, env);
+	return (cmd);
 }

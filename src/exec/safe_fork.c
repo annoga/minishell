@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   safe_fork.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/16 18:51:07 by anovoa            #+#    #+#             */
-/*   Updated: 2024/10/30 00:09:05 by angeln           ###   ########.fr       */
+/*   Created: 2024/10/22 13:21:31 by angeln            #+#    #+#             */
+/*   Updated: 2024/10/29 22:49:50 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-/* Prints environment variables. Ignores options and arguments.
- * Always returns 0 */
-void	ft_env(t_env *env)
+pid_t	safe_fork(void)
 {
-	while (env)
-	{
-		printf("%s=%s\n", env->key_name, env->value);
-		env = env->next;
-	}
-	exit(0);
+	pid_t	pid;
+
+	pid = fork();
+	if (pid == -1)
+		exit(1);
+	return (pid);
 }

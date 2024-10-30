@@ -72,24 +72,28 @@ EXPANSOR		=	expansor/expansor_wildcard.c			\
 					expansor/push_midlist.c					\
 					expansor/wildcard_utils.c						
 
-EXEC			=	exec/echo.c exec/mock_builtin_tokenizer.c 	\
+EXEC			=	exec/echo.c 								\
 					exec/ft_exit.c 								\
 					exec/ft_env.c 								\
 					exec/ft_pwd.c 								\
 					exec/ft_getenv.c 							\
 					exec/ft_unset.c 							\
+					exec/ft_export.c 							\
 					exec/free_env.c								\
+					exec/command_analyzer.c						\
 					exec/ft_analyze_cmd.c						\
 					exec/is_command.c							\
 					exec/get_cmd_path.c							\
-					exec/ft_get_env_array.c						\
+					exec/tenv_to_array.c						\
 					exec/pipe_write_stdout.c					\
 					exec/pipe_read_stdin.c						\
+					exec/is_last_cmd_in_pipe.c					\
 					exec/update_pipes.c							\
+					exec/process_command_block.c				\
 					exec/process_child.c						\
 					exec/redir_file_stdout.c					\
 					exec/redir_file_stdin.c						\
-					exec/do_fork.c								
+					exec/safe_fork.c								
 
 SIGNAL				=	signal/handle_update_signal.c
 

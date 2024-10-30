@@ -102,7 +102,7 @@ typedef struct s_synt
 typedef struct s_cmd
 {
 	char			**cmd;
-	char			*path;
+	//char			*path;
 	t_file			*files;
 	t_token_type	connection_type; //AND, OR, PIPE
 	int 			parenthesis;
