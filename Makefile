@@ -8,11 +8,11 @@ CFLAGS				=	-Wall -Werror -Wextra -fsanitize=address
 RM					=	rm -f
 # 
 # Determine the platform
-#LIBS = -Lreadline -lreadline -lhistory -ltermcap
+LIBS = -Lreadline -lreadline -lhistory -ltermcap
 INC = inc/minishell.h inc/struct.h libft/libft.h
 
 # Apaños para mac
-LIBS = -Lreadline -lreadline -ltermcap
+#LIBS = -Lreadline -lreadline -ltermcap
 
 # Directories
 LIBFT				=	./libft/libftgnl.a
@@ -72,7 +72,8 @@ EXPANSOR		=	expansor/expansor_wildcard.c			\
 					expansor/push_midlist.c					\
 					expansor/wildcard_utils.c						
 
-EXEC			=	exec/echo.c exec/command_analyzer.c			\
+EXEC			=	exec/echo.c 								\
+					exec/command_analyzer.c						\
 					exec/ft_exit.c 								\
 					exec/ft_env.c 								\
 					exec/ft_pwd.c 								\
