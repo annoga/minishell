@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 23:06:00 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/30 12:29:39 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/30 14:05:07 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,11 @@ static pid_t	wait_for_status(pid_t last_pid, int n)
 	while (i++ < n)
 	{
 		pid = waitpid(-1, &stat_loc, 0);
+		if (pid == -1)
+		{
+			perror("minishell: waitpid");
+			exit(1);
+		}
 		if (pid == last_pid)
 			exit_status = stat_loc;
 	}
