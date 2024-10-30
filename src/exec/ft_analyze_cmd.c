@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:46:11 by anovoa            #+#    #+#             */
-/*   Updated: 2024/10/30 09:34:36 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/30 10:17:41 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ static t_cmd	*run_builtin(t_cmd *cmd, int *exit_status, t_env **env)
 		*exit_status = ft_unset(cmd->cmd[1], env);
 	else if (!ft_strcmp(cmd->cmd[0], "exit"))//sólo si NO tiene pipe
 		*exit_status = ft_exit(cmd);
-	//else if (!ft_strcmp(cmd->cmd[0], "export"))
-		//*exit_status = ft_export(cmd->cmd, env);
+	else if (!ft_strcmp(cmd->cmd[0], "export"))//sólo si tiene args
+		*exit_status = ft_export(cmd, env);
 	return (cmd);
 }
