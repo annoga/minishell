@@ -3,6 +3,7 @@ To fix:
         ◦ Probar el env -i con el $PWD                              ✅
     ◦ echo con la opción -n. : CAMBIAR TOKENS POR LA LISTA DE CMD   ✅
     ◦ shlvl ???????????????                                         ✅
+    ◦ echo"a" :(
 
 Built-is:
     ◦ env sin opciones o argumentos.
@@ -15,6 +16,9 @@ To-do:
     4 ◦ $?                                                          
     5 ◦ Señales
     ◦ export sin opciones.
+        - += append the second string to the other one, if theres none, create one.
+        - sin opciones imprime env
+        - a="a    3 sda   a" / $a=b
 
 To procrastinate:
     ◦ Norminette:
