@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:55:05 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/30 00:45:32 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/30 04:03:14 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ static int	process_redirs(t_cmd *cmd);
 static void	execute_builtin(t_cmd *cmd, t_env *tenv);
 static void	validate_cmdpath(char *cmd);
 
-/* Can fit in analze_cmd */
+/* Runs a single command or builtin within a fork. Handles pipes and 
+ * redirections. When finished, or in case of error, the process exits 
+ * with the appropriate status */
 int	process_child(t_cmd *cmd, t_pipe *fds, t_env *tenv, int cmd_index)
 {
 	int		err_code;
@@ -26,41 +28,23 @@ int	process_child(t_cmd *cmd, t_pipe *fds, t_env *tenv, int cmd_index)
 	if (cmd->connection_type == PIPE || is_last_cmd_in_pipe(cmd, cmd_index))
 	{
 		if (cmd_index != 0)//movemos IN salvo en el primero
-		{
 			pipe_read_stdin(fds->prev);
-		}
-		if (cmd_index == 0 || cmd->next)
-		{
-			pipe_write_stdout(fds->next);
-		}
+		if (cmd_index == 0 || !is_last_cmd_in_pipe(cmd, cmd_index))//cmd->next)
+			pipe_write_stdout(fds->next);//no change if it enters in lastCmd...
 	}
-//	if (j >= 0)//
-//		j++;//
 	err_code = process_redirs(cmd);
 	if (err_code != 0 || !cmd->cmd)
 		exit(err_code);
 	//if (!cmd->cmd)//Falta considerar subCommandos
 		//exit(0);
-/*	if (cmd->files && cmd->files->type == REDIR_OUT)
-		redir_file_stdout(cmd->files->name, REDIR_OUT);
-	if (cmd->files && cmd->files->type == APPEND)
-		redir_file_stdout(cmd->files->name, APPEND);*/
 	execute_builtin(cmd, tenv);
-	//printf("I'm about to execute things\n");
 	validate_cmdpath(cmd->path);
 	env = tenv_to_array(tenv);
-	execve(cmd->path, cmd->cmd, env);// No se están retornando:
+	execve(cmd->path, cmd->cmd, env);
+	free(env);
 	exit(1);
 	return (0);
 }
-
-	/*char	**env_arr;
-	env_arr = tenv_to_array(env);//need to free_split when done
-	if (!env_arr)
-	{
-		printf("error translating t_env\n");
-		return (0);
-	}*/
 
 /* Executes redirections for the given command.
  * Executes heredocs across all commands */
@@ -86,10 +70,13 @@ static void	execute_builtin(t_cmd *cmd, t_env *tenv)
 {
 	if (cmd->cmd && !ft_strcmp(cmd->cmd[0], "echo"))
 		echo(cmd);
-	else if (cmd->cmd && !ft_strcmp(cmd->cmd[0], "pwd"))
-		ft_pwd(cmd);
 	else if (cmd->cmd && !ft_strcmp(cmd->cmd[0], "env"))
 		ft_env(tenv);
+	else if (!ft_strcmp(cmd->cmd[0], "exit"))
+		exit(ft_exit(cmd));
+	else if (cmd->cmd && !ft_strcmp(cmd->cmd[0], "pwd"))
+		ft_pwd(cmd);
+	//if (!ft_strcmp(cmd_name, "export"))////OJO! sólo si no tiene argumentos
 }
 
 /* Exits with the corresponding error, when applicable:

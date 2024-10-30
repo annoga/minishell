@@ -6,13 +6,13 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:47:15 by anovoa            #+#    #+#             */
-/*   Updated: 2024/09/24 17:10:15 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/10/30 03:53:45 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static int	has_one_arg(t_token *head);
+static int	has_one_arg(t_cmd *cmd);
 static int	is_long(char *str);
 static int	int_free(char **str, int status);
 
@@ -20,51 +20,40 @@ static int	int_free(char **str, int status);
  * If misused, it may not leave minishell, instead returning the relevant value
  * of errno.
  * */
-void	ft_exit(t_token *head)
+int	ft_exit(t_cmd *cmd)
 {
-	if ((!head || !head->next) && ft_putendl_fd("exit", 2))
+	if (!cmd->cmd[1] && ft_putendl_fd("exit", 2))
 		exit(0);
-	if (has_one_arg(head))
+	if (has_one_arg(cmd))
 	{
-		if (is_long(head->next->token) && ft_putendl_fd("exit", 2))
-			exit((unsigned char)ft_atol(head->next->token));
+		if (is_long(cmd->cmd[1]) && ft_putendl_fd("exit", 2))
+			exit((unsigned char)ft_atol(cmd->cmd[1]));
 		else if (ft_putendl_fd("exit\nexit: numeric argument required", 2))
 			exit(2);
 	}
 	else
 	{
-		if (is_long(head->next->token))
+		if (is_long(cmd->cmd[1]))
 		{
-			//ToDo: Update $? to 1, possibly via return
 			ft_putendl_fd("exit\nexit: too many arguments", 2);
-			return ;
+			return (1);
 		}
 		else if (ft_putendl_fd("exit\nexit: numeric argument required", 2))
 			exit(2);
 	}
-	return ;
+	return (1);
 }
 
 /* Returns 0 if we have the following sequence of tokens:
  * ' ', 'arg1', ' ', 'arg2'
  * Otherwise, it returns 1.
  * */
-static int	has_one_arg(t_token *head)
+static int	has_one_arg(t_cmd *cmd)
 {
-	t_token	*arg;
-
-	arg = head->next;
-	if (arg && arg->token)
-	{
-		arg = arg->next;
-		if (arg && arg->token)
-		{
-			arg = arg->next;
-			if (arg && arg->token)
-				return (0);
-		}
-	}
-	return (1);
+	if (cmd->cmd[1] != NULL && cmd->cmd[2] == NULL)
+		return (1);
+	else
+		return (0);
 }
 
 	//trim
