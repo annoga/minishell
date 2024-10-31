@@ -110,6 +110,8 @@ int		ft_exit(t_cmd *cmd, int verbose);
 void	ft_env(t_env *env);
 int     ft_cd(t_cmd *cmd, t_env *env);
 void env_set_value(t_env **env, char *key, char *value);
+t_env	*env_get_value(t_env *var, char *name);
+void env_new(t_env **env, char *name, char *value);
 void	ft_pwd(t_cmd *cmd);
 int 	ft_unset(t_cmd *cmd, t_env **env);
 int		ft_export(t_cmd *cmd, t_env **env);

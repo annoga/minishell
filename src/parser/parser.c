@@ -29,10 +29,33 @@ static void	set_connection(t_token *token, t_cmd **command)
 	*command = new_cmd;
 }
 
+// void ft_join_last(t_cmd **cmd, t_token *token)
+// {
+// 	char *join;
+// 	char *tmp;
+
+// 	tmp = (*cmd)->cmd;
+// 	free((*cmd)->cmd);
+// 	join = ft_strjoin(tmp, token->token);
+// 	(*cmd)->cmd = join;
+// }
+
 static t_cmd *parser_two(t_token *token, t_cmd *command, t_cmd *head)
 {
+	// t_token	*last_tkn;
+
+	// last_tkn = NULL;
     while (token)
     {
+		// last_tkn = token;
+		// if(last_tkn && token->type != SPACE_TOKEN  && token->type == ARG &&
+		// 	(last_tkn->syntaxis == COMMAND || last_tkn->syntaxis == ARG || last_tkn->syntaxis == FILES))
+		// {
+		// 	token = token->next;
+		// 	// ft_join_last(&command, last_tkn);
+		// 	continue ;
+		// }
+		printf("token->token = %s\n", token->token);
         if (!command)  // If no command exists yet, create the first command node
         {
             command = add_command(&command);
