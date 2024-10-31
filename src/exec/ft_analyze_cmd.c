@@ -154,6 +154,6 @@ static t_cmd	*run_builtin(t_cmd *cmd, int *exit_status, t_env **env)
 	else if (!ft_strcmp(cmd->cmd[0], "export"))//sólo si tiene args
 		*exit_status = ft_export(cmd, env);
 	else if (!ft_strcmp(cmd->cmd[0], "cd"))//sólo si NO tiene pipe
-		ft_cd(cmd, *env);
+		*exit_status = ft_cd(cmd, *env);
 	return (cmd);
 }

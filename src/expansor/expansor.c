@@ -5,7 +5,6 @@ static void tokenize_env(t_token **tmp2, t_token **tmp, t_token **head, t_env **
     char *env;
     t_token *new_tokens;
 
-    // env = getenv((*tmp)->token);
     env = ft_getenv((*tmp)->token, *envp);
     if(!env)
         env = ft_strdup("");

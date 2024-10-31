@@ -90,10 +90,10 @@ int goto_home(t_env *env)
     return 0;
 }
 
-void ft_cd(t_cmd *cmd, t_env *env)
+int ft_cd(t_cmd *cmd, t_env *env)
 {
     if(cmd->cmd[1] != NULL)
-        goto_dir(cmd->cmd[1], env);
+        return(goto_dir(cmd->cmd[1], env));
     else
-        goto_home(env);
+        return(goto_home(env));
 }
