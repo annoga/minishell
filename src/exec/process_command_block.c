@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 23:06:00 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/30 09:04:44 by angeln           ###   ########.fr       */
+/*   Updated: 2024/10/30 14:05:07 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 static void		safe_pipe(t_pipe *fds);
 static pid_t	wait_for_status(pid_t last_pid, int n);
 
-/* Executes a sequence of commands, performing redirections as needed.
+/* Executes a sequence of commands, performing redirections as required.
  * Commands joined through pipes are executed. 
- * Commands joined through && and || operators are returned, only
+ * Commands joined through && and || operators are returned, with only
  * the first command executed.
  * Exit status of the last command executed is updated to a pointer */
 t_cmd	*process_command_block(t_cmd *cmd, int *err_code, t_env *tenv)
@@ -75,6 +75,11 @@ static pid_t	wait_for_status(pid_t last_pid, int n)
 	while (i++ < n)
 	{
 		pid = waitpid(-1, &stat_loc, 0);
+		if (pid == -1)
+		{
+			perror("minishell: waitpid");
+			exit(1);
+		}
 		if (pid == last_pid)
 			exit_status = stat_loc;
 	}
