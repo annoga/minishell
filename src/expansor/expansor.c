@@ -17,16 +17,14 @@ static void tokenize_env(t_token **tmp2, t_token **tmp, t_token **head, t_env **
         add_top(*tmp2, new_tokens);
         erase_one(head, *tmp2);
         *tmp = new_tokens;
+        free(env);
+	    env = NULL;
     }
     else
     {
         free((*tmp2)->token);
         (*tmp2)->token = env;
-        printf("env: (%s)\n", env);
     }
-    //ESTO PETA CUANDO NO ENCUENTRA LA VARIABLE DE ENTORNO
-	free(env);
-	env = NULL;
 }
 
 static void tokenize_wildcards(t_token **tmp2, t_token **tmp, t_token **head)
