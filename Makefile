@@ -85,6 +85,7 @@ EXEC			=	exec/echo.c 								\
 					exec/free_env.c								\
 					exec/command_analyzer.c						\
 					exec/ft_analyze_cmd.c						\
+					exec/get_heredocs.c							\
 					exec/is_command.c							\
 					exec/get_cmd_path.c							\
 					exec/tenv_to_array.c						\

@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:46:11 by anovoa            #+#    #+#             */
-/*   Updated: 2024/10/30 17:56:49 by angeln           ###   ########.fr       */
+/*   Updated: 2024/11/01 13:17:48 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,40 +17,6 @@ static int		runs_in_pipes(t_cmd *command);
 static t_cmd	*run_builtin(t_cmd *cmd, int *exit_status, t_env **env);
 static int		op_condition_true(t_token_type operator, int status);
 
-/*void	test_print(t_cmd *cmd)//
-{
-	printf("p:%p\n",cmd->cmd);
-	printf("p_:%p\n",cmd->subcommand);
-	printf("f:%p\n",cmd->files);
-	if (cmd->cmd)
-	{
-		printf("p:%p\n",cmd->cmd[0]);
-		if (cmd->cmd[0])
-			printf("p:%p\n",cmd->cmd[1]);
-	}
-	if (!cmd->cmd)
-	{
-		if (cmd->subcommand)
-		{
-			printf("p_:%p\n",cmd->subcommand->cmd);
-			if (cmd->subcommand->cmd)
-				printf("p_:%p\n",cmd->subcommand->cmd[0]);
-		}
-	}
-	if (cmd->files)
-	{
-		if (cmd->files->name)
-			printf("fn:%s\n",cmd->files->name);
-		printf("ft:%d\n",cmd->files->type);
-		if (cmd->files->next)
-			if (cmd->files->next->name)
-			{
-				printf("fn2:%p\n",cmd->files->next->name);
-				printf("ft2:%d\n",cmd->files->next->type);
-			}
-	}
-}*/
-
 /* This function takes a series of commands and decides which to execute,
  * depending on the connections between them */
 int	ft_analyze_cmd(t_env **env, t_cmd *current)
@@ -60,6 +26,7 @@ int	ft_analyze_cmd(t_env **env, t_cmd *current)
 	//if (!current)//
 		//test_print(current);//
 	err_code = 0;
+	//err_code = get_heredocs(current, env);//if != 0, boom
 	while (current)
 	{
 		if (current->cmd)
@@ -147,7 +114,7 @@ static int	runs_in_pipes(t_cmd *command)//igual tiene truco y la podemos ignorar
 static t_cmd	*run_builtin(t_cmd *cmd, int *exit_status, t_env **env)
 {
 	//unset, export, cd. Any builtins that do NOT work with pipes
-	if (!ft_strcmp(cmd->cmd[0], "unset"))//ojo que esto es segfault si te pongo "unset"
+	if (!ft_strcmp(cmd->cmd[0], "unset"))
 		*exit_status = ft_unset(cmd, env);
 	else if (!ft_strcmp(cmd->cmd[0], "exit"))//sólo si NO tiene pipe
 		*exit_status = ft_exit(cmd, 1);
