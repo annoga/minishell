@@ -11,14 +11,14 @@ Built-is:
 
 To-do:
     1 ◦ pwd sin opciones.                                           ✅
-    2 ◦ cd solo con una ruta relativa o absoluta.
+    2 ◦ cd solo con una ruta relativa o absoluta.                   
     3 ◦ unset sin opciones.                                         ✅
     4 ◦ $?                                                          
-    5 ◦ Señales
+    5 ◦ Señales                                                     
     ◦ export sin opciones.
         - += append the second string to the other one, if theres none, create one.
         - sin opciones imprime env
-        - a="a    3 sda   a" / $a=b
+        - export a="a    3 sda   a" / $a=b
 
 To procrastinate:
     ◦ Norminette:

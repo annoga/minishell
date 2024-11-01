@@ -57,7 +57,7 @@ void print_cmd(t_cmd *cmd, int level)
         if (cmd->cmd) {
             printf("%*sCommand: ", level * 4, "");  // Indentation based on level
             for (int i = 0; cmd->cmd[i]; i++) {
-                printf("%s ", cmd->cmd[i]);
+                printf("%s[%i] ", cmd->cmd[i], i);
             }
             printf("\n");
         }

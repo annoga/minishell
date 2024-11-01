@@ -25,8 +25,10 @@ void ft_empty_env(t_env **tmp)
 		exit(1);
 	if(!ft_issafedup(&((*tmp)->next), "OLDPWD", pwd))
 		exit(1);
-	if(!ft_issafedup(&((*tmp)->next->next), "SHLVL", "1 "))
+	if(!ft_issafedup(&((*tmp)->next->next), "PATH", "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"))
 		exit(1);
-	(*tmp)->next->next->next = NULL;
+	if(!ft_issafedup(&((*tmp)->next->next->next), "SHLVL", "1 "))
+		exit(1);
+	(*tmp)->next->next->next->next = NULL;
 	free(pwd);
 }

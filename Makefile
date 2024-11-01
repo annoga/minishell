@@ -79,6 +79,7 @@ EXEC			=	exec/echo.c 								\
 					exec/ft_env.c 								\
 					exec/ft_pwd.c 								\
 					exec/ft_getenv.c 							\
+					exec/ft_cd.c 							\
 					exec/ft_unset.c 							\
 					exec/ft_export.c 							\
 					exec/free_env.c								\
