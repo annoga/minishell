@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:46:11 by anovoa            #+#    #+#             */
-/*   Updated: 2024/11/01 13:22:10 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/01 13:26:42 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,9 @@ int	ft_analyze_cmd(t_env **env, t_cmd *current)
 				current = process_command_block(current, &err_code, *env);
 			else
 			{
-				if (current->files || current->connection_type == PIPE)
-				{
+				//if (current->files || current->connection_type == PIPE)
+				if (current->connection_type == PIPE)
+				{//ese ->files probablemente sobra. Testeamos antes de borrar
 					err_code = ft_analyze_cmd(env, current->next);//lo saltamos
 					current = NULL;
 				}
