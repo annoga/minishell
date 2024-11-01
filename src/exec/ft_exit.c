@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:47:15 by anovoa            #+#    #+#             */
-/*   Updated: 2024/10/30 13:34:03 by angeln           ###   ########.fr       */
+/*   Updated: 2024/11/01 12:25:40 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static int	has_one_arg(t_cmd *cmd);
 static int	is_long(char *str);
-static int	int_free(char **str, int status);
 static int	print_err(char *arg, char *msg, int verbose);
 
 /* Leaves minishell and sets errno to 0, 1 or 2 as appropriate.
@@ -68,7 +67,7 @@ static int	is_long(char *str)
 
 	i = 0;
 	sign = 1;
-	str = ft_strtrim(str, " ");
+	printf("%s\n", str );
 	if (ft_issign(str[i]))
 		if (str[i++] == '-')
 			sign = -1;
@@ -78,22 +77,14 @@ static int	is_long(char *str)
 	else if (len == 19)
 	{
 		if (sign == 1 && ft_strcmp((str), "9223372036854775807") > 0)
-			return (int_free(&str, 0));
+			return (0);
 		if (sign == -1 && ft_strcmp((str), "9223372036854775808") > 0)
-			return (int_free(&str, 0));
+			return (0);
 	}
 	while (str[i])
 		if (!ft_isdigit(str[i++]))
-			return (int_free(&str, 0));
-	return (int_free(&str, 1));
-}
-
-/* Frees and returns the appropriate status */
-static int	int_free(char **str, int status)
-{
-	free(*str);
-	*str = NULL;
-	return (status);
+			return (0);
+	return (1);
 }
 
 static int	print_err(char *arg, char *msg, int verbose)
