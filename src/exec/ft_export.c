@@ -25,7 +25,7 @@ t_env	*env_get_value(t_env *var, char *name)
 	return (NULL);
 }
 
-int is_valid_key(char *str)
+int not_valid_key(char *str)
 {
 	int	i;
 
@@ -99,8 +99,17 @@ void env_new(t_env **env, char *name, char *value)
 void set_equal_value(t_env *env, char *str, int equal_pos)
 {
 	env->value = ft_strdup(str + equal_pos + 1);
+	if(!env->value)
+		return ;
+	// if(env->key_name)
+	// {
+	// 	free(env->key_name);
+	// 	env->key_name = NULL;
+	// }
 	if(!is_addition(str))
+	{
 		env->key_name = ft_substr(str, 0, equal_pos);
+	}
 	else if(is_addition(str))
 	{
 		env->addition = 1;
@@ -154,6 +163,9 @@ void add_export(t_env *new, t_env **env)
 		tmp->value = tmp_value;
 	}
 	env_set_value(env, new->key_name, new->value);
+	//printf("v2:%p\n", new->value);
+	// free(new->key_name);
+	// free(new->value);
 	free(new);
 }
 
@@ -171,12 +183,12 @@ int	ft_export(t_cmd *cmd, t_env **env)
 	}
 	while(cmd->cmd[i])
 	{
-		if(is_valid_key(cmd->cmd[i]))
+		if(not_valid_key(cmd->cmd[i]))
 		{
 			printf("export: `%s': not a valid identifier\n", cmd->cmd[1]);
 			return (1);
 		}
-		if(!is_valid_key(cmd->cmd[i]) && cmd->cmd[i])
+		if(!not_valid_key(cmd->cmd[i]) && cmd->cmd[i])
 		{
 			new = create_new_export(cmd->cmd[i]);
 			if(!new)

@@ -5,15 +5,17 @@ void env_set_value(t_env **env, char *key, char *value)
     t_env *old_value;
 
     old_value = env_get_value(*env, key);
-    printf("new->value = %s\n", value);
-	printf("new->key_name = %s\n", key);
+    // printf("new->value = %s\n", value);
+	// printf("new->key_name = %s\n", key);
     if(!old_value)
         env_new(env, key, value);
     else if (old_value && value)
     {
         if(old_value->value)
             free(old_value->value);
+        //printf("v1:%p\n", value);
         old_value->value = value;
+        free(key);
     }
 }
 
