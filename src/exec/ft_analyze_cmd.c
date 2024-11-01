@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:46:11 by anovoa            #+#    #+#             */
-/*   Updated: 2024/11/01 13:17:48 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/01 13:22:10 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ int	ft_analyze_cmd(t_env **env, t_cmd *current)
 {
 	int		err_code;
 
-	//if (!current)//
-		//test_print(current);//
-	err_code = 0;
-	//err_code = get_heredocs(current, env);//if != 0, boom
+	//err_code = 0;
+	err_code = get_heredocs(current, env);//if != 0, boom
+	if (err_code != 0)
+		return (err_code);
 	while (current)
 	{
 		if (current->cmd)
