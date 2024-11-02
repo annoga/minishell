@@ -29,38 +29,48 @@ static void	set_connection(t_token *token, t_cmd **command)
 	*command = new_cmd;
 }
 
-// void ft_join_last(t_cmd **cmd, t_token *token)
-// {
-// 	char *join;
-// 	char *tmp;
-
-// 	tmp = (*cmd)->cmd;
-// 	free((*cmd)->cmd);
-// 	join = ft_strjoin(tmp, token->token);
-// 	(*cmd)->cmd = join;
-// }
+void ft_join_last(t_cmd *cmd, t_token *token, t_token_type last_type)
+{
+	char *join;
+	t_file *aux;
+	int i;
+	
+	i = 0;
+	aux = cmd->files;
+	if(last_type == ARG)
+	{
+		while(cmd && cmd->cmd[i + 1])
+			i++;
+		join = ft_strjoin(cmd->cmd[i], token->token);
+		free(cmd->cmd[i]);
+		cmd->cmd[i] = join;
+	}
+	else if (last_type == FILES)
+	{
+		while(aux && aux->next)
+			aux = aux->next;
+		join = ft_strjoin(aux->name, token->token);
+		free(aux->name);
+		aux->name = join;
+	}
+}
 
 static t_cmd *parser_two(t_token *token, t_cmd *command, t_cmd *head)
 {
-	// t_token	*last_tkn;
+	t_token	*last_tkn;
 
-	// last_tkn = NULL;
+	last_tkn = NULL;
     while (token)
     {
-		// last_tkn = token;
-		// if(last_tkn && token->type != SPACE_TOKEN  && token->type == ARG &&
-		// 	(last_tkn->syntaxis == COMMAND || last_tkn->syntaxis == ARG || last_tkn->syntaxis == FILES))
-		// {
-		// 	token = token->next;
-		// 	// ft_join_last(&command, last_tkn);
-		// 	continue ;
-		// }
         if (!command)  // If no command exists yet, create the first command node
         {
             command = add_command(&command);
             head = command;  // Store the head of the list
         }
-        if (token->syntaxis == COMMAND || token->syntaxis == ARG)
+		if(last_tkn && token->type != SPACE_TOKEN  && (token->type == ARG || token->type == DOUBLE_QUOTE || token->type == SINGLE_QUOTE) &&
+			(last_tkn->syntaxis == COMMAND || last_tkn->syntaxis == ARG || last_tkn->syntaxis == FILES))
+			ft_join_last(command, token, last_tkn->type);
+        else if (token->syntaxis == COMMAND || token->syntaxis == ARG)
             set_command(&command, token);
         else if (token->syntaxis == AND || token->syntaxis == OR || token->syntaxis == PIPE)
             set_connection(token, &command);
@@ -76,10 +86,11 @@ static t_cmd *parser_two(t_token *token, t_cmd *command, t_cmd *head)
 		}
 		else if (token->syntaxis == R_PAREN)
 			return (head);
+		last_tkn = token;
         if (token)
             token = token->next;
     }
-    return head;
+    return (head);
 }
 
 t_cmd *parser(t_token *token)

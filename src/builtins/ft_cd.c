@@ -5,7 +5,6 @@ void env_set_value(t_env **env, char *key, char *value)
     t_env *old_value;
 
     old_value = env_get_value(*env, key);
-    printf("key: %s\n", key);
     if(!old_value)
         env_new(env, key, value);
     else
@@ -29,7 +28,6 @@ int goto_dir(char *dir, t_env *env)
 
 	oldpwd = getcwd(NULL, 0);
 	res = chdir(dir);
-    printf("oldpwd: %s\n", oldpwd);
     if (res == 0)
 	{
 		env_set_value(&env, "OLDPWD", oldpwd);
