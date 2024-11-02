@@ -16,14 +16,22 @@ t_token	*tokenizer(char *line, t_env *env)
 	t_token	*head_token;
 	t_token	*token;
 	int		i;
+	int 	is_hdoc;
 
+	is_hdoc = 0;
 	head_token = NULL;
 	i = 0;
 	while (line[i])
 	{
-		token = get_token(line, &i, env);
+		token = get_token(line, &i, env, is_hdoc);
 		if (!token)
 			return (NULL);
+		// printf("token: %s\n", print_type(token->type));
+		if(is_hdoc)
+			is_hdoc=0;
+		if(token->type == HEREDOC)
+			is_hdoc = 1;
+		
 		add_token(&head_token, token);
 		i++;
 	}

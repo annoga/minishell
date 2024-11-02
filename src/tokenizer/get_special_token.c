@@ -23,7 +23,7 @@ t_token	*get_special_token(char *line, int *i, t_env *env)
 		return (handle_single_quote(line, i));
 	else if (line[*i] == '"')
 		return (handle_double_quote(line, i, env));
-	else if (line[*i] == '$' || line[*i] == '~')
+	else if (line[*i] == '$' || line[*i] == '~' )
 		return (handle_expansion(line, i));
 	return (NULL);
 }

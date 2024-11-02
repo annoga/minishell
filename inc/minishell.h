@@ -36,7 +36,7 @@ extern int	debug;//This is a test variable and should be removed
 
 /* TOKENIZER */
 t_token	*tokenizer(char *line, t_env *env);
-t_token	*get_token(char *line, int *i, t_env *env);
+t_token	*get_token(char *line, int *i, t_env *env, int is_hdoc);
 t_token	*handle_single_quote(char *line, int *i);
 t_token	*handle_double_quote(char *line, int *i, t_env *env);
 t_token	*handle_parenthesis(char *line, int *i);

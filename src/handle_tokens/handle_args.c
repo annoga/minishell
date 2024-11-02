@@ -18,8 +18,8 @@ t_token	*handle_arg(char *line, int *i)
 	t_token	*token;
 
 	start = *i;
-	while (line[*i] && !ft_istoken(line[*i]) && !ft_isspace(line[*i])
-		&& line[*i] != '$')
+	//DOLAR CUIDADO POR SI NO GESTIONA BIEN
+	while (line[*i] && !ft_istoken(line[*i]) && !ft_isspace(line[*i]))
 	{
 		if (line[*i] == '&' && line[*i + 1] == '&')
 			break ;
