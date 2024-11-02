@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 17:59:43 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/30 13:01:19 by angeln           ###   ########.fr       */
+/*   Updated: 2024/11/02 18:06:33 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ char	**tenv_to_array(t_env *env)
 		print_and_kill("minishell: malloc", 1);
 	while (env)
 	{
+		if (!env->value)
+			env = env->next;
 		length = ft_strlen(env->key_name) + ft_strlen(env->value) + 2;
 		env_arr[i] = ft_calloc(length, sizeof(char));
 		if (!env_arr[i] && !free_split(env_arr))
