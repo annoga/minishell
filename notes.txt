@@ -4,11 +4,11 @@ To fix:
     ◦ echo con la opción -n. : CAMBIAR TOKENS POR LA LISTA DE CMD   ✅
     ◦ shlvl ???????????????                                         ✅
     ◦ echo"a" :)                                                    ✅
+	◦ echo "$a": con export a="hola       mundo"                    ✅
+	◦ echo         a   ""     b      $nada        c     "$nada"     ✅
+    ◦ << eof"": a veces SEGV en ft_strlcat, possibly tenv_to_array  ✅
     ◦ << $USER: NO expansion                                        
-    ◦ << eof"": a veces SEGV en ft_strlcat, possibly tenv_to_array
     ◦ << e""of cat: debería cerrarse con eof
-	◦ echo         a   ""     b      $nada        c     "$nada"               d
-	◦ echo "$a": con export a="hola       mundo"
 
 Built-is:
     ◦ env sin opciones o argumentos.
