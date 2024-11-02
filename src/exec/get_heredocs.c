@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 12:56:32 by anovoa            #+#    #+#             */
-/*   Updated: 2024/11/02 18:30:54 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/02 20:26:33 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ static int	save_heredoc(int fd, int exp, char *word, t_env **tenv)
 	char	*line;
 //	char	*tmp;
 	t_token	*token;
+	t_token	*tmp;
 
 	//printf("exp:%d\n\n\n", exp);
 	if (fd == -1)
@@ -145,7 +146,10 @@ static int	save_heredoc(int fd, int exp, char *word, t_env **tenv)
 	{
 		line = readline("> ");
 		if (!line)//?? ej CtrlD
+		{
+			free(line);
 			return(close(fd));
+		}
 		if (!ft_strcmp(line, word))
 		{
 			//printf("break hd\n");
@@ -157,13 +161,15 @@ static int	save_heredoc(int fd, int exp, char *word, t_env **tenv)
 			token = tokenizer(line);
 			free(line);
 			token = expansor(token, tenv);
-			while (token)
+			tmp = token;
+			while (tmp)
 			{
 				
-				ft_putstr_fd(token->token, fd);
-				token = token->next;
+				ft_putstr_fd(tmp->token, fd);
+				tmp = tmp->next;
 			}
 			free_token(&token);
+			tmp = NULL;
 			ft_putchar_fd('\n', fd);
 			//tmp = expand(line, tenv); 
 			//free(line);
