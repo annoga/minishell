@@ -19,6 +19,7 @@ t_token	*handle_arg(char *line, int *i)
 
 	start = *i;
 	//DOLAR CUIDADO POR SI NO GESTIONA BIEN
+	printf("holi\n");
 	while (line[*i] && !ft_istoken(line[*i]) && !ft_isspace(line[*i]))
 	{
 		if (line[*i] == '&' && line[*i + 1] == '&')

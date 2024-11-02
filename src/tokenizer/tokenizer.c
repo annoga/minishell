@@ -26,9 +26,10 @@ t_token	*tokenizer(char *line, t_env *env)
 		token = get_token(line, &i, env, is_hdoc);
 		if (!token)
 			return (NULL);
-		// printf("token: %s\n", print_type(token->type));
-		if(is_hdoc)
-			is_hdoc=0;
+		printf("==type: %s\n", print_type(token->type));
+		printf("token: %s\n", token->token);
+		if(is_hdoc && token->type != SPACE_TOKEN)
+			is_hdoc = 0;
 		if(token->type == HEREDOC)
 			is_hdoc = 1;
 		

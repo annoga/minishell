@@ -39,7 +39,9 @@ char	*handle_env_var(char *line, int *i, t_env *env)
 	var_name = ft_strndup(&line[start], *i - start);
 	if (!var_name)
 		return (NULL);
+    printf("var_name: %s\n", var_name);
 	env_value = ft_getenv(var_name, env);
+    printf("env_value: %s\n", env_value);
 	free(var_name);
 	if (env_value)
 		return (ft_strdup(env_value));
@@ -48,7 +50,7 @@ char	*handle_env_var(char *line, int *i, t_env *env)
 
 
 
-char    *parse_and_append_env_var(char *result, t_parse_state *state, t_env *env)
+char    *parse_and_append_env_var(char *result, t_parse_state *state, t_env *env, int is_hdoc)
 {
     char    *temp;
 
@@ -58,13 +60,18 @@ char    *parse_and_append_env_var(char *result, t_parse_state *state, t_env *env
         result = append_str(result, temp);
     }
     state->i++;
-    temp = handle_env_var(state->line, &state->i, env);
+    if(!is_hdoc)
+        temp = handle_env_var(state->line, &state->i, env);
+    else
+        temp = ft_strndup(&(state->line)[state->start], (state->i) - state->start);;
     result = append_str(result, temp);
     state->start = state->i;
+    printf("result: %s\n", result);
     return (result);
 }
 
-char    *parse_double_quote_content(char *line, int *i, t_env *env){
+char    *parse_double_quote_content(char *line, int *i, t_env *env, int is_hdoc)
+{
     char            *result;
     char            *temp;
     t_parse_state   state;
@@ -78,7 +85,7 @@ char    *parse_double_quote_content(char *line, int *i, t_env *env){
     {
         if (state.line[state.i] == '$' && (ft_isalpha(state.line[state.i + 1])
                 || state.line[state.i + 1] == '_'))
-            result = parse_and_append_env_var(result, &state, env);
+            result = parse_and_append_env_var(result, &state, env, is_hdoc);
         else
             state.i++;
     }
@@ -89,16 +96,17 @@ char    *parse_double_quote_content(char *line, int *i, t_env *env){
     }
     result = append_str(result, ft_strdup("\""));
     *i = state.i;
+    printf("result: %s\n", result);
     return (result);
 }
 
-t_token *handle_double_quote(char *line, int *i, t_env *env)
+t_token *handle_double_quote(char *line, int *i, t_env *env, int is_hdoc)
 {
     char    *result;
     t_token *token;
 
     (*i)++;
-    result = parse_double_quote_content(line, i, env);
+    result = parse_double_quote_content(line, i, env, is_hdoc);
     if (line[*i] == '"')
         (*i)++;
     if (!result)

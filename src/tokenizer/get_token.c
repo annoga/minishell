@@ -17,7 +17,7 @@ t_token	*get_token(char *line, int *i, t_env *env, int is_hdoc)
 
 	token = NULL;
 	if(!is_hdoc)
-		token = get_special_token(line, i, env);
+		token = get_special_token(line, i);
 	if (token)
 		return (token);
 	else if (line[*i] == '<' && line[*i + 1] == '<')
@@ -30,6 +30,8 @@ t_token	*get_token(char *line, int *i, t_env *env, int is_hdoc)
 		token = create_token(REDIR_OUT, ">", i);
 	else if (ft_isspace(line[*i]))
 		token = handle_space(line, i);
+	else if (line[*i] == '"')
+		token = handle_double_quote(line, i, env, is_hdoc);
 	else if ((line[*i] == '(' || line[*i] == ')'))
 		token = handle_parenthesis(line, i);
 	else

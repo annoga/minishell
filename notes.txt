@@ -8,7 +8,7 @@ To fix:
 	◦ echo         a   ""     b      $nada        c     "$nada"     ✅
     ◦ << eof"": a veces SEGV en ft_strlcat, possibly tenv_to_array  ✅
     ◦ << e""of cat: debería cerrarse con eof                        ✅
-    ◦ << $USER: NO expansion                                        
+    ◦ << $USER: NO expansion                                        ✅
 
 Built-is:
     ◦ env sin opciones o argumentos.
