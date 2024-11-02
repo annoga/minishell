@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:55:05 by angeln            #+#    #+#             */
-/*   Updated: 2024/11/02 16:52:51 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/02 22:23:04 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,29 @@ static char	*validate_cmdpath(t_cmd *cmd, t_env *tenv)
 
 	path = get_cmd_path(cmd->cmd[0], ft_getenv("PATH", tenv));
 	if (!path)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(cmd->cmd[0], 2);
+		ft_putstr_fd(": ", 2);
+		perror("");
 		exit(127);
+	}
 	if (access(path, X_OK) == -1)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(cmd->cmd[0], 2);
+		ft_putstr_fd(": ", 2);
+		perror("");
 		exit(126);
+	}
 	if (stat(path, &s) == 0)
 		if (s.st_mode & S_IFDIR)
+		{
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd(cmd->cmd[0], 2);
+			ft_putstr_fd(": ", 2);
+			perror("");
 			exit(126);
+		}
 	return (path);
 }
