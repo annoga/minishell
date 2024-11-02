@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 23:06:00 by angeln            #+#    #+#             */
-/*   Updated: 2024/11/02 15:32:10 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/02 16:25:41 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,18 @@ t_cmd	*process_command_block(t_cmd *cmd, int *err_code, t_env *tenv)
 	pos = 0;
 	while (cmd)
 	{
+		/*
+		if (cmd->files)
+		{
+			printf("pF1:%p\n", cmd->files);
+			printf("pF1:%s\n", cmd->files->name);
+			if (cmd->files->next)
+			{
+				printf("pF2:%p\n", cmd->files->next);
+				printf("pF2:%s\n", cmd->files->next->name);
+			}
+		}
+		*/
 		if (cmd->connection_type == PIPE)
 			safe_pipe(&fds);
 		pid = safe_fork();

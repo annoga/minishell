@@ -6,14 +6,14 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 12:56:32 by anovoa            #+#    #+#             */
-/*   Updated: 2024/11/02 15:41:13 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/02 16:43:06 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static char *remove_quotes(char *word);
-static int	has_quotes(char *str);
+//static char *remove_quotes(char *word);
+//static int	has_quotes(char *str);
 
 static int	save_heredoc(int fd, int exp, char *word, t_env **tenv);
 int	process_heredoc(t_file *current, t_env **tenv);
@@ -37,14 +37,14 @@ int	get_heredocs(t_cmd *cmd, t_env **tenv, int internal)
 			if (redir && redir->type == HEREDOC)
 			{
 				status = process_heredoc(redir, tenv);
+				//printf("out proc_hd:%p\n", redir);
 				if (!cmd->cmd)
 				{
-					//printf("Clearing fd:%d\n", redir->heredoc_fd);
 					if (clear_heredoc(redir) != 0)
-							return (1);
+						return (1);
 				}
 			}
-			redir = cmd->files->next;
+			redir = redir->next;
 		}
 		cmd = cmd->next;
 	}
@@ -64,11 +64,11 @@ int	process_heredoc(t_file *current, t_env **tenv)
 	//word = ft_strdup(current->name);
 //	if (!word)
 //		return (1);
-	quotes = has_quotes(current->name);
-	if (quotes)
-		word = remove_quotes(current->name);
-	else
-		word = current->name;
+	quotes = current->is_quoted; //has_quotes(current->name);
+//	if (quotes)
+//		word = remove_quotes(current->name);
+	//else
+	word = current->name;
 	fd = open("/tmp/temp_heredoc.txt", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	//printf("fd:%d\n\n\n", fd);
 	//printf("has_q:%d\n\n\n", quotes);
@@ -77,8 +77,8 @@ int	process_heredoc(t_file *current, t_env **tenv)
 	close(fd);//safe
 	fd = open("/tmp/temp_heredoc.txt", O_RDONLY);//safe
 	//printf("fd:%d\n\n\n", fd);
-	if (quotes)//
-		free(word);
+	//if (quotes)//
+		//free(word);
 	if (res > 0)
 		current->heredoc_fd = res;
 	else
@@ -86,7 +86,7 @@ int	process_heredoc(t_file *current, t_env **tenv)
 	return (0);
 }
 
-static int	has_quotes(char *str)
+/*static int	has_quotes(char *str)
 {
 	int	i;
 
@@ -98,10 +98,10 @@ static int	has_quotes(char *str)
 		i++;
 	}
 	return (0);
-}
+}*/
 
 //void	*ft_memmove(void *dst, const void *src, size_t len);
-static char *remove_quotes(char *word)
+/*static char *remove_quotes(char *word)
 {
 	char	*res;
 	int		i;
@@ -124,7 +124,7 @@ static char *remove_quotes(char *word)
 			res[i++] = word[j];
 	}
 	return (res);
-}
+}*/
 
 static char	*expand(char *line, t_env **tenv)//
 {
@@ -146,7 +146,10 @@ static int	save_heredoc(int fd, int exp, char *word, t_env **tenv)
 		if (!line)//?? ej CtrlD
 			return(close(fd));
 		if (!ft_strcmp(line, word))
+		{
+			//printf("break hd\n");
 			break ;
+		}
 		if (exp)
 		{
 			tmp = expand(line, tenv); 

@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 18:43:10 by anovoa            #+#    #+#             */
-/*   Updated: 2024/10/30 09:51:36 by angeln           ###   ########.fr       */
+/*   Updated: 2024/11/02 16:24:52 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ char	*free_tcmd(t_cmd **cmd_list)
 	{
 		tmp = *cmd_list;
 		*cmd_list = (*cmd_list)->next;
-		//free(tmp->path);
-		//tmp->path = NULL;
 		free_split(tmp->cmd);
 		tmp->cmd = NULL;
 		free_tfile(&(tmp->files));
@@ -42,12 +40,13 @@ static char	*free_tfile(t_file **file_list)
 {
 	t_file	*tmp;
 
-	tmp = *file_list;
-	while (tmp)
+	while(*file_list)
 	{
+		tmp = *file_list;
+		*file_list = (*file_list)->next;
 		free(tmp->name);
 		tmp->name = NULL;
-		tmp = tmp->next;
+		free(tmp);
 	}
 	free(*file_list);
 	*file_list = NULL;
