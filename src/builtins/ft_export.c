@@ -31,11 +31,11 @@ void env_new(t_env **env, char *name, char *value)
     t_env *new;
     t_env *tmp;
 
-    if (!name || !value || !env)
+    if (!name || !env)
         return;
     new = (t_env *)calloc(1, sizeof(t_env));
-    if (!new) 
-        return;
+    if (!new)
+        {return ;}
     new->key_name = name;
     new->value = value;
     new->next = NULL;
@@ -101,7 +101,11 @@ void add_export(t_env *new, t_env **env)
 
 int	ft_export(t_cmd *cmd, t_env **env)
 {
-	int i = 1;
+	int i;
+	int err_code;
+
+	i = 1;
+	err_code = 0;
 	t_env *new;
 
 	new = NULL;
@@ -114,10 +118,10 @@ int	ft_export(t_cmd *cmd, t_env **env)
 	{
 		if(not_valid_key(cmd->cmd[i]))
 		{
-			printf("export: `%s': not a valid identifier\n", cmd->cmd[1]);
-			return (1);
+			printf("export: `%s': not a valid identifier\n", cmd->cmd[i]);
+			err_code = 1;
 		}
-		if(!not_valid_key(cmd->cmd[i]) && cmd->cmd[i])
+		else if(!not_valid_key(cmd->cmd[i]) && cmd->cmd[i])
 		{
 			new = create_new_export(cmd->cmd[i]);
 			if(!new)
@@ -129,5 +133,5 @@ int	ft_export(t_cmd *cmd, t_env **env)
 		}
 		i++;
 	}
-	return (0);
+	return (err_code);
 }
