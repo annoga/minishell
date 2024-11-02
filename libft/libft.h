@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 18:11:12 by anovoa            #+#    #+#             */
-/*   Updated: 2024/10/27 10:25:58 by angeln           ###   ########.fr       */
+/*   Updated: 2024/11/02 12:01:40 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int				ft_tolower(int c);
 int				ft_isalnum(int c);
 int				ft_isascii(int c);
 int				ft_isprint(int c);
+int				isquote(int c);
 int				ft_atoi(const char *str);
 char			*ft_strrchr(const char *s, int c);
 char			*ft_strdup(const char *s1);
