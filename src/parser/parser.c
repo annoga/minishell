@@ -37,20 +37,25 @@ void ft_join_last(t_cmd *cmd, t_token *token, t_token_type last_type)
 	
 	i = 0;
 	aux = cmd->files;
-	if(last_type == ARG)
+	printf("hola Mundo\n");
+	printf("last_type: %s\n", print_type(last_type));
+	if((last_type == ARG || last_type == COMMAND) && cmd->cmd && cmd->cmd[0])
 	{
-		while(cmd && cmd->cmd[i + 1])
+		while(cmd->cmd[i + 1])
 			i++;
 		join = ft_strjoin(cmd->cmd[i], token->token);
 		free(cmd->cmd[i]);
 		cmd->cmd[i] = join;
 	}
-	else if (last_type == FILES)
+	else if (last_type >= REDIR_IN && last_type <= HEREDOC)
 	{
+		printf("Hola file\n");
 		while(aux && aux->next)
 			aux = aux->next;
 		join = ft_strjoin(aux->name, token->token);
 		free(aux->name);
+		if(token->type == DOUBLE_QUOTE || token->type == SINGLE_QUOTE)
+			aux->is_quoted = 1;
 		aux->name = join;
 	}
 }
@@ -67,15 +72,21 @@ static t_cmd *parser_two(t_token *token, t_cmd *command, t_cmd *head)
             command = add_command(&command);
             head = command;  // Store the head of the list
         }
+		if(last_tkn)
+			printf("last_tkn: %p, token->type: %s, last_tkn->syntaxis: %s\n", last_tkn, print_type(token->type), print_type(last_tkn->syntaxis));
+		else
+			printf("last_tkn: %p, token->type: %s, last_tkn->syntaxis: %s\n", last_tkn, print_type(token->type), print_type(0));
 		if(last_tkn && token->type != SPACE_TOKEN  && (token->type == ARG || token->type == DOUBLE_QUOTE || token->type == SINGLE_QUOTE) &&
-			(last_tkn->syntaxis == COMMAND || last_tkn->syntaxis == ARG || last_tkn->syntaxis == FILES))
-			ft_join_last(command, token, last_tkn->type);
+			(last_tkn->syntaxis == COMMAND || last_tkn->syntaxis == ARG || (last_tkn->syntaxis >= REDIR_IN && last_tkn->syntaxis <= HEREDOC)))
+			ft_join_last(command, token, last_tkn->syntaxis);
         else if (token->syntaxis == COMMAND || token->syntaxis == ARG)
             set_command(&command, token);
         else if (token->syntaxis == AND || token->syntaxis == OR || token->syntaxis == PIPE)
             set_connection(token, &command);
         else if (token->syntaxis >= REDIR_IN && token->syntaxis <= HEREDOC)
 		{
+		last_tkn = token;
+		printf("last tkn type: %s\n", print_type(last_tkn->syntaxis));
             set_file(&command, &token);
 			continue ;
 		}
@@ -86,7 +97,9 @@ static t_cmd *parser_two(t_token *token, t_cmd *command, t_cmd *head)
 		}
 		else if (token->syntaxis == R_PAREN)
 			return (head);
+		printf("##last token dir: %p\n", last_tkn);
 		last_tkn = token;
+		printf("#last token dir: %p\n", last_tkn);
         if (token)
             token = token->next;
     }
