@@ -5,6 +5,7 @@ void env_set_value(t_env **env, char *key, char *value)
     t_env *old_value;
 
     old_value = env_get_value(*env, key);
+    printf("key: %s\n", key);
     if(!old_value)
         env_new(env, key, value);
     else
@@ -15,8 +16,8 @@ void env_set_value(t_env **env, char *key, char *value)
                 free(old_value->value);
             old_value->value = value;
         }
+        free(key);
     }
-    free(key);
 }
 
 int goto_dir(char *dir, t_env *env)

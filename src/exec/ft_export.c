@@ -101,7 +101,6 @@ void set_equal_value(t_env *env, char *str, int equal_pos)
 	env->value = ft_strdup(str + equal_pos + 1);
 	if(!env->value)
 		return ;
-
 	if(!is_addition(str))
 	{
 		env->key_name = ft_substr(str, 0, equal_pos);
@@ -158,9 +157,7 @@ void add_export(t_env *new, t_env **env)
 		free(new->value);
 		new->value = tmp_value;
 	}
-	printf("v2:%p\n", new->key_name);
 	env_set_value(env, new->key_name, new->value);
-	//printf("v2:%p\n", new->value);
 	free(new);
 }
 
@@ -172,7 +169,12 @@ void print_export(t_env *env)
 	while(tmp)
 	{
 		if(tmp->value)
-			printf("declare -x %s=\"%s\"\n", tmp->key_name, tmp->value);
+		{
+			if(!ft_strcmp(tmp->key_name, "SHLVL") && !ft_strcmp(tmp->value, "1 "))
+				printf("declare -x %s=\"1\"\n", tmp->key_name);
+			else
+				printf("declare -x %s=\"%s\"\n", tmp->key_name, tmp->value);
+		}
 		else
 			printf("declare -x %s\n", tmp->key_name);
 		tmp = tmp->next;
@@ -206,8 +208,6 @@ int	ft_export(t_cmd *cmd, t_env **env)
 				printf("Error: malloc failed\n");
 				return (1);
 			}
-			printf("v1:%p\n", new);
-
 			add_export(new, env);
 		}
 		i++;
