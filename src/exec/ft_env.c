@@ -18,7 +18,8 @@ void	ft_env(t_env *env)
 {
 	while (env)
 	{
-		printf("%s=%s\n", env->key_name, env->value);
+		if(env->value)
+			printf("%s=%s\n", env->key_name, env->value);
 		env = env->next;
 	}
 	exit(0);

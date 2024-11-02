@@ -25,7 +25,7 @@ t_env	*env_get_value(t_env *var, char *name)
 	return (NULL);
 }
 
-int is_valid_key(char *str)
+int not_valid_key(char *str)
 {
 	int	i;
 
@@ -85,22 +85,27 @@ void env_new(t_env **env, char *name, char *value)
     new->key_name = name;
     new->value = value;
     new->next = NULL;
-    if (*env == NULL)
-        *env = new;
-    else
-    {
-        tmp = *env;
-        while (tmp->next)
-            tmp = tmp->next;
-        tmp->next = new;
-    }
+    if (*env)
+	{
+		tmp = *env;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
+	}
+	else
+		*env = new;
 }
 
 void set_equal_value(t_env *env, char *str, int equal_pos)
 {
 	env->value = ft_strdup(str + equal_pos + 1);
+	if(!env->value)
+		return ;
+
 	if(!is_addition(str))
+	{
 		env->key_name = ft_substr(str, 0, equal_pos);
+	}
 	else if(is_addition(str))
 	{
 		env->addition = 1;
@@ -113,7 +118,6 @@ t_env *create_new_export(char *str)
 	t_env *new;
 	int equal_pos;
 
-
 	equal_pos = ft_equal_position(str);
 	new = (t_env *)ft_calloc(1, sizeof(t_env));
 	new->addition = 0;
@@ -122,6 +126,8 @@ t_env *create_new_export(char *str)
 	if(!equal_pos || str[equal_pos + 1] == '\0')
 	{
 		new->key_name = ft_strtrim(str, "=+");
+		if(!new->key_name)
+			return (NULL);
 		if(equal_pos == 0)
 			new->value = NULL;
 		else
@@ -144,17 +150,33 @@ void add_export(t_env *new, t_env **env)
 	if(!new || !env)
 		return ;
 	tmp = env_get_value(*env, new->key_name);
-	if(tmp && tmp->addition)
+	if(tmp && new->addition == 1)
 	{
 		tmp_value = ft_strjoin(tmp->value, new->value);
 		if(!tmp)
 			return ;
-		if(tmp->value)
-			free(tmp->value);
-		tmp->value = tmp_value;
+		free(new->value);
+		new->value = tmp_value;
 	}
+	printf("v2:%p\n", new->key_name);
 	env_set_value(env, new->key_name, new->value);
+	//printf("v2:%p\n", new->value);
 	free(new);
+}
+
+void print_export(t_env *env)
+{
+	t_env *tmp;
+
+	tmp = env;
+	while(tmp)
+	{
+		if(tmp->value)
+			printf("declare -x %s=\"%s\"\n", tmp->key_name, tmp->value);
+		else
+			printf("declare -x %s\n", tmp->key_name);
+		tmp = tmp->next;
+	}
 }
 
 
@@ -166,17 +188,17 @@ int	ft_export(t_cmd *cmd, t_env **env)
 	new = NULL;
 	if(!cmd->cmd[1])
 	{
-		ft_env(*env);
+		print_export(*env);
 		return (0);
 	}
 	while(cmd->cmd[i])
 	{
-		if(is_valid_key(cmd->cmd[i]))
+		if(not_valid_key(cmd->cmd[i]))
 		{
 			printf("export: `%s': not a valid identifier\n", cmd->cmd[1]);
 			return (1);
 		}
-		if(!is_valid_key(cmd->cmd[i]) && cmd->cmd[i])
+		if(!not_valid_key(cmd->cmd[i]) && cmd->cmd[i])
 		{
 			new = create_new_export(cmd->cmd[i]);
 			if(!new)
@@ -184,6 +206,8 @@ int	ft_export(t_cmd *cmd, t_env **env)
 				printf("Error: malloc failed\n");
 				return (1);
 			}
+			printf("v1:%p\n", new);
+
 			add_export(new, env);
 		}
 		i++;
