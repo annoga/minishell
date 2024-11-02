@@ -72,10 +72,10 @@ static t_cmd *parser_two(t_token *token, t_cmd *command, t_cmd *head)
             command = add_command(&command);
             head = command;  // Store the head of the list
         }
-		if(last_tkn)
-			printf("last_tkn: %p, token->type: %s, last_tkn->syntaxis: %s\n", last_tkn, print_type(token->type), print_type(last_tkn->syntaxis));
-		else
-			printf("last_tkn: %p, token->type: %s, last_tkn->syntaxis: %s\n", last_tkn, print_type(token->type), print_type(0));
+		// if(last_tkn)
+		// 	printf("last_tkn: %p, token->type: %s, last_tkn->syntaxis: %s\n", last_tkn, print_type(token->type), print_type(last_tkn->syntaxis));
+		// else
+		// 	printf("last_tkn: %p, token->type: %s, last_tkn->syntaxis: %s\n", last_tkn, print_type(token->type), print_type(0));
 		if(last_tkn && token->type != SPACE_TOKEN  && (token->type == ARG || token->type == DOUBLE_QUOTE || token->type == SINGLE_QUOTE) &&
 			(last_tkn->syntaxis == COMMAND || last_tkn->syntaxis == ARG || (last_tkn->syntaxis >= REDIR_IN && last_tkn->syntaxis <= HEREDOC)))
 			ft_join_last(command, token, last_tkn->syntaxis);
@@ -86,7 +86,6 @@ static t_cmd *parser_two(t_token *token, t_cmd *command, t_cmd *head)
         else if (token->syntaxis >= REDIR_IN && token->syntaxis <= HEREDOC)
 		{
 		last_tkn = token;
-		printf("last tkn type: %s\n", print_type(last_tkn->syntaxis));
             set_file(&command, &token);
 			continue ;
 		}
@@ -97,9 +96,7 @@ static t_cmd *parser_two(t_token *token, t_cmd *command, t_cmd *head)
 		}
 		else if (token->syntaxis == R_PAREN)
 			return (head);
-		printf("##last token dir: %p\n", last_tkn);
 		last_tkn = token;
-		printf("#last token dir: %p\n", last_tkn);
         if (token)
             token = token->next;
     }
