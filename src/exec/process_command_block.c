@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 23:06:00 by angeln            #+#    #+#             */
-/*   Updated: 2024/11/02 12:59:55 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/02 15:24:09 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static int	reset_heredocs(t_file *redir)
 {
 	while (redir)
 	{
+		printf("clearing\n");
 		if (redir->type == HEREDOC)
 			if (clear_heredoc(redir))
 				return (1);

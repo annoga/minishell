@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 12:56:32 by anovoa            #+#    #+#             */
-/*   Updated: 2024/11/02 15:09:19 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/02 15:23:11 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	get_heredocs(t_cmd *cmd, t_env **tenv, int internal)
 				status = process_heredoc(redir, tenv);
 				if (!cmd->cmd)
 				{
-					printf("Clearing fd:%d\n", redir->heredoc_fd);
+					//printf("Clearing fd:%d\n", redir->heredoc_fd);
 					if (clear_heredoc(redir) != 0)
 							return (1);
 				}
@@ -70,12 +70,13 @@ int	process_heredoc(t_file *current, t_env **tenv)
 	else
 		word = current->name;
 	fd = open("/tmp/temp_heredoc.txt", O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	printf("fd:%d\n\n\n", fd);
+	//printf("fd:%d\n\n\n", fd);
+	//printf("has_q:%d\n\n\n", quotes);
 	res = save_heredoc(fd, !quotes, word, tenv);
 	//free(word);
 	close(fd);//safe
 	fd = open("/tmp/temp_heredoc.txt", O_RDONLY);//safe
-	printf("fd:%d\n\n\n", fd);
+	//printf("fd:%d\n\n\n", fd);
 	if (quotes)//
 		free(word);
 	if (res > 0)
@@ -136,6 +137,7 @@ static int	save_heredoc(int fd, int exp, char *word, t_env **tenv)
 	char	*line;
 	char	*tmp;
 
+	//printf("exp:%d\n\n\n", exp);
 	if (fd == -1)
 		return (1);
 	while (1)//señales, ctrlD sale pero no exit
@@ -148,10 +150,9 @@ static int	save_heredoc(int fd, int exp, char *word, t_env **tenv)
 		if (exp)
 		{
 			tmp = expand(line, tenv); 
-			free(line);
+			//free(line);
 			line = tmp;
 		}
-
 		ft_putendl_fd(line, fd);
 	}
 	free(line);
