@@ -105,16 +105,6 @@ int check_syntax(t_token *token);
 
 /* EXECUTE */
 t_token	*command_analyzer(t_token *head, t_env **env, t_cmd *cmd);
-void	echo(t_cmd *head);
-int		ft_exit(t_cmd *cmd, int verbose);
-void	ft_env(t_env *env);
-int     ft_cd(t_cmd *cmd, t_env *env);
-void env_set_value(t_env **env, char *key, char *value);
-t_env	*env_get_value(t_env *var, char *name);
-void env_new(t_env **env, char *name, char *value);
-void	ft_pwd(t_cmd *cmd);
-int 	ft_unset(t_cmd *cmd, t_env **env);
-int		ft_export(t_cmd *cmd, t_env **env);
 int		free_env(t_env **envp);
 char	*ft_getenv(char *key, t_env *envp);
 char	**tenv_to_array(t_env *env);
@@ -133,6 +123,22 @@ int		redir_file_stdout(char *filename, int mode);
 int		redir_file_stdin(char *filename, int mode);
 int		redir_heredoc_stdin(int fd);
 int		clear_heredoc(t_file *target);
+
+/* BUILTINS */
+void	echo(t_cmd *head);
+int		ft_exit(t_cmd *cmd, int verbose);
+void	ft_env(t_env *env);
+int     ft_cd(t_cmd *cmd, t_env *env);
+void env_set_value(t_env **env, char *key, char *value);
+t_env	*env_get_value(t_env *var, char *name);
+void env_new(t_env **env, char *name, char *value);
+void	ft_pwd(t_cmd *cmd);
+int 	ft_unset(t_cmd *cmd, t_env **env);
+int		ft_export(t_cmd *cmd, t_env **env);
+void set_equal_value(t_env *env, char *str, int equal_pos);
+int  ft_equal_position(char *str);
+int not_valid_key(char *str);
+void print_export(t_env *env);
 
 /* UTILS */
 char	*ft_strndup(const char *s, size_t n);

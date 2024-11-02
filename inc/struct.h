@@ -72,6 +72,7 @@ typedef struct s_file
 	char			*name;
 	t_token_type	type;
 	int				heredoc_fd;//init to -1
+	int				is_quoted;
 	struct s_file	*next;
 }					t_file;
 

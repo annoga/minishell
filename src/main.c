@@ -37,9 +37,9 @@ char	*print_type(t_token_type type)
 	else if(type == 7)
 		return ("REDIR_OUT");
 	else if(type == 8)
-		return ("HEREDOC");
-	else if(type == 9)
 		return ("APPEND");
+	else if(type == 9)
+		return ("HEREDOC");
 	else if(type == 10)
 		return ("COMMAND");
 	else if(type == 11)

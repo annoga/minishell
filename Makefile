@@ -100,6 +100,7 @@ BUILTINS			=	builtins/echo.c 								\
 					builtins/ft_pwd.c 								\
 					builtins/ft_cd.c 							\
 					builtins/ft_unset.c 							\
+					builtins/export_utils.c 							\
 					builtins/ft_export.c 							
 					
 
