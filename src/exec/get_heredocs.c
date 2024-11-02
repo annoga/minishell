@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 12:56:32 by anovoa            #+#    #+#             */
-/*   Updated: 2024/11/02 16:43:06 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/02 18:30:54 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,16 +126,17 @@ int	process_heredoc(t_file *current, t_env **tenv)
 	return (res);
 }*/
 
-static char	*expand(char *line, t_env **tenv)//
+/*static char	*expand(char *line, t_env **tenv)//
 {
 	(void)tenv;
 	return (line);
-}
+}*/
 
 static int	save_heredoc(int fd, int exp, char *word, t_env **tenv)
 {
 	char	*line;
-	char	*tmp;
+//	char	*tmp;
+	t_token	*token;
 
 	//printf("exp:%d\n\n\n", exp);
 	if (fd == -1)
@@ -152,12 +153,27 @@ static int	save_heredoc(int fd, int exp, char *word, t_env **tenv)
 		}
 		if (exp)
 		{
-			tmp = expand(line, tenv); 
+
+			token = tokenizer(line);
+			free(line);
+			token = expansor(token, tenv);
+			while (token)
+			{
+				
+				ft_putstr_fd(token->token, fd);
+				token = token->next;
+			}
+			free_token(&token);
+			ft_putchar_fd('\n', fd);
+			//tmp = expand(line, tenv); 
 			//free(line);
-			line = tmp;
+			//line = tmp;
 		}
-		ft_putendl_fd(line, fd);
-		free(line);
+		else
+		{
+			ft_putendl_fd(line, fd);
+			free(line);
+		}
 	}
 	free(line);
 	return (fd);
