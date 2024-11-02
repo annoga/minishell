@@ -18,7 +18,7 @@ void	print_list(t_token *head)
 	printf("----------------------\n");
 	while (tmp)
 	{
-		printf("Token: '%s', type: %s\n", tmp->token, print_type(tmp->syntaxis));
+		printf("Token: '%s', type: %s\n", tmp->token, print_type(tmp->type));
 		tmp = tmp->next;
 	}
 }
@@ -67,7 +67,7 @@ void print_cmd(t_cmd *cmd, int level)
             printf("%*sRedirections:\n", level * 4, "");
             t_file *file = cmd->files;
             while (file) {
-                printf("%*s  %s %s\n", level * 4, "", get_redirection_type(file->type), file->name);
+                printf("%*s  %s %s, is quoted? %i\n", level * 4, "", get_redirection_type(file->type), file->name, file->is_quoted);
                 file = file->next;
             }
         }

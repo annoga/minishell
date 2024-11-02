@@ -30,6 +30,8 @@ static t_file	*create_file(t_token **token)
 		*token = (*token)->next;
 	if (!(*token))
 		return (free(file), NULL);
+	if((*token)->type == DOUBLE_QUOTE || (*token)->type == SINGLE_QUOTE)
+		file->is_quoted = 1;
 	file->name = ft_strdup((*token)->token);
 	if (!file->name)
 		return (free(file), NULL);
@@ -46,7 +48,7 @@ void	set_file(t_cmd **cmd, t_token **token)
 		(*cmd) = add_command(cmd);
 	if (!(*cmd))
 		return (lstclear(cmd, del_command));
-
+	
 	file = create_file(token);
 	if (!file)
 		return (lstclear(cmd, del_command));

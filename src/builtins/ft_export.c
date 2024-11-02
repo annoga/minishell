@@ -25,52 +25,6 @@ t_env	*env_get_value(t_env *var, char *name)
 	return (NULL);
 }
 
-int not_valid_key(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (str == NULL || !*str)
-		return (1);
-	if (!ft_isalpha(str[i]) && str[i] != '_')
-		return (1);
-	while (str[i] && str[i] != '=')
-	{
-		if (!ft_isalnum(str[i]) && str[i] != '_' && str[i] != '+'
-			&& str[i] != '=')
-			return (1);
-		if (str[i] == '+' && str[i + 1] != '=')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-int  ft_equal_position(char *str)
-{
-	int i = 0;
-
-	while(str[i])
-	{
-		if(str[i] == '=')
-			return (i);
-		i++;
-	}
-	return (0);
-}
-int	is_addition(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '+' && str[i + 1] == '=')
-			return (1);
-		i++;
-	}
-	return (0);
-}
 
 void env_new(t_env **env, char *name, char *value)
 {
@@ -94,22 +48,6 @@ void env_new(t_env **env, char *name, char *value)
 	}
 	else
 		*env = new;
-}
-
-void set_equal_value(t_env *env, char *str, int equal_pos)
-{
-	env->value = ft_strdup(str + equal_pos + 1);
-	if(!env->value)
-		return ;
-	if(!is_addition(str))
-	{
-		env->key_name = ft_substr(str, 0, equal_pos);
-	}
-	else if(is_addition(str))
-	{
-		env->addition = 1;
-		env->key_name = ft_substr(str, 0, equal_pos - 1);
-	}
 }
 
 t_env *create_new_export(char *str)
@@ -160,27 +98,6 @@ void add_export(t_env *new, t_env **env)
 	env_set_value(env, new->key_name, new->value);
 	free(new);
 }
-
-void print_export(t_env *env)
-{
-	t_env *tmp;
-
-	tmp = env;
-	while(tmp)
-	{
-		if(tmp->value)
-		{
-			if(!ft_strcmp(tmp->key_name, "SHLVL") && !ft_strcmp(tmp->value, "1 "))
-				printf("declare -x %s=\"1\"\n", tmp->key_name);
-			else
-				printf("declare -x %s=\"%s\"\n", tmp->key_name, tmp->value);
-		}
-		else
-			printf("declare -x %s\n", tmp->key_name);
-		tmp = tmp->next;
-	}
-}
-
 
 int	ft_export(t_cmd *cmd, t_env **env)
 {
