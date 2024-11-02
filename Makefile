@@ -60,7 +60,8 @@ PARSER			=	parser/parser.c							\
 					parser/set_file.c						
 
 ENV				=	env/ft_catch_env.c						\
-					env/ft_empty_env.c
+					env/ft_empty_env.c						\
+					env/ft_getenv.c
 
 SYNTAX			=	syntax/analize_syntax.c					\
 					syntax/assign_type.c					
@@ -74,15 +75,7 @@ EXPANSOR		=	expansor/expansor_wildcard.c			\
 					expansor/push_midlist.c					\
 					expansor/wildcard_utils.c						
 
-EXEC			=	exec/echo.c 								\
-					exec/ft_exit.c 								\
-					exec/ft_env.c 								\
-					exec/ft_pwd.c 								\
-					exec/ft_getenv.c 							\
-					exec/ft_cd.c 							\
-					exec/ft_unset.c 							\
-					exec/ft_export.c 							\
-					exec/free_env.c								\
+EXEC			=	exec/free_env.c 							\
 					exec/command_analyzer.c						\
 					exec/ft_analyze_cmd.c						\
 					exec/get_heredocs.c							\
@@ -101,13 +94,22 @@ EXEC			=	exec/echo.c 								\
 					exec/redir_heredoc_stdin.c					\
 					exec/safe_fork.c								
 
+BUILTINS			=	builtins/echo.c 								\
+					builtins/ft_exit.c 								\
+					builtins/ft_env.c 								\
+					builtins/ft_pwd.c 								\
+					builtins/ft_cd.c 							\
+					builtins/ft_unset.c 							\
+					builtins/ft_export.c 							
+					
+
 SIGNAL				=	signal/handle_update_signal.c
 
 MAIN			=	main.c									\
 					split_linker.c							\
 					print_functions.c
 
-SRC				=	$(HANDLE_TOKENS) $(TOKENIZER) $(UTILS) $(PARSER) $(ENV) $(SYNTAX) $(EXEC) $(EXPANSOR) $(MAIN) $(SIGNAL)
+SRC				=	$(HANDLE_TOKENS) $(TOKENIZER) $(UTILS) $(PARSER) $(ENV) $(SYNTAX) $(EXEC) $(EXPANSOR) $(MAIN) $(SIGNAL) $(BUILTINS)
 
 
 SRCS			=	$(addprefix $(SRC_DIR), $(SRC))
