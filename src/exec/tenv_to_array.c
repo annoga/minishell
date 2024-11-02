@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 17:59:43 by angeln            #+#    #+#             */
-/*   Updated: 2024/11/02 18:06:33 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/02 18:16:16 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ char	**tenv_to_array(t_env *env)
 	while (env)
 	{
 		if (!env->value)
+		{
 			env = env->next;
+			break ;
+		}
 		length = ft_strlen(env->key_name) + ft_strlen(env->value) + 2;
 		env_arr[i] = ft_calloc(length, sizeof(char));
 		if (!env_arr[i] && !free_split(env_arr))
