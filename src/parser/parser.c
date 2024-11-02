@@ -55,7 +55,6 @@ static t_cmd *parser_two(t_token *token, t_cmd *command, t_cmd *head)
 		// 	// ft_join_last(&command, last_tkn);
 		// 	continue ;
 		// }
-		printf("token->token = %s\n", token->token);
         if (!command)  // If no command exists yet, create the first command node
         {
             command = add_command(&command);

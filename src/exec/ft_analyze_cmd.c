@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:46:11 by anovoa            #+#    #+#             */
-/*   Updated: 2024/11/01 13:26:42 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/02 14:15:31 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,15 @@ int	ft_analyze_cmd(t_env **env, t_cmd *current)
 {
 	int		err_code;
 
-	//err_code = 0;
-	err_code = get_heredocs(current, env);//if != 0, boom
+	err_code = 0;
+	//printf("c1:%p\n", current->cmd);
+	err_code = get_heredocs(current, env, 0);//if != 0, boom///internal 0-1
+	//need to clear tmp_file if we don't have a cmd
+	//printf("out of getheredocs\n");
+	//printf("c2:%p\n", current->cmd);
+	//printf("f:%p,fT:\n", current->files);
+	//if (current->files && current->files->type == HEREDOC)
+	//	printf("anFd:%d\n", current->files->heredoc_fd);
 	if (err_code != 0)
 		return (err_code);
 	while (current)

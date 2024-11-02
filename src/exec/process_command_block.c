@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 23:06:00 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/30 14:05:07 by angeln           ###   ########.fr       */
+/*   Updated: 2024/11/02 12:59:55 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void		safe_pipe(t_pipe *fds);
 static pid_t	wait_for_status(pid_t last_pid, int n);
+static int		reset_heredocs(t_file *redir);
 
 /* Executes a sequence of commands, performing redirections as required.
  * Commands joined through pipes are executed. 
@@ -39,6 +40,7 @@ t_cmd	*process_command_block(t_cmd *cmd, int *err_code, t_env *tenv)
 		if (cmd->connection_type == PIPE || is_last_cmd_in_pipe(cmd, pos))
 			update_pipes(&fds, pos, cmd->next);
 		pos++;
+		reset_heredocs(cmd->files);
 		//if AND/OR, return CURRENT cmd but check first for subCmd
 		if (cmd->connection_type == AND || cmd->connection_type == OR)
 			break ;
@@ -47,6 +49,18 @@ t_cmd	*process_command_block(t_cmd *cmd, int *err_code, t_env *tenv)
 	}
 	*err_code = wait_for_status(last_pid, pos);
 	return (cmd);
+}
+
+static int	reset_heredocs(t_file *redir)
+{
+	while (redir)
+	{
+		if (redir->type == HEREDOC)
+			if (clear_heredoc(redir))
+				return (1);
+		redir = redir->next;
+	}
+	return (0);
 }
 
 /* Protects the pipe command. In case of failure, prints the relevant 

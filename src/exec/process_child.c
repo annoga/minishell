@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:55:05 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/30 12:54:29 by angeln           ###   ########.fr       */
+/*   Updated: 2024/11/02 12:52:57 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ int	process_child(t_cmd *cmd, t_pipe *fds, t_env *tenv, int cmd_index)
 	return (0);
 }
 
-/* Executes redirections for the given command.
- * Executes heredocs across all commands */
+/* Executes redirections for the given command */
 static int	process_redirs(t_cmd *cmd)
 {
 	int	err_code;
@@ -56,9 +55,9 @@ static int	process_redirs(t_cmd *cmd)
 		err_code = redir_file_stdout(cmd->files->name, REDIR_OUT);
 	if (cmd->files && cmd->files->type == APPEND)
 		err_code = redir_file_stdout(cmd->files->name, APPEND);
+	if (cmd->files && cmd->files->type == HEREDOC)
+		err_code = redir_heredoc_stdin(cmd->files->heredoc_fd);
 	return (err_code);
-	//while cmd... if cmd->files... type==HEREDOC
-	//igual el heredoc se puede hacer separado
 }
 
 /* If a given command matches a builtin, it runs the builtin and

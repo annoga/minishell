@@ -93,10 +93,12 @@ EXEC			=	exec/echo.c 								\
 					exec/pipe_read_stdin.c						\
 					exec/is_last_cmd_in_pipe.c					\
 					exec/update_pipes.c							\
+					exec/clear_heredoc.c						\
 					exec/process_command_block.c				\
 					exec/process_child.c						\
 					exec/redir_file_stdout.c					\
 					exec/redir_file_stdin.c						\
+					exec/redir_heredoc_stdin.c					\
 					exec/safe_fork.c								
 
 SIGNAL				=	signal/handle_update_signal.c

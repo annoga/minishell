@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:52:44 by angeln            #+#    #+#             */
-/*   Updated: 2024/11/01 13:22:31 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/02 13:01:03 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int		free_env(t_env **envp);
 char	*ft_getenv(char *key, t_env *envp);
 char	**tenv_to_array(t_env *env);
 int		ft_analyze_cmd(t_env **env, t_cmd *current);
-int		get_heredocs(t_cmd *cmd, t_env **tenv);
+int		get_heredocs(t_cmd *cmd, t_env **tenv, int internal);
 char	*get_cmd_path(char *cmd, char *path_env);
 int		is_command(char *path);
 pid_t	safe_fork(void);
@@ -131,6 +131,8 @@ void	update_pipes(t_pipe *fds, int j, t_cmd *next_cmd);
 int		process_child(t_cmd *cmd, t_pipe *fds, t_env *tenv, int cmd_index);
 int		redir_file_stdout(char *filename, int mode);
 int		redir_file_stdin(char *filename, int mode);
+int		redir_heredoc_stdin(int fd);
+int		clear_heredoc(t_file *target);
 
 /* UTILS */
 char	*ft_strndup(const char *s, size_t n);

@@ -25,6 +25,7 @@ static t_file	*create_file(t_token **token)
 	if (!file)
 		return (NULL);
 	file->type = (*token)->type;
+	file->heredoc_fd = -1;
 	while (*token && (*token)->syntaxis != FILES)
 		*token = (*token)->next;
 	if (!(*token))
