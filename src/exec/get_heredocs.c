@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 12:56:32 by anovoa            #+#    #+#             */
-/*   Updated: 2024/11/02 15:23:11 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/02 15:41:13 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,7 @@ static int	save_heredoc(int fd, int exp, char *word, t_env **tenv)
 			line = tmp;
 		}
 		ft_putendl_fd(line, fd);
+		free(line);
 	}
 	free(line);
 	return (fd);
