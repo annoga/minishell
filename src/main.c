@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:55:21 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/17 16:45:22 by angeln           ###   ########.fr       */
+/*   Updated: 2024/11/02 15:07:59 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,17 +82,17 @@ int	main(int argc, char *argv[], char **envp)
 	t_env	*env;
 	t_signal	signals;
 //	t_cmd	*cmd;
-	int		i;
+	//int		i;
 
 	(void)argc;
 	(void)argv;
 	env = NULL;
 	//token = NULL;
-	i = 1;
+	//i = 1;
 	
 	ft_catch_env(envp, &env);
 	handle_update_signal(&signals, SIG_HANDLE_IDLE);
-	while (i)
+	while (1)
 	{
 		line = readline("💩 nugget 🐾$ ");
 		//Ctrl+D: envia un NULL a readline -> salimos
