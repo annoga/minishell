@@ -66,7 +66,6 @@ char    *parse_and_append_env_var(char *result, t_parse_state *state, t_env *env
         temp = ft_strndup(&(state->line)[state->start], (state->i) - state->start);;
     result = append_str(result, temp);
     state->start = state->i;
-    printf("result: %s\n", result);
     return (result);
 }
 
@@ -96,7 +95,6 @@ char    *parse_double_quote_content(char *line, int *i, t_env *env, int is_hdoc)
     }
     result = append_str(result, ft_strdup("\""));
     *i = state.i;
-    printf("result: %s\n", result);
     return (result);
 }
 

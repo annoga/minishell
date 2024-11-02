@@ -76,11 +76,11 @@ void ft_join_last(t_cmd *cmd, t_token *token, t_token_type last_type)
 		free(cmd->cmd[i]);
 		cmd->cmd[i] = join;
 	}
-	else if ((last_type >= REDIR_IN && last_type <= HEREDOC) ||  last_type == FILES)
+	else if ((last_type >= REDIR_IN && last_type <= HEREDOC) ||  last_type == FILES || token->type == ENV)
 	{
 		while(aux && aux->next)
 			aux = aux->next;
-		while(token && token->type != SPACE_TOKEN && ft_istoken(token->type))
+		while(token && token->type != SPACE_TOKEN)
 		{
 			join = ft_strjoin(aux->name, token->token);
 			free(aux->name);
@@ -107,10 +107,10 @@ static t_cmd *parser_two(t_token *token, t_cmd *command, t_cmd *head)
             head = command;  // Store the head of the list
         }
 		// if(last_tkn)
-		// 	printf("last_tkn: %p, token->type: %s, last_tkn->syntaxis: %s\n", last_tkn, print_type(token->type), print_type(last_tkn->syntaxis));
+		// 	printf("str: %s, last_tkn: %p, token->type: %s, last_tkn->syntaxis: %s\n", token->token , last_tkn, print_type(token->type), print_type(last_tkn->syntaxis));
 		// else
-		// 	printf("last_tkn: %p, token->type: %s, last_tkn->syntaxis: %s\n", last_tkn, print_type(token->type), print_type(0));
-		if(last_tkn && token->type != SPACE_TOKEN  && (token->type == ARG || token->type == DOUBLE_QUOTE || token->type == SINGLE_QUOTE) &&
+		// 	printf("str: %s, last_tkn: %p, token->type: %s, last_tkn->syntaxis: %s\n",token->token, last_tkn, print_type(token->type), print_type(0));
+		if(last_tkn && token->type != SPACE_TOKEN  && (token->type == ARG || token->type == DOUBLE_QUOTE || token->type == SINGLE_QUOTE || token->type == ENV) &&
 			(last_tkn->syntaxis == COMMAND || last_tkn->syntaxis == ARG || (last_tkn->syntaxis >= REDIR_IN && last_tkn->syntaxis <= HEREDOC)))
 			ft_join_last(command, token, last_tkn->syntaxis);
         else if (token->syntaxis == COMMAND || token->syntaxis == ARG)
