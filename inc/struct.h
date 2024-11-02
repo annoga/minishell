@@ -85,6 +85,21 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
+typedef struct s_parse_state
+{
+    char    *line;
+    int     i;
+    int     start;
+}   t_parse_state;
+
+typedef struct s_parse_quotes
+{
+	int		start;
+	int		*i;
+	char	*result;
+	char	*line;
+}	t_parse_quotes;
+
 typedef struct s_wilds
 {
     const char *path;

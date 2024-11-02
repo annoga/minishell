@@ -35,15 +35,15 @@
 extern int	debug;//This is a test variable and should be removed
 
 /* TOKENIZER */
-t_token	*tokenizer(char *line);
-t_token	*get_token(char *line, int *i);
+t_token	*tokenizer(char *line, t_env *env);
+t_token	*get_token(char *line, int *i, t_env *env);
 t_token	*handle_single_quote(char *line, int *i);
-t_token	*handle_double_quote(char *line, int *i);
+t_token	*handle_double_quote(char *line, int *i, t_env *env);
 t_token	*handle_parenthesis(char *line, int *i);
 t_token	*handle_space(char *line, int *i);
 t_token	*handle_arg(char *line, int *i);
 t_token	*handle_expansion(char *line, int *i);
-t_token	*get_special_token(char *line, int *i);
+t_token	*get_special_token(char *line, int *i, t_env *env);
 t_token	*new_token(t_token_type type, char *value);
 t_token	*create_token(char type, char *value, int *i);
 t_token	*split_linker(char *line, t_env **env);
@@ -70,7 +70,9 @@ t_cmd	*add_command(t_cmd **cmd_lst);
 void print_cmd(t_cmd *cmd, int level);
 
 
-t_token *expansor(t_token *head, t_env **env);
+t_token *expansor(t_token *head, t_env **env, int is_hdoc, int is_quoted);
+t_token *expansor_hdoc(t_token *head, t_env **env, int is_hdoc, int is_quoted);
+void tokenize_env(t_token **tmp2, t_token **tmp, t_token **head, t_env **envp);
 void	ft_catch_env(char **envp, t_env **head);
 int ft_issafedup(t_env **tmp, char *name, char *value);
 void ft_empty_env(t_env **tmp);

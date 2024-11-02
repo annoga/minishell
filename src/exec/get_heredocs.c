@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 12:56:32 by anovoa            #+#    #+#             */
-/*   Updated: 2024/11/02 20:26:33 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/02 21:27:42 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,11 +158,10 @@ static int	save_heredoc(int fd, int exp, char *word, t_env **tenv)
 		if (exp)
 		{
 
-			token = tokenizer(line);
+			token = tokenizer(line, *tenv);
 			free(line);
-			token = expansor(token, tenv);
-			tmp = token;
-			while (tmp)
+			token = expansor(token, tenv, 1, 0);
+			while (token)
 			{
 				
 				ft_putstr_fd(tmp->token, fd);

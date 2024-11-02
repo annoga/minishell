@@ -29,6 +29,37 @@ static void	set_connection(t_token *token, t_cmd **command)
 	*command = new_cmd;
 }
 
+// void ft_join_last(t_cmd *cmd, t_token *token, t_token_type last_type)
+// {
+// 	char *join;
+// 	t_file *aux;
+// 	int i;
+	
+// 	i = 0;
+// 	aux = cmd->files;
+// 	printf("hola Mundo\n");
+// 	printf("last_type: %s\n", print_type(last_type));
+// 	if((last_type == ARG || last_type == COMMAND) && cmd->cmd && cmd->cmd[0])
+// 	{
+// 		while(cmd->cmd[i + 1])
+// 			i++;
+// 		join = ft_strjoin(cmd->cmd[i], token->token);
+// 		free(cmd->cmd[i]);
+// 		cmd->cmd[i] = join;
+// 	}
+// 	else if ((last_type >= REDIR_IN && last_type <= HEREDOC) ||  last_type == FILES)
+// 	{
+// 		printf("Hola file\n");
+// 		while(aux && aux->next)
+// 			aux = aux->next;
+// 		join = ft_strjoin(aux->name, token->token);
+// 		free(aux->name);
+// 		if(token->type == DOUBLE_QUOTE || token->type == SINGLE_QUOTE)
+// 			aux->is_quoted = 1;
+// 		aux->name = join;
+// 	}
+// }
+
 void ft_join_last(t_cmd *cmd, t_token *token, t_token_type last_type)
 {
 	char *join;
@@ -37,8 +68,6 @@ void ft_join_last(t_cmd *cmd, t_token *token, t_token_type last_type)
 	
 	i = 0;
 	aux = cmd->files;
-	printf("hola Mundo\n");
-	printf("last_type: %s\n", print_type(last_type));
 	if((last_type == ARG || last_type == COMMAND) && cmd->cmd && cmd->cmd[0])
 	{
 		while(cmd->cmd[i + 1])
@@ -47,16 +76,21 @@ void ft_join_last(t_cmd *cmd, t_token *token, t_token_type last_type)
 		free(cmd->cmd[i]);
 		cmd->cmd[i] = join;
 	}
-	else if (last_type >= REDIR_IN && last_type <= HEREDOC)
+	else if ((last_type >= REDIR_IN && last_type <= HEREDOC) ||  last_type == FILES)
 	{
-		printf("Hola file\n");
 		while(aux && aux->next)
 			aux = aux->next;
-		join = ft_strjoin(aux->name, token->token);
-		free(aux->name);
-		if(token->type == DOUBLE_QUOTE || token->type == SINGLE_QUOTE)
-			aux->is_quoted = 1;
-		aux->name = join;
+		while(token && token->type != SPACE_TOKEN && ft_istoken(token->type))
+		{
+			join = ft_strjoin(aux->name, token->token);
+			free(aux->name);
+			if(token->type == DOUBLE_QUOTE || token->type == SINGLE_QUOTE)
+				aux->is_quoted = 1;
+			aux->name = join;
+			token->type = SPACE_TOKEN;
+			token->syntaxis = SPACE_TOKEN;
+			token = token->next;
+		}
 	}
 }
 
@@ -86,6 +120,7 @@ static t_cmd *parser_two(t_token *token, t_cmd *command, t_cmd *head)
         else if (token->syntaxis >= REDIR_IN && token->syntaxis <= HEREDOC)
 		{
 		last_tkn = token;
+			
             set_file(&command, &token);
 			continue ;
 		}
