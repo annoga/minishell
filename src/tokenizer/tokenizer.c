@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
 
-t_token	*tokenizer(char *line)
+t_token	*tokenizer(char *line, t_env *env)
 {
 	t_token	*head_token;
 	t_token	*token;
@@ -21,7 +21,7 @@ t_token	*tokenizer(char *line)
 	i = 0;
 	while (line[i])
 	{
-		token = get_token(line, &i);
+		token = get_token(line, &i, env);
 		if (!token)
 			return (NULL);
 		add_token(&head_token, token);

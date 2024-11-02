@@ -154,9 +154,9 @@ static int	save_heredoc(int fd, int exp, char *word, t_env **tenv)
 		if (exp)
 		{
 
-			token = tokenizer(line);
+			token = tokenizer(line, *tenv);
 			free(line);
-			token = expansor(token, tenv);
+			token = expansor(token, tenv, 1, 0);
 			while (token)
 			{
 				

@@ -68,6 +68,7 @@ SYNTAX			=	syntax/analize_syntax.c					\
 
 EXPANSOR		=	expansor/expansor_wildcard.c			\
 					expansor/expansor.c						\
+					expansor/expansor_hdoc.c				\
 					expansor/last_slash.c					\
 					expansor/insert_space_tokens.c			\
 					expansor/list_all_directories.c			\

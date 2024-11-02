@@ -1,6 +1,6 @@
 #include "../../inc/minishell.h"
 
-static void tokenize_env(t_token **tmp2, t_token **tmp, t_token **head, t_env **envp)
+void tokenize_env(t_token **tmp2, t_token **tmp, t_token **head, t_env **envp)
 {
     char *env;
     t_token *new_tokens;
@@ -10,7 +10,7 @@ static void tokenize_env(t_token **tmp2, t_token **tmp, t_token **head, t_env **
         env = ft_strdup("");
     else
         env = ft_strdup(env);
-    new_tokens = tokenizer(env);
+    new_tokens = tokenizer(env, *envp);
     if (new_tokens)
     {
         add_top(*tmp2, new_tokens);
@@ -60,10 +60,13 @@ static char *clean_quotes(t_token *head)
     return (tmp->token);
 }
 
-t_token *expansor(t_token *head, t_env **env)
+t_token *expansor(t_token *head, t_env **env, int is_hdoc, int is_quoted)
 {
     t_token *tmp = head;
     t_token *tmp2;
+
+    if(is_hdoc)
+        return(expansor_hdoc(head, env, is_hdoc, is_quoted));
     while (tmp)
     {
         if (tmp->type == ENV)

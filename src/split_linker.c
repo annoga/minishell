@@ -54,9 +54,10 @@ t_token	*split_linker(char *line, t_env **env)
 	t_token	*token;
 	t_cmd	*cmd;
 
-	token = tokenizer(line);
+	token = tokenizer(line, *env);
+
 	// token = check_env(token);
-	token = expansor(token, env);
+	token = expansor(token, env, 0, 0);
 
 	if(!analize_tokens(token))
 		return(free_token(&token), NULL);

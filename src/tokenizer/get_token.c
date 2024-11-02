@@ -11,11 +11,11 @@
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
 
-t_token	*get_token(char *line, int *i)
+t_token	*get_token(char *line, int *i, t_env *env)
 {
 	t_token	*token;
 
-	token = get_special_token(line, i);
+	token = get_special_token(line, i, env);
 	if (token)
 		return (token);
 	else if (line[*i] == '<' && line[*i + 1] == '<')

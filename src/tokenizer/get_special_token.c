@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
 
-t_token	*get_special_token(char *line, int *i)
+t_token	*get_special_token(char *line, int *i, t_env *env)
 {
 	if (line[*i] == '|' && line[*i + 1] == '|')
 		return (create_token(OR, "||", i));
@@ -22,7 +22,7 @@ t_token	*get_special_token(char *line, int *i)
 	else if (line[*i] == '\'')
 		return (handle_single_quote(line, i));
 	else if (line[*i] == '"')
-		return (handle_double_quote(line, i));
+		return (handle_double_quote(line, i, env));
 	else if (line[*i] == '$' || line[*i] == '~')
 		return (handle_expansion(line, i));
 	return (NULL);
