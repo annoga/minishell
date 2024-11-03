@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:46:11 by anovoa            #+#    #+#             */
-/*   Updated: 2024/11/03 01:12:09 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/03 15:13:31 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ int	ft_analyze_cmd(t_env **env, t_cmd *current)
 		if (current->cmd)
 		{
 			if (has_pipe(current) || runs_in_pipes(current))
+			{
 				current = process_command_block(current, &err_code, *env);
+			}
 			else
 			{
 				//if (current->files || current->connection_type == PIPE)

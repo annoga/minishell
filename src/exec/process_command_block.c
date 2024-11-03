@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 23:06:00 by angeln            #+#    #+#             */
-/*   Updated: 2024/11/03 11:47:00 by angeln           ###   ########.fr       */
+/*   Updated: 2024/11/03 15:12:36 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ t_cmd	*process_command_block(t_cmd *cmd, int *err_code, t_env *tenv)
 			safe_pipe(&fds);
 		handle_update_signal(&s, SIG_HANDLE_BLCK);
 		pid = safe_fork();
+		//printf("%d\n", pid);
 		if (pid == 0)
 			process_child(cmd, &fds, tenv, pos);
 		last_pid = pid;
@@ -59,6 +60,8 @@ t_cmd	*process_command_block(t_cmd *cmd, int *err_code, t_env *tenv)
 		else
 			cmd = cmd->next;
 	}
+	//if (safe_close(fds.next[WRITE]) == -1)
+		//exit(1);
 	*err_code = wait_for_status(last_pid, pos);
 	handle_update_signal(&s, SIG_HANDLE_IDLE);
 	return (cmd);

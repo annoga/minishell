@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:55:05 by angeln            #+#    #+#             */
-/*   Updated: 2024/11/03 02:07:51 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/03 15:24:39 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,23 @@ int	process_child(t_cmd *cmd, t_pipe *fds, t_env *tenv, int cmd_index)
 /* Executes redirections for the given command */
 static int	process_redirs(t_cmd *cmd)
 {
-	int	err_code;
+	int		err_code;
+	t_file	*tmp;
 	
 	err_code = 0;
-	if (cmd->files && cmd->files->type == REDIR_IN)
-		err_code = redir_file_stdin(cmd->files->name, REDIR_IN);
-	if (cmd->files && cmd->files->type == REDIR_OUT)
-		err_code = redir_file_stdout(cmd->files->name, REDIR_OUT);
-	if (cmd->files && cmd->files->type == APPEND)
-		err_code = redir_file_stdout(cmd->files->name, APPEND);
-	if (cmd->files && cmd->files->type == HEREDOC)
-		err_code = redir_heredoc_stdin(cmd->files->heredoc_fd);
+	tmp = cmd->files;
+	while (tmp)
+	{
+		if (tmp->type == REDIR_IN)
+			err_code = redir_file_stdin(tmp->name, REDIR_IN);
+		if (tmp->type == REDIR_OUT)
+			err_code = redir_file_stdout(tmp->name, REDIR_OUT);
+		if (tmp->type == APPEND)
+			err_code = redir_file_stdout(tmp->name, APPEND);
+		if (tmp->type == HEREDOC)
+			err_code = redir_heredoc_stdin(tmp->heredoc_fd);
+		tmp = tmp->next;
+	}
 	return (err_code);
 }
 
