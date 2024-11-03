@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:46:11 by anovoa            #+#    #+#             */
-/*   Updated: 2024/11/03 16:15:56 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/03 19:51:02 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,40 +19,26 @@ static int		op_condition_true(t_token_type operator, int status);
 
 /* This function takes a series of commands and decides which to execute,
  * depending on the connections between them */
-int	ft_analyze_cmd(t_env **env, t_cmd *current)
+int	ft_analyze_cmd(t_env **env, t_cmd *current, int err_code)
 {
-	int			err_code;
-	t_signal	s;
-
-	err_code = get_heredocs(current, env, 0);
-	handle_update_signal(&s, SIG_HANDLE_BLCK);
-	if (err_code != 0)
-		return (err_code);
-	handle_update_signal(&s, SIG_HANDLE_EXEC);
 	while (current)
 	{
 		if (current->cmd)
 		{
 			if (has_pipe(current) || runs_in_pipes(current))
-			{
-				current = process_command_block(current, &err_code, *env);
-			}
+				current = process_command_block(current, &err_code, *env, 0);
 			else
 			{
-				//if (current->files || current->connection_type == PIPE)
 				if (current->connection_type == PIPE)
-				{//ese ->files probablemente sobra. Testeamos antes de borrar
-					err_code = ft_analyze_cmd(env, current->next);//lo saltamos
-					current = NULL;
-				}
+					current = skip_step(&err_code, env, current->next);
 				else
 					current = run_builtin(current, &err_code, env);
 			}
 		}
 		else if (current->subcommand)
-			err_code = ft_analyze_cmd(env, current->subcommand);
-		else//files, heredocs
-			current = process_command_block(current, &err_code, *env);
+			err_code = ft_analyze_cmd(env, current->subcommand, 0);
+		else
+			current = process_command_block(current, &err_code, *env, 0);
 		if (current && op_condition_true(current->connection_type, err_code))
 			current = current->next;
 		else
@@ -84,7 +70,7 @@ static int	op_condition_true(t_token_type operator, int status)
 	//BUILTINS (PIPELESS)
 	//1)if connection_type == PIPE, update to next cmd.
 	//2)if connection_type == AND / OR, we run builtin as block.
-	
+
 	//##LINKS##//
 	//AND 
 	//1)run block. 
@@ -94,7 +80,7 @@ static int	op_condition_true(t_token_type operator, int status)
 	//2)if err_code == 0, stop. else, update to next cmd and go to 1) 
 
 /* This function filters those builtins that cannot run through a PIPE */
-static int	runs_in_pipes(t_cmd *command)//igual tiene truco y la podemos ignorar.
+static int	runs_in_pipes(t_cmd *command)
 {
 	char	*cmd_name;
 	char	*cmd_arg;
@@ -104,9 +90,9 @@ static int	runs_in_pipes(t_cmd *command)//igual tiene truco y la podemos ignorar
 	if (!ft_strcmp(cmd_name, "exit"))
 		if (command->connection_type != PIPE)
 			return (0);
-	if (!ft_strcmp(cmd_name, "unset"))//Aunque entre, no tiene efecto
+	if (!ft_strcmp(cmd_name, "unset"))
 		return (0);
-	if (!ft_strcmp(cmd_name, "export"))////OJO! export sin cmnd[1] sí puede PIPE!!!
+	if (!ft_strcmp(cmd_name, "export"))
 		if (cmd_arg)
 			return (0);
 	if (!ft_strcmp(cmd_name, "cd"))
@@ -118,14 +104,13 @@ static int	runs_in_pipes(t_cmd *command)//igual tiene truco y la podemos ignorar
  * appropriate exit status */
 static t_cmd	*run_builtin(t_cmd *cmd, int *exit_status, t_env **env)
 {
-	//unset, export, cd. Any builtins that do NOT work with pipes
 	if (!ft_strcmp(cmd->cmd[0], "unset"))
 		*exit_status = ft_unset(cmd, env);
-	else if (!ft_strcmp(cmd->cmd[0], "exit"))//sólo si NO tiene pipe
+	else if (!ft_strcmp(cmd->cmd[0], "exit"))
 		*exit_status = ft_exit(cmd, 1);
-	else if (!ft_strcmp(cmd->cmd[0], "export"))//sólo si tiene args
+	else if (!ft_strcmp(cmd->cmd[0], "export"))
 		*exit_status = ft_export(cmd, env);
-	else if (!ft_strcmp(cmd->cmd[0], "cd"))//sólo si NO tiene pipe
+	else if (!ft_strcmp(cmd->cmd[0], "cd"))
 		*exit_status = ft_cd(cmd, *env);
 	return (cmd);
 }

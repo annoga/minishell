@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 11:38:30 by angeln            #+#    #+#             */
-/*   Updated: 2024/11/03 11:46:37 by angeln           ###   ########.fr       */
+/*   Updated: 2024/11/03 16:29:52 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,3 @@ int	wait_for_status(pid_t last_pid, int n)
 		exit_status = WEXITSTATUS(exit_status);
 	return (exit_status);
 }
-

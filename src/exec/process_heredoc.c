@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 12:57:52 by angeln            #+#    #+#             */
-/*   Updated: 2024/11/03 13:08:36 by angeln           ###   ########.fr       */
+/*   Updated: 2024/11/03 18:17:08 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int	process_heredoc(t_file *current, t_env **tenv, int *status)
 {
 	t_pipe	fds;
-	pid_t	pid; 
+	pid_t	pid;
 
-	if (clear_heredoc(current) != 0)//clears old pipe
+	if (clear_heredoc(current) != 0)
 		return (1);
 	safe_pipe(&fds);
 	current->heredoc_fd = fds.next[READ];

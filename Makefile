@@ -84,6 +84,7 @@ EXPANSOR		=	expansor/expansor_wildcard.c			\
 EXEC			=	exec/free_env.c 							\
 					exec/command_analyzer.c						\
 					exec/ft_analyze_cmd.c						\
+					exec/skip_step.c							\
 					exec/get_heredocs.c							\
 					exec/is_command.c							\
 					exec/get_cmd_path.c							\
@@ -103,7 +104,8 @@ EXEC			=	exec/free_env.c 							\
 					exec/wait_for_status.c						\
 					exec/safe_pipe.c							\
 					exec/safe_fork.c							\
-					exec/safe_close.c								
+					exec/safe_close.c							\
+					exec/safe_dup2.c								
 
 BUILTINS			=	builtins/echo.c 								\
 					builtins/ft_exit.c 								\
@@ -118,8 +120,7 @@ BUILTINS			=	builtins/echo.c 								\
 SIGNAL				=	signal/handle_update_signal.c
 
 MAIN			=	main.c									\
-					split_linker.c							\
-					print_functions.c
+					split_linker.c
 
 SRC				=	$(HANDLE_TOKENS) $(TOKENIZER) $(UTILS) $(PARSER) $(ENV) $(SYNTAX) $(EXEC) $(EXPANSOR) $(MAIN) $(SIGNAL) $(BUILTINS)
 
