@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:52:44 by angeln            #+#    #+#             */
-/*   Updated: 2024/11/03 02:33:51 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/03 09:56:32 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@
 # include <signal.h>
 
 // Apaños para mac
-//# include <limits.h>
-//# include <string.h>
-# include <linux/limits.h>
+# include <limits.h>
+# include <string.h>
+//# include <linux/limits.h>
 
 //# include ".h"
 

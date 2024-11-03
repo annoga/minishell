@@ -8,11 +8,11 @@ CFLAGS				=	-Wall -Werror -Wextra -fsanitize=address
 RM					=	rm -f
 # 
 # Determine the platform
-LIBS = -Lreadline -lreadline -lhistory -ltermcap
+//LIBS = -Lreadline -lreadline -lhistory -ltermcap
 INC = inc/minishell.h inc/struct.h libft/libft.h
 
 # Apaños para mac
-#LIBS = -Lreadline -lreadline -ltermcap
+LIBS = -Lreadline -lreadline -ltermcap
 
 # Directories
 LIBFT				=	./libft/libftgnl.a

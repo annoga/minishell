@@ -35,10 +35,10 @@ void	rl_blank_line(void)
 	ft_memset(blank_line, ' ', len - 1);
 	blank_line[len - 1] = '\0';
 	rl_on_new_line();
-	rl_replace_line(blank_line, 1);
+	//rl_replace_line(blank_line, 1);
 	rl_redisplay();
 	free(blank_line);
-	rl_replace_line(original_line, 1);
+	//rl_replace_line(original_line, 1);
 	rl_redisplay();
 	free(original_line);
 }
@@ -48,14 +48,14 @@ void handle_idle_signal(int signal) {
     if (signal == SIGINT) {
         // Clear the line and refresh the prompt without displaying ^C
         write(STDOUT_FILENO, "\n", 1);        // Move to a new line
-        rl_replace_line("", 0);               // Clear the input line
+        //rl_replace_line("", 0);               // Clear the input line
         rl_on_new_line();                     // Reset the prompt position
         rl_redisplay();                       // Redisplay the prompt
     }
     else if (ft_strlen(rl_line_buffer) <= 2) {
                                                 // For SIGQUIT, clear the line and refresh the prompt without displaying ^
         //rl_replace_line("", 0);               // Clear the input line                      // Redisplay the prompt
-        rl_redisplay();                       // Redisplay the prompt
+        //rl_redisplay();                       // Redisplay the prompt
     }
 }
 
