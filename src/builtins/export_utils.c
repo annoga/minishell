@@ -1,15 +1,27 @@
+/* ************************************************************************** */
+/*																			  */
+/*														  :::	   ::::::::   */
+/*	 export_utils.c										:+:		 :+:	:+:   */
+/*													  +:+ +:+		  +:+	  */
+/*	 By: crmanzan <marvin@42.fr>					+#+  +:+	   +#+		  */
+/*												  +#+#+#+#+#+	+#+			  */
+/*	 Created: 2024/11/03 20:03:51 by crmanzan		   #+#	  #+#			  */
+/*	 Updated: 2024/11/03 20:03:51 by crmanzan		  ###	########.fr		  */
+/*																			  */
+/* ************************************************************************** */
 #include "../../inc/minishell.h"
 
-void print_export(t_env *env)
+void	print_export(t_env *env)
 {
-	t_env *tmp;
+	t_env	*tmp;
 
 	tmp = env;
-	while(tmp)
+	while (tmp)
 	{
-		if(tmp->value)
+		if (tmp->value)
 		{
-			if(!ft_strcmp(tmp->key_name, "SHLVL") && !ft_strcmp(tmp->value, "1 "))
+			if (!ft_strcmp(tmp->key_name, "SHLVL")
+				&& !ft_strcmp(tmp->value, "1 "))
 				printf("declare -x %s=\"1\"\n", tmp->key_name);
 			else
 				printf("declare -x %s=\"%s\"\n", tmp->key_name, tmp->value);
@@ -20,7 +32,7 @@ void print_export(t_env *env)
 	}
 }
 
-int not_valid_key(char *str)
+int	not_valid_key(char *str)
 {
 	int	i;
 
@@ -41,18 +53,20 @@ int not_valid_key(char *str)
 	return (0);
 }
 
-int  ft_equal_position(char *str)
+int	ft_equal_position(char *str)
 {
-	int i = 0;
+	int	i;
 
-	while(str[i])
+	i = 0;
+	while (str[i])
 	{
-		if(str[i] == '=')
+		if (str[i] == '=')
 			return (i);
 		i++;
 	}
 	return (0);
 }
+
 static int	is_addition(char *str)
 {
 	int	i;
@@ -67,16 +81,16 @@ static int	is_addition(char *str)
 	return (0);
 }
 
-void set_equal_value(t_env *env, char *str, int equal_pos)
+void	set_equal_value(t_env *env, char *str, int equal_pos)
 {
 	env->value = ft_strdup(str + equal_pos + 1);
-	if(!env->value)
+	if (!env->value)
 		return ;
-	if(!is_addition(str))
+	if (!is_addition(str))
 	{
 		env->key_name = ft_substr(str, 0, equal_pos);
 	}
-	else if(is_addition(str))
+	else if (is_addition(str))
 	{
 		env->addition = 1;
 		env->key_name = ft_substr(str, 0, equal_pos - 1);
