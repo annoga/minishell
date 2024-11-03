@@ -67,12 +67,28 @@ parenthesis");
 		ft_printf("Error: missing closing parenthesis\n");
 	return (count == 0);
 }
-
-int	check_is_ok(char *line)
+int	check_is_ok(char *line, t_env *env)
 {
 	if (!check_quotes(line))
-		return (0);
+	{
+		env->exit_status = 2;
+		return (2);
+	}
 	if (!check_parenthesis(line))
-		return (0);
-	return (1);
+	{
+		env->exit_status = 2;
+		return (2);
+	}
+	return (0);
 }
+
+// int	check_is_ok(char *line, t_env *env)
+// {
+// 	int err_code;
+	
+// 	if (!check_quotes(line))
+// 		return (0);
+// 	if (!check_parenthesis(line))
+// 		return (0);
+// 	return (1);
+// }

@@ -41,19 +41,22 @@ static int	error_syntax(t_synt *state, t_token_type current_type)
 	return (state->parenthesis_balance < 0);
 }
 
-static int	check_syntax_error(t_token *token, t_synt *anal_data)
+static int	check_syntax_error(t_token *token, t_synt *anal_data, t_env *env)
 {
 	if (token || ((anal_data->last_token_type < COMMAND || anal_data->last_token_type > FILES)
 		&& anal_data->last_token_type != R_PAREN))
 	{
 		if (token)
 			ft_printf("syntax error near unexpected token '%s'\n", token->token);
+		else
+			ft_printf("syntax error near unexpected token 'newline'\n");
+		env->exit_status = 2;
 		return (1);
 	}
 	return (0);
 }
 
-int analize_tokens(t_token *token)
+int analize_tokens(t_token *token, t_env *env)
 {
     t_synt anal_data;
 
@@ -71,7 +74,7 @@ int analize_tokens(t_token *token)
         anal_data.last_token_type = token->syntaxis;
         token = token->next;
     }
-    return (!check_syntax_error(token, &anal_data));
+    return (!check_syntax_error(token, &anal_data, env));
 }
 
 

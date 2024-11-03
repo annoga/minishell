@@ -59,7 +59,7 @@ t_token	*split_linker(char *line, t_env **env)
 	// token = check_env(token);
 	token = expansor(token, env, 0, 0);
 
-	if(!analize_tokens(token))
+	if(!analize_tokens(token, *env))
 		return(free_token(&token), NULL);
 	// prueba builtin
 	cmd = parser(token);
