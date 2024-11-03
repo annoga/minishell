@@ -64,7 +64,7 @@ parenthesis");
 		i++;
 	}
 	if (count > 0)
-		ft_printf("Error: missing closing parenthesis\n");
+		return_error("Error: missing closing parenthesis");
 	return (count == 0);
 }
 

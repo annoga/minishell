@@ -114,6 +114,7 @@ BUILTINS			=	builtins/echo.c 								\
 					builtins/ft_cd.c 							\
 					builtins/ft_unset.c 							\
 					builtins/export_utils.c 							\
+					builtins/env_get_value.c 							\
 					builtins/ft_export.c 							
 					
 

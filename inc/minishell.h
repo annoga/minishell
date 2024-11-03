@@ -159,6 +159,7 @@ void	set_equal_value(t_env *env, char *str, int equal_pos);
 int		ft_equal_position(char *str);
 int		not_valid_key(char *str);
 void	print_export(t_env *env);
+t_env	*env_get_value(t_env *var, char *name);
 
 /* UTILS */
 char	*ft_strndup(const char *s, size_t n);

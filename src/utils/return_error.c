@@ -13,6 +13,7 @@
 
 void	*return_error(char *str)
 {
-	printf("%s\n", str);
+	ft_putstr_fd(str, 2);
+	ft_putendl_fd("", 2);
 	return (NULL);
 }
