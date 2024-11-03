@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 13:42:21 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/27 23:00:23 by angeln           ###   ########.fr       */
+/*   Updated: 2024/11/03 16:48:55 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,14 @@ int	redir_file_stdout(char *filename, int mode)
 		fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else if (mode == APPEND)
 		fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	if (fd == -1)//err msg?
+	if (fd == -1)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(filename, 2);
+		write(2, ": ", 2);
+		perror(NULL);
 		return (1);
+	}
 	if (dup2(fd, 1) == -1)
 		return (1);
 	if (close(fd) == -1)

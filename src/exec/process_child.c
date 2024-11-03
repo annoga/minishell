@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:55:05 by angeln            #+#    #+#             */
-/*   Updated: 2024/11/03 16:09:54 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/03 17:18:25 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	process_child(t_cmd *cmd, t_pipe *fds, t_env *tenv, int cmd_index)
 	int			err_code;
 	char		**env;
 	t_signal	s;
+	char		*path;
 
 	handle_update_signal(&s, SIG_HANDLE_DEFAULT);
 	err_code = 0;
@@ -41,8 +42,8 @@ int	process_child(t_cmd *cmd, t_pipe *fds, t_env *tenv, int cmd_index)
 		exit(0);
 	execute_builtin(cmd, tenv);
 	env = tenv_to_array(tenv);
-	execve(validate_cmdpath(cmd, tenv), cmd->cmd, env);
-	free(env);
+	path = validate_cmdpath(cmd, tenv);
+	execve(path, cmd->cmd, env);
 	exit(1);
 	return (0);
 }
@@ -55,7 +56,7 @@ static int	process_redirs(t_cmd *cmd)
 	
 	err_code = 0;
 	tmp = cmd->files;
-	while (tmp)
+	while (tmp && err_code == 0)
 	{
 		if (tmp->type == REDIR_IN)
 			err_code = redir_file_stdin(tmp->name, REDIR_IN);
@@ -101,20 +102,28 @@ static char	*validate_cmdpath(t_cmd *cmd, t_env *tenv)
 	char			*path;
 
 	path = get_cmd_path(cmd->cmd[0], ft_getenv("PATH", tenv));
-	if (!path)
+	if (!path && !ft_strchr(cmd->cmd[0], '/'))
 	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(cmd->cmd[0], 2);
-		ft_putstr_fd(": ", 2);
-		perror("");
+		ft_putendl_fd(": command not found", 2);
+		//perror("");
+		exit(127);
+	}
+	else if (!path && ft_strchr(cmd->cmd[0], '/'))
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(cmd->cmd[0], 2);
+		ft_putendl_fd(": No such file or directory", 2);
+		//perror("");
 		exit(127);
 	}
 	if (access(path, X_OK) == -1)
 	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(cmd->cmd[0], 2);
-		ft_putstr_fd(": ", 2);
-		perror("");
+		ft_putendl_fd(": Permission denied", 2);
+		//perror("");
 		exit(126);
 	}
 	if (stat(path, &s) == 0)
@@ -122,8 +131,8 @@ static char	*validate_cmdpath(t_cmd *cmd, t_env *tenv)
 		{
 			ft_putstr_fd("minishell: ", 2);
 			ft_putstr_fd(cmd->cmd[0], 2);
-			ft_putstr_fd(": ", 2);
-			perror("");
+			ft_putendl_fd(": Is a directory", 2);
+			//perror("");
 			exit(126);
 		}
 	return (path);

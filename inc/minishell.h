@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:52:44 by angeln            #+#    #+#             */
-/*   Updated: 2024/11/03 14:30:45 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/03 16:43:06 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_token	*get_special_token(char *line, int *i);
 t_token	*new_token(t_token_type type, char *value);
 t_token	*create_token(char type, char *value, int *i);
 t_token	*split_linker(char *line, t_env **env);
-void	print_list(t_token *head);
+//void	print_list(t_token *head);
 void	free_token(t_token **token);
 void	add_token(t_token **head, t_token *new);
 
@@ -68,7 +68,7 @@ void	set_file(t_cmd **cmd, t_token **token);
 void	lst_add_back(void *lst, void *new);
 t_cmd	*add_command(t_cmd **cmd_lst);
 
-void print_cmd(t_cmd *cmd, int level);
+//void print_cmd(t_cmd *cmd, int level);
 
 
 t_token *expansor(t_token *head, t_env **env, int is_hdoc, int is_quoted);
@@ -107,7 +107,7 @@ t_token_type	assing_type(char *token, t_synt *state);
 int check_syntax(t_token *token);
 
 /* EXECUTE */
-t_token	*command_analyzer(t_token *head, t_env **env, t_cmd *cmd);
+void	command_analyzer(t_env **env, t_cmd *cmd);
 int		free_env(t_env **envp);
 char	*ft_getenv(char *key, t_env *envp);
 char	**tenv_to_array(t_env *env);
@@ -118,6 +118,7 @@ int		is_command(char *path);
 void	safe_pipe(t_pipe *fds);
 pid_t	safe_fork(void);
 int		safe_close(int fd);
+int		safe_dup2(int old, int clone);
 void	pipe_write_stdout(int *pipe);
 void	pipe_read_stdin(int *pipe);
 t_cmd	*process_command_block(t_cmd *cmd, int *err_code, t_env *tenv);
@@ -161,7 +162,7 @@ void	ft_soft_itoa(t_env **tmp, int n);
 void	lst_add_back(void *lst, void *new);
 void	lstclear(void *list, void (*del)(void *));
 char	*free_split(char **split);
-char	*print_type(t_token_type type);
+//char	*print_type(t_token_type type);
 char	*free_tcmd(t_cmd **cmd_list);
 void	*ft_memmove(void *dst, const void *src, size_t len);
 void	print_and_kill(char *str, int exit_status);

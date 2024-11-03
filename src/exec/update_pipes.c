@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 16:21:09 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/27 09:31:49 by angeln           ###   ########.fr       */
+/*   Updated: 2024/11/03 16:30:34 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	update_pipes(t_pipe *fds, int pos, t_cmd *next_cmd)
 {
 	if (pos != 0)
 	{
-//		printf("j:%i, p_R:%i, p_W:%i\n",pos,fds->prev[READ], fds->prev[WRITE]);
 		close(fds->prev[READ]);
 		close(fds->prev[WRITE]);
 	}
@@ -29,6 +28,5 @@ void	update_pipes(t_pipe *fds, int pos, t_cmd *next_cmd)
 	{
 		fds->prev[READ] = fds->next[READ];
 		fds->prev[WRITE] = fds->next[WRITE];
-//		printf("j_n:%i, p_R:%i, p_W:%i\n",pos,fds->prev[READ],fds->prev[WRITE]);
 	}
 }
