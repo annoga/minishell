@@ -43,7 +43,8 @@ void	rl_blank_line(void)
 	free(original_line);
 }
 
-void handle_idle_signal(int signal) {
+void handle_idle_signal(int signal)
+{
     rl_blank_line();                        // Clear the line and refresh the prompt
     if (signal == SIGINT) {
         // Clear the line and refresh the prompt without displaying ^C
@@ -54,7 +55,7 @@ void handle_idle_signal(int signal) {
     }
     else if (ft_strlen(rl_line_buffer) <= 2) {
                                                 // For SIGQUIT, clear the line and refresh the prompt without displaying ^
-        //rl_replace_line("", 0);               // Clear the input line                      // Redisplay the prompt
+        rl_replace_line("", 0);               // Clear the input line                      // Redisplay the prompt
         rl_redisplay();                       // Redisplay the prompt
     }
 }

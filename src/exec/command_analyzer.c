@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 01:53:43 by angeln            #+#    #+#             */
-/*   Updated: 2024/11/03 15:35:01 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/03 16:15:42 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,12 @@ t_token	*command_analyzer(t_token *head, t_env **env, t_cmd *cmd)
 	 /*DEBUG end*/
 	 
 	int	status;
+	t_signal	s;
 
 	status = 0;
 	if (cmd)
 		status = ft_analyze_cmd(env, cmd);
+	handle_update_signal(&s, SIG_HANDLE_IDLE);
 	(*env)->exit_status = status;
 	//printf("Last cmd exited with status %d\n", status);
 	return (head);

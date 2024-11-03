@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 12:56:32 by anovoa            #+#    #+#             */
-/*   Updated: 2024/11/03 15:48:51 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/03 16:06:21 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,5 @@ int	get_heredocs(t_cmd *cmd, t_env **tenv, int internal)
 		}
 		cmd = cmd->next;
 	}
-	handle_update_signal(&s, SIG_HANDLE_BLCK);
-	handle_update_signal(&s, SIG_HANDLE_EXEC);
 	return (status);
 }
