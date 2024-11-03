@@ -178,6 +178,7 @@ static int	save_heredoc(int fd, int exp, char *word, t_env **tenv)
 			token = tokenizer(line, *tenv);
 			free(line);
 			token = expansor(token, tenv, 1, 0);
+			printf("token->token:%s\n", token->token);
 			tmp = token;
 			while (tmp)
 			{

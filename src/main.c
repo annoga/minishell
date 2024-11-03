@@ -92,6 +92,7 @@ int	main(int argc, char *argv[], char **envp)
 	//i = 1;
 	
 	g_mode = 0;
+	// env->exit_status = 0;
 	ft_catch_env(envp, &env);
 	handle_update_signal(&signals, SIG_HANDLE_IDLE);
 	while (1)
@@ -100,7 +101,7 @@ int	main(int argc, char *argv[], char **envp)
 		//Ctrl+D: envia un NULL a readline -> salimos
 		if (!line && ft_putendl_fd("exit", 2) && free_env(&env))
 			exit(0);
-		if (line && line[0] != '\0' && check_is_ok(line))
+		if (line && line[0] != '\0' && !check_is_ok(line, env))
 		{
 			split_linker(line, &env);
 			// if(!token)
@@ -110,7 +111,7 @@ int	main(int argc, char *argv[], char **envp)
 //				print_cmd(cmd, 0);
 			add_history(line);
 		}
-
+		printf("env->exit_status: %d\n", env->exit_status);
 		free(line);
 		// free_token(&token);
 		rl_on_new_line();

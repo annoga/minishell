@@ -101,7 +101,7 @@ char *last_slash(char *prefix);
 
 
 /* SYNTAX */
-int	analize_tokens(t_token *token);
+int	analize_tokens(t_token *token, t_env *env);
 t_token_type	assing_type(char *token, t_synt *state);
 
 int check_syntax(t_token *token);
@@ -150,7 +150,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n);
 void ft_strncpy(char *dest, const char *src, size_t n);
 char *ft_strstr(const char *str, const char *needle);
 void	*return_error(char *str);
-int		check_is_ok(char *line);
+int		check_is_ok(char *line, t_env *env);
 int ft_istoken(char c);
 void	ft_soft_itoa(t_env **tmp, int n);
 void	lst_add_back(void *lst, void *new);

@@ -39,6 +39,7 @@ t_token	*command_analyzer(t_token *head, t_env **env, t_cmd *cmd)
 	status = 0;
 	if (cmd)
 		status = ft_analyze_cmd(env, cmd);
+	(*env)->exit_status = status;
 	printf("Last cmd exited with status %d\n", status);
 	return (head);
 }
