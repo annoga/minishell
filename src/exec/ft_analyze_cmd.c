@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:46:11 by anovoa            #+#    #+#             */
-/*   Updated: 2024/11/02 16:25:33 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/03 01:12:09 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static int		op_condition_true(t_token_type operator, int status);
  * depending on the connections between them */
 int	ft_analyze_cmd(t_env **env, t_cmd *current)
 {
-	int		err_code;
+	int			err_code;
+	t_signal	s;
 
 	//err_code = 0;
 	//printf("c1:%p\n", current->cmd);
@@ -32,6 +33,7 @@ int	ft_analyze_cmd(t_env **env, t_cmd *current)
 	//printf("f1:%p,fT:\n", current->files);
 	//if (current->files && current->files->type == HEREDOC)
 	//	printf("anFd:%d\n", current->files->heredoc_fd);
+	handle_update_signal(&s, SIG_HANDLE_EXEC);
 	if (err_code != 0)
 		return (err_code);
 	while (current)

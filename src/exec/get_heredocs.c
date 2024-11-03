@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 12:56:32 by anovoa            #+#    #+#             */
-/*   Updated: 2024/11/02 21:27:42 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/03 01:12:29 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,11 @@ int	process_heredoc(t_file *current, t_env **tenv);
 
 int	get_heredocs(t_cmd *cmd, t_env **tenv, int internal)
 {
-//	(void)cmd;
-//	(void)tenv;
+	t_signal	s;
+	int			status;
+	t_file		*redir;
 
-	int		status;
-	t_file	*redir;
-
+	handle_update_signal(&s, SIG_HANDLE_HDOC);
 	status = 0;
 	if (internal)
 		return (0);
