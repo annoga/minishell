@@ -24,7 +24,7 @@ int	check_quotes(char *line)
 			while (line[i] && line[i] != '\'')
 				i++;
 			if (!line[i])
-				return (return_error("Error: missing single quote\n"), 0);
+				return (return_error("Error: missing single quote"), 0);
 		}
 		else if (line[i] == '"')
 		{
@@ -32,7 +32,7 @@ int	check_quotes(char *line)
 			while (line[i] && line[i] != '"')
 				i++;
 			if (!line[i])
-				return (return_error("Error: missing double quote\n"), 0);
+				return (return_error("Error: missing double quote"), 0);
 		}
 		i++;
 	}
