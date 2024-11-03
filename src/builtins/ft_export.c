@@ -1,12 +1,12 @@
 // /* ************************************************************************** */
 // /*                                                                            */
 // /*                                                        :::      ::::::::   */
-// /*   ft_export.c                                        :+:      :+:    :+:   */
+/*   ft_export.c                                        :+:      :+:    :+:   */
 // /*                                                    +:+ +:+         +:+     */
 // /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 // /*                                                +#+#+#+#+#+   +#+           */
 // /*   Created: 2024/10/30 09:40:52 by angeln            #+#    #+#             */
-// /*   Updated: 2024/10/30 09:45:05 by angeln           ###   ########.fr       */
+/*   Updated: 2024/11/03 17:40:07 by anovoa           ###   ########.fr       */
 // /*                                                                            */
 // /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_env	*env_get_value(t_env *var, char *name)
 {
 	while (var)
 	{
-		if (!ft_strncmp(var->key_name, name, ft_strlen(name)))
+		if (!ft_strncmp(var->key_name, name, ft_strlen(name) + 1))
 			return (var);
 		var = var->next;
 	}
