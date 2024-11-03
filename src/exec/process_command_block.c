@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 23:06:00 by angeln            #+#    #+#             */
-/*   Updated: 2024/11/02 16:25:41 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/03 02:24:33 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_cmd	*process_command_block(t_cmd *cmd, int *err_code, t_env *tenv)
 	pid_t	pid;
 	t_pipe	fds;
 	int	pos;
+	t_signal	s;
 
 	pos = 0;
 	while (cmd)
@@ -45,6 +46,7 @@ t_cmd	*process_command_block(t_cmd *cmd, int *err_code, t_env *tenv)
 		*/
 		if (cmd->connection_type == PIPE)
 			safe_pipe(&fds);
+		handle_update_signal(&s, SIG_HANDLE_BLCK);
 		pid = safe_fork();
 		if (pid == 0)
 			process_child(cmd, &fds, tenv, pos);
@@ -60,6 +62,7 @@ t_cmd	*process_command_block(t_cmd *cmd, int *err_code, t_env *tenv)
 			cmd = cmd->next;
 	}
 	*err_code = wait_for_status(last_pid, pos);
+	handle_update_signal(&s, SIG_HANDLE_IDLE);
 	return (cmd);
 }
 

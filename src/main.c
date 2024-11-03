@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:55:21 by angeln            #+#    #+#             */
-/*   Updated: 2024/11/03 01:14:16 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/03 02:59:51 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // #include <readline/history.h>
 
 int	debug = 2;//TEST, DELETE
-int	g_mode = 0;
+int	g_mode;
 
 /*Just for testing*/
 char	*print_type(t_token_type type)

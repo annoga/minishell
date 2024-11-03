@@ -6,7 +6,7 @@
 /*   By: crmanzan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:34:53 by crmanzan          #+#    #+#             */
-/*   Updated: 2024/10/28 17:34:56 by crmanzan         ###   ########.fr       */
+/*   Updated: 2024/11/03 01:47:43 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
@@ -19,7 +19,6 @@ t_token	*handle_arg(char *line, int *i)
 
 	start = *i;
 	//DOLAR CUIDADO POR SI NO GESTIONA BIEN
-	printf("holi\n");
 	while (line[*i] && !ft_istoken(line[*i]) && !ft_isspace(line[*i]))
 	{
 		if (line[*i] == '&' && line[*i + 1] == '&')

@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:55:05 by angeln            #+#    #+#             */
-/*   Updated: 2024/11/03 01:25:27 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/03 02:07:51 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,11 @@ static char	*validate_cmdpath(t_cmd *cmd, t_env *tenv);
  * with the appropriate status */
 int	process_child(t_cmd *cmd, t_pipe *fds, t_env *tenv, int cmd_index)
 {
-	int		err_code;
-	char	**env;
+	int			err_code;
+	char		**env;
+	t_signal	s;
 
+	handle_update_signal(&s, SIG_HANDLE_DEFAULT);
 	err_code = 0;
 	if (cmd->connection_type == PIPE || is_last_cmd_in_pipe(cmd, cmd_index))
 	{
