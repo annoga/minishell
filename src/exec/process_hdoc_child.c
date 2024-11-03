@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 13:01:38 by angeln            #+#    #+#             */
-/*   Updated: 2024/11/03 13:21:16 by angeln           ###   ########.fr       */
+/*   Updated: 2024/11/03 14:39:59 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ static void	expand_heredoc_line(char *line, int fd, t_env **tenv)
 	t_token	*tmp;
 
 	token = tokenizer(line, *tenv);
-	if (!token)
-		print_and_kill("minishell: malloc", 1);
 	token = expansor(token, tenv, 1, 0);
 	tmp = token;
 	while (tmp)
