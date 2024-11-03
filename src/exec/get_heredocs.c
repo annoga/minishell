@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 12:56:32 by anovoa            #+#    #+#             */
-/*   Updated: 2024/11/03 03:47:50 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/03 13:07:52 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 //static char *remove_quotes(char *word);
 //static int	has_quotes(char *str);
 
-static int	save_heredoc(int fd, int exp, char *word, t_env **tenv);
-int	process_heredoc(t_file *current, t_env **tenv);
+//int	process_heredoc(t_file *current, t_env **tenv, int *status);
+//int	process_hdoc_child(char *word, t_pipe *fds, int expand, t_env **tenv);
 
 int	get_heredocs(t_cmd *cmd, t_env **tenv, int internal)
 {
@@ -35,13 +35,12 @@ int	get_heredocs(t_cmd *cmd, t_env **tenv, int internal)
 		{
 			if (redir && redir->type == HEREDOC)
 			{
-				status = process_heredoc(redir, tenv);
-				//printf("out proc_hd:%p\n", redir);
+				process_heredoc(redir, tenv, &status);
 				if (!cmd->cmd)
-				{
 					if (clear_heredoc(redir) != 0)
 						return (1);
-				}
+				if (status == 130)//pruébalo
+					return (status);
 			}
 			redir = redir->next;
 		}
@@ -52,7 +51,40 @@ int	get_heredocs(t_cmd *cmd, t_env **tenv, int internal)
 	return (status);
 }
 
-int	process_heredoc(t_file *current, t_env **tenv)
+/*int	process_hdoc_child(char *word, t_pipe *fds, int expand, t_env **tenv)
+{
+	t_signal	s;
+
+	handle_update_signal(&s, SIG_HANDLE_HDOC);
+	if (safe_close(fds->next[READ]) == -1)
+		return (1);
+	while (42)
+	{
+		line = readline("> ");
+		if ((!line && print_hdoc_err(word)) || !ft_strcmp(line, word))
+			break ;
+		if (exp)
+			expand_heredoc_line(line, fds->next[WRITE], *tenv);
+		else
+		{
+			ft_putendl_fd(line, fds->next[WRITE]);
+			free(line);
+		}
+		free(line);
+	}
+	exit(0);
+}*/
+/*
+static int	print_hdoc_err(char *word)
+{
+	ft_putstr_fd("minishell: warning: ", 2);
+	ft_putstr_fd("here-document delimited by end-of-file (wanted `", 2);
+	ft_putstr_fd(word, 2);
+	ft_putendl_fd("')", 2);
+	return (1);
+}*/
+
+/*int	process_heredoc(t_file *current, t_env **tenv)
 {
 	int		res;
 	int		fd;
@@ -75,7 +107,7 @@ int	process_heredoc(t_file *current, t_env **tenv)
 	//printf("has_q:%d\n\n\n", quotes);
 	res = save_heredoc(fd, !quotes, word, tenv);
 	//free(word);
-	close(fd);//safe
+	safe_close(fd);//safe
 	fd = open("/tmp/temp_heredoc.txt", O_RDONLY);//safe
 	//printf("fd:%d\n\n\n", fd);
 	//if (quotes)//
@@ -87,55 +119,9 @@ int	process_heredoc(t_file *current, t_env **tenv)
 	else
 		return (res * res);
 	return (0);
-}
-
-/*static int	has_quotes(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '"' || str[i] == '\'')
-			return (1);
-		i++;
-	}
-	return (0);
 }*/
 
-//void	*ft_memmove(void *dst, const void *src, size_t len);
-/*static char *remove_quotes(char *word)
-{
-	char	*res;
-	int		i;
-	int		j;
-	char	open_quote;
-
-	i = 0;
-	j = -1;
-	open_quote = 0;
-	res = ft_calloc(ft_strlen(word) + 1, sizeof(char));
-	if (!res)
-		return (NULL);
-	while (word[++j])
-	{
-		if (!open_quote && isquote(word[j]))
-			open_quote = word[j];
-		else if (open_quote && open_quote == word[j])
-			open_quote = 0;
-		else
-			res[i++] = word[j];
-	}
-	return (res);
-}*/
-
-/*static char	*expand(char *line, t_env **tenv)//
-{
-	(void)tenv;
-	return (line);
-}*/
-
-static int	save_heredoc(int fd, int exp, char *word, t_env **tenv)
+/*static int	save_heredoc(int fd, int exp, char *word, t_env **tenv)
 {
 	char	*line;
 //	char	*tmp;
@@ -199,7 +185,7 @@ static int	save_heredoc(int fd, int exp, char *word, t_env **tenv)
 	}
 	//free(line);
 	return (fd);
-}
+}*/
 
 int	create_tmp_file()
 {

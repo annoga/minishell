@@ -6,14 +6,13 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 17:59:43 by angeln            #+#    #+#             */
-/*   Updated: 2024/11/02 18:16:16 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/03 12:45:50 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 static int	env_listlen(t_env *env);
-static void	print_and_kill(char *str, int exit_status);
 
 char	**tenv_to_array(t_env *env)
 {
@@ -55,10 +54,4 @@ static int	env_listlen(t_env *env_list)
 		env_list = env_list->next;
 	}
 	return (count);
-}
-
-static void	print_and_kill(char *str, int exit_status)
-{
-	perror(str);
-	exit(exit_status);
 }

@@ -73,7 +73,7 @@ void	handle_hdoc_signal(int signal)
 		//write(1, "\n", 1);
         // Clear the line and refresh the prompt without displaying ^C
         write(STDOUT_FILENO, "\n", 2);        // Move to a new line
-        rl_replace_line("", 0);               // Clear the input line
+        //rl_replace_line("", 0);               // Clear the input line
         //rl_on_new_line();                     // Reset the prompt position
         //rl_redisplay();                       // Redisplay the prompt
    }

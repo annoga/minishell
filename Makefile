@@ -50,7 +50,8 @@ UTILS			=	utils/ft_strcmp.c						\
 					utils/free_split.c						\
 					utils/free_tcmd.c						\
 					utils/ft_memmove.c						\
-					utils/return_error.c
+					utils/return_error.c					\
+					utils/print_and_kill.c
  
 PARSER			=	parser/parser.c							\
 					parser/add_dir.c						\
@@ -93,7 +94,12 @@ EXEC			=	exec/free_env.c 							\
 					exec/redir_file_stdout.c					\
 					exec/redir_file_stdin.c						\
 					exec/redir_heredoc_stdin.c					\
-					exec/safe_fork.c								
+					exec/process_heredoc.c						\
+					exec/process_hdoc_child.c					\
+					exec/wait_for_status.c						\
+					exec/safe_pipe.c							\
+					exec/safe_fork.c							\
+					exec/safe_close.c								
 
 BUILTINS			=	builtins/echo.c 								\
 					builtins/ft_exit.c 								\

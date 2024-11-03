@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:52:44 by angeln            #+#    #+#             */
-/*   Updated: 2024/11/03 09:56:32 by angeln           ###   ########.fr       */
+/*   Updated: 2024/11/03 13:01:07 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,16 +115,21 @@ int		ft_analyze_cmd(t_env **env, t_cmd *current);
 int		get_heredocs(t_cmd *cmd, t_env **tenv, int internal);
 char	*get_cmd_path(char *cmd, char *path_env);
 int		is_command(char *path);
+void	safe_pipe(t_pipe *fds);
 pid_t	safe_fork(void);
+int		safe_close(int fd);
 void	pipe_write_stdout(int *pipe);
 void	pipe_read_stdin(int *pipe);
 t_cmd	*process_command_block(t_cmd *cmd, int *err_code, t_env *tenv);
 int		is_last_cmd_in_pipe(t_cmd *cmd, int pos);
 void	update_pipes(t_pipe *fds, int j, t_cmd *next_cmd);
 int		process_child(t_cmd *cmd, t_pipe *fds, t_env *tenv, int cmd_index);
+int		wait_for_status(pid_t last_pid, int n);
 int		redir_file_stdout(char *filename, int mode);
 int		redir_file_stdin(char *filename, int mode);
 int		redir_heredoc_stdin(int fd);
+int		process_heredoc(t_file *current, t_env **tenv, int *status);
+int		process_hdoc_child(char *word, t_pipe *fds, int expand, t_env **tenv);
 int		clear_heredoc(t_file *target);
 
 /* BUILTINS */
@@ -159,6 +164,7 @@ char	*free_split(char **split);
 char	*print_type(t_token_type type);
 char	*free_tcmd(t_cmd **cmd_list);
 void	*ft_memmove(void *dst, const void *src, size_t len);
+void	print_and_kill(char *str, int exit_status);
 
 
 /* SIGNAL */
