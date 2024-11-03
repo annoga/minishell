@@ -21,26 +21,30 @@ void env_set_value(t_env **env, char *key, char *value)
 
 int goto_dir(char *dir, t_env *env)
 {
-	char	*oldpwd;
-	char	*newpwd;
+	char	*cwd;
+    char    *oldpwd;
+	char	*pwd;
 	int		res;
 
-
-	oldpwd = getcwd(NULL, 0);
+	cwd = getcwd(NULL, 0);
 	res = chdir(dir);
     if (res == 0)
 	{
-		env_set_value(&env, "OLDPWD", oldpwd);
-		newpwd = getcwd(NULL, 0);
-		env_set_value(&env, "PWD", newpwd);
-		return 0;
+        oldpwd = ft_strdup("OLDPWD");
+        if(!oldpwd)
+            return 1;
+		env_set_value(&env, oldpwd, cwd);
+		cwd = getcwd(NULL, 0);
+        pwd = ft_strdup("PWD");
+        if(!pwd)
+            return 1;
+		env_set_value(&env, pwd, cwd);
+		return (0);
 	}
 	else
 	{
-		free(oldpwd);
 		ft_putstr_fd("minishell: cd: ", 2);
-		perror(dir);
-		return 1;
+		return (free(cwd), perror(dir), 1);
 	}
 }
 
