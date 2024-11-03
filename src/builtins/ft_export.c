@@ -1,45 +1,30 @@
-// /* ************************************************************************** */
-// /*                                                                            */
-// /*                                                        :::      ::::::::   */
-/*   ft_export.c                                        :+:      :+:    :+:   */
-// /*                                                    +:+ +:+         +:+     */
-// /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
-// /*                                                +#+#+#+#+#+   +#+           */
-// /*   Created: 2024/10/30 09:40:52 by angeln            #+#    #+#             */
-/*   Updated: 2024/11/03 17:40:07 by anovoa           ###   ########.fr       */
-// /*                                                                            */
-// /* ************************************************************************** */
-
+/* ************************************************************************** */
+/*																			  */
+/*														  :::	   ::::::::   */
+/*	 ft_export.c										:+:		 :+:	:+:   */
+/*													  +:+ +:+		  +:+	  */
+/*	 By: crmanzan <marvin@42.fr>					+#+  +:+	   +#+		  */
+/*												  +#+#+#+#+#+	+#+			  */
+/*	 Created: 2024/11/03 21:15:12 by crmanzan		   #+#	  #+#			  */
+/*	 Updated: 2024/11/03 21:15:15 by crmanzan		  ###	########.fr		  */
+/*																			  */
+/* ************************************************************************** */
 #include "../../inc/minishell.h"
 
-// /* Returns exit status */
-
-t_env	*env_get_value(t_env *var, char *name)
+void	env_new(t_env **env, char *name, char *value)
 {
-	while (var)
-	{
-		if (!ft_strncmp(var->key_name, name, ft_strlen(name) + 1))
-			return (var);
-		var = var->next;
-	}
-	return (NULL);
-}
+	t_env	*new;
+	t_env	*tmp;
 
-
-void env_new(t_env **env, char *name, char *value)
-{
-    t_env *new;
-    t_env *tmp;
-
-    if (!name || !env)
-        return;
-    new = (t_env *)calloc(1, sizeof(t_env));
-    if (!new)
-        {return ;}
-    new->key_name = name;
-    new->value = value;
-    new->next = NULL;
-    if (*env)
+	if (!name || !env)
+		return ;
+	new = (t_env *)calloc(1, sizeof(t_env));
+	if (!new)
+		return ;
+	new->key_name = name;
+	new->value = value;
+	new->next = NULL;
+	if (*env)
 	{
 		tmp = *env;
 		while (tmp->next)
@@ -50,47 +35,47 @@ void env_new(t_env **env, char *name, char *value)
 		*env = new;
 }
 
-t_env *create_new_export(char *str)
+t_env	*create_new_export(char *str)
 {
-	t_env *new;
-	int equal_pos;
+	t_env	*new;
+	int		equal_pos;
 
 	equal_pos = ft_equal_position(str);
 	new = (t_env *)ft_calloc(1, sizeof(t_env));
 	new->addition = 0;
 	if (!new)
 		return (NULL);
-	if(!equal_pos || str[equal_pos + 1] == '\0')
+	if (!equal_pos || str[equal_pos + 1] == '\0')
 	{
 		new->key_name = ft_strtrim(str, "=+");
-		if(!new->key_name)
+		if (!new->key_name)
 			return (NULL);
-		if(equal_pos == 0)
+		if (equal_pos == 0)
 			new->value = NULL;
 		else
 		{
 			new->value = ft_strdup("\0");
-			if(!new->value)
+			if (!new->value)
 				return (NULL);
 		}
 	}
-	else if(equal_pos > 0)
+	else if (equal_pos > 0)
 		set_equal_value(new, str, equal_pos);
 	return (new);
 }
 
-void add_export(t_env *new, t_env **env)
+void	add_export(t_env *new, t_env **env)
 {
-	t_env *tmp;
-	char *tmp_value;
+	t_env	*tmp;
+	char	*tmp_value;
 
-	if(!new || !env)
+	if (!new || !env)
 		return ;
 	tmp = env_get_value(*env, new->key_name);
-	if(tmp && new->addition == 1)
+	if (tmp && new->addition == 1)
 	{
 		tmp_value = ft_strjoin(tmp->value, new->value);
-		if(!tmp)
+		if (!tmp)
 			return ;
 		free(new->value);
 		new->value = tmp_value;
@@ -99,36 +84,34 @@ void add_export(t_env *new, t_env **env)
 	free(new);
 }
 
+void	not_valid_key_error(char *str, int *err_code)
+{
+	*err_code = 1;
+	ft_putstr_fd("export: `", 2);
+	ft_putstr_fd(str, 2);
+	ft_putendl_fd("': not a valid identifier", 2);
+}
+
 int	ft_export(t_cmd *cmd, t_env **env)
 {
-	int i;
-	int err_code;
+	int		i;
+	int		err_code;
+	t_env	*new;
 
 	i = 1;
 	err_code = 0;
-	t_env *new;
-
 	new = NULL;
-	if(!cmd->cmd[1])
+	if (!cmd->cmd[1])
+		return (print_export(*env), 0);
+	while (cmd->cmd[i])
 	{
-		print_export(*env);
-		return (0);
-	}
-	while(cmd->cmd[i])
-	{
-		if(not_valid_key(cmd->cmd[i]))
-		{
-			printf("export: `%s': not a valid identifier\n", cmd->cmd[i]);
-			err_code = 1;
-		}
-		else if(!not_valid_key(cmd->cmd[i]) && cmd->cmd[i])
+		if (not_valid_key(cmd->cmd[i]))
+			not_valid_key_error(cmd->cmd[i], &err_code);
+		else if (!not_valid_key(cmd->cmd[i]) && cmd->cmd[i])
 		{
 			new = create_new_export(cmd->cmd[i]);
-			if(!new)
-			{
-				printf("Error: malloc failed\n");
-				return (1);
-			}
+			if (!new)
+				return (return_error("Error: malloc failed"), 1);
 			add_export(new, env);
 		}
 		i++;

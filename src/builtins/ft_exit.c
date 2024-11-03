@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:47:15 by anovoa            #+#    #+#             */
-/*   Updated: 2024/11/01 12:25:40 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/03 21:13:28 by crmanzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,6 @@ static int	has_one_arg(t_cmd *cmd);
 static int	is_long(char *str);
 static int	print_err(char *arg, char *msg, int verbose);
 
-/* Leaves minishell and sets errno to 0, 1 or 2 as appropriate.
- * If misused, it may not leave minishell, instead returning the relevant value
- * of errno.
- * */
 int	ft_exit(t_cmd *cmd, int verbose)
 {
 	if (!cmd->cmd[1] && print_err(NULL, NULL, verbose))
@@ -67,7 +63,7 @@ static int	is_long(char *str)
 
 	i = 0;
 	sign = 1;
-	printf("%s\n", str );
+	printf("%s\n", str);
 	if (ft_issign(str[i]))
 		if (str[i++] == '-')
 			sign = -1;

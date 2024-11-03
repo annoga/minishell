@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   env_get_value.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: crmanzan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/16 18:51:07 by anovoa            #+#    #+#             */
-/*   Updated: 2024/11/03 21:06:55 by crmanzan         ###   ########.fr       */
+/*   Created: 2024/11/03 21:55:07 by crmanzan          #+#    #+#             */
+/*   Updated: 2024/11/03 21:55:22 by crmanzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../../inc/minishell.h"
 
-void	ft_env(t_env *env)
+t_env	*env_get_value(t_env *var, char *name)
 {
-	while (env)
+	while (var)
 	{
-		if (env->value)
-			printf("%s=%s\n", env->key_name, env->value);
-		env = env->next;
+		if (!ft_strncmp(var->key_name, name, ft_strlen(name) + 1))
+			return (var);
+		var = var->next;
 	}
-	exit(0);
+	return (NULL);
 }
