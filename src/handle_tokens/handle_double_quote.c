@@ -39,9 +39,7 @@ char	*handle_env_var(char *line, int *i, t_env *env)
 	var_name = ft_strndup(&line[start], *i - start);
 	if (!var_name)
 		return (NULL);
-    printf("var_name: %s\n", var_name);
 	env_value = ft_getenv(var_name, env);
-    printf("env_value: %s\n", env_value);
 	free(var_name);
 	if (env_value)
 		return (ft_strdup(env_value));

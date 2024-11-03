@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:55:21 by angeln            #+#    #+#             */
-/*   Updated: 2024/11/03 02:59:51 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/03 15:46:46 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,41 +79,29 @@ static void	print_env(char **envp)
 int	main(int argc, char *argv[], char **envp)
 {
 	char	*line;
-	//t_token	*token;
 	t_env	*env;
 	t_signal	signals;
-//	t_cmd	*cmd;
-	//int		i;
 
 	(void)argc;
 	(void)argv;
 	env = NULL;
-	//token = NULL;
-	//i = 1;
 	
 	g_mode = 0;
-	// env->exit_status = 0;
 	ft_catch_env(envp, &env);
+	env->exit_status = 0;
 	handle_update_signal(&signals, SIG_HANDLE_IDLE);
 	while (1)
 	{
 		line = readline("💩 nugget 🐾$ ");
-		//Ctrl+D: envia un NULL a readline -> salimos
+		//env->exit_status = 0;
 		if (!line && ft_putendl_fd("exit", 2) && free_env(&env))
 			exit(0);
 		if (line && line[0] != '\0' && !check_is_ok(line, env))
 		{
 			split_linker(line, &env);
-			// if(!token)
-			// 	continue;
-//			cmd = parser(token);
-//			if(debug == 2)
-//				print_cmd(cmd, 0);
 			add_history(line);
 		}
-		printf("env->exit_status: %d\n", env->exit_status);
 		free(line);
-		// free_token(&token);
 		rl_on_new_line();
 	}
 	exit(0);
