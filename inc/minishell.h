@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:52:44 by angeln            #+#    #+#             */
-/*   Updated: 2024/11/02 13:01:03 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/03 01:13:35 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 
 //# include ".h"
 
+extern int	g_mode;
 extern int	debug;//This is a test variable and should be removed
 
 /* TOKENIZER */

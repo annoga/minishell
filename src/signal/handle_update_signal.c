@@ -60,8 +60,7 @@ void handle_idle_signal(int signal) {
 
 void	sig_handler_exec(int signal)
 {
-    (void)signal;
-	// g_signals = signal;
+	g_mode = signal;
 }
 
 

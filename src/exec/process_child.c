@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:55:05 by angeln            #+#    #+#             */
-/*   Updated: 2024/11/02 22:23:04 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/03 01:25:27 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	process_child(t_cmd *cmd, t_pipe *fds, t_env *tenv, int cmd_index)
 	err_code = process_redirs(cmd);
 	if (err_code != 0)// || !cmd->cmd)// '<infile' devuelve 0
 		exit(err_code);
-	if (!cmd->cmd)
+	if (!cmd->cmd || !ft_strcmp(cmd->cmd[0], ""))//expansiones vacias
 		exit(0);
 	execute_builtin(cmd, tenv);
 	env = tenv_to_array(tenv);
