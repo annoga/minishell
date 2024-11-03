@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:52:44 by angeln            #+#    #+#             */
-/*   Updated: 2024/11/03 21:24:27 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/03 23:21:53 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,7 @@
 //# include <string.h>
 # include <linux/limits.h>
 
-//# include ".h"
-
 extern int	g_mode;
-extern int	debug;//This is a test variable and should be removed
 
 /* TOKENIZER */
 t_token	*tokenizer(char *line, t_env *env);
@@ -67,49 +64,43 @@ t_cmd	*add_command(t_cmd **cmd_lst);
 void	set_file(t_cmd **cmd, t_token **token);
 void	lst_add_back(void *lst, void *new);
 t_cmd	*add_command(t_cmd **cmd_lst);
-void initialize_command_if_needed(t_cmd **command, t_cmd **head);
-int is_command_or_argument(t_token *token, t_cmd **command);
-int is_connection(t_token *token, t_cmd **command);
-int is_redirection(t_token **token, t_cmd **command, t_token **last_tkn);
-int is_subcommand_start(t_token **token, t_cmd **command);
-int is_subcommand_end(t_token *token);
+void	initialize_command_if_needed(t_cmd **command, t_cmd **head);
+int		is_command_or_argument(t_token *token, t_cmd **command);
+int		is_connection(t_token *token, t_cmd **command);
+int		is_redirection(t_token **token, t_cmd **command, t_token **last_tkn);
+int		is_subcommand_start(t_token **token, t_cmd **command);
+int		is_subcommand_end(t_token *token);
 void	set_connection(t_token *token, t_cmd **command);
 void	set_command(t_cmd **cmd, t_token *token);
-void ft_join_last(t_cmd *cmd, t_token *token, t_token_type last_type);
-int is_argument_or_quote(t_token *token, t_cmd **command, t_token *last_tkn);
+void	ft_join_last(t_cmd *cmd, t_token *token, t_token_type last_type);
+int		is_argument_or_quote(t_token *token, t_cmd **command,
+			t_token *last_tkn);
 
-
-//void print_cmd(t_cmd *cmd, int level);
-
-
-t_token *expansor(t_token *head, t_env **env, int is_hdoc, int is_quoted);
-t_token *expansor_hdoc(t_token *head, t_env **env, int is_quoted);
-void tokenize_env(t_token **tmp2, t_token **tmp, t_token **head, t_env **envp);
+t_token	*expansor(t_token *head, t_env **env, int is_hdoc, int is_quoted);
+t_token	*expansor_hdoc(t_token *head, t_env **env, int is_quoted);
+void	tokenize_env(t_token **tmp2, t_token **tmp, t_token **head,
+			t_env **envp);
 void	ft_catch_env(char **envp, t_env **head);
 void	ft_catch_shlvl(t_env **tmp, int *shlvl_flag);
-int ft_issafedup(t_env **tmp, char *name, char *value);
-void ft_empty_env(t_env **tmp);
-
-
-// void check_builtin(t_token *head);
-// void check_pipe_bonus(t_token *head);
-// void check_redirect(t_token *head);
-// void check_token(t_token *head);
+int		ft_issafedup(t_env **tmp, char *name, char *value);
+void	ft_empty_env(t_env **tmp);
 
 /* WILDCARD */
 void	sort_alphabetic_token(t_token *head);
 t_token	*handle_input(char *input);
-void	set_params(t_wilds *params, const char *prefix, const char *suffix, int depth);
+void	set_params(t_wilds *params, const char *prefix,
+			const char *suffix, int depth);
 void	insert_space_tokens(t_token **tokens);
 void	list_all_directories(t_token **token_list);
 void	normalize_input(char *input);
 void	handle_directory(const t_wilds *params, t_token **token_list);
-void	process_entry(const char *path, struct dirent *entry, const t_wilds *params, t_token **token_list);
+void	process_entry(const char *path, struct dirent *entry,
+			const t_wilds *params, t_token **token_list);
 char	*construct_full_path(const char *dir_path, const char *entry_name);
 int		prefix_compare(const char *str, const char *prefix);
 int		suffix_compare(const char *str, const char *suffix);
 int		is_directory(const char *path);
-char*	last_slash(char *prefix);
+char	*last_slash(char *prefix);
 
 /* SYNTAX */
 int				analize_tokens(t_token *token, t_env *env);

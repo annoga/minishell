@@ -32,7 +32,7 @@ static t_token	*create_space_token(void)
 	space_token = allocate_token();
 	if (!space_token)
 		return (NULL);
-	space_token->token = strdup(" ");
+	space_token->token = ft_strdup(" ");
 	if (!space_token->token)
 	{
 		perror("strdup");

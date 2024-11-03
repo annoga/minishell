@@ -17,7 +17,7 @@ char	*append_str(char *result, char *str)
 
 	if (!result)
 		return (str);
-	new_result = (char *)malloc(strlen(result) + strlen(str) + 1);
+	new_result = (char *)malloc(ft_strlen(result) + ft_strlen(str) + 1);
 	if (!new_result)
 		return (NULL);
 	ft_strncpy(new_result, result, ft_strlen(result) + 1);

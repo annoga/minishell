@@ -18,7 +18,7 @@ void	env_new(t_env **env, char *name, char *value)
 
 	if (!name || !env)
 		return ;
-	new = (t_env *)calloc(1, sizeof(t_env));
+	new = (t_env *)ft_calloc(1, sizeof(t_env));
 	if (!new)
 		return ;
 	new->key_name = name;

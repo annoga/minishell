@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 01:32:41 by angeln            #+#    #+#             */
-/*   Updated: 2024/11/03 16:25:28 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/03 23:09:51 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ t_token	*split_linker(char *line, t_env **env)
 
 	token = tokenizer(line, *env);
 	token = expansor(token, env, 0, 0);
-	if(!analize_tokens(token, *env))
-		return(free_token(&token), NULL);
+	if (!analize_tokens(token, *env))
+		return (free_token(&token), NULL);
 	cmd = parser(token);
 	free_token(&token);
 	token = NULL;

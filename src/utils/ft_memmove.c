@@ -6,7 +6,7 @@
 /*   By: crmanzan <crmanzan@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 10:56:30 by crmanzan          #+#    #+#             */
-/*   Updated: 2023/09/21 15:19:16 by crmanzan         ###   ########.fr       */
+/*   Updated: 2024/11/03 22:55:06 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,30 +41,3 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 	}
 	return (dst);
 }
-/*
-int main()
-{
-	char str1[] = "aaaaaa";
-	char str2[] = "bbb"; 
-	char dst[] = "aaaaaa";
-    char src[] = "bbb"; 
-
-    puts("str1 before memmove original ");
-    puts(str1);
-
-   // Copies contents of str2 to sr1 
-    memmove(str1, str2, 5);
-    puts("str1 after memmove original");
-    puts(str1);
-	
-    puts("\nstr3 before memmove ");
-    puts(dst);
-
-    // Copies contents of str2 to sr1
-    ft_memmove(dst, src, 5);
-    puts("str3 after memmove");
-	puts(dst);
-
-    return 0;
-}
-*/
