@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:46:11 by anovoa            #+#    #+#             */
-/*   Updated: 2024/11/03 18:36:27 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/03 19:51:02 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,37 +19,24 @@ static int		op_condition_true(t_token_type operator, int status);
 
 /* This function takes a series of commands and decides which to execute,
  * depending on the connections between them */
-int	ft_analyze_cmd(t_env **env, t_cmd *current)
+int	ft_analyze_cmd(t_env **env, t_cmd *current, int err_code)
 {
-	int			err_code;
-	t_signal	s;
-
-	err_code = get_heredocs(current, env, 0);
-	handle_update_signal(&s, SIG_HANDLE_BLCK);
-	if (err_code != 0)
-		return (err_code);
-	handle_update_signal(&s, SIG_HANDLE_EXEC);
 	while (current)
 	{
 		if (current->cmd)
 		{
 			if (has_pipe(current) || runs_in_pipes(current))
-			{
 				current = process_command_block(current, &err_code, *env, 0);
-			}
 			else
 			{
 				if (current->connection_type == PIPE)
-				{
-					err_code = ft_analyze_cmd(env, current->next);
-					current = NULL;
-				}
+					current = skip_step(&err_code, env, current->next);
 				else
 					current = run_builtin(current, &err_code, env);
 			}
 		}
 		else if (current->subcommand)
-			err_code = ft_analyze_cmd(env, current->subcommand);
+			err_code = ft_analyze_cmd(env, current->subcommand, 0);
 		else
 			current = process_command_block(current, &err_code, *env, 0);
 		if (current && op_condition_true(current->connection_type, err_code))

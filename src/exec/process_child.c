@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:55:05 by angeln            #+#    #+#             */
-/*   Updated: 2024/11/03 18:21:38 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/03 19:45:54 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,10 @@ static void	execute_builtin(t_cmd *cmd, t_env *tenv)
 		ft_pwd(cmd);
 	else if (!ft_strcmp(cmd->cmd[0], "export"))
 		exit(ft_export(cmd, &tenv));
+	else if (!ft_strcmp(cmd->cmd[0], "unset"))
+		exit(0);
+	else if (!ft_strcmp(cmd->cmd[0], "cd"))
+		exit(0);
 }
 
 /* Exits with the corresponding error, when applicable:

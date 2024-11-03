@@ -6,13 +6,13 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 20:55:00 by angeln            #+#    #+#             */
-/*   Updated: 2024/10/30 00:39:56 by angeln           ###   ########.fr       */
+/*   Updated: 2024/11/03 19:57:36 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static void echo_options(t_cmd next, int *has_n, int *i);
+static void	echo_options(t_cmd next, int *has_n, int *i);
 static int	has_n_option(char *str);
 
 /* Prints any arguments given, followed by a '\n'.
@@ -38,7 +38,7 @@ void	echo(t_cmd *head)
 				printf(" ");
 			i++;
 		}
-		if(!has_n)
+		if (!has_n)
 			printf("%c", '\n');
 	}
 	exit(0);
@@ -46,7 +46,7 @@ void	echo(t_cmd *head)
 
 /* Updates the index pointer to the position of the last valid 
  * -n optin, if any */
-static void echo_options(t_cmd next, int *has_n, int *i)
+static void	echo_options(t_cmd next, int *has_n, int *i)
 {
 	while (next.cmd[*i] && has_n_option(next.cmd[*i]))
 	{
@@ -57,18 +57,18 @@ static void echo_options(t_cmd next, int *has_n, int *i)
 
 /* Checks if str is written in the following pattern:
  * "-n", "-nn", "-nnn", etc */
-static int has_n_option(char *str)
+static int	has_n_option(char *str)
 {
-    if (str && str[0] == '-')
-    {
-        str++;
-        while (*str)
-        {
-            if (*str != 'n')
-                return (0);
-            str++;
-        }
-        return (1);
-    }
-    return (0);
+	if (str && str[0] == '-')
+	{
+		str++;
+		while (*str)
+		{
+			if (*str != 'n')
+				return (0);
+			str++;
+		}
+		return (1);
+	}
+	return (0);
 }

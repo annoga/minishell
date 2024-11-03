@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:52:44 by angeln            #+#    #+#             */
-/*   Updated: 2024/11/03 18:36:43 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/03 19:51:35 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,8 @@ void	command_analyzer(t_env **env, t_cmd *cmd);
 int		free_env(t_env **envp);
 char	*ft_getenv(char *key, t_env *envp);
 char	**tenv_to_array(t_env *env);
-int		ft_analyze_cmd(t_env **env, t_cmd *current);
+int		ft_analyze_cmd(t_env **env, t_cmd *current, int err_code);
+t_cmd	*skip_step(int *st, t_env **env, t_cmd *next);
 int		get_heredocs(t_cmd *cmd, t_env **tenv, int status);
 char	*get_cmd_path(char *cmd, char *path_env);
 int		is_command(char *path);
