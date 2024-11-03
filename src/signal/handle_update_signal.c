@@ -54,7 +54,8 @@ void handle_idle_signal(int signal) {
     }
     else if (ft_strlen(rl_line_buffer) <= 2) {
                                                 // For SIGQUIT, clear the line and refresh the prompt without displaying ^
-        rl_replace_line("", 0);               // Clear the input line                      // Redisplay the prompt
+        //rl_replace_line("", 0);               // Clear the input line                      // Redisplay the prompt
+        rl_redisplay();                       // Redisplay the prompt
     }
 }
 
@@ -68,13 +69,13 @@ void	handle_hdoc_signal(int signal)
 	g_mode = 2;
     if (signal == SIGINT)
 	{
-		write(1, "me\n", 3);
     	//rl_blank_line();
+		//write(1, "\n", 1);
         // Clear the line and refresh the prompt without displaying ^C
         write(STDOUT_FILENO, "\n", 2);        // Move to a new line
-        //rl_replace_line("", 0);               // Clear the input line
+        rl_replace_line("", 0);               // Clear the input line
         //rl_on_new_line();                     // Reset the prompt position
-        rl_redisplay();                       // Redisplay the prompt
+        //rl_redisplay();                       // Redisplay the prompt
    }
 }
 
@@ -90,7 +91,6 @@ void handle_update_signal(t_signal *signals, enum e_signal_handle mode)
         signals->ctrl_c.sa_handler = SIG_IGN;
     else
         signals->ctrl_c.sa_handler = SIG_DFL;
-
     if(mode == SIG_HANDLE_HDOC)
         signals->ctrl_slash.sa_handler = SIG_IGN;
     else

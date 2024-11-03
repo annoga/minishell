@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 12:56:32 by anovoa            #+#    #+#             */
-/*   Updated: 2024/11/03 03:05:08 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/03 03:47:50 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	get_heredocs(t_cmd *cmd, t_env **tenv, int internal)
 		}
 		cmd = cmd->next;
 	}
-//	handle_update_signal(&s, SIG_HANDLE_BLCK);
+	handle_update_signal(&s, SIG_HANDLE_BLCK);
 	handle_update_signal(&s, SIG_HANDLE_EXEC);
 	return (status);
 }
@@ -145,26 +145,31 @@ static int	save_heredoc(int fd, int exp, char *word, t_env **tenv)
 
 	//printf("exp:%d\n\n\n", exp);
 	handle_update_signal(&s, SIG_HANDLE_HDOC);
+	g_mode = 0;//
 	if (fd == -1)
 		return (1);
 	while (g_mode != SIGINT)//señales, ctrlD sale pero no exit
 	{
-		printf("%d\n", g_mode);
+		//printf("%d\n", g_mode);
 		line = readline("> ");
 		if (g_mode == SIGINT)
 		{
 			free(line);
 			return (0);
-			break ;
+			//break ;
 		}
 		if (!line)//?? ej CtrlD
 		{
 			free(line);
-			return(close(fd));//creo que ya lo hago fuera??
+			ft_putstr_fd("minishell: warning: here-document delimited by end-of-file (wanted `", 2);
+			ft_putstr_fd(word, 2);
+			ft_putendl_fd("')", 2);
+			return(fd);//creo que ya lo hago fuera??
 		}
 		if (!ft_strcmp(line, word))
 		{
 			//printf("break hd\n");
+			free(line);
 			break ;
 		}
 		if (exp)
@@ -192,7 +197,7 @@ static int	save_heredoc(int fd, int exp, char *word, t_env **tenv)
 			free(line);
 		}
 	}
-	free(line);
+	//free(line);
 	return (fd);
 }
 
