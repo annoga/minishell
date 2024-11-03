@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 12:56:32 by anovoa            #+#    #+#             */
-/*   Updated: 2024/11/03 01:12:29 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/03 03:05:08 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	get_heredocs(t_cmd *cmd, t_env **tenv, int internal)
 	int			status;
 	t_file		*redir;
 
-	handle_update_signal(&s, SIG_HANDLE_HDOC);
+	handle_update_signal(&s, SIG_HANDLE_BLCK);
 	status = 0;
 	if (internal)
 		return (0);
@@ -47,6 +47,8 @@ int	get_heredocs(t_cmd *cmd, t_env **tenv, int internal)
 		}
 		cmd = cmd->next;
 	}
+//	handle_update_signal(&s, SIG_HANDLE_BLCK);
+	handle_update_signal(&s, SIG_HANDLE_EXEC);
 	return (status);
 }
 
@@ -80,6 +82,8 @@ int	process_heredoc(t_file *current, t_env **tenv)
 		//free(word);
 	if (res > 0)
 		current->heredoc_fd = res;
+	else if (res == 0)
+		return (130);
 	else
 		return (res * res);
 	return (0);
@@ -137,17 +141,26 @@ static int	save_heredoc(int fd, int exp, char *word, t_env **tenv)
 //	char	*tmp;
 	t_token	*token;
 	t_token	*tmp;
+	t_signal	s;
 
 	//printf("exp:%d\n\n\n", exp);
+	handle_update_signal(&s, SIG_HANDLE_HDOC);
 	if (fd == -1)
 		return (1);
-	while (1)//señales, ctrlD sale pero no exit
+	while (g_mode != SIGINT)//señales, ctrlD sale pero no exit
 	{
+		printf("%d\n", g_mode);
 		line = readline("> ");
+		if (g_mode == SIGINT)
+		{
+			free(line);
+			return (0);
+			break ;
+		}
 		if (!line)//?? ej CtrlD
 		{
 			free(line);
-			return(close(fd));
+			return(close(fd));//creo que ya lo hago fuera??
 		}
 		if (!ft_strcmp(line, word))
 		{
@@ -160,10 +173,10 @@ static int	save_heredoc(int fd, int exp, char *word, t_env **tenv)
 			token = tokenizer(line, *tenv);
 			free(line);
 			token = expansor(token, tenv, 1, 0);
-			while (token)
+			tmp = token;
+			while (tmp)
 			{
-				
-				ft_putstr_fd(tmp->token, fd);
+				ft_putstr_fd(token->token, fd);
 				tmp = tmp->next;
 			}
 			free_token(&token);

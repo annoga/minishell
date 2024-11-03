@@ -63,13 +63,27 @@ void	sig_handler_exec(int signal)
 	g_mode = signal;
 }
 
+void	handle_hdoc_signal(int signal)
+{
+	g_mode = 2;
+    if (signal == SIGINT)
+	{
+		write(1, "me\n", 3);
+    	//rl_blank_line();
+        // Clear the line and refresh the prompt without displaying ^C
+        write(STDOUT_FILENO, "\n", 2);        // Move to a new line
+        //rl_replace_line("", 0);               // Clear the input line
+        //rl_on_new_line();                     // Reset the prompt position
+        rl_redisplay();                       // Redisplay the prompt
+   }
+}
 
 void handle_update_signal(t_signal *signals, enum e_signal_handle mode)
 {
     if (mode == SIG_HANDLE_IDLE)
         signals->ctrl_c.sa_handler = handle_idle_signal;
     else if (mode == SIG_HANDLE_HDOC)
-        signals->ctrl_c.sa_handler = SIG_DFL;
+        signals->ctrl_c.sa_handler = handle_hdoc_signal;//SIG_DFL;
     else if (mode == SIG_HANDLE_EXEC)
         signals->ctrl_c.sa_handler = sig_handler_exec;
     else if (mode == SIG_HANDLE_BLCK)
