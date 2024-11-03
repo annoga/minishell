@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:52:44 by angeln            #+#    #+#             */
-/*   Updated: 2024/11/03 19:51:35 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/03 21:24:27 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,26 +97,24 @@ void ft_empty_env(t_env **tmp);
 // void check_token(t_token *head);
 
 /* WILDCARD */
-void sort_alphabetic_token(t_token *head);
-t_token *handle_input(char *input);
-void set_params(t_wilds *params, const char *prefix, const char *suffix, int depth);
-void insert_space_tokens(t_token **tokens);
-void list_all_directories(t_token **token_list);
-void normalize_input(char *input);
-void handle_directory(const t_wilds *params, t_token **token_list);
-void process_entry(const char *path, struct dirent *entry, const t_wilds *params, t_token **token_list);
+void	sort_alphabetic_token(t_token *head);
+t_token	*handle_input(char *input);
+void	set_params(t_wilds *params, const char *prefix, const char *suffix, int depth);
+void	insert_space_tokens(t_token **tokens);
+void	list_all_directories(t_token **token_list);
+void	normalize_input(char *input);
+void	handle_directory(const t_wilds *params, t_token **token_list);
+void	process_entry(const char *path, struct dirent *entry, const t_wilds *params, t_token **token_list);
 char	*construct_full_path(const char *dir_path, const char *entry_name);
-int prefix_compare(const char *str, const char *prefix);
-int suffix_compare(const char *str, const char *suffix);
-int is_directory(const char *path);
-char *last_slash(char *prefix);
-
+int		prefix_compare(const char *str, const char *prefix);
+int		suffix_compare(const char *str, const char *suffix);
+int		is_directory(const char *path);
+char*	last_slash(char *prefix);
 
 /* SYNTAX */
-int	analize_tokens(t_token *token, t_env *env);
+int				analize_tokens(t_token *token, t_env *env);
+int				check_syntax(t_token *token);
 t_token_type	assing_type(char *token, t_synt *state);
-
-int check_syntax(t_token *token);
 
 /* EXECUTE */
 void	command_analyzer(t_env **env, t_cmd *cmd);
@@ -150,27 +148,27 @@ int		clear_heredoc(t_file *target);
 void	echo(t_cmd *head);
 int		ft_exit(t_cmd *cmd, int verbose);
 void	ft_env(t_env *env);
-int     ft_cd(t_cmd *cmd, t_env *env);
-void env_set_value(t_env **env, char *key, char *value);
+int		ft_cd(t_cmd *cmd, t_env *env);
+void	env_set_value(t_env **env, char *key, char *value);
 t_env	*env_get_value(t_env *var, char *name);
-void env_new(t_env **env, char *name, char *value);
+void	env_new(t_env **env, char *name, char *value);
 void	ft_pwd(t_cmd *cmd);
-int 	ft_unset(t_cmd *cmd, t_env **env);
+int		ft_unset(t_cmd *cmd, t_env **env);
 int		ft_export(t_cmd *cmd, t_env **env);
-void set_equal_value(t_env *env, char *str, int equal_pos);
-int  ft_equal_position(char *str);
-int not_valid_key(char *str);
-void print_export(t_env *env);
+void	set_equal_value(t_env *env, char *str, int equal_pos);
+int		ft_equal_position(char *str);
+int		not_valid_key(char *str);
+void	print_export(t_env *env);
 
 /* UTILS */
 char	*ft_strndup(const char *s, size_t n);
 int		ft_strcmp(const char *s1, const char *s2);
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
-void ft_strncpy(char *dest, const char *src, size_t n);
-char *ft_strstr(const char *str, const char *needle);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+void	ft_strncpy(char *dest, const char *src, size_t n);
+char	*ft_strstr(const char *str, const char *needle);
 void	*return_error(char *str);
 int		check_is_ok(char *line, t_env *env);
-int ft_istoken(char c);
+int		ft_istoken(char c);
 void	ft_soft_itoa(t_env **tmp, int n);
 void	lst_add_back(void *lst, void *new);
 void	lstclear(void *list, void (*del)(void *));
@@ -179,12 +177,9 @@ char	*free_split(char **split);
 char	*free_tcmd(t_cmd **cmd_list);
 void	*ft_memmove(void *dst, const void *src, size_t len);
 void	print_and_kill(char *str, int exit_status);
-char    *ft_strcat(char *dest, const char *src);
-
+char	*ft_strcat(char *dest, const char *src);
 
 /* SIGNAL */
-void handle_update_signal(t_signal *signals, enum e_signal_handle mode);
+void	handle_update_signal(t_signal *signals, enum e_signal_handle mode);
 
-
-
-# endif
+#endif
