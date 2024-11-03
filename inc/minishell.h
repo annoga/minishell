@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:52:44 by angeln            #+#    #+#             */
-/*   Updated: 2024/11/03 16:43:06 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/03 18:36:43 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int		free_env(t_env **envp);
 char	*ft_getenv(char *key, t_env *envp);
 char	**tenv_to_array(t_env *env);
 int		ft_analyze_cmd(t_env **env, t_cmd *current);
-int		get_heredocs(t_cmd *cmd, t_env **tenv, int internal);
+int		get_heredocs(t_cmd *cmd, t_env **tenv, int status);
 char	*get_cmd_path(char *cmd, char *path_env);
 int		is_command(char *path);
 void	safe_pipe(t_pipe *fds);
@@ -121,7 +121,7 @@ int		safe_close(int fd);
 int		safe_dup2(int old, int clone);
 void	pipe_write_stdout(int *pipe);
 void	pipe_read_stdin(int *pipe);
-t_cmd	*process_command_block(t_cmd *cmd, int *err_code, t_env *tenv);
+t_cmd	*process_command_block(t_cmd *cmd, int *err_code, t_env *tenv, int pos);
 int		is_last_cmd_in_pipe(t_cmd *cmd, int pos);
 void	update_pipes(t_pipe *fds, int j, t_cmd *next_cmd);
 int		process_child(t_cmd *cmd, t_pipe *fds, t_env *tenv, int cmd_index);

@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 13:01:38 by angeln            #+#    #+#             */
-/*   Updated: 2024/11/03 14:39:59 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/03 18:16:43 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	process_hdoc_child(char *word, t_pipe *fds, int expand, t_env **tenv)
 	while (42)
 	{
 		line = readline("> ");
-		if ((!line && print_hdoc_err(word))) 
+		if ((!line && print_hdoc_err(word)))
 			break ;
 		if (!ft_strcmp(line, word))
 		{

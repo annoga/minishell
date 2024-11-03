@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 13:42:21 by angeln            #+#    #+#             */
-/*   Updated: 2024/11/02 22:21:51 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/03 18:19:43 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ int	redir_file_stdin(char *filename, int mode)
 		perror("");
 		return (1);
 	}
-	if (dup2(fd, 0) == -1)//err msg?
+	if (safe_dup2(fd, 0) == -1)
 		return (1);
-	if (close(fd) == -1)
+	if (safe_close(fd) == -1)
 		return (1);
-	return (0);//return exit code
+	return (0);
 }
