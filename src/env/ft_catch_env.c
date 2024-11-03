@@ -1,37 +1,21 @@
+/* ************************************************************************** */
+/*																			  */
+/*														  :::	   ::::::::   */
+/*	 ft_catch_env.c										:+:		 :+:	:+:   */
+/*													  +:+ +:+		  +:+	  */
+/*	 By: crmanzan <marvin@42.fr>					+#+  +:+	   +#+		  */
+/*												  +#+#+#+#+#+	+#+			  */
+/*	 Created: 2024/11/03 19:47:36 by crmanzan		   #+#	  #+#			  */
+/*	 Updated: 2024/11/03 19:47:36 by crmanzan		  ###	########.fr		  */
+/*																			  */
+/* ************************************************************************** */
 #include "../../inc/minishell.h"
-
-static void	ft_aux_catch_env(t_env **tmp, int *shlvl_flag)
-{
-	int	shlvl;
-
-	shlvl = 0;
-	if ((*tmp)->key_name && ft_strcmp((*tmp)->key_name, "SHLVL\0") == 0)
-	{
-		shlvl = ft_atoi((*tmp)->value);
-		if (shlvl > 999)
-		{
-			ft_putstr_fd("minishell: shell level (", 2);
-			free((*tmp)->value);
-			ft_soft_itoa(tmp, shlvl + 1);
-			ft_putstr_fd((*tmp)->value, 2);
-			ft_putstr_fd(") too high, resetting to 1\n", 2);
-			shlvl = 1;
-		}
-		else if (shlvl < 999 && shlvl >= 0)
-			shlvl++;
-		else
-			shlvl = 0;
-		free((*tmp)->value);
-		ft_soft_itoa(tmp, shlvl);
-		*shlvl_flag = 1;
-	}
-}
 
 static void	ft_aux_shlvl(t_env **tmp, t_env **last, int shlvl_flag)
 {
 	if (shlvl_flag == 0)
 	{
-		if(!ft_issafedup(tmp, "SHLVL", "1 "))
+		if (!ft_issafedup(tmp, "SHLVL", "1 "))
 			exit(1);
 		(*last)->next = *tmp;
 		*last = *tmp;
@@ -43,7 +27,7 @@ static void	ft_aux_envdup(t_env **tmp, char **envp, int i, char *div)
 	*tmp = (t_env *)malloc(sizeof(t_env));
 	if (!tmp)
 		exit(1);
-	if(envp[i] && !ft_strcmp(envp[i], "SHLVL=1"))
+	if (envp[i] && !ft_strcmp(envp[i], "SHLVL=1"))
 	{
 		free(*tmp);
 		*tmp = NULL;
@@ -58,7 +42,7 @@ static void	ft_aux_envdup(t_env **tmp, char **envp, int i, char *div)
 		exit(1);
 }
 
-void totally_auxiliar(t_env **head, t_env **last, t_env **tmp)
+void	totally_auxiliar(t_env **head, t_env **last, t_env **tmp)
 {
 	if (!*head)
 		*head = *tmp;
@@ -67,7 +51,7 @@ void totally_auxiliar(t_env **head, t_env **last, t_env **tmp)
 	*last = *tmp;
 }
 
-void ft_full_env(char **envp, t_env **head)
+void	ft_full_env(char **envp, t_env **head)
 {
 	char	*div;
 	t_env	*tmp;
@@ -83,12 +67,12 @@ void ft_full_env(char **envp, t_env **head)
 	while (envp[i])
 	{
 		ft_aux_envdup(&tmp, envp, i, div);
-		if(!tmp)
+		if (!tmp)
 		{
 			i++;
 			continue ;
 		}
-		ft_aux_catch_env(&tmp, &shlvl_flag);
+		ft_catch_shlvl(&tmp, &shlvl_flag);
 		totally_auxiliar(head, &last, &tmp);
 		i++;
 	}
@@ -96,11 +80,9 @@ void ft_full_env(char **envp, t_env **head)
 	last->next = NULL;
 }
 
-//make a linked list on env, iter shlvl, and ind case of no shlvl,
-// creates an add one at the end of the list
 void	ft_catch_env(char **envp, t_env **head)
 {
-	if(envp && envp[0])
+	if (envp && envp[0])
 		ft_full_env(envp, head);
 	else
 		ft_empty_env(head);

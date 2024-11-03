@@ -1,6 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_empty_env.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: crmanzan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/03 19:57:39 by crmanzan          #+#    #+#             */
+/*   Updated: 2024/11/03 20:01:25 by crmanzan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "../../inc/minishell.h"
 
-int ft_issafedup(t_env **tmp, char *name, char *value)
+int	ft_issafedup(t_env **tmp, char *name, char *value)
 {
 	*tmp = (t_env *)malloc(sizeof(t_env));
 	if (!tmp)
@@ -14,21 +25,19 @@ int ft_issafedup(t_env **tmp, char *name, char *value)
 	return (1);
 }
 
-void ft_empty_env(t_env **tmp)
+void	ft_empty_env(t_env **tmp)
 {
 	char	*pwd;
 
 	pwd = getcwd(NULL, 0);
-	if(!pwd)
+	if (!pwd)
 		exit(1);
-	if(!ft_issafedup(tmp, "PWD", pwd))
+	if (!ft_issafedup(tmp, "PWD", pwd))
 		exit(1);
-	if(!ft_issafedup(&((*tmp)->next), "OLDPWD", pwd))
+	if (!ft_issafedup(&((*tmp)->next), "OLDPWD", pwd))
 		exit(1);
-	if(!ft_issafedup(&((*tmp)->next->next), "PATH", "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"))
+	if (!ft_issafedup(&((*tmp)->next->next), "SHLVL", "1 "))
 		exit(1);
-	if(!ft_issafedup(&((*tmp)->next->next->next), "SHLVL", "1 "))
-		exit(1);
-	(*tmp)->next->next->next->next = NULL;
+	(*tmp)->next->next->next = NULL;
 	free(pwd);
 }
