@@ -6,7 +6,7 @@
 /*   By: crmanzan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:27:29 by crmanzan          #+#    #+#             */
-/*   Updated: 2024/10/28 17:28:09 by crmanzan         ###   ########.fr       */
+/*   Updated: 2024/11/03 16:25:40 by crmanzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
@@ -16,7 +16,7 @@ t_token	*get_token(char *line, int *i, t_env *env, int is_hdoc)
 	t_token	*token;
 
 	token = NULL;
-	if(!is_hdoc)
+	if (!is_hdoc)
 		token = get_special_token(line, i);
 	if (token)
 		return (token);

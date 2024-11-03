@@ -33,9 +33,9 @@ To procrastinate:
     ◦ Norminette:
         - env                                                       
         - exec
-        - expansor
+        - expansor                                                  ✅
+        - syntax                                                    ✅
+        - parser                                                    ✅
         - handle_tokens                                             ✅
-        - parser
-        - syntax
         - tokenizer                                                 ✅
         - utils                                                     ✅

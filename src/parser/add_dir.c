@@ -1,6 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   add_dir.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: crmanzan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/03 17:43:16 by crmanzan          #+#    #+#             */
+/*   Updated: 2024/11/03 17:43:33 by crmanzan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "../../inc/minishell.h"
 
-// // Helper function to get the length of the array
 static int	get_array_length(void **array)
 {
 	int	len;
@@ -13,7 +23,6 @@ static int	get_array_length(void **array)
 	return (len);
 }
 
-// Helper function to allocate memory for the new array
 static void	**allocate_new_array(void **array, int *len)
 {
 	void	**new_array;
@@ -28,7 +37,6 @@ static void	**allocate_new_array(void **array, int *len)
 	return (new_array);
 }
 
-// Helper function to copy elements from old array to new array
 static void	copy_elements(void **new_array, void **old_array, int len)
 {
 	int	i;
@@ -41,7 +49,6 @@ static void	copy_elements(void **new_array, void **old_array, int len)
 	}
 }
 
-// Main function to add a directory to the array
 void	*add_dir(void *array, void *dir)
 {
 	void	**new_array;

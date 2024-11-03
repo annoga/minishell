@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*																			  */
+/*														  :::	   ::::::::   */
+/*	 expansor_hdoc.c									:+:		 :+:	:+:   */
+/*													  +:+ +:+		  +:+	  */
+/*	 By: crmanzan <marvin@42.fr>					+#+  +:+	   +#+		  */
+/*												  +#+#+#+#+#+	+#+			  */
+/*	 Created: 2024/11/03 18:21:55 by crmanzan		   #+#	  #+#			  */
+/*	 Updated: 2024/11/03 18:23:04 by crmanzan		  ###	########.fr		  */
+/*																			  */
+/* ************************************************************************** */
 #include "../../inc/minishell.h"
 
 static char	*append_str(char *result, char *str)
@@ -34,85 +45,81 @@ static char	*handle_env_var(char *line, int *i, t_env *env)
 		return (ft_strdup(env_value));
 	return (ft_strdup(""));
 }
-static char    *parse_and_append_env_var(char *result, t_parse_state *state, t_env *env, int is_hdoc)
-{
-    char    *temp;
 
-    if (state->start < state->i)
-    {
-        temp = ft_strndup(&state->line[state->start], state->i - state->start);
-        result = append_str(result, temp);
-    }
-    state->i++;
-    if(!is_hdoc)
-        temp = handle_env_var(state->line, &state->i, env);
-    else
-        temp = ft_strndup(&(state->line)[state->start], (state->i) - state->start);;
-    result = append_str(result, temp);
-    state->start = state->i;
-    return (result);
+static char	*parse_and_append_env_var(char *result,
+				t_parse_state *state, t_env *env, int is_hdoc)
+{
+	char	*temp;
+
+	if (state->start < state->i)
+	{
+		temp = ft_strndup(&state->line[state->start], state->i - state->start);
+		result = append_str(result, temp);
+	}
+	state->i++;
+	if (!is_hdoc)
+		temp = handle_env_var(state->line, &state->i, env);
+	else
+		temp = ft_strndup(&(state->line)[state->start],
+				(state->i) - state->start);
+	result = append_str(result, temp);
+	state->start = state->i;
+	return (result);
 }
 
-static char    *parse_double_quote_content(char *line, int *i, t_env *env, int is_hdoc)
+static char	*parse_double_quote_content(char *line, int *i, t_env *env,
+			int is_hdoc)
 {
-    char            *result;
-    char            *temp;
-    t_parse_state   state;
+	char			*result;
+	char			*temp;
+	t_parse_state	state;
 
-    state.line = line;
-    state.i = *i;
-    state.start = *i;
-    result = NULL;
-    result = append_str(result, ft_strdup("\'"));
-    while (state.line[state.i] && state.line[state.i] != '\'')
-    {
-        if (state.line[state.i] == '$' && (ft_isalpha(state.line[state.i + 1])
-                || state.line[state.i + 1] == '_'))
-            result = parse_and_append_env_var(result, &state, env, is_hdoc);
-        else
-            state.i++;
-    }
-    if (state.start < state.i)
-    {
-        temp = ft_strndup(&state.line[state.start], state.i - state.start);
-        result = append_str(result, temp);
-    }
-    result = append_str(result, ft_strdup("\'"));
-    *i = state.i;
-    return (result);
+	state.line = line;
+	state.i = *i;
+	state.start = *i;
+	result = NULL;
+	result = append_str(result, ft_strdup("\'"));
+	while (state.line[state.i] && state.line[state.i] != '\'')
+	{
+		if (state.line[state.i] == '$' && (ft_isalpha(state.line[state.i + 1])
+				|| state.line[state.i + 1] == '_'))
+			result = parse_and_append_env_var(result, &state, env, is_hdoc);
+		else
+			state.i++;
+	}
+	if (state.start < state.i)
+	{
+		temp = ft_strndup(&state.line[state.start], state.i - state.start);
+		result = append_str(result, temp);
+	}
+	result = append_str(result, ft_strdup("\'"));
+	*i = state.i;
+	return (result);
 }
 
-char *tokenize_single_quote(t_token **tmp, t_env *env)
+t_token	*expansor_hdoc(t_token *head, t_env **env, int is_quoted)
 {
-    char *new_tokens;
-    int i = 0;
+	t_token	*tmp;
+	t_token	*tmp2;
+	int		i;
+	char	*new_tokens;
 
-    i = 1;
-    new_tokens = parse_double_quote_content((*tmp)->token, &i, env, 0);
-    free((*tmp)->token);
-    (*tmp)->token = new_tokens;
-    return((*tmp)->token);
-}
-
-
-t_token *expansor_hdoc(t_token *head, t_env **env, int is_hdoc, int is_quoted)
-{
-    t_token *tmp = head;
-    t_token *tmp2;
-    (void)is_hdoc;
-
-    while (tmp)
-    {
-        if (tmp->type == ENV && !is_quoted)
-        {
-            tmp2 = tmp;
-            tokenize_env(&tmp2, &tmp, &head, env);
-        }
-        else if(tmp->type == SINGLE_QUOTE && !is_quoted)
-        {
-            tmp->token = tokenize_single_quote(&tmp, *env);
-        }
-        tmp = tmp->next;
-    }
-    return (head);
+	tmp = head;
+	while (tmp)
+	{
+		if (tmp->type == ENV && !is_quoted)
+		{
+			tmp2 = tmp;
+			tokenize_env(&tmp2, &tmp, &head, env);
+		}
+		else if (tmp->type == SINGLE_QUOTE && !is_quoted)
+		{
+			i = 1;
+			new_tokens = parse_double_quote_content((tmp)->token, &i, *env, 0);
+			free((tmp)->token);
+			(tmp)->token = new_tokens;
+		}
+		tmp = tmp->next;
+	}
+	return (head);
 }

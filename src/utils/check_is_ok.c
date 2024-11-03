@@ -6,7 +6,7 @@
 /*   By: crmanzan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 18:12:42 by crmanzan          #+#    #+#             */
-/*   Updated: 2024/10/28 17:09:10 by crmanzan         ###   ########.fr       */
+/*   Updated: 2024/11/03 16:21:50 by crmanzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
@@ -67,6 +67,7 @@ parenthesis");
 		ft_printf("Error: missing closing parenthesis\n");
 	return (count == 0);
 }
+
 int	check_is_ok(char *line, t_env *env)
 {
 	if (!check_quotes(line))
@@ -81,14 +82,3 @@ int	check_is_ok(char *line, t_env *env)
 	}
 	return (0);
 }
-
-// int	check_is_ok(char *line, t_env *env)
-// {
-// 	int err_code;
-	
-// 	if (!check_quotes(line))
-// 		return (0);
-// 	if (!check_parenthesis(line))
-// 		return (0);
-// 	return (1);
-// }

@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   set_file.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: crmanzan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/03 17:51:52 by crmanzan          #+#    #+#             */
+/*   Updated: 2024/11/03 17:52:47 by crmanzan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "../../inc/minishell.h"
 
 static void	file_add_back(t_file **lst, t_file *new)
@@ -5,11 +16,11 @@ static void	file_add_back(t_file **lst, t_file *new)
 	t_file	*aux;
 
 	if (!lst || !new)
-		return;
+		return ;
 	if (!*lst)
 	{
 		*lst = new;
-		return;
+		return ;
 	}
 	aux = *lst;
 	while (aux->next)
@@ -30,7 +41,7 @@ static t_file	*create_file(t_token **token)
 		*token = (*token)->next;
 	if (!(*token))
 		return (free(file), NULL);
-	if((*token)->type == DOUBLE_QUOTE || (*token)->type == SINGLE_QUOTE)
+	if ((*token)->type == DOUBLE_QUOTE || (*token)->type == SINGLE_QUOTE)
 		file->is_quoted = 1;
 	file->name = ft_strdup((*token)->token);
 	if (!file->name)
@@ -48,7 +59,6 @@ void	set_file(t_cmd **cmd, t_token **token)
 		(*cmd) = add_command(cmd);
 	if (!(*cmd))
 		return (lstclear(cmd, del_command));
-	
 	file = create_file(token);
 	if (!file)
 		return (lstclear(cmd, del_command));

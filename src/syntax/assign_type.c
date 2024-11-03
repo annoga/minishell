@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*																			  */
+/*														  :::	   ::::::::   */
+/*	 assign_type.c										:+:		 :+:	:+:   */
+/*													  +:+ +:+		  +:+	  */
+/*	 By: crmanzan <marvin@42.fr>					+#+  +:+	   +#+		  */
+/*												  +#+#+#+#+#+	+#+			  */
+/*	 Created: 2024/11/03 18:15:10 by crmanzan		   #+#	  #+#			  */
+/*	 Updated: 2024/11/03 18:15:10 by crmanzan		  ###	########.fr		  */
+/*																			  */
+/* ************************************************************************** */
 #include "../../inc/minishell.h"
 
 static t_token_type	ft_gettokentype(char *str)
@@ -34,10 +45,8 @@ static t_token_type	check_current_type(char *token, t_synt *state)
 	current_type = ft_gettokentype(token);
 	if (current_type == SPACE_TOKEN)
 		return (SPACE_TOKEN);
-
 	if (current_type && current_type >= AND && current_type <= R_PAREN)
 		state->is_cmd_assigned = 0;
-
 	return (current_type);
 }
 
@@ -47,17 +56,13 @@ t_token_type	assing_type(char *token, t_synt *state)
 
 	if (!token)
 		return (NO_TYPE);
-
 	current_type = check_current_type(token, state);
 	if (current_type)
 		return (current_type);
-
 	if (state->last_token_type >= REDIR_IN && state->last_token_type <= HEREDOC)
 		return (FILES);
-
 	if (state->is_cmd_assigned)
 		return (ARG);
-
 	state->is_cmd_assigned = 1;
 	return (COMMAND);
 }

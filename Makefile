@@ -51,9 +51,12 @@ UTILS			=	utils/ft_strcmp.c						\
 					utils/free_tcmd.c						\
 					utils/ft_memmove.c						\
 					utils/return_error.c					\
+					utils/ft_strcat.c					\
 					utils/print_and_kill.c
  
 PARSER			=	parser/parser.c							\
+					parser/parser_aux.c						\
+					parser/join_last.c						\
 					parser/add_dir.c						\
 					parser/add_command.c					\
 					parser/del_command.c					\
@@ -62,6 +65,7 @@ PARSER			=	parser/parser.c							\
 
 ENV				=	env/ft_catch_env.c						\
 					env/ft_empty_env.c						\
+					env/ft_catch_shlvl.c						\
 					env/ft_getenv.c
 
 SYNTAX			=	syntax/analize_syntax.c					\

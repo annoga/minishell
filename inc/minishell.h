@@ -67,14 +67,26 @@ t_cmd	*add_command(t_cmd **cmd_lst);
 void	set_file(t_cmd **cmd, t_token **token);
 void	lst_add_back(void *lst, void *new);
 t_cmd	*add_command(t_cmd **cmd_lst);
+void initialize_command_if_needed(t_cmd **command, t_cmd **head);
+int is_command_or_argument(t_token *token, t_cmd **command);
+int is_connection(t_token *token, t_cmd **command);
+int is_redirection(t_token **token, t_cmd **command, t_token **last_tkn);
+int is_subcommand_start(t_token **token, t_cmd **command);
+int is_subcommand_end(t_token *token);
+void	set_connection(t_token *token, t_cmd **command);
+void	set_command(t_cmd **cmd, t_token *token);
+void ft_join_last(t_cmd *cmd, t_token *token, t_token_type last_type);
+int is_argument_or_quote(t_token *token, t_cmd **command, t_token *last_tkn);
+
 
 void print_cmd(t_cmd *cmd, int level);
 
 
 t_token *expansor(t_token *head, t_env **env, int is_hdoc, int is_quoted);
-t_token *expansor_hdoc(t_token *head, t_env **env, int is_hdoc, int is_quoted);
+t_token *expansor_hdoc(t_token *head, t_env **env, int is_quoted);
 void tokenize_env(t_token **tmp2, t_token **tmp, t_token **head, t_env **envp);
 void	ft_catch_env(char **envp, t_env **head);
+void	ft_catch_shlvl(t_env **tmp, int *shlvl_flag);
 int ft_issafedup(t_env **tmp, char *name, char *value);
 void ft_empty_env(t_env **tmp);
 
@@ -165,6 +177,7 @@ char	*print_type(t_token_type type);
 char	*free_tcmd(t_cmd **cmd_list);
 void	*ft_memmove(void *dst, const void *src, size_t len);
 void	print_and_kill(char *str, int exit_status);
+char    *ft_strcat(char *dest, const char *src);
 
 
 /* SIGNAL */

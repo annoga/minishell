@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 18:43:10 by anovoa            #+#    #+#             */
-/*   Updated: 2024/11/02 16:24:52 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/03 16:20:53 by crmanzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static char	*free_tfile(t_file **file_list)
 {
 	t_file	*tmp;
 
-	while(*file_list)
+	while (*file_list)
 	{
 		tmp = *file_list;
 		*file_list = (*file_list)->next;
