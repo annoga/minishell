@@ -9,6 +9,7 @@ To fix:
     ◦ << eof"": a veces SEGV en ft_strlcat, possibly tenv_to_array  ✅
     ◦ << e""of cat: debería cerrarse con eof                        ✅
     ◦ << $USER: NO expansion                                        ✅
+    ◦ CD PETA TODO                                                  ✅
 
 Built-is:
     ◦ env sin opciones o argumentos.

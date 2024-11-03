@@ -48,9 +48,6 @@ static int	check_syntax_error(t_token *token, t_synt *anal_data)
 	{
 		if (token)
 			ft_printf("syntax error near unexpected token '%s'\n", token->token);
-		else
-			return_error("syntax error near unexpected token 'new line'");
-
 		return (1);
 	}
 	return (0);

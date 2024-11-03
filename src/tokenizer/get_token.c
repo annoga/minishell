@@ -35,6 +35,6 @@ t_token	*get_token(char *line, int *i, t_env *env, int is_hdoc)
 	else if ((line[*i] == '(' || line[*i] == ')'))
 		token = handle_parenthesis(line, i);
 	else
-		token = handle_arg(line, i);
+		token = handle_arg(line, i, is_hdoc);
 	return (token);
 }
