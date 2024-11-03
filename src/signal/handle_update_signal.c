@@ -58,6 +58,11 @@ void handle_idle_signal(int signal) {
     }
 }
 
+void	sig_handler_exec(int signal)
+{
+	g_signals = signal;
+}
+
 
 void handle_update_signal(t_signal *signals, enum e_signal_handle mode)
 {
@@ -66,7 +71,7 @@ void handle_update_signal(t_signal *signals, enum e_signal_handle mode)
     else if (mode == SIG_HANDLE_HDOC)
         signals->ctrl_c.sa_handler = SIG_DFL;
     else if (mode == SIG_HANDLE_EXEC)
-        signals->ctrl_c.sa_handler = SIG_IGN;
+        signals->ctrl_c.sa_handler = sig_handler_exec;
     else if (mode == SIG_HANDLE_BLCK)
         signals->ctrl_c.sa_handler = SIG_IGN;
     else
