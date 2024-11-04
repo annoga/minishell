@@ -3,15 +3,15 @@ NAME				=	minishell
 
 # Compiler and CFlags
 CC					=	gcc -g
-# CFLAGS				=	-Wall -Werror -Wextra
-CFLAGS				=	-Wall -Werror -Wextra -fsanitize=address
+CFLAGS				=	-Wall -Werror -Wextra
+#CFLAGS				=	-Wall -Werror -Wextra -fsanitize=address
 RM					=	rm -f
 # 
 # Determine the platform
 LIBS = -Lreadline -lreadline -lhistory -ltermcap
 INC = inc/minishell.h inc/struct.h libft/libft.h
 
-# Apaños para mac
+# For mac, swap LIBS
 #LIBS = -Lreadline -lreadline -ltermcap
 
 # Directories
@@ -51,7 +51,7 @@ UTILS			=	utils/ft_strcmp.c						\
 					utils/free_tcmd.c						\
 					utils/ft_memmove.c						\
 					utils/return_error.c					\
-					utils/ft_strcat.c					\
+					utils/ft_strcat.c						\
 					utils/print_and_kill.c
  
 PARSER			=	parser/parser.c							\
@@ -65,7 +65,7 @@ PARSER			=	parser/parser.c							\
 
 ENV				=	env/ft_catch_env.c						\
 					env/ft_empty_env.c						\
-					env/ft_catch_shlvl.c						\
+					env/ft_catch_shlvl.c					\
 					env/ft_getenv.c
 
 SYNTAX			=	syntax/analize_syntax.c					\
@@ -81,40 +81,40 @@ EXPANSOR		=	expansor/expansor_wildcard.c			\
 					expansor/push_midlist.c					\
 					expansor/wildcard_utils.c						
 
-EXEC			=	exec/free_env.c 							\
-					exec/command_analyzer.c						\
-					exec/ft_analyze_cmd.c						\
-					exec/skip_step.c							\
-					exec/get_heredocs.c							\
-					exec/is_command.c							\
-					exec/get_cmd_path.c							\
-					exec/tenv_to_array.c						\
-					exec/pipe_write_stdout.c					\
-					exec/pipe_read_stdin.c						\
-					exec/is_last_cmd_in_pipe.c					\
-					exec/update_pipes.c							\
-					exec/clear_heredoc.c						\
-					exec/process_command_block.c				\
-					exec/process_child.c						\
-					exec/redir_file_stdout.c					\
-					exec/redir_file_stdin.c						\
-					exec/redir_heredoc_stdin.c					\
-					exec/process_heredoc.c						\
-					exec/process_hdoc_child.c					\
-					exec/wait_for_status.c						\
-					exec/safe_pipe.c							\
-					exec/safe_fork.c							\
-					exec/safe_close.c							\
+EXEC			=	exec/free_env.c 						\
+					exec/command_analyzer.c					\
+					exec/ft_analyze_cmd.c					\
+					exec/skip_step.c						\
+					exec/get_heredocs.c						\
+					exec/is_command.c						\
+					exec/get_cmd_path.c						\
+					exec/tenv_to_array.c					\
+					exec/pipe_write_stdout.c				\
+					exec/pipe_read_stdin.c					\
+					exec/is_last_cmd_in_pipe.c				\
+					exec/update_pipes.c						\
+					exec/clear_heredoc.c					\
+					exec/process_command_block.c			\
+					exec/process_child.c					\
+					exec/redir_file_stdout.c				\
+					exec/redir_file_stdin.c					\
+					exec/redir_heredoc_stdin.c				\
+					exec/process_heredoc.c					\
+					exec/process_hdoc_child.c				\
+					exec/wait_for_status.c					\
+					exec/safe_pipe.c						\
+					exec/safe_fork.c						\
+					exec/safe_close.c						\
 					exec/safe_dup2.c								
 
-BUILTINS			=	builtins/echo.c 								\
-					builtins/ft_exit.c 								\
-					builtins/ft_env.c 								\
-					builtins/ft_pwd.c 								\
-					builtins/ft_cd.c 							\
-					builtins/ft_unset.c 							\
-					builtins/export_utils.c 							\
-					builtins/env_get_value.c 							\
+BUILTINS			=	builtins/echo.c 					\
+					builtins/ft_exit.c 						\
+					builtins/ft_env.c 						\
+					builtins/ft_pwd.c 						\
+					builtins/ft_cd.c 						\
+					builtins/ft_unset.c 					\
+					builtins/export_utils.c 				\
+					builtins/env_get_value.c 				\
 					builtins/ft_export.c 							
 					
 

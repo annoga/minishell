@@ -1,14 +1,15 @@
 /* ************************************************************************** */
-/*																			  */
-/*														  :::	   ::::::::   */
-/*	 analize_syntax.c									:+:		 :+:	:+:   */
-/*													  +:+ +:+		  +:+	  */
-/*	 By: crmanzan <marvin@42.fr>					+#+  +:+	   +#+		  */
-/*												  +#+#+#+#+#+	+#+			  */
-/*	 Created: 2024/11/03 18:08:45 by crmanzan		   #+#	  #+#			  */
-/*	 Updated: 2024/11/03 18:09:19 by crmanzan		  ###	########.fr		  */
-/*																			  */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   analize_syntax.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/04 01:15:14 by angeln            #+#    #+#             */
+/*   Updated: 2024/11/04 01:15:16 by angeln           ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 static int	check_syntax_conditions(t_synt *state, t_token_type current_type)
@@ -77,7 +78,7 @@ int	analize_tokens(t_token *token, t_env *env)
 	ft_bzero(&anal_data, sizeof(t_synt));
 	while (token)
 	{
-		token->syntaxis = assing_type(token->token, &anal_data);
+		token->syntaxis = assign_type(token->token, &anal_data);
 		if (error_syntax(&anal_data, token->syntaxis))
 			break ;
 		if (token->syntaxis == SPACE_TOKEN)

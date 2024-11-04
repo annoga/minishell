@@ -1,14 +1,15 @@
 /* ************************************************************************** */
-/*																			  */
-/*														  :::	   ::::::::   */
-/*	 expansor_wildcard.c								:+:		 :+:	:+:   */
-/*													  +:+ +:+		  +:+	  */
-/*	 By: crmanzan <marvin@42.fr>					+#+  +:+	   +#+		  */
-/*												  +#+#+#+#+#+	+#+			  */
-/*	 Created: 2024/08/13 20:32:34 by crmanzan		   #+#	  #+#			  */
-/*	 Updated: 2024/08/13 20:32:34 by crmanzan		  ###	########.fr		  */
-/*																			  */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expansor_wildcard.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/04 01:16:16 by angeln            #+#    #+#             */
+/*   Updated: 2024/11/04 01:16:17 by angeln           ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 static void	process_wildcard_input(char *input, t_token **token_list)

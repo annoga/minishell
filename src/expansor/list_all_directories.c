@@ -1,14 +1,15 @@
 /* ************************************************************************** */
-/*																			  */
-/*														  :::	   ::::::::   */
-/*	 list_all_directories.c								:+:		 :+:	:+:   */
-/*													  +:+ +:+		  +:+	  */
-/*	 By: crmanzan <marvin@42.fr>					+#+  +:+	   +#+		  */
-/*												  +#+#+#+#+#+	+#+			  */
-/*	 Created: 2024/11/03 19:06:24 by crmanzan		   #+#	  #+#			  */
-/*	 Updated: 2024/11/03 19:06:48 by crmanzan		  ###	########.fr		  */
-/*																			  */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   list_all_directories.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/04 01:16:28 by angeln            #+#    #+#             */
+/*   Updated: 2024/11/04 01:16:29 by angeln           ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 static void	handle_directory_entry(struct dirent *entry, t_token **token_list)

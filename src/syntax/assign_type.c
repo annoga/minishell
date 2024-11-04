@@ -1,14 +1,15 @@
 /* ************************************************************************** */
-/*																			  */
-/*														  :::	   ::::::::   */
-/*	 assign_type.c										:+:		 :+:	:+:   */
-/*													  +:+ +:+		  +:+	  */
-/*	 By: crmanzan <marvin@42.fr>					+#+  +:+	   +#+		  */
-/*												  +#+#+#+#+#+	+#+			  */
-/*	 Created: 2024/11/03 18:15:10 by crmanzan		   #+#	  #+#			  */
-/*	 Updated: 2024/11/03 18:15:10 by crmanzan		  ###	########.fr		  */
-/*																			  */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   assign_type.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/04 01:15:28 by angeln            #+#    #+#             */
+/*   Updated: 2024/11/04 01:15:29 by angeln           ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 static t_token_type	ft_gettokentype(char *str)
@@ -50,7 +51,7 @@ static t_token_type	check_current_type(char *token, t_synt *state)
 	return (current_type);
 }
 
-t_token_type	assing_type(char *token, t_synt *state)
+t_token_type	assign_type(char *token, t_synt *state)
 {
 	t_token_type	current_type;
 

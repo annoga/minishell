@@ -1,14 +1,15 @@
 /* ************************************************************************** */
-/*																			  */
-/*														  :::	   ::::::::   */
-/*	 set_subcommand.c									:+:		 :+:	:+:   */
-/*													  +:+ +:+		  +:+	  */
-/*	 By: crmanzan <marvin@42.fr>					+#+  +:+	   +#+		  */
-/*												  +#+#+#+#+#+	+#+			  */
-/*	 Created: 2024/11/03 17:53:44 by crmanzan		   #+#	  #+#			  */
-/*	 Updated: 2024/11/03 17:54:30 by crmanzan		  ###	########.fr		  */
-/*																			  */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   set_subcommand.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/04 01:21:52 by angeln            #+#    #+#             */
+/*   Updated: 2024/11/04 01:21:53 by angeln           ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 static t_token	*find_subcommand_tokens(t_token *token, int *parenthesis_count)

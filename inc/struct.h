@@ -1,8 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   struct.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/04 01:01:28 by angeln            #+#    #+#             */
+/*   Updated: 2024/11/04 01:11:47 by angeln           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef STRUCT_H
 # define STRUCT_H
-#  ifndef MAX_CMD
-#   define MAX_CMD 42
-#  endif
 # include <signal.h>
 
 typedef enum e_token_type
@@ -37,7 +46,6 @@ enum e_signal_handle
 	SIG_HANDLE_BLCK
 };
 
-
 typedef struct s_signal
 {
 	t_sigaction		ctrl_c;
@@ -71,7 +79,7 @@ typedef struct s_file
 {
 	char			*name;
 	t_token_type	type;
-	int				heredoc_fd;//init to -1
+	int				heredoc_fd;
 	int				is_quoted;
 	struct s_file	*next;
 }					t_file;
@@ -80,17 +88,17 @@ typedef struct s_env
 {
 	char			*key_name;
 	char			*value;
-	int 			addition;
+	int				addition;
 	int				exit_status;
 	struct s_env	*next;
 }	t_env;
 
 typedef struct s_parse_state
 {
-    char    *line;
-    int     i;
-    int     start;
-}   t_parse_state;
+	char	*line;
+	int		i;
+	int		start;
+}	t_parse_state;
 
 typedef struct s_parse_quotes
 {
@@ -102,12 +110,11 @@ typedef struct s_parse_quotes
 
 typedef struct s_wilds
 {
-    const char *path;
-    const char *prefix;
-    const char *suffix;
-    int depth;
+	const char	*path;
+	const char	*prefix;
+	const char	*suffix;
+	int			depth;
 }	t_wilds;
-
 
 typedef struct s_synt
 {
@@ -118,13 +125,13 @@ typedef struct s_synt
 	int				has_content;
 }	t_synt;
 
+//types: AND, OR, PIPE
 typedef struct s_cmd
 {
 	char			**cmd;
-	//char			*path;
 	t_file			*files;
-	t_token_type	connection_type; //AND, OR, PIPE
-	int 			parenthesis;
+	t_token_type	connection_type;
+	int				parenthesis;
 	struct s_cmd	*subcommand;
 	struct s_cmd	*next;
 }	t_cmd;
