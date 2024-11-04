@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:52:44 by angeln            #+#    #+#             */
-/*   Updated: 2024/11/04 23:01:49 by angeln           ###   ########.fr       */
+/*   Updated: 2024/11/04 23:02:54 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@
 # include <signal.h>
 
 // For mac, swap the following libraries
-//# include <limits.h>
-//# include <string.h>
-# include <linux/limits.h>
+# include <limits.h>
+# include <string.h>
+//# include <linux/limits.h>
 
 extern int	g_mode;
 
