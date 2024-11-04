@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 01:18:04 by angeln            #+#    #+#             */
-/*   Updated: 2024/11/04 10:46:15 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/04 10:48:50 by anovoa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	unset_one(t_cmd *cmd, t_env ***env, int i)
 		next = tmp->next;
 		if (ft_strcmp(tmp->key_name, cmd->cmd[i]) == 0)
 		{
-			erase_two(env, tmp);
+			erase_two(*env, tmp);
 			return (1);
 		}
 		tmp = next;
