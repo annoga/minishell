@@ -6,7 +6,7 @@
 /*   By: anovoa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 23:05:52 by anovoa            #+#    #+#             */
-/*   Updated: 2024/11/03 23:08:38 by anovoa           ###   ########.fr       */
+/*   Updated: 2024/11/04 22:46:31 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ void	rl_blank_line(void)
 	ft_memset(blank_line, ' ', len - 1);
 	blank_line[len - 1] = '\0';
 	rl_on_new_line();
-	rl_replace_line(blank_line, 1);
+	//rl_replace_line(blank_line, 1);
 	rl_redisplay();
 	free(blank_line);
-	rl_replace_line(original_line, 1);
+	//rl_replace_line(original_line, 1);
 	rl_redisplay();
 	free(original_line);
 }
@@ -61,14 +61,14 @@ void	handle_idle_signal(int signal)
 	if (signal == SIGINT)
 	{
 		g_mode = 130;
-		rl_replace_line("", 0);
+		//rl_replace_line("", 0);
 		write(STDOUT_FILENO, "\n", 1);
 		rl_on_new_line();
 		rl_redisplay();
 	}
 	else if (ft_strlen(rl_line_buffer) <= 2)
 	{
-		rl_replace_line("", 0);
+		//rl_replace_line("", 0);
 		rl_redisplay();
 	}
 }

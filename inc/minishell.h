@@ -6,7 +6,7 @@
 /*   By: anovoa <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:52:44 by angeln            #+#    #+#             */
-/*   Updated: 2024/11/04 00:58:40 by angeln           ###   ########.fr       */
+/*   Updated: 2024/11/04 23:01:49 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@
 extern int	g_mode;
 
 /* TOKENIZER */
-t_token_type	assign_type(char *token, t_synt *state);
 t_token			*tokenizer(char *line, t_env *env);
 t_token			*get_token(char *line, int *i, t_env *env, int is_hdoc);
 t_token			*handle_single_quote(char *line, int *i);
@@ -108,6 +107,7 @@ char			*last_slash(char *prefix);
 
 /* SYNTAX */
 int				analize_tokens(t_token *token, t_env *env);
+t_token_type	assign_type(char *token, t_synt *state, t_token_type type);
 int				check_syntax(t_token *token);
 
 /* EXECUTE */

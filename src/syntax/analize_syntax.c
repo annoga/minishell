@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 01:15:14 by angeln            #+#    #+#             */
-/*   Updated: 2024/11/04 01:15:16 by angeln           ###   ########.fr       */
+/*   Updated: 2024/11/04 22:59:21 by angeln           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	analize_tokens(t_token *token, t_env *env)
 	ft_bzero(&anal_data, sizeof(t_synt));
 	while (token)
 	{
-		token->syntaxis = assign_type(token->token, &anal_data);
+		token->syntaxis = assign_type(token->token, &anal_data, token->type);
 		if (error_syntax(&anal_data, token->syntaxis))
 			break ;
 		if (token->syntaxis == SPACE_TOKEN)
