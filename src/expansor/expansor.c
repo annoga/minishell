@@ -79,8 +79,6 @@ static char	*change_status(t_token *head, t_env **env)
 	char	*new_token;
 
 	tmp = head;
-	while (tmp->type != EXIT_STATUS)
-		tmp = tmp->next;
 	new_token = ft_itoa((*env)->exit_status);
 	free(tmp->token);
 	tmp->token = new_token;
@@ -110,7 +108,7 @@ t_token	*expansor(t_token *head, t_env **env, int is_hdoc, int is_quoted)
 		if (tmp->type == SINGLE_QUOTE || tmp->type == DOUBLE_QUOTE)
 			tmp->token = clean_quotes(tmp);
 		if (tmp->type == EXIT_STATUS)
-			tmp->token = change_status(head, env);
+			tmp->token = change_status(tmp, env);
 		tmp = tmp->next;
 	}
 	return (head);
