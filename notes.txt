@@ -20,7 +20,7 @@ To-do:
     2 ◦ cd solo con una ruta relativa o absoluta.                   ✅
     3 ◦ unset sin opciones.                                         ✅
     4 ◦ $?                                                          ✅
-    5 ◦ Señales                                                     
+    5 ◦ Señales                                                     ✅
     ◦ export sin opciones.
         - += append the second string to the other one, if theres none, create one. ✅
         - sin opciones imprime env                                                  ✅
@@ -29,10 +29,13 @@ To-do:
 - tambien unir con tokens normales si no estan separados por espacios               ✅
 
 To procrastinate:
+	◦ heredocs dentro de subcomandos probablemente no van bien
+	◦ "*"hola se expande incorrectamente en lugar de buscar "*hola"
+	◦ << "'$USER'" se resuelve con ''$USER' en lugar de '$USER'
 	◦ << eof << eof3 | | << eof4: syntax error pero hace heredocs
     ◦ Norminette:
-        - env                                                       
-        - exec
+        - env                                                       ✅
+        - exec														✅
         - expansor                                                  ✅
         - syntax                                                    ✅
         - parser                                                    ✅
