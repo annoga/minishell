@@ -16,7 +16,8 @@ int	is_argument_or_quote(t_token *token, t_cmd **command, t_token *last_tkn)
 {
 	if (last_tkn && token->type != SPACE_TOKEN
 		&& (token->type == ARG || token->type == DOUBLE_QUOTE
-			|| token->type == SINGLE_QUOTE || token->type == ENV)
+			|| token->type == SINGLE_QUOTE || token->type == ENV
+			|| token->type == EXIT_STATUS)
 		&& (last_tkn->syntaxis == COMMAND || last_tkn->syntaxis == ARG
 			|| (last_tkn->syntaxis >= REDIR_IN
 				&& last_tkn->syntaxis <= HEREDOC)))

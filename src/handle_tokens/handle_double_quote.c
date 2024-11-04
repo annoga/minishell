@@ -6,7 +6,7 @@
 /*   By: angeln <anovoa@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 01:14:57 by angeln            #+#    #+#             */
-/*   Updated: 2024/11/04 01:14:59 by angeln           ###   ########.fr       */
+/*   Updated: 2024/11/04 12:40:28 by crmanzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ t_token	*handle_double_quote(char *line, int *i, t_env *env, int is_hdoc)
 	t_token	*token;
 
 	(*i)++;
+	if (!ft_strncmp(&line[*i], "$?", 2))
+		return (parse_exit_status(i));
 	result = parse_double_quote_content(line, i, env, is_hdoc);
 	if (line[*i] == '"')
 		(*i)++;

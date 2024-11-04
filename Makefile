@@ -26,6 +26,7 @@ HANDLE_TOKENS	=	handle_tokens/handle_args.c				\
 					handle_tokens/handle_single_quote.c		\
 					handle_tokens/handle_space.c			\
 					handle_tokens/handle_expansion.c		\
+					handle_tokens/handle_exit_status.c		\
 					handle_tokens/handle_parenthesis.c	
 
 TOKENIZER 		= 	tokenizer/tokenizer.c					\
